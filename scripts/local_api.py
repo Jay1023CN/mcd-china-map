@@ -259,7 +259,7 @@ def main():
     parser.add_argument('--prompt-token', action='store_true')
     parser.add_argument('--no-browser', action='store_true')
     parser.add_argument('--archive', type=Path, help='open an explicit local journal or synced order archive as the homepage')
-    parser.add_argument('--port', type=int, default=8765, help='optional isolated test port')
+    parser.add_argument('--port', type=int, default=8765, help='local port; alternate launcher uses fixed port 18765')
     args = parser.parse_args()
     homepage = None
     if args.archive:
@@ -273,7 +273,7 @@ def main():
     try:
         server = LocalServer(('127.0.0.1', args.port), Handler)
     except OSError:
-        parser.exit(2, 'Local port is occupied. Close the earlier map launcher first.\n')
+        parser.exit(2, 'Selected local port is occupied. Try the other fixed-port launcher. No other process was stopped.\n')
     server.token = token
     server.connected = bool(token)
     server.store_lookup = bool(token)

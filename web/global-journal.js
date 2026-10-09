@@ -745,7 +745,7 @@
     try {
       const blob=await new Promise(resolve=>shareCanvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;
-      link.download=(shareEntry?'麦麦探店记-':'麦麦中国足迹-')+(archive.data_kind==='synthetic'?'示例-':'')+today()+'.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+      link.download=(shareEntry?.kind==='plan'?'麦麦想去-':shareEntry?'麦麦探店记-':'麦麦中国足迹-')+(archive.data_kind==='synthetic'?'示例-':'')+today()+'.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
       $('share-status').textContent='图片已开始下载，去相册或下载文件夹找到它。';
     }catch(error){$('share-status').textContent='图片暂时未保存，请再试一次。';}
     finally{$('save-share').disabled=false;}

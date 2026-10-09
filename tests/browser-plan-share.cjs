@@ -16,6 +16,7 @@ async function downloadPng(page) {
   const pending=page.waitForEvent('download');
   await page.locator('#save-share').click();
   const download=await pending;
+  assert.ok(download.suggestedFilename().startsWith('麦麦想去-'),'a future plan download should have a plan filename');
   const bytes=fs.readFileSync(await download.path());
   assert.equal(bytes.subarray(1,4).toString(),'PNG');
   assert.equal(bytes.readUInt32BE(16),1080);

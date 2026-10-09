@@ -1,10 +1,10 @@
-param([switch]$NoBrowser)
+param([switch]$NoBrowser, [ValidateRange(1024, 65535)][int]$Port = 8765)
 # Windows PowerShell 5.1; no Python, Node.js, admin rights or HTTP.sys registration.
 $ErrorActionPreference = 'Stop'
 $projectRoot = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
-$port = 8765
-$url = "http://127.0.0.1:$port/index.html"
-$listener = New-Object Net.Sockets.TcpListener -ArgumentList ([Net.IPAddress]::Loopback), $port
+$url = "http://127.0.0.1:$Port/index.html"
+$expectedHost = '^Host:\s*127\.0\.0\.1:' + [string]$Port + '\s*$'
+$listener = New-Object Net.Sockets.TcpListener -ArgumentList ([Net.IPAddress]::Loopback), $Port
 $utf8 = New-Object Text.UTF8Encoding -ArgumentList $false
 $ascii = [Text.Encoding]::ASCII
 
@@ -47,8 +47,9 @@ try {
     $listener.Server.ExclusiveAddressUse = $true
     $listener.Start()
 } catch {
-    Write-Host "Port $port is already in use, or the local server could not start." -ForegroundColor Red
-    Write-Host 'Close the earlier launcher window and try again. No browser was opened.'
+    Write-Host "Port $Port is already in use, or the local server could not start." -ForegroundColor Red
+    if ($Port -eq 8765) { Write-Host 'Use the alternate fixed-port launcher for port 18765. No process was stopped.' }
+    else { Write-Host 'Use the primary fixed-port launcher for port 8765. No process was stopped.' }
     $listener.Stop()
     exit 1
 }
@@ -100,7 +101,7 @@ try {
             }
             # Reject other hosts, including DNS rebinding into this loopback port.
             $hosts = @($lines | Where-Object { $_ -match '^Host:' })
-            if ($hosts.Count -ne 1 -or $hosts[0] -notmatch '^Host:\s*127\.0\.0\.1:8765\s*$') {
+            if ($hosts.Count -ne 1 -or $hosts[0] -notmatch $expectedHost) {
                 Send-Response $stream 400 'Bad Request' 'text/plain; charset=utf-8' ($utf8.GetBytes('Use the fixed 127.0.0.1 URL.')) $headOnly
                 continue
             }

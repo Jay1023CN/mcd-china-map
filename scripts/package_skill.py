@@ -7,7 +7,7 @@ from project_version import VERSION
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_ROOT = "麦麦中国地图"
 FILES = (
-    "index.html", "启动.cmd", "启动门店查询.cmd", "同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
+    "index.html", "启动.cmd", "备用启动.cmd", "scripts/start-local.cmd", "启动门店查询.cmd", "同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
     "LICENSE", "CONTEST_DECLARATION.md", "MCP_INTEGRATION.md",
     "mcp-config.example.json",
     "scripts/serve-local.ps1", "scripts/local_api.py", "scripts/package_skill.py",
