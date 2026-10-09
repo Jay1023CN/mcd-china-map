@@ -2,6 +2,7 @@
   'use strict';
   const data = JSON.parse(document.getElementById('journal-data').textContent);
   const E = window.JournalEngine;
+  const W = window.WishlistEngine;
   const $ = id => document.getElementById(id);
   const names = new Map(data.countries.map(c => [c.code, c.name]));
   const countryName = code => names.get(code) || code;
@@ -11,6 +12,7 @@
   const placeName = entry => provinceName(entry.province_code) + ' · ' + entry.city;
   let mapRegions = [];
   let selectedStore = null;
+  let selectedWishlistId = null;
   const today = () => {
     const d = new Date();
     return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
@@ -106,7 +108,7 @@
   }
   function setView(next) {
     view = next;
-    for (const name of ['map', 'journal', 'candidates']) {
+    for (const name of ['map', 'journal', 'candidates', 'wishlist']) {
       $('tab-' + name).setAttribute('aria-selected', String(name === next));
       $('tab-' + name).tabIndex = name === next ? 0 : -1;
       $('pane-' + name).hidden = name !== next;
@@ -116,9 +118,9 @@
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view)));
   document.querySelector('[role=tablist]').addEventListener('keydown', event => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-    const keys = ['map', 'journal', 'candidates'];
+    const keys = ['map', 'journal', 'candidates', 'wishlist'];
     const delta = event.key === 'ArrowLeft' ? -1 : 1;
-    const index = event.key === 'Home' ? 0 : event.key === 'End' ? 2 : (keys.indexOf(view) + delta + 3) % 3;
+    const index = event.key === 'Home' ? 0 : event.key === 'End' ? keys.length-1 : (keys.indexOf(view) + delta + keys.length) % keys.length;
     event.preventDefault(); setView(keys[index]); $('tab-' + keys[index]).focus();
   });
 
@@ -150,6 +152,7 @@
     renderRecent(s);
     renderEntries(s);
     renderCandidates(s);
+    renderWishlist();
     $('month-list').replaceChildren(...s.months.map(m => {
       const chip = node('span', m.month, 'month-chip'); chip.append(node('b', m.count + ' 页')); return chip;
     }));
@@ -211,6 +214,39 @@
     for (const food of entry.foods) tags.append(node('span', food));
     if (entry.collaboration) tags.append(node('span', '联名 · ' + entry.collaboration));
     return tags;
+  }
+  function renderWishlist() {
+    const items=archive.wishlist || [];
+    $('wishlist-count').textContent=items.length;
+    const grid=$('wishlist-grid');grid.replaceChildren();
+    for(const store of items) {
+      const card=node('article',undefined,'entry-card');card.dataset.wishlistId=store.id;
+      card.append(node('span',store.city || '下一站','date'),node('h3',store.name),node('p',store.address || '地址暂未提供','place'));
+      const label=node('label','留一句想去的理由','wishlist-note');
+      const note=node('textarea');note.maxLength=1000;note.value=store.note;note.placeholder='下次旅行、特别的建筑、约朋友一起去……';
+      note.setAttribute('aria-label',store.name+'的想去理由');
+      note.addEventListener('change',()=>{
+        try {archive=E.normalizeArchive({...archive,wishlist:(archive.wishlist || []).map(item=>item.id===store.id?{...item,note:note.value}:item)},opts());save();toast('想去的理由已保存。');}
+        catch(error){toast('备注暂未保存，请缩短后再试。');}
+      });label.append(note);card.append(label);
+      const actions=node('div',undefined,'wishlist-actions');
+      const visit=node('button','到了，留一页打卡','secondary');visit.type='button';visit.addEventListener('click',()=>openStoreForm(store,store.id));
+      const remove=node('button','移出清单','quiet');remove.type='button';remove.addEventListener('click',()=>{
+        archive={...archive,wishlist:W.remove(archive.wishlist || [],store.id)};save();renderWishlist();toast('已移出想去清单。');
+      });actions.append(visit,remove);card.append(actions);grid.append(card);
+    }
+    if(!items.length)grid.append(empty('把下一站先放在这里','查找附近门店，收藏想去。下次打开时，你的计划还在。'));
+  }
+  function openStoreForm(store,wishlistId=null) {
+    openForm();if(!$('entry-dialog').open)return;
+    field('city').value=store.city;field('store').value=store.name;
+    const city=data.cities.find(c=>[c.city,c.city+'市',c.city_en].includes(store.city));
+    field('province_code').value=store.province_code || city?.province_code || '';
+    selectedStore={source:'mcp_nearby',code:store.code,address:store.address || ''};
+    selectedWishlistId=wishlistId;
+    $('wishlist-complete').hidden=!wishlistId;field('complete_wishlist').checked=!!wishlistId;
+    if(wishlistId){field('note').value=store.note || '';$('form-heading').textContent='把下一站写成足迹';}
+    applyStoreInfo();updateCitySuggestions();
   }
   function renderEntries(s) {
     const grid = $('journal-grid'); grid.replaceChildren();
@@ -357,6 +393,7 @@
     if(!startPersonal()) return;
     photoRevision++;
     currentEntry=entry; selectedStore=entry?.store_reference || null;
+    selectedWishlistId=null;$('wishlist-complete').hidden=true;
     form.reset(); photo=entry && entry.photo ? {...entry.photo} : null;
     defaultPhoto=entry?.default_photo || null;
     photoBusy=false; $('save-entry').disabled=false;
@@ -420,6 +457,7 @@
       if(selectedStore) entry.store_reference=selectedStore;
       const normalized=E.normalizeEntry(entry,opts());
       const next={...archive,data_kind:'manual',entries:archive.entries.filter(e=>e.id!==normalized.id).concat(normalized)};
+      if(selectedWishlistId && field('complete_wishlist').checked && selectedStore) next.wishlist=W.remove(archive.wishlist || [],selectedWishlistId);
       archive=E.normalizeArchive(next,opts()); save(); $('entry-dialog').close(); render(); setView('journal'); toast(persistent?'这一页已保存在本浏览器。':'这一页已加入；请立即导出备份。');
     } catch(error) { $('form-error').textContent='未能保存：请检查必填内容、日期、坐标和照片大小。'; $('form-error').hidden=false; }
   });
@@ -443,9 +481,11 @@
   $('start-personal').addEventListener('click',startPersonal);
   $('year-filter').addEventListener('change',render);$('country-filter').addEventListener('change',render);
   field('province_code').replaceChildren(new Option('请选择省份 / 地区',''), ...provinces.map(f => new Option(f.properties.name,String(f.properties.adcode))));
-  field('store').addEventListener('input', () => { selectedStore = null; applyStoreInfo(); });
-  field('city').addEventListener('input', () => { selectedStore = null; applyStoreInfo(); });
+  function clearStoreSelection(){selectedStore=null;selectedWishlistId=null;$('wishlist-complete').hidden=true;}
+  field('store').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo(); });
+  field('city').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo(); });
   field('province_code').addEventListener('change', () => { selectedStore = null; });
+  $('find-next-store').addEventListener('click',()=>{$('store-search').open=true;$('store-search').scrollIntoView({behavior:'smooth',block:'start'});$('store-search-form').elements.search_city.focus();});
   fetch('/api/health').then(r => r.ok ? r.json() : null).then(state => {
     $('store-api-status').textContent = state?.store_lookup ? '官方门店查询已连接。' : '查询门店请先关闭普通启动窗口，再运行“启动门店查询.cmd”。';
   }).catch(() => { $('store-api-status').textContent = '查询门店请运行“启动门店查询.cmd”。'; });
@@ -461,12 +501,17 @@
       for (const store of result.stores) {
         const card = node('article',undefined,'entry-card'); card.append(node('h3',store.name),node('p',store.address || '地址暂未提供'));
         card.append(node('p',`${store.business_status===true?'营业中':store.business_status===false?'暂停营业':'营业状态待查询'} · ${store.hours || '营业时间待查询'}`));
-        const button = node('button','在这里留一页打卡','secondary'); button.type='button'; button.addEventListener('click',()=>{
-          openForm(); if (!$('entry-dialog').open) return;
-          field('city').value=store.city; field('store').value=store.name;
-          const city=data.cities.find(c=>[c.city,c.city+'市',c.city_en].includes(store.city)); if(city) field('province_code').value=city.province_code;
-          selectedStore={source:'mcp_nearby',code:store.code,address:store.address || ''}; applyStoreInfo(); updateCitySuggestions();
-        }); card.append(button); $('store-results').append(card);
+        const actions=node('div',undefined,'wishlist-actions');
+        const button = node('button','在这里留一页打卡','secondary'); button.type='button'; button.addEventListener('click',()=>openStoreForm(store));
+        const collect=node('button','收藏想去','quiet');collect.type='button';
+        collect.addEventListener('click',()=>{
+          if(!startPersonal())return;
+          try {
+            const city=data.cities.find(c=>[c.city,c.city+'市',c.city_en].includes(store.city));
+            archive=E.normalizeArchive({...archive,wishlist:W.add(archive.wishlist || [],{...store,province_code:city?.province_code})},opts());
+            save();renderWishlist();collect.textContent='已收藏想去';toast('已放入想去清单，下次打开也能找到。');
+          }catch(error){toast('暂未收藏，请检查门店资料或清单是否已满。');}
+        });actions.append(button,collect);card.append(actions); $('store-results').append(card);
       }
     } catch(error) { $('store-search-status').textContent=error.message; }
     finally { $('search-stores').disabled=false; }
@@ -552,12 +597,17 @@
       if(file.size>E.limits.archiveBytes) throw new Error('file too large');
       const parsed=JSON.parse(await file.text());
       const incoming=E.normalizeArchive(parsed.version===1?parsed:await orderCandidates(parsed),opts());
-      if(incoming.data_kind==='synthetic' && archive.data_kind!=='synthetic' && archive.entries.length) throw new Error('synthetic cannot mix with personal');
+      if(incoming.data_kind==='synthetic' && archive.data_kind!=='synthetic' && (archive.entries.length || archive.wishlist?.length)) throw new Error('synthetic cannot mix with personal');
       if(archive.data_kind==='synthetic' && incoming.data_kind!=='synthetic') {
         if(!startPersonal()) return;
       }
       const combined={version:1,data_kind:incoming.data_kind==='synthetic'?'synthetic':'manual',source:incoming.source||archive.source,
         entries:archive.entries.concat(incoming.entries.filter(e=>!archive.entries.some(old=>old.id===e.id&&old.source==='manual'&&old.confirmed&&e.source==='mcp_candidate')))};
+      if(archive.wishlist || incoming.wishlist){
+        let merged=archive.wishlist || [];
+        for(const item of incoming.wishlist || [])if(!merged.some(old=>old.id===item.id))merged=W.add(merged,item);
+        combined.wishlist=merged;
+      }
       const normalized=E.normalizeArchive(combined,opts());
       key=normalized.data_kind==='synthetic'?demoKey:personalKey;
       archive=normalized;save();render();setView(incoming.entries.some(e=>e.source==='mcp_candidate')?'candidates':'journal');toast('导入完成；候选订单仍需逐条确认本人到店。');

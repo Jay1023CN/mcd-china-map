@@ -2,6 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const E = require('../web/journal-engine.js');
+const Wishlist = require('../web/wishlist-engine.js');
 const options = {today: '2026-10-09'};
 const entry = (changes = {}) => ({id: 'visit-1', date: '2026-10-08', country_code: 'CN', province_code: '310000', city: '上海', store: '示例门店', foods: ['咖啡'], source: 'manual', confirmed: true, ...changes});
 const archive = entries => ({version: 1, data_kind: 'manual', entries});
@@ -77,4 +78,40 @@ test('coordinates, photos and entry limits reject invalid backups', () => {
   assert.throws(() => E.normalizeEntry(entry({location: {lat: 91, lon: 0, precision: 'user'}}), options));
   assert.throws(() => E.normalizeEntry(entry({photo: {data_url: 'https://example.com/image.png'}}), options));
   assert.throws(() => E.normalizeArchive(archive(Array.from({length: 1001}, (_, i) => entry({id: String(i)}))), options));
+});
+
+test('archive roundtrip preserves normalized wishlist records and strips unknown fields', () => {
+  const saved = Wishlist.add([], {code: 'nearby-1', name: '收藏门店', city: '上海', address: '某路', province_code: '310000'});
+  const input = archive([entry()]);
+  input.wishlist = [{...saved[0], token: 'secret-token', orderId: 'secret-order', payment_url: 'https://private.test'}];
+  const clean = E.normalizeArchive(input, options);
+  assert.deepEqual(clean.wishlist, saved);
+  assert.doesNotMatch(JSON.stringify(clean.wishlist), /secret-token|secret-order|payment_url/);
+  assert.deepEqual(E.normalizeArchive(clean, options), clean);
+  assert.equal(input.wishlist[0].token, 'secret-token');
+});
+
+test('archives without wishlist keep their original shape', () => {
+  const input = archive([entry()]);
+  const clean = E.normalizeArchive(input, options);
+  assert.deepEqual(clean, {version: 1, data_kind: 'manual', entries: [E.normalizeEntry(entry(), options)]});
+  assert.equal(Object.hasOwn(clean, 'wishlist'), false);
+});
+
+test('wishlist entries do not affect confirmed visit statistics', () => {
+  const input = archive([entry()]);
+  input.wishlist = [
+    {source: 'mcp_nearby', code: 'wish-1', name: '想去门店', city: '北京', address: '地址一'},
+    {source: 'manual', code: 'wish-2', name: '另一家门店', city: '杭州', address: '地址二'}
+  ];
+  const withWishlist = E.summarize(input, options);
+  const withoutWishlist = E.summarize(archive([entry()]), options);
+  assert.deepEqual(withWishlist, withoutWishlist);
+  assert.equal(withWishlist.confirmedCount, 1);
+});
+
+test('archive wishlist is limited to 100 items', () => {
+  const input = archive([]);
+  input.wishlist = Array.from({length: 101}, (_, i) => ({source: 'mcp_nearby', code: String(i), name: `门店${i}`}));
+  assert.throws(() => E.normalizeArchive(input, options), /100 stores/);
 });

@@ -12,6 +12,7 @@ from visual_assets import ROOT, asset_uri, font_faces
 
 
 ENTRY_FIELDS = ('id', 'date', 'country_code', 'province_code', 'city', 'store', 'foods', 'note', 'source', 'confirmed', 'origin', 'collaboration')
+WISHLIST_FIELDS = ('source', 'code', 'id', 'name', 'city', 'address', 'note', 'province_code')
 
 
 def project_archive(raw):
@@ -22,6 +23,15 @@ def project_archive(raw):
         if len(raw['source']) > 1000:
             raise ValueError('archive source exceeds 1000 characters')
         projected['source'] = raw['source']
+    if 'wishlist' in raw:
+        wishlist = raw['wishlist']
+        if not isinstance(wishlist, list) or len(wishlist) > 100:
+            raise ValueError('wishlist must be a list of at most 100 stores')
+        projected['wishlist'] = []
+        for item in wishlist:
+            if not isinstance(item, dict):
+                raise ValueError('wishlist items must be objects')
+            projected['wishlist'].append({key: item[key] for key in WISHLIST_FIELDS if key in item})
     for item in raw['entries']:
         entry = {key: item[key] for key in ENTRY_FIELDS if key in item}
         for key, fields in [('location', ('lat', 'lon', 'precision')), ('photo', ('data_url',)), ('default_photo', ('url', 'source_url', 'attribution', 'caption')), ('store_reference', ('source', 'code', 'address'))]:
@@ -65,6 +75,7 @@ def render(archive):
         font_faces=font_faces(), paper=asset_uri('paper.png'), title_art=asset_uri('global-title.png'),
         passport_art=asset_uri('global-passport.png'), plus_icon=asset_uri('icons/plus.svg'),
         close_icon=asset_uri('icons/x.svg'), journal_data=encoded,
+        wishlist_js=(ROOT/'web/wishlist-engine.js').read_text(encoding='utf-8'),
         engine_js=(ROOT/'web/journal-engine.js').read_text(encoding='utf-8'),
         share_js=(ROOT/'web/share-card.js').read_text(encoding='utf-8'),
         insights_js=(ROOT/'web/journey-insights.js').read_text(encoding='utf-8'),

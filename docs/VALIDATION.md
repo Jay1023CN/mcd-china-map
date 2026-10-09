@@ -42,3 +42,7 @@ py -m unittest discover -s tests -p 'test_*.py' -v
 分享卡支持纸色、红黄两种主题；浏览器已验证 1080 × 1440 PNG 下载、城市名称选项和手机弹窗。年度页边注能打开回忆对应的手账。新增模块的 14 项 Node 检查与页面验收通过，图片均使用独立公开演示记录生成。
 
 系统分享已检查 PNG 文件 payload、点击激活、取消与不支持时的替代入口，使用测试替身没有发送外部消息。当前 Edge 实测提供 `navigator.share` 与 `navigator.canShare`。分享目标由设备已安装的应用决定，参见 [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share)。
+# v0.4.0 想去清单
+
+本轮仅针对新增行为验证：收藏与重复收藏、备注刷新后保留、JSON 导出及另一浏览器上下文导入、到店表单自动填门店及城市、取消保留计划、确认打卡后移出清单，以及 390px 页面与表单布局。`tests/browser-wishlist.cjs` 使用虚构门店和模拟 API 在 Windows Edge 通过；收藏本身不增加足迹统计。Wishlist 与归档引擎 20 项相关检查通过，Python 归档投影检查通过。
+

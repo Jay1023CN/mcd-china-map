@@ -83,6 +83,25 @@ class ProjectTests(unittest.TestCase):
         self.assertNotIn('fixture-secret', html)
         self.assertIn('\\u003c/script\\u003e', html)
 
+    def test_project_archive_preserves_wishlist_whitelist_and_legacy_shape(self):
+        legacy = {'version': 1, 'data_kind': 'manual', 'entries': []}
+        self.assertEqual(project_archive(legacy), legacy)
+        archive = {**legacy, 'wishlist': [{
+            'id': 'store-mcp_nearby-code', 'source': 'mcp_nearby', 'code': 'code',
+            'name': '收藏门店', 'city': '上海', 'address': '某路', 'note': '下次来试试',
+            'province_code': '310000', 'token': 'private-token', 'orderId': 'private-order',
+            'payment_url': 'https://private.test', 'business_status': True
+        }]}
+        projected = project_archive(archive)
+        self.assertEqual(projected['wishlist'], [{
+            'id': 'store-mcp_nearby-code', 'source': 'mcp_nearby', 'code': 'code',
+            'name': '收藏门店', 'city': '上海', 'address': '某路', 'note': '下次来试试',
+            'province_code': '310000'
+        }])
+        self.assertNotIn('wishlist', project_archive(legacy))
+        self.assertRaises(ValueError, project_archive, {**legacy, 'wishlist': [{}] * 101})
+        self.assertRaises(ValueError, project_archive, {**legacy, 'wishlist': {}})
+
     def test_candidate_conversion_drops_identifiers_and_does_not_confirm(self):
         orders = [{'id': 'fixture-order-only', 'created_at': '2026-10-08T22:00:00+08:00', 'status': 'completed', 'store': {'name': '虚构门店'}, 'items': [{'name': '咖啡'}]}, {'status': 'cancelled'}]
         result = candidates({'source': {'kind': 'mcp'}, 'orders': orders})

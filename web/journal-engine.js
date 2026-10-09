@@ -1,11 +1,16 @@
 /* Global journal data engine. No network, DOM, credentials or browser storage. */
 (function (root, factory) {
   'use strict';
-  var engine = factory();
+  var engine = factory(root);
   if (typeof module === 'object' && module.exports) module.exports = engine;
   if (root) root.JournalEngine = engine;
-})(typeof window !== 'undefined' ? window : typeof globalThis !== 'undefined' ? globalThis : this, function () {
+})(typeof window !== 'undefined' ? window : typeof globalThis !== 'undefined' ? globalThis : this, function (root) {
   'use strict';
+
+  var wishlistEngine = root && root.WishlistEngine;
+  if (!wishlistEngine && typeof module === 'object' && module.exports && typeof require === 'function') {
+    wishlistEngine = require('./wishlist-engine.js');
+  }
 
   var ISO_CODES = new Set(('AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW').split(' '));
   var MAX_ENTRIES = 1000;
@@ -162,6 +167,10 @@
     });
     var archive = { version: 1, data_kind: dataKind, entries: entries };
     if (input.source != null) archive.source = text(input.source, 'archive source', 1000, false);
+    if (Object.prototype.hasOwnProperty.call(input, 'wishlist')) {
+      if (!wishlistEngine || typeof wishlistEngine.normalize !== 'function') fail('wishlist support is unavailable');
+      archive.wishlist = wishlistEngine.normalize(input.wishlist);
+    }
     if (utf8Bytes(JSON.stringify(archive)) > MAX_ARCHIVE_BYTES) fail('archive exceeds 8 MiB');
     return archive;
   }
