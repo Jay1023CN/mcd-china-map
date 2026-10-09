@@ -11,7 +11,7 @@ from string import Template
 from visual_assets import ROOT, asset_uri, font_faces
 
 
-ENTRY_FIELDS = {'id', 'date', 'country_code', 'city', 'store', 'foods', 'note', 'source', 'confirmed', 'origin', 'collaboration'}
+ENTRY_FIELDS = ('id', 'date', 'country_code', 'city', 'store', 'foods', 'note', 'source', 'confirmed', 'origin', 'collaboration')
 
 
 def project_archive(raw):

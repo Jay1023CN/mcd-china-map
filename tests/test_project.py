@@ -2,6 +2,8 @@
 import json
 from pathlib import Path
 import sys
+import os
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -16,6 +18,11 @@ import sync_footprints
 
 
 class ProjectTests(unittest.TestCase):
+    def test_build_is_identical_across_python_hash_seeds(self):
+        code = "import hashlib,json,sys;sys.path.insert(0,'scripts');from build_global_journal import render;from pathlib import Path;print(hashlib.sha256(render(json.loads(Path('examples/global-journal.synthetic.json').read_text(encoding='utf-8'))).encode()).hexdigest())"
+        digests = [subprocess.check_output([sys.executable, '-c', code], cwd=ROOT, env={**os.environ, 'PYTHONHASHSEED': seed}) for seed in ['1', '2']]
+        self.assertEqual(digests[0], digests[1])
+
     def test_windows_build_always_reads_utf8(self):
         original = Path.read_text
         def guarded(path, *args, **kwargs):

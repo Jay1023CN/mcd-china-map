@@ -51,7 +51,7 @@ def reviewed_path(name):
 def main():
     # Check every source before creating the archive; no partial package.
     sources = [(name, reviewed_path(name).read_bytes()) for name in FILES]
-    output = ROOT / "packages/mcd-world-passport-local-v0.1.1.zip"
+    output = ROOT / "packages/mcd-world-passport-local-v0.1.2.zip"
     output.parent.mkdir(exist_ok=True)
     temporary = output.with_suffix(".zip.tmp")
     try:

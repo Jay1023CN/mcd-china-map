@@ -81,7 +81,7 @@ class Client:
 
     def initialize(self) -> None:
         result = self.rpc("initialize", {"protocolVersion": "2025-06-18", "capabilities": {},
-                                         "clientInfo": {"name": "mcd-world-passport", "version": "0.1.1"}})
+                                         "clientInfo": {"name": "mcd-world-passport", "version": "0.1.2"}})
         protocol = result.get("protocolVersion")
         if not isinstance(protocol, str) or not protocol:
             raise ValueError("server did not negotiate a protocol version")
