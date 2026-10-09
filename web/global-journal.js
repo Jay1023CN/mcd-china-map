@@ -478,18 +478,48 @@
     const link=document.createElement('a');link.href=url;link.download='麦麦中国地图-'+(clean.data_kind==='synthetic'?'示例-':'')+today()+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('已发起备份下载，请确认浏览器已保存文件。');
   }
   $('export').addEventListener('click',downloadArchive);$('top-export').addEventListener('click',downloadArchive);
-  let shareCanvas=null,shareRevision=0;
+  let shareCanvas=null,shareFile=null,sharePreviewUrl=null,shareRevision=0;
+  function shareText() {
+    const s=currentSummary;
+    return `我的麦麦中国足迹：${s.distinctProvinces} 个省份／地区，${s.distinctCities} 座城市，${s.confirmedCount} 页小小停靠。\n用麦当劳，画出自己的中国足迹。\nhttps://github.com/Jay1023CN/mcd-china-map`;
+  }
   async function updateShareCard() {
-    const revision=++shareRevision;$('save-share').disabled=true;$('share-status').textContent='正在画出你的足迹……';
+    const revision=++shareRevision;$('save-share').disabled=true;$('native-share').disabled=true;$('share-status').textContent='正在画出你的足迹……';
     try {
       const canvas=await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
         title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked});
       if(revision!==shareRevision || !$('share-dialog').open)return;
-      shareCanvas=canvas;$('share-preview').replaceChildren(canvas);$('save-share').disabled=false;$('share-status').textContent='1080 × 1440，保存后即可分享。';
+      const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
+      if(revision!==shareRevision || !$('share-dialog').open)return;
+      shareCanvas=canvas;shareFile=new File([blob],'麦麦中国足迹-'+today()+'.png',{type:'image/png'});
+      const oldUrl=sharePreviewUrl;sharePreviewUrl=URL.createObjectURL(blob);
+      const preview=node('img');preview.id='share-image';preview.alt='你的中国足迹分享卡预览';preview.src=sharePreviewUrl;
+      $('share-preview').replaceChildren(preview);if(oldUrl)URL.revokeObjectURL(oldUrl);
+      $('save-share').disabled=false;$('native-share').disabled=false;$('share-copy-text').value=shareText();
+      $('share-status').textContent='点“分享给朋友”选择应用，也可以长按图片或保存到相册。';
     }catch(error){if(revision===shareRevision)$('share-status').textContent='暂时没画好，再试一次。';}
   }
   $('open-share').addEventListener('click',()=>{$('share-dialog').showModal();updateShareCard();});
   $('share-title').addEventListener('input',updateShareCard);$('share-theme').addEventListener('change',updateShareCard);$('share-cities').addEventListener('change',updateShareCard);
+  $('native-share').addEventListener('click',async()=>{
+    if(!shareFile)return;
+    if(typeof navigator.share!=='function') {
+      $('share-status').textContent='当前浏览器请长按卡片保存图片，或复制文案后发给微信好友。';return;
+    }
+    try {
+      const payload={title:$('share-title').value || '我的麦麦中国足迹',text:shareText()};
+      if(typeof navigator.canShare==='function' && navigator.canShare({files:[shareFile]}))payload.files=[shareFile];
+      else payload.url='https://github.com/Jay1023CN/mcd-china-map';
+      const result=navigator.share(payload);$('native-share').disabled=true;await result;
+      $('share-status').textContent='已打开系统分享，可选择微信或其他应用。';
+    }catch(error){$('share-status').textContent=error.name==='AbortError'?'分享已取消，卡片还在这里。':'暂时没打开分享，请保存图片或复制文案后发送。';}
+    finally{$('native-share').disabled=false;}
+  });
+  $('copy-share').addEventListener('click',async()=>{
+    const content=shareText();$('share-copy-text').value=content;
+    try {await navigator.clipboard.writeText(content);$('share-status').textContent='文案已复制，和卡片一起分享吧。';}
+    catch(error){$('share-copy-text').hidden=false;$('share-copy-text').select();$('share-status').textContent='文案已选中，复制后即可发给朋友。';}
+  });
   $('save-share').addEventListener('click',async()=>{
     if(!shareCanvas)return;$('save-share').disabled=true;
     try {

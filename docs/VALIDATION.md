@@ -40,3 +40,5 @@ py -m unittest discover -s tests -p 'test_*.py' -v
 ## 分享与回顾 v0.3.0
 
 分享卡支持纸色、红黄两种主题；浏览器已验证 1080 × 1440 PNG 下载、城市名称选项和手机弹窗。年度页边注能打开回忆对应的手账。新增模块的 14 项 Node 检查与页面验收通过，图片均使用独立公开演示记录生成。
+
+系统分享已检查 PNG 文件 payload、点击激活、取消与不支持时的替代入口，使用测试替身没有发送外部消息。当前 Edge 实测提供 `navigator.share` 与 `navigator.canShare`。分享目标由设备已安装的应用决定，参见 [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share)。
