@@ -134,6 +134,7 @@
   function render() {
     refillFilters();
     currentSummary = E.summarize(archive, {...opts(), year: $('year-filter').value, province_code: $('country-filter').value});
+    renderJourney();
     const s = currentSummary;
     $('count-visits').textContent = s.confirmedCount;
     $('count-countries').textContent = s.distinctProvinces;
@@ -188,6 +189,22 @@
       credit.append(node('span',entry.default_photo.caption || '门店默认照片'),link);figure.append(credit);
     }
     return figure;
+  }
+  function renderJourney() {
+    const insights=window.JourneyInsights.build(archive,{today:today()});
+    $('journey-heading').textContent=insights.year+' 年的页边注';
+    $('journey-prompt').textContent=insights.prompt.detail;
+    $('journey-facts').replaceChildren();
+    for(const metric of insights.metrics.slice(0,2)) {
+      const item=node('div'); item.append(node('b',String(metric.value)),node('span',metric.label));$('journey-facts').append(item);
+    }
+    const memory=$('journey-memory');memory.hidden=!insights.memory;memory.replaceChildren();
+    if(insights.memory) {
+      memory.append(node('strong',insights.memory.title),node('span',insights.memory.detail));
+      memory.onclick=()=>{const entry=archive.entries.find(e=>e.id===insights.memory.entryId);if(entry)openDetail(entry);};
+    }
+    $('milestone-list').replaceChildren();
+    for(const milestone of insights.milestones) $('milestone-list').append(node('span',milestone.title+(milestone.reached?' · 已点亮':''),'milestone'+(milestone.reached?' reached':'')));
   }
   function foodTags(entry) {
     const tags = node('div', undefined, 'food-tags');
@@ -461,6 +478,28 @@
     const link=document.createElement('a');link.href=url;link.download='麦麦中国地图-'+(clean.data_kind==='synthetic'?'示例-':'')+today()+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('已发起备份下载，请确认浏览器已保存文件。');
   }
   $('export').addEventListener('click',downloadArchive);$('top-export').addEventListener('click',downloadArchive);
+  let shareCanvas=null,shareRevision=0;
+  async function updateShareCard() {
+    const revision=++shareRevision;$('save-share').disabled=true;$('share-status').textContent='正在画出你的足迹……';
+    try {
+      const canvas=await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
+        title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked});
+      if(revision!==shareRevision || !$('share-dialog').open)return;
+      shareCanvas=canvas;$('share-preview').replaceChildren(canvas);$('save-share').disabled=false;$('share-status').textContent='1080 × 1440，保存后即可分享。';
+    }catch(error){if(revision===shareRevision)$('share-status').textContent='暂时没画好，再试一次。';}
+  }
+  $('open-share').addEventListener('click',()=>{$('share-dialog').showModal();updateShareCard();});
+  $('share-title').addEventListener('input',updateShareCard);$('share-theme').addEventListener('change',updateShareCard);$('share-cities').addEventListener('change',updateShareCard);
+  $('save-share').addEventListener('click',async()=>{
+    if(!shareCanvas)return;$('save-share').disabled=true;
+    try {
+      const blob=await new Promise(resolve=>shareCanvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
+      const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;
+      link.download='麦麦中国足迹-'+(archive.data_kind==='synthetic'?'示例-':'')+today()+'.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+      $('share-status').textContent='图片已开始下载，去相册或下载文件夹找到它。';
+    }catch(error){$('share-status').textContent='图片暂时未保存，请再试一次。';}
+    finally{$('save-share').disabled=false;}
+  });
   $('print').addEventListener('click',()=>window.print());
   $('import').addEventListener('click',()=>$('import-file').click());
   async function orderCandidates(payload) {

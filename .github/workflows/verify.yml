@@ -18,7 +18,7 @@ jobs:
           node-version: '22'
       - name: Engine and offline MCP regression tests
         run: |
-          node --test tests/journal-engine.test.js
+          node --test tests/journal-engine.test.js tests/share-card.test.js tests/journey-insights.test.js
           python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Rebuild public pages
         run: |
@@ -43,5 +43,6 @@ jobs:
           }
           if (-not $ready) { throw 'Local server did not start' }
           node tests/browser-smoke.cjs
+          node tests/browser-features.cjs
       - name: Verify distribution whitelist
         run: python scripts/package_skill.py

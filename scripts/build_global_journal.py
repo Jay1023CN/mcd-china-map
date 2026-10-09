@@ -65,7 +65,10 @@ def render(archive):
         font_faces=font_faces(), paper=asset_uri('paper.png'), title_art=asset_uri('global-title.png'),
         passport_art=asset_uri('global-passport.png'), plus_icon=asset_uri('icons/plus.svg'),
         close_icon=asset_uri('icons/x.svg'), journal_data=encoded,
-        engine_js=(ROOT/'web/journal-engine.js').read_text(encoding='utf-8'), app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
+        engine_js=(ROOT/'web/journal-engine.js').read_text(encoding='utf-8'),
+        share_js=(ROOT/'web/share-card.js').read_text(encoding='utf-8'),
+        insights_js=(ROOT/'web/journey-insights.js').read_text(encoding='utf-8'),
+        app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
 
 
 def main():
