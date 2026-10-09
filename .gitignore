@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+dist/
+private/
+*.local.json
+.mcp.json
+*.log
+packages/
+test-results/
+node_modules/

@@ -1,0 +1,81 @@
+OFFLINE GEOGRAPHY DATA — SOURCES AND TERMS
+Prepared: 2026-10-09
+
+1. world-land.json — Natural Earth 1:110 million Land
+   127 polygon features; coastline/land only, no political boundary layer.
+   Original GeoJSON coordinates retained. File compacted without geometry changes.
+   Source: https://www.naturalearthdata.com/downloads/110m-physical-vectors/110m-land/
+   Download: https://github.com/nvkelso/natural-earth-vector/blob/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_110m_land.geojson
+   Natural Earth map data are in the public domain. Credit: Natural Earth,
+   Tom Patterson, Nathaniel Vaughn Kelso, and contributors.
+   Terms: https://www.naturalearthdata.com/about/terms-of-use/
+
+2. cities.json — 60 city reference points
+   Selected from Natural Earth 1:50 million Populated Places. Coordinates are
+   city points, NOT McDonald's restaurants, NOT exact shop locations, and NOT
+   evidence that a person visited a place. Every entry has precision="city".
+   Original longitude/latitude retained. Chinese display spelling normalized
+   for several familiar names. Wikidata references are retained when supplied.
+   Source: https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-populated-places/
+   Download: https://github.com/nvkelso/natural-earth-vector/blob/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_50m_populated_places.geojson
+   License: public domain under the same Natural Earth terms above.
+   Natural Earth multilingual place names use Wikidata CC0 data.
+   These city choices do not assert current restaurant availability.
+
+3. countries.json — ISO 3166-1 country/region selector
+   249 alpha-2 codes. This is a country/region code selector, not a border map.
+   Code source: https://github.com/datasets/country-list/blob/d214094e09e52f07ba5e0573ca445c50b5a651b5/data.csv
+   Maintainers describe the factual code collection under the Public Domain
+   Dedication and License: https://github.com/datasets/country-list/blob/d214094e09e52f07ba5e0573ca445c50b5a651b5/README.md
+   Official code reference: https://www.iso.org/obp/ui/#search/code/
+   Chinese and English display names were generated locally using Node.js
+   Intl.DisplayNames (zh-Hans / en) from Unicode CLDR/ICU, rather than copied
+   from the source CSV's official English names. No user data was transmitted.
+   Display-name license: Unicode License V3, reproduced below.
+   Locale display names are language labels, not claims about boundaries.
+   Source: https://github.com/unicode-org/icu/blob/main/LICENSE
+
+UNICODE DISPLAY-NAME DATA LICENSE
+
+UNICODE LICENSE V3
+
+COPYRIGHT AND PERMISSION NOTICE
+
+Copyright © 1991-2026 Unicode, Inc.
+
+NOTICE TO USER: Carefully read the following legal agreement. BY
+DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING DATA FILES, AND/OR
+SOFTWARE, YOU UNEQUIVOCALLY ACCEPT, AND AGREE TO BE BOUND BY, ALL OF THE
+TERMS AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT
+DOWNLOAD, INSTALL, COPY, DISTRIBUTE OR USE THE DATA FILES OR SOFTWARE.
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of data files and any associated documentation (the "Data Files") or
+software and any associated documentation (the "Software") to deal in the
+Data Files or Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, and/or sell
+copies of the Data Files or Software, and to permit persons to whom the
+Data Files or Software are furnished to do so, provided that either (a)
+this copyright and permission notice appear with all copies of the Data
+Files or Software, or (b) this copyright and permission notice appear in
+associated Documentation.
+
+THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF
+THIRD PARTY RIGHTS.
+
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS NOTICE
+BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL DAMAGES,
+OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE DATA
+FILES OR SOFTWARE.
+
+Except as contained in this notice, the name of a copyright holder shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in these Data Files or Software without prior written
+authorization of the copyright holder.
+
+SPDX-License-Identifier: Unicode-3.0
+

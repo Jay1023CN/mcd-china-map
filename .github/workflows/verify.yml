@@ -1,0 +1,47 @@
+name: Verify passport
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Engine and offline MCP regression tests
+        run: |
+          node --test tests/journal-engine.test.js
+          python -m unittest discover -s tests -p test_project.py -v
+      - name: Rebuild public pages
+        run: |
+          python scripts/build_global_journal.py --output index.html
+          python scripts/build_global_journal.py --archive examples/global-journal.synthetic.json --output docs/global-demo.html
+          git diff --exit-code -- index.html docs/global-demo.html
+      - name: Install test browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install chromium
+      - name: Run isolated browser acceptance
+        run: |
+          New-Item -ItemType Directory -Force private | Out-Null
+          Start-Process powershell.exe -WindowStyle Hidden -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'scripts/serve-local.ps1', '-NoBrowser')
+          $ready = $false
+          for ($attempt = 0; $attempt -lt 30; $attempt++) {
+            try {
+              Invoke-WebRequest http://127.0.0.1:8765/ -Method Head -ErrorAction Stop | Out-Null
+              $ready = $true
+              break
+            } catch { Start-Sleep -Milliseconds 500 }
+          }
+          if (-not $ready) { throw 'Local server did not start' }
+          node tests/browser-smoke.cjs
+      - name: Verify distribution whitelist
+        run: python scripts/package_skill.py

@@ -1,0 +1,132 @@
+'use strict';
+// Only synthetic fixtures in a fresh browser context; never use a personal profile.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const http = require('node:http');
+const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const root = path.resolve(__dirname, '..');
+const url = 'http://127.0.0.1:8765/';
+const output = path.join(root, 'test-results');
+fs.mkdirSync(output, {recursive: true});
+const candidate = {version: 1, data_kind: 'mcp', source: 'Synthetic test fixture, never a real order.', entries: [{id: 'mcp-fixture-only', date: '2026-10-08', country_code: 'CN', city: '', store: '测试门店（虚构）', foods: ['咖啡'], source: 'mcp_candidate', confirmed: false}]};
+const upload = (name, value) => ({name, mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(value))});
+function request(target, method = 'GET', host = '127.0.0.1:8765') {
+  return new Promise((resolve, reject) => {
+    const req = http.request(url, {path: target, method, headers: {Host: host}}, response => {
+      let bytes = 0;
+      response.on('data', chunk => { bytes += chunk.length; });
+      response.on('end', () => resolve({status: response.statusCode, bytes}));
+    });
+    req.on('error', reject); req.end();
+  });
+}
+async function main() {
+  assert.equal((await request('/')).status, 200);
+  assert.deepEqual(await request('/index.html', 'HEAD'), {status: 200, bytes: 0});
+  for (const target of ['/private/mcp/global-candidates.json', '/.env', '/assets/../README.md', '/assets/%2e%2e/README.md']) assert.equal((await request(target)).status, 404);
+  assert.equal((await request('/', 'POST')).status, 405);
+  assert.equal((await request('/', 'GET', 'localhost:8765')).status, 400);
+  const browser = await chromium.launch({headless: true, ...(process.env.BROWSER_CHANNEL ? {channel: process.env.BROWSER_CHANNEL} : {})});
+  try {
+    const context = await browser.newContext({viewport: {width: 1440, height: 1000}, timezoneId: 'Asia/Shanghai', acceptDownloads: true});
+    const page = await context.newPage();
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.goto(url);
+    assert.equal(await page.locator('#count-visits').innerText(), '0');
+    await page.getByRole('button', {name: '新增打卡', exact: true}).click();
+    await page.locator('[name=date]').fill('2026-10-08');
+    await page.locator('[name=country_code]').selectOption('JP');
+    await page.locator('[name=city]').fill('东京');
+    await page.locator('[name=store]').fill('测试东京门店（虚构）');
+    await page.locator('[name=foods]').fill('咖啡，薯条');
+    await page.locator('[name=note]').fill('仅用于自动化验收。');
+    const photoFixture = await page.evaluate(() => {
+      const canvas = document.createElement('canvas'); canvas.width = 8; canvas.height = 8;
+      const context = canvas.getContext('2d'); context.fillStyle = '#dd442e'; context.fillRect(0, 0, 8, 8);
+      return canvas.toDataURL('image/png').split(',')[1];
+    });
+    await page.locator('[name=photo]').setInputFiles({name: 'fixture.png', mimeType: 'image/png', buffer: Buffer.from(photoFixture, 'base64')});
+    await page.locator('#photo-preview').waitFor({state: 'visible'});
+    await page.locator('[name=confirmed]').check();
+    await page.getByRole('button', {name: '保存这一页'}).click();
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    await page.reload();
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    await page.getByRole('tab', {name: '打卡手账', exact: true}).click();
+    await page.getByRole('button', {name: '编辑这一页', exact: true}).click();
+    await page.locator('[name=note]').fill('编辑后的测试随记。');
+    await page.getByRole('button', {name: '保存这一页'}).click();
+    assert.equal(await page.locator('#journal-grid .note').innerText(), '编辑后的测试随记。');
+    const downloadPromise = page.waitForEvent('download');
+    await page.locator('#export').click();
+    const download = await downloadPromise;
+    const backup = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
+    assert.equal(backup.entries.length, 1);
+    assert.equal(backup.entries[0].country_code, 'JP');
+    assert.equal(backup.entries[0].location.precision, 'city');
+    assert.ok(backup.entries[0].photo.data_url.startsWith('data:image/jpeg;base64,'));
+    await page.locator('#import-file').setInputFiles(upload('fixture-candidate.json', candidate));
+    await page.locator('#candidate-grid .candidate').waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    await page.getByRole('button', {name: '补齐并确认本人到店'}).click();
+    assert.equal(await page.locator('[name=country_code]').isDisabled(), true);
+    await page.locator('[name=city]').fill('上海');
+    await page.locator('[name=confirmed]').check();
+    await page.getByRole('button', {name: '保存这一页'}).click();
+    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    assert.equal(await page.locator('#candidate-count').innerText(), '0');
+    await page.locator('#import-file').setInputFiles(upload('same-candidate.json', candidate));
+    await page.locator('#toast').filter({hasText: '导入完成'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    assert.equal(await page.locator('#candidate-count').innerText(), '0');
+    const conflict = {...backup, entries: [{...backup.entries[0], store: 'conflicting fixture'}]};
+    await page.locator('#import-file').setInputFiles(upload('synthetic.json', {...backup, data_kind: 'synthetic'}));
+    await page.locator('#toast').filter({hasText: '导入未完成'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    await page.locator('#import-file').setInputFiles(upload('conflict.json', conflict));
+    await page.locator('#toast').filter({hasText: '导入未完成'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    const restoreContext = await browser.newContext({timezoneId: 'Asia/Shanghai'});
+    const restored = await restoreContext.newPage();
+    await restored.goto(url);
+    await restored.locator('#import-file').setInputFiles(upload('backup.json', backup));
+    await restored.locator('#toast').filter({hasText: '导入完成'}).waitFor();
+    assert.equal(await restored.locator('#count-visits').innerText(), '1');
+    await restored.getByRole('tab', {name: '打卡手账', exact: true}).click();
+    restored.once('dialog', dialog => dialog.accept());
+    await restored.getByRole('button', {name: '删除', exact: true}).click();
+    assert.equal(await restored.locator('#count-visits').innerText(), '0');
+    await restored.reload();
+    assert.equal(await restored.locator('#count-visits').innerText(), '0');
+    await restoreContext.close();
+    const limitedContext = await browser.newContext({timezoneId: 'Asia/Shanghai', acceptDownloads: true});
+    await limitedContext.addInitScript(() => {
+      Storage.prototype.setItem = function () { throw new DOMException('Synthetic quota fixture', 'QuotaExceededError'); };
+    });
+    const limited = await limitedContext.newPage();
+    await limited.goto(url);
+    await limited.locator('#import-file').setInputFiles(upload('quota-backup.json', backup));
+    await limited.locator('#toast').filter({hasText: '导入完成'}).waitFor();
+    assert.match(await limited.locator('#save-status').innerText(), /请导出备份/);
+    const limitedDownload = limited.waitForEvent('download');
+    await limited.locator('#export').click();
+    const emergency = JSON.parse(fs.readFileSync(await (await limitedDownload).path(), 'utf8'));
+    assert.equal(emergency.entries[0].note, '编辑后的测试随记。');
+    assert.ok(emergency.entries[0].photo.data_url);
+    await limitedContext.close();
+    // Capture only the explicitly synthetic public demo.
+    await page.goto(url + 'docs/global-demo.html');
+    await page.locator('#mode-description').filter({hasText: '虚构'}).waitFor();
+    await page.screenshot({path: path.join(output, 'desktop.png'), fullPage: true});
+    await page.setViewportSize({width: 390, height: 844});
+    await page.screenshot({path: path.join(output, 'mobile.png'), fullPage: true});
+    const width = await page.evaluate(() => ({content: document.documentElement.scrollWidth, viewport: innerWidth}));
+    assert.ok(width.content <= width.viewport, 'mobile content must fit viewport');
+    assert.deepEqual(errors, []);
+    await context.close();
+    console.log('PASS: HTTP serving, private path isolation, create/edit/reload/delete, export/restore, candidate confirmation/reimport, conflict rejection, desktop/mobile rendering. All fixtures synthetic.');
+  } finally { await browser.close(); }
+}
+main().catch(error => { console.error(error); process.exitCode = 1; });

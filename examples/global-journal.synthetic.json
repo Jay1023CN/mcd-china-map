@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "data_kind": "synthetic",
+  "entries": [
+    {
+      "id": "demo-global-001",
+      "date": "2026-01-18",
+      "country_code": "CN",
+      "city": "上海",
+      "store": "外滩散步店 · 虚构",
+      "foods": ["巨无霸", "热咖啡"],
+      "note": "虚构示例：冬天的散步从一杯热咖啡开始。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 31.2304, "lon": 121.4737, "precision": "city" }
+    },
+    {
+      "id": "demo-global-002",
+      "date": "2026-02-14",
+      "country_code": "JP",
+      "city": "东京",
+      "store": "涩谷旅行店 · 虚构",
+      "foods": ["照烧汉堡", "薯条"],
+      "note": "虚构示例：把车站外的霓虹写进这一页。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 35.6762, "lon": 139.6503, "precision": "city" }
+    },
+    {
+      "id": "demo-global-003",
+      "date": "2026-03-08",
+      "country_code": "KR",
+      "city": "首尔",
+      "store": "弘大明信片店 · 虚构",
+      "foods": ["双层汉堡", "冰拿铁"],
+      "note": "虚构示例：吃完去街边小店挑明信片。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 37.5665, "lon": 126.9780, "precision": "city" }
+    },
+    {
+      "id": "demo-global-004",
+      "date": "2026-04-21",
+      "country_code": "FR",
+      "city": "巴黎",
+      "store": "左岸雨天店 · 虚构",
+      "foods": ["汉堡", "咖啡"],
+      "note": "虚构示例：雨停之前，在窗边画了一座桥。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 48.8566, "lon": 2.3522, "precision": "city" }
+    },
+    {
+      "id": "demo-global-005",
+      "date": "2026-05-12",
+      "country_code": "GB",
+      "city": "伦敦",
+      "store": "红巴士路口店 · 虚构",
+      "foods": ["早餐汉堡", "薯饼"],
+      "note": "虚构示例：红色双层巴士从早餐窗前经过。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 51.5074, "lon": -0.1278, "precision": "city" }
+    },
+    {
+      "id": "demo-global-006",
+      "date": "2026-06-19",
+      "country_code": "US",
+      "city": "纽约",
+      "store": "街角长椅店 · 虚构",
+      "foods": ["巨无霸", "薯条"],
+      "note": "虚构示例：午后阳光刚好落在纸袋上。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 40.7128, "lon": -74.0060, "precision": "city" }
+    },
+    {
+      "id": "demo-global-007",
+      "date": "2026-07-26",
+      "country_code": "AU",
+      "city": "悉尼",
+      "store": "海风码头店 · 虚构",
+      "foods": ["鸡肉汉堡", "热咖啡"],
+      "note": "虚构示例：南半球的冬天，海风比想象中冷。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": -33.8688, "lon": 151.2093, "precision": "city" }
+    },
+    {
+      "id": "demo-global-008",
+      "date": "2026-08-30",
+      "country_code": "JP",
+      "city": "大阪",
+      "store": "道顿堀夜游店 · 虚构",
+      "foods": ["照烧汉堡", "冰淇淋"],
+      "note": "虚构示例：收集一张夜游印章。此联名名称仅为演示。",
+      "collaboration": "旅行插画联名 · 虚构",
+      "collaboration_source": "user_confirmed",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 34.6937, "lon": 135.5023, "precision": "city" }
+    },
+    {
+      "id": "demo-global-009",
+      "date": "2026-10-02",
+      "country_code": "CN",
+      "city": "北京",
+      "store": "胡同秋日店 · 虚构",
+      "foods": ["巨无霸", "薯条"],
+      "note": "虚构示例：最后一页留给秋天的树影。",
+      "source": "manual",
+      "confirmed": true,
+      "location": { "lat": 39.9042, "lon": 116.4074, "precision": "city" }
+    }
+  ]
+}
