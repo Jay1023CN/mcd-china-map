@@ -31,6 +31,11 @@
     return value.normalize('NFKC').trim().replace(/\s+/g, '').replace(/市$/, '').toLowerCase();
   }
 
+  function foodName(value) {
+    if (typeof value !== 'string') return '';
+    return Array.from(value.normalize('NFKC').trim().replace(/\s+/g, ' ')).slice(0, 100).join('');
+  }
+
   function monthLabel(date) {
     return Number(date.slice(5, 7)) + ' 月';
   }
@@ -57,6 +62,7 @@
     var first = null;
     var latest = null;
     var sameMonthLastYear = null;
+    var foodCounts = new Map();
 
     archive.entries.forEach(function (entry) {
       if (!entry || entry.confirmed !== true || entry.source !== 'manual' || entry.country_code !== 'CN') return;
@@ -70,6 +76,13 @@
       var key = cityKey(entry.city);
       if (key) cities.add(key);
       if (typeof entry.province_code === 'string' && entry.province_code.trim()) provinces.add(entry.province_code.trim());
+
+      var pageFoods = new Set();
+      if (Array.isArray(entry.foods)) entry.foods.forEach(function (food) {
+        var name = foodName(food);
+        if (name) pageFoods.add(name);
+      });
+      pageFoods.forEach(function (name) { foodCounts.set(name, (foodCounts.get(name) || 0) + 1); });
 
       if (!first || date < first.date || (date === first.date && String(entry.id || '').localeCompare(String(first.entry.id || '')) < 0)) {
         first = {entry: entry, date: date};
@@ -127,6 +140,12 @@
       };
     }
 
+    var foods = Array.from(foodCounts.entries()).map(function (pair) {
+      return {name: pair[0], count: pair[1]};
+    }).sort(function (a, b) {
+      return b.count - a.count || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
+    }).slice(0, 5);
+
     return {
       year: year,
       metrics: [
@@ -137,6 +156,7 @@
       ],
       milestones: milestones,
       memory: memory,
+      foods: foods,
       prompt: eligibleCount ? {
         title: '随时再留一页',
         detail: '想记录时再回来就好，不必赶进度。'

@@ -18,6 +18,7 @@ from build_global_journal import render, project_archive
 from store_enrichment import enrich_archive
 from sync_footprints import sync_orders
 from store_photo_data import load_photo_data
+from project_version import VERSION
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'http://127.0.0.1:8765'
@@ -99,7 +100,7 @@ class Handler(BaseHTTPRequestHandler):
         path = unquote(urlsplit(self.path).path)
         if path == '/api/health':
             connected = bool(getattr(self.server, 'connected', False))
-            self.reply(200, {'project': 'mcd-china-map', 'store_lookup': bool(getattr(self.server,'store_lookup',self.server.token)),
+            self.reply(200, {'project': 'mcd-china-map', 'version': VERSION, 'store_lookup': bool(getattr(self.server,'store_lookup',self.server.token)),
                              'capabilities': {'connect': True, 'synced_orders': True},
                              'connected': connected, 'token_present': bool(self.server.token),
                              'order_sync': bool(getattr(self.server, 'order_sync', False))})
@@ -158,6 +159,11 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(405, {'error': 'Only the read-only store query endpoint is available.'})
             return
         if self.headers.get('Origin') != self.server.origin or self.headers.get('Content-Type') != 'application/json':
+            # Consume a small rejected request before closing the socket, so
+            # Windows clients can receive the 403 instead of a TCP abort.
+            length=self.headers.get('Content-Length','0')
+            if length.isdecimal() and 0<int(length)<=4096 and not self.headers.get('Transfer-Encoding'):
+                self.rfile.read(int(length))
             self.reply(403, {'error': '请从本机地图页面发起请求。'})
             return
         if self.path == '/api/photo-data':
@@ -275,7 +281,7 @@ def main():
     server.homepage = homepage
     server.origin = f'http://127.0.0.1:{server.server_port}'
     print('麦麦中国地图：' + server.origin, flush=True)
-    print('保持本窗口打开。Token 仅用于只读门店查询，关闭进程即清除。', flush=True)
+    print('保持本窗口打开。Token 用于只读门店查询与订单同步，关闭进程即清除。', flush=True)
     if not args.no_browser:
         webbrowser.open(server.origin)
     try:

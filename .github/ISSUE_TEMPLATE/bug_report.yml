@@ -1,0 +1,37 @@
+name: 体验遇到问题
+description: 告诉我们哪一步卡住了，帮助修复。
+title: "[体验问题] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "感谢帮忙把麦麦中国地图做得更顺手。截图请避开 Token、真实订单和私人地址。"
+  - type: input
+    id: version
+    attributes:
+      label: 使用版本
+      placeholder: 例如 v0.7.0，页面底部可以查看
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 设备与浏览器
+      placeholder: 例如 Windows 11 / Edge
+  - type: textarea
+    id: steps
+    attributes:
+      label: 哪一步出了问题
+      placeholder: 从打开页面开始，描述点击过什么、看到了什么。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 你希望发生什么
+      placeholder: 例如复制图片后希望能粘贴到聊天。
+  - type: textarea
+    id: details
+    attributes:
+      label: 其他线索或截图
+      description: 可选；无需提供个人订单文件。

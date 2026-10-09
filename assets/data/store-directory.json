@@ -7,14 +7,17 @@
       "麦当劳华旭国际大厦店"
     ],
     "city": "上海",
+    "search_keyword": "人民广场",
+    "short_description": "人民广场附近的CUBE风格旗舰店，逛完南京东路商圈，坐下留一页城市手账。",
     "province_code": "310000",
     "address": "上海市黄浦区西藏中路336号",
     "source_url": "https://www.mcdonalds.com.cn/index/Quality/publicinfo/deliveryinfo?locale=zh&page=535&staticLinkId=886",
     "default_photo": {
       "url": "https://sghimages.shobserver.com/img/catch/2026/01/24/7461e0ca-f1ce-4ee9-8bd0-993cfd1bcc62.jpg",
+      "local_asset": "store-photos/shanghai-huaxu.jpg",
       "source_url": "https://www.jfdaily.com/sgh/detail?id=1699951",
       "attribution": "上观新闻",
-      "caption": "人民广场附近 · 华旭国际大厦餐厅外观"
+      "caption": "人民广场附近 · 华旭国际大厦餐厅内景"
     }
   },
   {
@@ -24,6 +27,7 @@
       "成都首家麦当劳M³风格玩味旗舰店"
     ],
     "city": "成都",
+    "search_keyword": "东大街",
     "province_code": "510000",
     "address": "东大街下东大街段169号",
     "source_url": "https://www.mcdonalds.com.cn/news/20230629-LBS-Store",
@@ -43,6 +47,7 @@
       "麦当劳中国首家零碳餐厅"
     ],
     "city": "北京",
+    "search_keyword": "首钢园",
     "province_code": "110000",
     "address": "群明湖路首钢园南门",
     "source_url": "https://www.mcdonalds.com.cn/news/20230629-LBS-Store",
@@ -53,6 +58,48 @@
       "source_url": "https://www.mcdonalds.com.cn/news/20220920-LEED-Net-Zero-Restaurant-Grand-Opening",
       "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
       "caption": "麦当劳中国首家“零碳餐厅”- 北京麦当劳首钢园得来速餐厅外观"
+    }
+  },
+  {
+    "name": "麦当劳广州天字码头餐厅",
+    "aliases": [
+      "天字码头餐厅",
+      "广州沿江中路天字码头餐厅",
+      "麦当劳沿江中路餐厅"
+    ],
+    "city": "广州",
+    "search_keyword": "天字码头",
+    "province_code": "440000",
+    "address": "广州市越秀区沿江中路199号首层G08号铺、G09号铺、G10号铺、首层G12号铺，自编01号沿江中路天字广场麦当劳前台",
+    "source_url": "https://www.mcdonalds.com.cn/news/260204-CNY",
+    "short_description": "全国首家“美味色谱”风格餐厅，外立面融入珠江水波意象，并设有面向江畔步道的室外座区。",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2026/01/12/202601121212217744/202601121212217744_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/guangzhou-tianzi.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20260104-900-Restaurants-in-Guangzhou",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "麦当劳天字码头餐厅，打卡珠江畔的彩色美味"
+    }
+  },
+  {
+    "name": "麦当劳深圳光华餐厅",
+    "aliases": [
+      "深圳光华餐厅",
+      "深圳麦当劳光华餐厅",
+      "深圳光华店"
+    ],
+    "city": "深圳",
+    "search_keyword": "光华",
+    "province_code": "440000",
+    "address": "解放路西华宫光华楼整栋二楼",
+    "source_url": "https://www.mcdonalds.com.cn/news/20260501-MCD-Milk-Shake",
+    "short_description": "1990年开业的中国内地首家麦当劳餐厅；三十周年配图记录了当时复刻早年风貌的主题布置。",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2020/10/03/202010031115093908/202010031115093908_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/shenzhen-guanghua.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/30-anniversary",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "深圳光华麦当劳餐厅复刻三十年前风貌"
     }
   }
 ]

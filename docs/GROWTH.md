@@ -85,7 +85,7 @@
 这是我参加麦当劳程序员节创意开发大赛的作品，已成功参赛。欢迎来 GitHub 看看，喜欢的话帮忙点个 Star，也想听听你会把这张卡分享给谁！
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
-体验下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
+体验下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
 参赛申请：https://github.com/M-China/mcd-developer-innovation-challenge/issues/139
 
 #麦当劳 #麦门 #麦麦中国地图 #年度回忆 #城市足迹 #开源项目
@@ -94,11 +94,11 @@
 
 ## 给想体验的人｜直接复制这段
 
-想试的话，用 Windows 电脑打开下面的下载页，下载 `mcd-china-map-local-v0.5.0.zip`，解压后双击文件夹里的 `启动.cmd`。
+想试的话，用 Windows 电脑打开下面的下载页，下载 `mcd-china-map-local-v0.6.0.zip`，解压后双击文件夹里的 `启动.cmd`。
 
 浏览器打开后，点“新增打卡”，填一家自己去过的店，放上餐品、照片或一句随手记，就能留下第一枚足迹。手动记录不用先接入订单；保持启动窗口打开，用完记得导出备份。
 
-下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
+下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
 
 群帖／小红书／抖音正文末尾可加一句：**Windows 电脑下载完整 ZIP，解压后双击「启动.cmd」，先记下你的第一顿麦。** 仓库链接负责介绍项目，这句和下载链接负责让人真正开始使用。
 
@@ -110,9 +110,10 @@
 
 | 对方问 | 直接回复 |
 | --- | --- |
-| 在哪里下载、怎么玩？ | 用 Windows 电脑打开下载页，下载完整 ZIP，解压后双击「启动.cmd」。浏览器里点“新增打卡”，填一家去过的店就能开始。下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0 |
+| 在哪里下载、怎么玩？ | 用 Windows 电脑打开下载页，下载完整 ZIP，解压后双击「启动.cmd」。浏览器里点“新增打卡”，填一家去过的店就能开始。下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0 |
 | 手机能用吗？ | 这版先用 Windows 电脑打开。记好以后可以生成足迹图片，放到手机上分享给朋友。 |
 | 必须放照片吗？ | 不用，先写门店、餐品或者一句随手记也可以。有喜欢的照片再补进去。 |
+| 能分享某一家店的记录吗？ | 可以，v0.6.0 能把一页记录做成探店卡，放照片、餐品和随手记，选择是否展示城市和门店。电脑可以复制图片，再粘贴到聊天里发送。 |
 | 能从订单整理记录吗？ | 可以。电脑有 Python 3.10+ 时，打开后点“连接麦当劳”，用自己申请的官方 MCP Token 连接，再点“同步我的订单”，订单卡就会显示出来。核对本人到店后再记成足迹；也可以先手动记第一条。 |
 | 能先记下想去的店吗？ | 可以，电脑有 Python 3.10+ 时，在页面连接自己的官方 MCP，查询附近门店后点“收藏想去”，还能留一句理由。到了之后再把它写成打卡。 |
 | 记录放在哪里？ | 留在你当前电脑的浏览器里。点“导出备份”就能把记录和照片保存下来，换浏览器或设备时再导入。 |
@@ -128,7 +129,7 @@
 「麦麦中国地图」新增想去清单：查询附近门店时，把想去的那家先收藏，再留一句理由。到了以后，门店和城市可以直接带进打卡表单，把“下一站”变成自己的城市记忆。
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
-Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
+Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
 
 门店查询体验步骤单独回复给需要的人：电脑有 Python 3.10+ 时，运行「启动.cmd」，在页面点“连接麦当劳”，使用自己从官方申请的 MCP Token。普通手账同样用「启动.cmd」就能开始，订单与门店查询是可选进阶路径。原终端脚本仍可使用，但不再作为新用户的优先说明。
 
@@ -141,7 +142,7 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
 这是我参加麦当劳程序员节创意开发大赛的作品，已成功参赛。想试的朋友用 Windows 电脑下载完整包、解压后双击「启动.cmd」；手动记录直接开始，从订单同步需要电脑有 Python 3.10+。喜欢的话欢迎来 GitHub 点个 Star，也告诉我第一条记录哪里顺、哪里卡！
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
-下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
+下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
 
 #麦当劳 #麦门 #麦麦中国地图 #城市足迹 #开源项目
 
@@ -155,6 +156,27 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
 - 手绘图是原创宣传插画，产品能力以文案所述为准；不是私人足迹或软件界面截图。地图展示源码与公开数据，公开界面素材来自合成示例。
 
 2026-10-10 主开发已将两张巨无霸手绘图整合到 GitHub；本对话已核对公开 README 中有主图和 Windows 启动入口。旧未采用草稿仍只留本地。
+
+## v0.6.0 更新帖｜单篇探店卡
+
+当前 v0.6.0 已公开提供，下面可以作为正式更新稿使用。
+
+**标题：给这一顿麦，留一张自己的探店卡**
+
+我给「麦麦中国地图」加了一张单篇探店卡：一张照片、吃过的餐品，再留一句随手记，就能把喜欢的一餐做成一页。
+
+想保留照片全貌，还是裁成卡片里的画面，可以自己选；城市和门店也可以决定是否展示。电脑上还能复制图片，粘贴到聊天里再发送。
+
+这是我参加麦当劳程序员节创意开发大赛的作品。新版已经可以体验，先给麦门朋友们看看这一页，也想听听你最想记下哪一顿麦。
+
+项目仓库：https://github.com/Jay1023CN/mcd-china-map
+参赛申请：https://github.com/M-China/mcd-developer-innovation-challenge/issues/139
+
+#麦当劳 #麦门 #麦麦中国地图 #探店记录 #旅行手账 #开源项目
+
+下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
+
+配图：[首钢园公开探店卡示例](memory-card-preview.png)。图片来自主开发指定的官网公开照片，随手记和日期为示例，不从私人订单取材。复制图片不当作已发送微信／QQ 消息。
 
 ## 首轮体验与后续迭代
 
@@ -170,7 +192,7 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
 
 2026-10-10 已核对 [v0.5.0 Release](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0) 与 ZIP 附件状态为 uploaded。主开发确认 CI 和对应真实页面连接、同步、城市／省份与照片路径通过；本对话不重复整套测试、不读取私人订单。当前页面连接／更换／断开 Token、同连接同步并直接载入候选已可宣传。普通手动记录不需要 Python；页面官方 MCP 功能需要 Python 3.10+，因此文案不能省掉这一接入条件。
 
-下一版计划为单页探店分享卡：照片、餐品和随手记，可自行选择展示城市／门店，以及保留完整照片或裁切。主开发尚未发包，当前渠道稿不称为已发布功能；默认门店照片与本人上传仍在本机处理，GitHub 仅使用公共示例。
+2026-10-10 已核对 [v0.6.0 Release](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0) 及 ZIP 附件 state=uploaded。单篇探店卡、复制 PNG、照片全图／裁切和可选城市／门店已公开提供；主开发报告对应本地验收及 CI 成功，本对话未重复测试。下一项无需 Token 的特色店灵感仍在开发，不称为已发布功能；默认门店照片与本人上传仍在本机处理，GitHub 仅用公共示例。
 
 | 宣传承诺 | 当前对应路径 | 已确认的依据 |
 | --- | --- | --- |

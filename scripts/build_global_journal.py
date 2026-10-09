@@ -9,6 +9,7 @@ from pathlib import Path
 from string import Template
 
 from visual_assets import ROOT, asset_uri, font_faces
+from project_version import VERSION
 
 
 ENTRY_FIELDS = ('id', 'date', 'country_code', 'province_code', 'city', 'store', 'foods', 'note', 'source', 'confirmed', 'origin', 'collaboration')
@@ -85,6 +86,7 @@ def render(archive):
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     encoded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     return Template((ROOT/'templates/global-journal.html').read_text(encoding='utf-8')).substitute(
+        app_version=VERSION,
         font_faces=font_faces(), paper=asset_uri('paper.png'), title_art=asset_uri('global-title.png'),
         passport_art=asset_uri('global-passport.png'), plus_icon=asset_uri('icons/plus.svg'),
         close_icon=asset_uri('icons/x.svg'), journal_data=encoded,
@@ -92,6 +94,8 @@ def render(archive):
         engine_js=(ROOT/'web/journal-engine.js').read_text(encoding='utf-8'),
         share_js=(ROOT/'web/share-card.js').read_text(encoding='utf-8'),
         memory_js=(ROOT/'web/memory-card.js').read_text(encoding='utf-8'),
+        search_js=(ROOT/'web/journal-search.js').read_text(encoding='utf-8'),
+        merge_js=(ROOT/'web/archive-merge.js').read_text(encoding='utf-8'),
         insights_js=(ROOT/'web/journey-insights.js').read_text(encoding='utf-8'),
         app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
 

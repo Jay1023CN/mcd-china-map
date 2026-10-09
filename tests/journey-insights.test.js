@@ -72,6 +72,7 @@ test('an empty journal gives a gentle first-page prompt and no invented memory',
       {key: 'provinces-10', title: '10 个省份 / 地区', detail: '有记录时会在这里看到。', reached: false}
     ],
     memory: null,
+    foods: [],
     prompt: {title: '从第一站开始', detail: '选一顿你愿意记住的，不必补齐以前的每一餐。'}
   });
 });
@@ -129,4 +130,41 @@ test('milestones are capped at four and count distinct places rather than pages'
 test('input archive and dates are bounded', () => {
   assert.throws(() => JourneyInsights.build(archive(Array.from({length: 1001}, (_, index) => entry(String(index)))), {today}), /1000/);
   assert.throws(() => JourneyInsights.build(archive([]), {today: '2026-02-30'}), /calendar date/);
+});
+
+test('food insights exclude candidates, unconfirmed pages, overseas entries and future dates', () => {
+  const result = JourneyInsights.build(archive([
+    entry('valid', {foods: ['薯条']}),
+    entry('candidate', {source: 'mcp_candidate', confirmed: false, foods: ['麦辣鸡腿堡']}),
+    entry('draft', {confirmed: false, foods: ['麦旋风']}),
+    entry('overseas', {country_code: 'US', foods: ['Apple Pie']}),
+    entry('future', {date: '2026-10-10', foods: ['未来餐品']})
+  ]), {today});
+  assert.deepEqual(result.foods, [{name: '薯条', count: 1}]);
+  assert.doesNotMatch(JSON.stringify(result.foods), /candidate|future|Apple|id/);
+});
+
+test('food insights normalize names, count each item once per page, sort and cap at five', () => {
+  const result = JourneyInsights.build(archive([
+    entry('page-a', {foods: ['  薯条 ', '薯条', '  Ｃｏｆｆｅｅ   大杯 ', '派', '汉堡', '奶昔', '咖啡', 7]}),
+    entry('page-b', {date: '2026-10-07', foods: ['薯条', '咖啡', '派']}),
+    entry('page-c', {date: '2026-10-06', foods: ['咖啡', '汉堡']})
+  ]), {today});
+  assert.deepEqual(result.foods, [
+    {name: '咖啡', count: 3},
+    {name: '汉堡', count: 2},
+    {name: '派', count: 2},
+    {name: '薯条', count: 2},
+    {name: 'Coffee 大杯', count: 1}
+  ]);
+  assert.deepEqual(Object.keys(result.foods[0]).sort(), ['count', 'name']);
+  assert.ok(result.foods.every(item => item.name.length <= 100));
+});
+
+test('food insights are empty when there are no eligible records or food names', () => {
+  const result = JourneyInsights.build(archive([
+    entry('empty', {foods: []}),
+    entry('not-a-string', {date: '2026-10-07', foods: [null, 3, {}]})
+  ]), {today});
+  assert.deepEqual(result.foods, []);
 });

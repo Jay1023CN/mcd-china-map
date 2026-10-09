@@ -2,6 +2,7 @@
 """Create the reviewed Windows local package; never traverse personal data."""
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
+from project_version import VERSION
 
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_ROOT = "麦麦中国地图"
@@ -16,10 +17,13 @@ FILES = (
     "scripts/footprints.py", "scripts/store_enrichment.py", "web/global-journal.js", "web/journal-engine.js",
     "web/share-card.js", "web/journey-insights.js", "web/wishlist-engine.js", "web/memory-card.js",
     "scripts/store_photo_data.py", "tests/test_store_photo_data.py", "tests/memory-card.test.js", "tests/browser-memory.cjs",
+    "scripts/project_version.py",
+    "web/journal-search.js", "web/archive-merge.js", "tests/journal-search.test.js", "tests/archive-merge.test.js", "tests/browser-discovery.cjs",
     "templates/global-journal.html", "examples/china-journal.synthetic.json",
     "references/tools.md", "docs/SOURCES.md", "docs/MCP_TOOLS.md", "docs/VALIDATION.md",
     "docs/LOCAL_WINDOWS.md", "docs/REGISTRATION.md", "docs/DEVELOPMENT.md", "docs/PRODUCT-REVIEW.md",
     "docs/china-demo.html", "docs/china-preview.png", "docs/share-card-paper.png", "docs/share-card-red.png", "docs/memory-card-preview.png",
+    "docs/discovery-preview.png",
     "assets/global-title.png", "assets/global-passport.png", "assets/paper.png",
     "assets/data/china-provinces.json", "assets/data/china-cities.json",
     "assets/data/LICENSE-world.txt", "assets/data/CHINA-SOURCES.md", "assets/data/store-directory.json", "assets/data/STORE-SOURCES.md",
@@ -36,6 +40,8 @@ FILES = (
     "tests/wishlist-engine.test.js", "tests/browser-wishlist.cjs",
     "tests/test_local_connect.py", "tests/test_sync_orders.py", "tests/browser-connect.cjs",
     "assets/store-photos/chengdu-east-street.jpg", "assets/store-photos/beijing-shougang.jpg",
+    "assets/store-photos/shanghai-huaxu.jpg",
+    "assets/store-photos/guangzhou-tianzi.jpg", "assets/store-photos/shenzhen-guanghua.jpg",
     "docs/GROWTH.md", "docs/FEEDBACK.md", "docs/growth-assets/README.md",
     "docs/growth-assets/handdrawn-bigmac-project-v5.png", "docs/growth-assets/douyin-bigmac-v5.png",
 )
@@ -59,7 +65,7 @@ def reviewed_path(name):
 def main():
     # Check every source before creating the archive; no partial package.
     sources = [(name, reviewed_path(name).read_bytes()) for name in FILES]
-    output = ROOT / "packages/mcd-china-map-local-v0.6.0.zip"
+    output = ROOT / f"packages/mcd-china-map-local-v{VERSION}.zip"
     output.parent.mkdir(exist_ok=True)
     temporary = output.with_suffix(".zip.tmp")
     try:
