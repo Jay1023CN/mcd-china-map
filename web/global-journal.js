@@ -247,6 +247,7 @@
     const grid=$('wishlist-grid');grid.replaceChildren();
     for(const store of items) {
       const card=node('article',undefined,'entry-card');card.dataset.wishlistId=store.id;
+      const defaultPhoto=wishlistPhoto(store);if(defaultPhoto)card.append(photoNode({city:store.city,store:store.name,default_photo:defaultPhoto}));
       card.append(node('span',store.city || '下一站','date'),node('h3',store.name),node('p',store.address || '地址暂未提供','place'));
       const label=node('label','留一句想去的理由','wishlist-note');
       const note=node('textarea');note.maxLength=1000;note.value=store.note;note.placeholder='下次旅行、特别的建筑、约朋友一起去……';
@@ -256,13 +257,21 @@
         catch(error){toast('备注暂未保存，请缩短后再试。');}
       });label.append(note);card.append(label);
       const actions=node('div',undefined,'wishlist-actions');
-      const visit=node('button','到了，留一页打卡','secondary');visit.type='button';visit.addEventListener('click',()=>openStoreForm(store,store.id));
+      const visit=node('button','到了，留一页打卡','secondary');visit.type='button';visit.addEventListener('click',()=>openStoreForm((archive.wishlist || []).find(item=>item.id===store.id) || store,store.id));
+      const share=node('button','分享下一站','quiet');share.type='button';share.addEventListener('click',()=>{
+        const current=(archive.wishlist || []).find(item=>item.id===store.id) || store;
+        openShare({kind:'plan',date:'',city:current.city,store:current.name,foods:[],note:current.note,default_photo:wishlistPhoto(current)});
+      });
       const remove=node('button','移出清单','quiet');remove.type='button';remove.addEventListener('click',()=>{
         archive={...archive,wishlist:W.remove(archive.wishlist || [],store.id)};save();renderWishlist();toast('已移出想去清单。');
-      });actions.append(visit,remove);card.append(actions);grid.append(card);
+      });actions.append(visit,share,remove);card.append(actions);grid.append(card);
     }
     if(!items.length)grid.append(empty('把下一站先放在这里','查找附近门店，收藏想去。下次打开时，你的计划还在。'));
     renderInspiration();
+  }
+  function wishlistPhoto(store){
+    return data.stores.find(item=>item.city===store.city && [item.name,...(item.aliases || [])].includes(store.name))?.default_photo ||
+      archive.entries.find(item=>item.city===store.city && item.store===store.name && item.default_photo)?.default_photo || null;
   }
   function renderInspiration() {
     const grid=$('inspiration-grid');grid.replaceChildren();
@@ -645,7 +654,7 @@
   function shareText() {
     if(shareEntry) {
       const facts=window.MemoryCard.project(shareEntry,{title:$('share-title').value,includePlace:$('share-cities').checked,includeNote:$('share-note').checked});
-      return [facts.title,facts.date,$('share-cities').checked?[facts.city,facts.store].filter(Boolean).join(' · '):'',facts.foods.join(' · '),facts.note || '',
+      return [facts.title,shareEntry.kind==='plan'?'下一站计划 · 尚未打卡':facts.date,$('share-cities').checked?[facts.city,facts.store].filter(Boolean).join(' · '):'',facts.foods.join(' · '),facts.note || '',
         '用麦当劳，画出自己的中国足迹。','https://github.com/Jay1023CN/mcd-china-map'].filter(Boolean).join('\n');
     }
     const s=currentSummary;
@@ -666,12 +675,14 @@
   function openShare(entry=null) {
     if(!shareEntry)footprintTitle=$('share-title').value;
     shareEntry=entry;
-    $('share-heading').textContent=entry?'分享这一页探店记':'把中国足迹装进一张卡片';
-    $('share-description').textContent=entry?'照片、餐品和随记，装进一张自己的探店卡。预览满意后再分享。':'按当前筛选生成。选好配色，分享给朋友看看。';
-    $('share-title').value=entry?'一页麦麦探店记':footprintTitle;
+    const plan=entry?.kind==='plan';
+    $('share-heading').textContent=plan?'分享想去的下一站':entry?'分享这一页探店记':'把中国足迹装进一张卡片';
+    $('share-description').textContent=plan?'把想去的店和理由装进一张卡，邀请朋友一起出发。计划卡不会计入足迹。':entry?'照片、餐品和随记，装进一张自己的探店卡。预览满意后再分享。':'按当前筛选生成。选好配色，分享给朋友看看。';
+    $('share-title').value=plan?'下一站，想去这家':entry?'一页麦麦探店记':footprintTitle;
     $('share-place-label').textContent=entry?'显示城市和门店':'显示城市名称';
     $('share-cities').checked=!!entry;
     $('share-note-option').hidden=!entry;
+    $('share-note-label').textContent=plan?'带上想去的理由':'带上这一页随记';
     $('share-photo-option').hidden=!entry;
     $('share-note').checked=!!entry?.note && !entry.note.startsWith('中国大陆订单线索');
     $('share-copy-text').hidden=true;
@@ -682,6 +693,7 @@
     const revision=++shareRevision;$('save-share').disabled=true;$('native-share').disabled=true;$('copy-share-image').disabled=true;$('share-status').textContent='正在画出你的足迹……';
     try {
       const canvas=shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
+        kind:shareEntry.kind,
         includePlace:$('share-cities').checked,includeNote:$('share-note').checked,photoDataUrl:await sharePhoto(shareEntry),
         imageFit:$('share-photo-fit').value,photoCredit:shareEntry.photo?'旅行中的一页记录':shareEntry.default_photo?.attribution}):
         await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
@@ -689,7 +701,7 @@
       if(revision!==shareRevision || !$('share-dialog').open)return;
       const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       if(revision!==shareRevision || !$('share-dialog').open)return;
-      shareCanvas=canvas;shareFile=new File([blob],(shareEntry?'麦麦探店记-':'麦麦中国足迹-')+today()+'.png',{type:'image/png'});
+      shareCanvas=canvas;shareFile=new File([blob],(shareEntry?.kind==='plan'?'麦麦想去-':shareEntry?'麦麦探店记-':'麦麦中国足迹-')+today()+'.png',{type:'image/png'});
       const oldUrl=sharePreviewUrl;sharePreviewUrl=URL.createObjectURL(blob);
       const preview=node('img');preview.id='share-image';preview.alt='你的中国足迹分享卡预览';preview.src=sharePreviewUrl;
       $('share-preview').replaceChildren(preview);if(oldUrl)URL.revokeObjectURL(oldUrl);

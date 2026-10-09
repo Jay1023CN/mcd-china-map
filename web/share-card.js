@@ -119,6 +119,16 @@
     ctx.closePath();
   }
 
+  function drawFittedTitle(ctx, text, x, y, maxWidth, baseSize, minSize) {
+    var size = baseSize;
+    ctx.font = '900 ' + size + 'px ' + FONT;
+    while (size > minSize && ctx.measureText(text).width > maxWidth) {
+      size -= 1;
+      ctx.font = '900 ' + size + 'px ' + FONT;
+    }
+    ctx.fillText(text, x, y);
+  }
+
   function waitForFonts() {
     if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
       return document.fonts.ready.catch(function () {});
@@ -173,7 +183,7 @@
     ctx.fillStyle = palette.ink;
     ctx.font = '900 60px ' + FONT;
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(facts.title, 92, 220, 895);
+    drawFittedTitle(ctx, facts.title, 92, 220, 895, 60, 22);
     ctx.fillStyle = palette.muted;
     ctx.font = '400 24px ' + FONT;
     ctx.fillText('每一站，都是喜欢的味道。', 96, 270);

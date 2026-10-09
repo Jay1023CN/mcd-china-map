@@ -78,13 +78,20 @@
   function roundedTag(ctx, text, x, y, palette) {
     ctx.font = '600 21px ' + FONT;
     var width = Math.min(235, Math.max(82, ctx.measureText(text).width + 34));
+    var maxTextWidth = width - 34;
+    var displayText = text;
+    if (ctx.measureText(displayText).width > maxTextWidth) {
+      var chars = Array.from(displayText);
+      while (chars.length && ctx.measureText(chars.join('') + '…').width > maxTextWidth) chars.pop();
+      displayText = chars.join('') + '…';
+    }
     roundedRect(ctx, x, y, width, 44, 18);
     ctx.fillStyle = palette.tag;
     ctx.fill();
     ctx.fillStyle = palette.tagInk;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(text, x + width / 2, y + 23, width - 20);
+    ctx.fillText(displayText, x + width / 2, y + 23);
     ctx.textAlign = 'left';
     return width;
   }
@@ -159,6 +166,16 @@
     ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h);
   }
 
+  function drawFittedTitle(ctx, text, x, y, maxWidth, baseSize, minSize) {
+    var size = baseSize;
+    ctx.font = '900 ' + size + 'px ' + FONT;
+    while (size > minSize && ctx.measureText(text).width > maxWidth) {
+      size -= 1;
+      ctx.font = '900 ' + size + 'px ' + FONT;
+    }
+    ctx.fillText(text, x, y);
+  }
+
   async function render(entry, options) {
     options = options && typeof options === 'object' ? options : {};
     var facts = project(entry, options);
@@ -196,16 +213,16 @@
     ctx.fillStyle = palette.muted;
     ctx.font = '600 19px ' + FONT;
     ctx.textAlign = 'right';
-    ctx.fillText(facts.date || '一页探店日记', 988, 111, 420);
+    ctx.fillText(options.kind==='plan'?'下一站计划 · 尚未打卡':facts.date || '一页探店日记', 988, 111, 420);
     ctx.textAlign = 'left';
 
     ctx.fillStyle = palette.ink;
     ctx.font = '900 61px ' + FONT;
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(facts.title, 94, 235, 890);
+    drawFittedTitle(ctx, facts.title, 94, 235, 890, 61, 20);
     ctx.fillStyle = palette.muted;
     ctx.font = '400 25px ' + FONT;
-    ctx.fillText('把喜欢的味道，记在路上。', 98, 284);
+    ctx.fillText(options.kind==='plan'?'把想去的那家，先放进旅程。':'把喜欢的味道，记在路上。', 98, 284);
     ctx.strokeStyle = palette.line;
     ctx.lineWidth = 2;
     ctx.beginPath();

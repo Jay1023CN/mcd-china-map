@@ -54,5 +54,6 @@ jobs:
           node tests/browser-connect.cjs
           node tests/browser-memory.cjs
           node tests/browser-discovery.cjs
+          node tests/browser-plan-share.cjs
       - name: Verify distribution whitelist
         run: python scripts/package_skill.py

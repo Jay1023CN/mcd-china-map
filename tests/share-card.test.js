@@ -58,20 +58,32 @@ test('province and city labels have display caps and only retain aggregate field
 test('render returns a full-size canvas and draws an invitation for an empty summary', async () => {
   const oldDocument = global.document;
   const drawnText = [];
+  const textCalls = [];
   const ctx = {
     fillRect() {}, beginPath() {}, moveTo() {}, arcTo() {}, closePath() {}, fill() {}, stroke() {},
-    fillText(text) { drawnText.push(String(text)); }, save() {}, restore() {}, rect() {}, clip() {}, lineTo() {},
-    measureText(text) { return {width: String(text).length * 10}; }
+    fillText(...args) { drawnText.push(String(args[0])); textCalls.push({text: String(args[0]), args, font: this.font}); },
+    save() {}, restore() {}, rect() {}, clip() {}, lineTo() {},
+    measureText(text) {
+      const size = Number((this.font || '').match(/(\d+)px/)?.[1] || 10);
+      return {width: Array.from(String(text)).length * size};
+    }
   };
   const canvas = {width: 0, height: 0, getContext() { return ctx; }};
   global.document = {createElement(name) { assert.equal(name, 'canvas'); return canvas; }};
   try {
     const rendered = await ShareCard.render({confirmedCount: 0, distinctProvinces: 0, distinctCities: 0,
-      distinctStores: 0, provinces: [], cities: [], entries: []}, {provinces: {type: 'FeatureCollection', features: []}});
+      distinctStores: 0, provinces: [], cities: [], entries: []}, {
+      title: '旅行中的长标题'.repeat(5), provinces: {type: 'FeatureCollection', features: []}
+    });
     assert.equal(rendered, canvas);
     assert.equal(canvas.width, 1080);
     assert.equal(canvas.height, 1440);
     assert.ok(drawnText.some(text => text.includes('第一家麦当劳')));
+    const title = textCalls.find(call => call.text === '旅行中的长标题'.repeat(5));
+    assert.ok(title);
+    assert.equal(title.args.length, 3);
+    assert.ok(Number(title.font.match(/(\d+)px/)[1]) < 60);
+    assert.ok(ctx.measureText(title.text).width <= 895);
   } finally {
     if (oldDocument === undefined) delete global.document;
     else global.document = oldDocument;

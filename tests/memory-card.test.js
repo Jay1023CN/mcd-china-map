@@ -7,12 +7,16 @@ const MemoryCard = require('../web/memory-card.js');
 function makeMockContext() {
   const texts = [];
   const draws = [];
+  const textCalls = [];
   return {
-    texts, draws,
+    texts, draws, textCalls,
     fillRect() {}, beginPath() {}, moveTo() {}, arcTo() {}, closePath() {}, fill() {}, stroke() {},
-    fillText(text) { texts.push(String(text)); }, save() {}, restore() {}, lineTo() {},
+    fillText(...args) { texts.push(String(args[0])); textCalls.push({text: String(args[0]), args, font: this.font}); }, save() {}, restore() {}, lineTo() {},
     bezierCurveTo() {}, arc() {}, setLineDash() {}, drawImage(...args) { draws.push(args); },
-    measureText(text) { return {width: Array.from(String(text)).length * 12}; }
+    measureText(text) {
+      const size = Number((this.font || '').match(/(\d+)px/)?.[1] || 12);
+      return {width: Array.from(String(text)).length * size};
+    }
   };
 }
 
@@ -103,4 +107,38 @@ test('invalid external photo and image load failure both use illustration fallba
   assert.equal(imageConstructed, 1);
   assert.equal(ctx.draws.length, 0);
   assert.ok(ctx.texts.filter(text => text === '在地图上，记下一站喜欢').length >= 2);
+});
+
+test('plan cards keep the plan label and subtitle despite an entry date and custom title', async t => {
+  const {ctx} = withCanvas(t);
+  const oldImage = global.Image;
+  delete global.Image;
+  t.after(() => { if (oldImage === undefined) delete global.Image; else global.Image = oldImage; });
+
+  await MemoryCard.render({date: '2026-10-10', title: '自定义标题'}, {
+    kind: 'plan', title: '自定义标题'
+  });
+  assert.ok(ctx.texts.includes('下一站计划 · 尚未打卡'));
+  assert.ok(ctx.texts.includes('把想去的那家，先放进旅程。'));
+  assert.ok(ctx.texts.includes('自定义标题'));
+  assert.ok(ctx.texts.includes('在地图上，记下一站喜欢'));
+  assert.ok(!ctx.texts.includes('2026-10-10'));
+});
+
+test('long memory-card title shrinks naturally and long food labels ellipsize without canvas compression', async t => {
+  const {ctx} = withCanvas(t);
+  const oldImage = global.Image;
+  delete global.Image;
+  t.after(() => { if (oldImage === undefined) delete global.Image; else global.Image = oldImage; });
+
+  await MemoryCard.render({foods: ['超长餐品名称'.repeat(4)]}, {title: '长标题'.repeat(14)});
+  const title = ctx.textCalls.find(call => call.text === '长标题'.repeat(14));
+  assert.ok(title);
+  assert.equal(title.args.length, 3);
+  assert.ok(Number(title.font.match(/(\d+)px/)[1]) < 61);
+  assert.ok(ctx.measureText(title.text).width <= 890);
+  const food = ctx.textCalls.find(call => call.text.endsWith('…'));
+  assert.ok(food);
+  assert.equal(food.args.length, 3);
+  assert.ok(ctx.measureText(food.text).width <= 201);
 });

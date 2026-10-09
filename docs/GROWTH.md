@@ -85,7 +85,7 @@
 这是我参加麦当劳程序员节创意开发大赛的作品，已成功参赛。欢迎来 GitHub 看看，喜欢的话帮忙点个 Star，也想听听你会把这张卡分享给谁！
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
-体验下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
+体验下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest
 参赛申请：https://github.com/M-China/mcd-developer-innovation-challenge/issues/139
 
 #麦当劳 #麦门 #麦麦中国地图 #年度回忆 #城市足迹 #开源项目
@@ -94,11 +94,11 @@
 
 ## 给想体验的人｜直接复制这段
 
-想试的话，用 Windows 电脑打开下面的下载页，下载 `mcd-china-map-local-v0.6.0.zip`，解压后双击文件夹里的 `启动.cmd`。
+想试的话，用 Windows 电脑打开下面的下载页，下载完整 ZIP 体验包，解压后双击文件夹里的 `启动.cmd`。
 
 浏览器打开后，点“新增打卡”，填一家自己去过的店，放上餐品、照片或一句随手记，就能留下第一枚足迹。手动记录不用先接入订单；保持启动窗口打开，用完记得导出备份。
 
-下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
+下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest
 
 群帖／小红书／抖音正文末尾可加一句：**Windows 电脑下载完整 ZIP，解压后双击「启动.cmd」，先记下你的第一顿麦。** 仓库链接负责介绍项目，这句和下载链接负责让人真正开始使用。
 
@@ -110,12 +110,15 @@
 
 | 对方问 | 直接回复 |
 | --- | --- |
-| 在哪里下载、怎么玩？ | 用 Windows 电脑打开下载页，下载完整 ZIP，解压后双击「启动.cmd」。浏览器里点“新增打卡”，填一家去过的店就能开始。下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0 |
+| 在哪里下载、怎么玩？ | 用 Windows 电脑打开下载页，下载完整 ZIP，解压后双击「启动.cmd」。浏览器里点“新增打卡”，填一家去过的店就能开始。下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest |
 | 手机能用吗？ | 这版先用 Windows 电脑打开。记好以后可以生成足迹图片，放到手机上分享给朋友。 |
 | 必须放照片吗？ | 不用，先写门店、餐品或者一句随手记也可以。有喜欢的照片再补进去。 |
 | 能分享某一家店的记录吗？ | 可以，v0.6.0 能把一页记录做成探店卡，放照片、餐品和随手记，选择是否展示城市和门店。电脑可以复制图片，再粘贴到聊天里发送。 |
 | 能从订单整理记录吗？ | 可以。电脑有 Python 3.10+ 时，打开后点“连接麦当劳”，用自己申请的官方 MCP Token 连接，再点“同步我的订单”，订单卡就会显示出来。核对本人到店后再记成足迹；也可以先手动记第一条。 |
-| 能先记下想去的店吗？ | 可以，电脑有 Python 3.10+ 时，在页面连接自己的官方 MCP，查询附近门店后点“收藏想去”，还能留一句理由。到了之后再把它写成打卡。 |
+| 能先记下想去的店吗？ | 可以，打开“想去清单”，五家内置特色店可以直接看照片、收藏并留理由，不用 Token。查询附近更多门店时，电脑有 Python 3.10+，再连接自己的官方 MCP。真正到了再写成打卡。 |
+| 记录多了怎么找？ | 搜城市、门店、餐品或随手记，也可以组合几个词；点常吃的餐品能查看相关记录。 |
+| 再去同一家，要重新填吗？ | 打开旧记录点“再来这家”，门店和上次餐品会带进新表单，填这次的照片和随手记后保存。 |
+| 遇到问题怎么反馈？ | 页面底部有体验反馈入口和版本号，告诉我哪一步卡住、看到什么提示即可；不用发订单或 Token。 |
 | 记录放在哪里？ | 留在你当前电脑的浏览器里。点“导出备份”就能把记录和照片保存下来，换浏览器或设备时再导入。 |
 | 地图上是门店精确位置吗？ | 地图主要串起你的城市足迹，点位使用城市参考位置；查询门店时可以看具体店名和地址。 |
 | 怎么支持项目？ | 来 GitHub 看看，喜欢就点个 Star；如果用起来有哪一步不顺，也欢迎直接告诉我。仓库：https://github.com/Jay1023CN/mcd-china-map |
@@ -129,7 +132,7 @@
 「麦麦中国地图」新增想去清单：查询附近门店时，把想去的那家先收藏，再留一句理由。到了以后，门店和城市可以直接带进打卡表单，把“下一站”变成自己的城市记忆。
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
-Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
+Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest
 
 门店查询体验步骤单独回复给需要的人：电脑有 Python 3.10+ 时，运行「启动.cmd」，在页面点“连接麦当劳”，使用自己从官方申请的 MCP Token。普通手账同样用「启动.cmd」就能开始，订单与门店查询是可选进阶路径。原终端脚本仍可使用，但不再作为新用户的优先说明。
 
@@ -142,7 +145,7 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
 这是我参加麦当劳程序员节创意开发大赛的作品，已成功参赛。想试的朋友用 Windows 电脑下载完整包、解压后双击「启动.cmd」；手动记录直接开始，从订单同步需要电脑有 Python 3.10+。喜欢的话欢迎来 GitHub 点个 Star，也告诉我第一条记录哪里顺、哪里卡！
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
-下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
+下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0
 
 #麦当劳 #麦门 #麦麦中国地图 #城市足迹 #开源项目
 
@@ -178,6 +181,31 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
 
 配图：[首钢园公开探店卡示例](memory-card-preview.png)。图片来自主开发指定的官网公开照片，随手记和日期为示例，不从私人订单取材。复制图片不当作已发送微信／QQ 消息。
 
+## v0.7.0 更新帖｜下一家想去的麦当劳
+
+2026-10-10：v0.7.0 已公开发布，完整 ZIP 附件已上传，下面可作为正式更新稿使用。
+
+**标题：下次旅行，顺路去这家麦当劳**
+
+我给「麦麦中国地图」加了一份下一站灵感：上海华旭、成都东大街、北京首钢园、广州天字码头、深圳光华，五家各有意思的麦当劳。
+
+现在可以直接看这些公开门店的照片，把想去的那家先收藏，留一句理由。这一步不用连接 Token，照片也能离线看。真正到了，再把这一餐写成自己的足迹。
+
+以前记过的一餐，也更容易找回来：搜城市、门店、餐品或者随手记；点一下常吃的餐品，翻翻相关回忆。又去了同一家？点“再来这家”，门店和上次餐品带入新一页，再换上这次的照片和随手记。
+
+这是我参加麦当劳程序员节创意开发大赛的作品。新版已经可以下载，给麦门朋友们看看，你最想把哪家店放进下一站？
+
+项目仓库：https://github.com/Jay1023CN/mcd-china-map
+参赛申请：https://github.com/M-China/mcd-developer-innovation-challenge/issues/139
+
+#麦当劳 #麦门 #麦麦中国地图 #特色麦当劳 #旅行手账 #开源项目
+
+下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.7.0
+
+配图：[五家公开门店灵感预览](discovery-preview.png)。主开发提供，照片与资料出处在画面中保留；可搭配手绘主图作为第二张产品实图。
+
+相关短回复已放入上方通用 FAQ，下载入口仍用 `/releases/latest`。
+
 ## 首轮体验与后续迭代
 
 先从愿意记录一餐的麦门朋友开始，计划邀请 8–12 位 Windows 使用者，每人约 10 分钟。做第一条记录、地图找回与备份，用 [FEEDBACK.md](FEEDBACK.md) 的问题收集真实卡点和再次记录的理由。人数是计划，未收集反馈时不写好评或增长结果。
@@ -193,6 +221,10 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0
 2026-10-10 已核对 [v0.5.0 Release](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.5.0) 与 ZIP 附件状态为 uploaded。主开发确认 CI 和对应真实页面连接、同步、城市／省份与照片路径通过；本对话不重复整套测试、不读取私人订单。当前页面连接／更换／断开 Token、同连接同步并直接载入候选已可宣传。普通手动记录不需要 Python；页面官方 MCP 功能需要 Python 3.10+，因此文案不能省掉这一接入条件。
 
 2026-10-10 已核对 [v0.6.0 Release](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.6.0) 及 ZIP 附件 state=uploaded。单篇探店卡、复制 PNG、照片全图／裁切和可选城市／门店已公开提供；主开发报告对应本地验收及 CI 成功，本对话未重复测试。下一项无需 Token 的特色店灵感仍在开发，不称为已发布功能；默认门店照片与本人上传仍在本机处理，GitHub 仅用公共示例。
+
+2026-10-10 已核对 [v0.7.0 Release](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.7.0) 非草稿，`mcd-china-map-local-v0.7.0.zip` 附件 state=uploaded。五家特色店照片内嵌且可离线查看、无需 Token 收藏、多词搜索、餐品回忆入口、“再来这家”、跨窗口保存合并、候选升级恢复与页脚反馈入口已入公开包。主开发报告目标 commit `f5692f7`、CI `37962639247` 成功；本对话仅核对公开发行与预览，没有重跑包测试。通用下载回复统一用 `/releases/latest`；历史版本更新帖保留对应版本链接。
+
+下一版“分享下一站”想去计划卡已由主开发完成实现，含公开门店照片与想去理由，卡片明确标示计划，并提供复制 PNG／系统分享入口；尚未发包，当前 FAQ 与更新帖不写成已发布能力，待公开发行后再对齐。
 
 | 宣传承诺 | 当前对应路径 | 已确认的依据 |
 | --- | --- | --- |
