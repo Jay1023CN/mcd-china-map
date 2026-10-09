@@ -4,23 +4,23 @@ from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 ROOT = Path(__file__).resolve().parents[1]
-ARCHIVE_ROOT = "麦麦世界护照"
+ARCHIVE_ROOT = "麦麦中国地图"
 FILES = (
-    "index.html", "启动.cmd", "同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
+    "index.html", "启动.cmd", "启动门店查询.cmd", "同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
     "LICENSE", "CONTEST_DECLARATION.md", "MCP_INTEGRATION.md",
     "mcp-config.example.json",
-    "scripts/serve-local.ps1", "scripts/package_skill.py",
+    "scripts/serve-local.ps1", "scripts/local_api.py", "scripts/package_skill.py",
     "scripts/build_global_journal.py", "scripts/visual_assets.py",
     "scripts/mcp_readonly.py", "scripts/connect_mcp.py",
     "scripts/import_mcp_footprints.py", "scripts/sync_footprints.py",
     "scripts/footprints.py", "web/global-journal.js", "web/journal-engine.js",
-    "templates/global-journal.html", "examples/global-journal.synthetic.json",
+    "templates/global-journal.html", "examples/china-journal.synthetic.json",
     "references/tools.md", "docs/SOURCES.md", "docs/MCP_TOOLS.md", "docs/VALIDATION.md",
     "docs/LOCAL_WINDOWS.md", "docs/REGISTRATION.md",
-    "docs/global-demo.html", "docs/global-preview.png",
+    "docs/china-demo.html", "docs/china-preview.png",
     "assets/global-title.png", "assets/global-passport.png", "assets/paper.png",
-    "assets/data/world-land.json", "assets/data/countries.json",
-    "assets/data/cities.json", "assets/data/LICENSE-world.txt",
+    "assets/data/china-provinces.json", "assets/data/china-cities.json",
+    "assets/data/LICENSE-world.txt", "assets/data/CHINA-SOURCES.md",
     "assets/fonts/source.css", "assets/fonts/dm-mono-source.css",
     "assets/fonts/noto-display-0.ttf", "assets/fonts/noto-display-1.ttf",
     "assets/fonts/noto-display-2.ttf", "assets/fonts/noto-display-3.ttf",
@@ -51,7 +51,7 @@ def reviewed_path(name):
 def main():
     # Check every source before creating the archive; no partial package.
     sources = [(name, reviewed_path(name).read_bytes()) for name in FILES]
-    output = ROOT / "packages/mcd-world-passport-local-v0.1.2.zip"
+    output = ROOT / "packages/mcd-china-map-local-v0.2.0.zip"
     output.parent.mkdir(exist_ok=True)
     temporary = output.with_suffix(".zip.tmp")
     try:

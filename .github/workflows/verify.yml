@@ -1,4 +1,4 @@
-name: Verify passport
+name: Verify China map
 on:
   push:
   pull_request:
@@ -23,8 +23,8 @@ jobs:
       - name: Rebuild public pages
         run: |
           python scripts/build_global_journal.py --output index.html
-          python scripts/build_global_journal.py --archive examples/global-journal.synthetic.json --output docs/global-demo.html
-          git diff --exit-code -- index.html docs/global-demo.html
+          python scripts/build_global_journal.py --archive examples/china-journal.synthetic.json --output docs/china-demo.html
+          git diff --exit-code -- index.html docs/china-demo.html
       - name: Install test browser
         run: |
           npm install --no-save --package-lock=false playwright@1.62.1

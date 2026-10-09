@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "data_kind": "synthetic",
+  "entries": [
+    {
+      "id": "china-demo-0",
+      "date": "2026-10-01",
+      "country_code": "CN",
+      "province_code": "110000",
+      "city": "北京",
+      "store": "北京街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 39.90172,
+        "lon": 116.394201,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-1",
+      "date": "2026-10-02",
+      "country_code": "CN",
+      "province_code": "310000",
+      "city": "上海",
+      "store": "上海街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 31.218398,
+        "lon": 121.434559,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-2",
+      "date": "2026-10-03",
+      "country_code": "CN",
+      "province_code": "440000",
+      "city": "广州",
+      "store": "广州街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 23.124723,
+        "lon": 113.261785,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-3",
+      "date": "2026-10-04",
+      "country_code": "CN",
+      "province_code": "510000",
+      "city": "成都",
+      "store": "成都街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 30.671946,
+        "lon": 104.068074,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-4",
+      "date": "2026-10-05",
+      "country_code": "CN",
+      "province_code": "440000",
+      "city": "深圳",
+      "store": "深圳街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 22.548097,
+        "lon": 114.061154,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-5",
+      "date": "2026-10-06",
+      "country_code": "CN",
+      "province_code": "330000",
+      "city": "杭州",
+      "store": "杭州街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 30.25192,
+        "lon": 120.168073,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-6",
+      "date": "2026-10-07",
+      "country_code": "CN",
+      "province_code": "320000",
+      "city": "南京",
+      "store": "南京街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 32.051965,
+        "lon": 118.778029,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-7",
+      "date": "2026-10-08",
+      "country_code": "CN",
+      "province_code": "420000",
+      "city": "武汉",
+      "store": "武汉街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 30.581977,
+        "lon": 114.268071,
+        "precision": "city"
+      }
+    },
+    {
+      "id": "china-demo-8",
+      "date": "2026-10-09",
+      "country_code": "CN",
+      "province_code": "610000",
+      "city": "西安",
+      "store": "西安街角店 · 虚构",
+      "foods": [
+        "咖啡",
+        "薯条"
+      ],
+      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "source": "manual",
+      "confirmed": true,
+      "location": {
+        "lat": 34.276971,
+        "lon": 108.89305,
+        "precision": "city"
+      }
+    }
+  ]
+}

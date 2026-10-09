@@ -3,7 +3,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const E = require('../web/journal-engine.js');
 const options = {today: '2026-10-09'};
-const entry = (changes = {}) => ({id: 'visit-1', date: '2026-10-08', country_code: 'CN', city: '上海', store: '示例门店', foods: ['咖啡'], source: 'manual', confirmed: true, ...changes});
+const entry = (changes = {}) => ({id: 'visit-1', date: '2026-10-08', country_code: 'CN', province_code: '310000', city: '上海', store: '示例门店', foods: ['咖啡'], source: 'manual', confirmed: true, ...changes});
 const archive = entries => ({version: 1, data_kind: 'manual', entries});
 
 test('rejects impossible dates, future visits and invalid countries', () => {
@@ -25,16 +25,24 @@ test('confirmed China candidates retain origin and cannot become overseas MCP vi
   assert.throws(() => E.normalizeEntry(entry({origin: 'mcp', country_code: 'JP'}), options));
 });
 test('store identities normalize case, full width characters and spaces', () => {
-  const result = E.summarize(archive([entry({store: ' ＡＢＣ  店 '}), entry({id: 'visit-2', store: 'abc 店'}), entry({id: 'visit-3', country_code: 'JP'})]), options);
+  const result = E.summarize(archive([entry({store: ' ＡＢＣ  店 '}), entry({id: 'visit-2', store: 'abc 店'}), entry({id: 'visit-3', province_code: '110000', city: '北京'})]), options);
   assert.equal(result.confirmedCount, 3);
   assert.equal(result.distinctStores, 2);
-  assert.equal(result.distinctCountries, 2);
+  assert.equal(result.distinctProvinces, 2);
   assert.equal(result.foods[0].count, 3);
 });
-test('year and country filters affect candidate and visit counts consistently', () => {
-  const result = E.summarize(archive([entry(), entry({id: 'old', date: '2025-03-01'}), entry({id: 'japan', country_code: 'JP'}), entry({id: 'candidate', source: 'mcp_candidate', confirmed: false})]), {...options, year: '2026', country_code: 'CN'});
+test('year and province filters affect candidate and visit counts consistently', () => {
+  const result = E.summarize(archive([entry(), entry({id: 'old', date: '2025-03-01'}), entry({id: 'beijing', province_code: '110000', city: '北京'}), entry({id: 'candidate', source: 'mcp_candidate', confirmed: false})]), {...options, year: '2026', province_code: '310000'});
   assert.equal(result.confirmedCount, 1);
   assert.equal(result.candidateCount, 1);
+});
+test('China scope and official store references preserve required fields', () => {
+  assert.throws(() => E.normalizeEntry(entry({country_code:'JP'}),options));
+  assert.throws(() => E.normalizeEntry(entry({province_code:'999999'}),options));
+  assert.throws(() => E.normalizeEntry(entry({province_code:'810000',origin:'mcp'}),options));
+  const clean=E.normalizeEntry(entry({store_reference:{source:'mcp_nearby',code:'fixture-store',address:'虚构地址',token:'secret'}}),options);
+  assert.deepEqual(clean.store_reference,{source:'mcp_nearby',code:'fixture-store',address:'虚构地址'});
+  assert.equal(E.summarize(archive([entry({province_code:undefined})]),options).confirmedCount,1);
 });
 test('archive strips private fields and preserves photos, notes and location', () => {
   const clean = E.normalizeArchive(archive([entry({token: 'fixture-secret', orderId: 'private-reference', phone: 'fixture-phone', note: '手账', location: {lat: 31, lon: 121, precision: 'city', secret: true}, photo: {data_url: 'data:image/png;base64,YQ==', secret: true}})]), options);

@@ -5,13 +5,19 @@
   const $ = id => document.getElementById(id);
   const names = new Map(data.countries.map(c => [c.code, c.name]));
   const countryName = code => names.get(code) || code;
+  const provinces = data.provinces.features.filter(f => typeof f.properties.adcode === 'number');
+  const provinceNames = new Map(provinces.map(f => [String(f.properties.adcode), f.properties.name]));
+  const provinceName = code => provinceNames.get(code) || '待补充省份';
+  const placeName = entry => provinceName(entry.province_code) + ' · ' + entry.city;
+  let mapRegions = [];
+  let selectedStore = null;
   const today = () => {
     const d = new Date();
     return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
   };
   const opts = () => ({today: today(), countries: data.countries});
-  const personalKey = 'mcd-world-passport-personal-v1';
-  const demoKey = 'mcd-world-passport-demo-v1';
+  const personalKey = 'mcd-china-map-personal-v1';
+  const demoKey = 'mcd-china-map-demo-v1';
   let key = data.archive.data_kind === 'synthetic' ? demoKey : personalKey;
   let archive = E.normalizeArchive(data.archive, opts());
   let persistent = false;
@@ -53,7 +59,15 @@
     }
   }
   try {
-    const stored = localStorage.getItem(key);
+    let stored = localStorage.getItem(key);
+    if (!stored && key === personalKey) {
+      const legacy = localStorage.getItem('mcd-world-passport-personal-v1');
+      if (legacy) {
+        const old = JSON.parse(legacy);
+        if (old.entries?.every(e => e.country_code === 'CN')) stored = legacy;
+        else toast('旧版手账仍保留。中国地图请导入中国记录的备份。');
+      }
+    }
     if (stored) {
       const prior = E.normalizeArchive(JSON.parse(stored), opts());
       if ((key === demoKey) !== (prior.data_kind === 'synthetic')) throw new Error('archive storage kind mismatch');
@@ -109,27 +123,26 @@
 
   function refillFilters() {
     const year = $('year-filter').value;
-    const country = $('country-filter').value;
     const years = [...new Set(archive.entries.map(e => e.date.slice(0, 4)))].sort().reverse();
     $('year-filter').replaceChildren(new Option('全部年份', ''), ...years.map(y => new Option(y + ' 年', y)));
     $('year-filter').value = years.includes(year) ? year : '';
-    const codes = [...new Set(archive.entries.map(e => e.country_code))].sort((a,b) => countryName(a).localeCompare(countryName(b), 'zh'));
-    $('country-filter').replaceChildren(new Option('全部国家 / 地区', ''), ...codes.map(c => new Option(countryName(c), c)));
-    $('country-filter').value = codes.includes(country) ? country : '';
+    const province = $('country-filter').value;
+    $('country-filter').replaceChildren(new Option('全部省份 / 地区', ''), ...provinces.map(f => new Option(f.properties.name, String(f.properties.adcode))));
+    $('country-filter').value = province;
   }
   function render() {
     refillFilters();
-    currentSummary = E.summarize(archive, {...opts(), year: $('year-filter').value, country_code: $('country-filter').value});
+    currentSummary = E.summarize(archive, {...opts(), year: $('year-filter').value, province_code: $('country-filter').value});
     const s = currentSummary;
     $('count-visits').textContent = s.confirmedCount;
-    $('count-countries').textContent = s.distinctCountries;
+    $('count-countries').textContent = s.distinctProvinces;
     $('count-cities').textContent = s.distinctCities;
     $('count-stores').textContent = s.distinctStores;
     $('candidate-count').textContent = s.candidateCount;
     $('save-status').textContent = persistent ? '已保存在本浏览器 · 导出备份可换设备' : '当前在本页内使用 · 请导出备份';
     $('mode-description').textContent = archive.data_kind === 'synthetic'
       ? '示例手账：下方门店、旅行和餐品记录均为虚构，地图点只示意城市中心，不是你的记录。'
-      : '个人手账：只统计你确认的本人打卡。中国大陆订单是待确认线索，全球其他地区由你手动记录。';
+      : '写下你的中国探店足迹。确认本人到店后，记录就会点亮所在省份。';
     $('start-personal').hidden = archive.data_kind !== 'synthetic';
     renderPassport(s);
     renderRecent(s);
@@ -143,20 +156,20 @@
   }
   function renderPassport(s) {
     const grid = $('passport-grid'); grid.replaceChildren();
-    for (const country of s.countries) {
+    for (const province of s.provinces) {
       const stamp = node('button', undefined, 'stamp'); stamp.type = 'button';
-      stamp.append(node('b', country.country_code), node('strong', countryName(country.country_code)), node('small', `${country.count} 页 · ${country.cityCount} 城市`));
-      stamp.setAttribute('aria-label', `筛选${countryName(country.country_code)}的打卡`);
-      stamp.addEventListener('click', () => { $('country-filter').value = country.country_code; render(); });
+      stamp.append(node('b', provinceName(province.province_code)), node('strong', province.count + ' 页足迹'), node('small', '从一顿麦当劳开始'));
+      stamp.setAttribute('aria-label', '筛选' + provinceName(province.province_code) + '的打卡');
+      stamp.addEventListener('click', () => { $('country-filter').value = province.province_code; render(); });
       grid.append(stamp);
     }
-    if (!s.countries.length) grid.append(empty('第一枚印章，等你来盖', '新增并确认一条本人打卡，就会留下国家 / 地区印章。'));
+    if (!s.provinces.length) grid.append(empty('第一枚足迹，等你来点亮', '写下一条本人打卡，选择省份，开启你的中国地图。'));
   }
   function renderRecent(s) {
     $('recent-list').replaceChildren();
     for (const entry of s.entries.slice(0, 3)) {
       const row = node('li'); const button = node('button'); button.type = 'button';
-      button.append(node('strong', entry.store), node('small', `${entry.date} / ${countryName(entry.country_code)} · ${entry.city}`));
+      button.append(node('strong', entry.store), node('small', `${entry.date} / ${placeName(entry)}`));
       button.addEventListener('click', () => openDetail(entry)); row.append(button); $('recent-list').append(row);
     }
     if (!s.entries.length) $('recent-list').append(empty('从一家麦当劳开始', '记录一顿早餐、一张纸袋，或旅行途中熟悉的味道。'));
@@ -179,7 +192,7 @@
       const card = node('article', undefined, 'entry-card');
       card.append(node('span', entry.date, 'date'));
       if (entry.photo) card.append(photoNode(entry));
-      card.append(node('h3', entry.store), node('p', `${countryName(entry.country_code)} / ${entry.city}`, 'place'), foodTags(entry));
+      card.append(node('h3', entry.store), node('p', `${placeName(entry)}`, 'place'), foodTags(entry));
       if (entry.note) card.append(node('p', entry.note, 'note'));
       card.append(node('p', entry.origin === 'mcp' ? '中国订单线索 → 本人确认到店' : '本人手动记录', 'origin'));
       const actions = node('div', undefined, 'entry-buttons');
@@ -199,72 +212,85 @@
       const skip = node('button', '不计这条线索', 'quiet'); skip.type = 'button'; skip.style.marginTop = '8px'; skip.style.width = '100%'; skip.addEventListener('click', () => removeEntry(entry));
       card.append(confirm, skip); grid.append(card);
     }
-    if (!s.candidateEntries.length) grid.append(empty('没有待确认的订单线索', '可导入中国大陆的规范化 MCP 订单文件；海外旅行用“新增打卡”记录。'));
+    if (!s.candidateEntries.length) grid.append(empty('没有待确认的订单线索', '可导入中国大陆的规范化 MCP 订单文件；也可以用“新增打卡”手动记录。'));
   }
 
   function drawMap() {
-    const canvas = $('world-map');
-    const width = Math.max(1, canvas.clientWidth);
-    const height = width / 2;
+    const canvas = $('world-map'), width = Math.max(1, canvas.clientWidth), height = width / 1.4;
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
     const ctx = canvas.getContext('2d'); ctx.scale(ratio, ratio);
-    const xy = (lon,lat) => [(lon + 180) / 360 * width, (90 - lat) / 180 * height];
-    ctx.fillStyle = '#f3eddb'; ctx.fillRect(0,0,width,height);
-    ctx.fillStyle = '#dfd6bb'; ctx.strokeStyle = '#b8a985'; ctx.lineWidth = .6;
-    for (const feature of data.land.features) {
-      const geometry = feature.geometry;
+    ctx.fillStyle = '#f3eddb'; ctx.fillRect(0, 0, width, height);
+    const xy = (lon, lat) => [(lon - 72) / 64 * width, (55 - lat) / 38 * height];
+    const visited = new Set(currentSummary.provinces.map(p => p.province_code));
+    function outline(feature, project) {
+      const geometry = feature.geometry, path = new Path2D();
       const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
-      for (const polygon of polygons) {
-        ctx.beginPath();
-        for (const ring of polygon) {
-          let previous = null;
-          ring.forEach((coordinate,i) => {
-            const point = xy(coordinate[0],coordinate[1]);
-            if (i===0 || (previous && Math.abs(previous[0]-coordinate[0])>180)) ctx.moveTo(...point); else ctx.lineTo(...point);
-            previous = coordinate;
-          });
-          ctx.closePath();
-        }
-        ctx.fill('evenodd'); ctx.stroke();
+      for (const polygon of polygons) for (const ring of polygon) {
+        ring.forEach((coordinate, i) => { const point = project(...coordinate); if (i) path.lineTo(...point); else path.moveTo(...point); });
+        path.closePath();
       }
+      return path;
     }
-    mapPoints=[];
+    mapRegions = []; ctx.save(); ctx.beginPath(); ctx.rect(0, 0, width, height); ctx.clip();
+    for (const feature of data.provinces.features) {
+      const code = String(feature.properties.adcode), path = outline(feature, xy);
+      ctx.fillStyle = visited.has(code) ? '#f3c2a4' : '#e8dfc5'; ctx.strokeStyle = '#b5a786'; ctx.lineWidth = .7;
+      ctx.fill(path, 'evenodd'); ctx.stroke(path);
+      if (provinceNames.has(code)) mapRegions.push({path, code});
+    }
+    ctx.restore();
+    ctx.fillStyle = '#9a8a6e'; ctx.font = Math.max(8, Math.min(11, width * .016)) + 'px sans-serif'; ctx.textAlign = 'center';
+    for (const feature of provinces) {
+      const code = String(feature.properties.adcode);
+      if (['810000','820000'].includes(code) || (width < 500 && ['110000','120000','310000'].includes(code))) continue;
+      const center = feature.properties.centroid || feature.properties.center;
+      if (!center) continue;
+      const [x,y] = xy(...center);
+      const label = feature.properties.name.replace(/壮族自治区|维吾尔自治区|回族自治区|特别行政区|自治区|省|市/g, '');
+      ctx.fillText(label, x, y);
+    }
+    const inset = {x: width * .79, y: height * .60, w: width * .18, h: height * .35};
+    ctx.save(); ctx.beginPath(); ctx.rect(inset.x, inset.y, inset.w, inset.h); ctx.clip(); ctx.fillStyle = '#f7f0dd'; ctx.fillRect(inset.x, inset.y, inset.w, inset.h);
+    const sea = (lon, lat) => [inset.x + (lon - 105) / 20 * inset.w, inset.y + (25 - lat) / 24 * inset.h];
+    for (const feature of data.provinces.features) { const path = outline(feature, sea); ctx.fillStyle = '#e8dfc5'; ctx.strokeStyle = '#b5a786'; ctx.lineWidth = .6; ctx.fill(path, 'evenodd'); ctx.stroke(path); }
+    ctx.restore(); ctx.strokeStyle = '#cbbb9c'; ctx.strokeRect(inset.x, inset.y, inset.w, inset.h); ctx.fillStyle = '#7a6e5b'; ctx.font = '10px sans-serif'; ctx.textAlign = 'left'; ctx.fillText('南海诸岛', inset.x + 6, inset.y + inset.h - 8);
+    mapPoints = [];
+    const groups = new Map();
     for (const entry of currentSummary.entries.filter(e => e.location)) {
-      const [x,y] = xy(entry.location.lon,entry.location.lat);
-      ctx.beginPath(); ctx.arc(x,y,4.5,0,2*Math.PI); ctx.fillStyle='#dc442e'; ctx.fill(); ctx.strokeStyle='#fff9eb'; ctx.lineWidth=1.5; ctx.stroke();
-      mapPoints.push({x,y,entry});
+      const [x, y] = xy(entry.location.lon, entry.location.lat);
+      if (x < 0 || x > width || y < 0 || y > height) continue;
+      const id = entry.province_code + '/' + entry.city;
+      if (!groups.has(id)) groups.set(id, {x, y, entry, count: 0});
+      groups.get(id).count++;
+    }
+    for (const point of groups.values()) {
+      ctx.beginPath(); ctx.arc(point.x, point.y, 7, 0, 2 * Math.PI); ctx.fillStyle = '#dc442e'; ctx.fill(); ctx.strokeStyle = '#fff9eb'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.fillStyle = '#ffe28c'; ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('M', point.x, point.y + 3); mapPoints.push(point);
     }
     const pointList = $('map-points'); pointList.replaceChildren();
-    const cities = new Map();
-    for (const point of mapPoints) {
-      const id = point.entry.country_code + ' / ' + point.entry.city;
-      if (!cities.has(id)) cities.set(id,point.entry);
-    }
-    for (const entry of cities.values()) {
-      const button=node('button', countryName(entry.country_code)+' · '+entry.city, 'map-point'); button.type='button'; button.addEventListener('click',()=>openDetail(entry)); pointList.append(button);
-    }
-    const noLocation = currentSummary.confirmedCount - mapPoints.length;
-    $('map-note').textContent = mapPoints.length
-      ? `${mapPoints.length} 条打卡有位置标记；${noLocation} 条仅记文字。点城市标签或地图圆点，翻开手账。`
-      : '还没有可绘制的位置。填写常用城市或自行提供坐标即可标记，文字记录仍可收集印章。';
+    for (const point of mapPoints) { const button = node('button', placeName(point.entry) + ' · ' + point.count + ' 页', 'map-point'); button.type = 'button'; button.addEventListener('click', () => openDetail(point.entry)); pointList.append(button); }
+    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。点击地图上的 M 或下方城市，翻开手账。` : '从第一家麦当劳开始，让中国地图一点点亮起来。';
   }
   $('world-map').addEventListener('click', event => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX-rect.left, y = event.clientY-rect.top;
     const nearest = mapPoints.map(p=>({...p,d:Math.hypot(p.x-x,p.y-y)})).sort((a,b)=>a.d-b.d)[0];
-    if(nearest && nearest.d<18) openDetail(nearest.entry);
+    if(nearest && nearest.d<18) { openDetail(nearest.entry); return; }
+    const canvas = event.currentTarget, ctx = canvas.getContext('2d');
+    const region = mapRegions.find(r => ctx.isPointInPath(r.path, x * canvas.width / rect.width, y * canvas.height / rect.height, 'evenodd'));
+    if (region) { $('country-filter').value = region.code; render(); }
   });
   window.addEventListener('resize', () => { if(view==='map') requestAnimationFrame(drawMap); });
 
   function updateCitySuggestions() {
-    const matches=data.cities.filter(c=>c.country_code===field('country_code').value);
+    const matches=data.cities.filter(c=>c.province_code===field('province_code').value);
     $('city-suggestions').replaceChildren(...matches.map(c=>new Option(c.city,c.city)));
     updateLocationHelp();
   }
   function matchCity() {
     const value=field('city').value.normalize('NFKC').trim().toLowerCase();
-    return data.cities.find(c=>c.country_code===field('country_code').value && [c.city,c.city_en].some(n=>n && n.normalize('NFKC').trim().toLowerCase()===value));
+    return data.cities.find(c=>c.province_code===field('province_code').value && [c.city,c.city+'市',c.city_en].some(n=>n && n.normalize('NFKC').trim().toLowerCase()===value));
   }
   function updateLocationHelp() {
     const mode=field('location_mode').value;
@@ -285,13 +311,15 @@
     }
     if(!startPersonal()) return;
     photoRevision++;
-    currentEntry=entry;
+    currentEntry=entry; selectedStore=entry?.store_reference || null;
     form.reset(); photo=entry && entry.photo ? {...entry.photo} : null;
     photoBusy=false; $('save-entry').disabled=false;
     $('form-heading').textContent=entry && entry.source==='mcp_candidate' ? '把订单线索写成打卡' : entry ? '修改这一页手账' : '新添一页打卡';
-    $('form-note').textContent=entry && entry.source==='mcp_candidate' ? '这条中国大陆订单可能是外送或替别人点单。请确认本人确曾到店，并补齐城市。' : '记录你本人到过的麦当劳。世界各地都可以手动添加。';
+    $('form-note').textContent=entry && entry.source==='mcp_candidate' ? '这条中国大陆订单可能是外送或替别人点单。请确认本人确曾到店，并补齐城市。' : '记录你本人到过的麦当劳，留下一页中国足迹。';
     field('date').max=today(); field('date').value=entry ? entry.date : today();
-    field('country_code').value=entry ? entry.country_code : 'CN';
+    field('country_code').value='CN';
+    field('province_code').value=entry?.province_code || data.cities.find(c => [c.city,c.city+'市'].includes(entry?.city))?.province_code || '';
+    for (const option of field('province_code').options) option.disabled=!!(entry && (entry.source==='mcp_candidate' || entry.origin==='mcp') && ['710000','810000','820000'].includes(option.value));
     field('country_code').disabled=!!(entry && (entry.source==='mcp_candidate' || entry.origin==='mcp'));
     for (const name of ['city','store','note','collaboration']) field(name).value=entry && entry[name] ? entry[name] : '';
     field('foods').value=entry ? entry.foods.join('，') : '';
@@ -303,7 +331,7 @@
     $('form-error').hidden=true; showPhoto(); updateCitySuggestions();
     $('entry-dialog').showModal(); field('date').focus();
   }
-  field('country_code').addEventListener('change',updateCitySuggestions);
+  field('province_code').addEventListener('change',updateCitySuggestions);
   field('city').addEventListener('input',updateLocationHelp);
   field('location_mode').addEventListener('change',updateLocationHelp);
   field('photo').addEventListener('change', async event => {
@@ -330,7 +358,7 @@
     event.preventDefault(); if(photoBusy) return;
     try {
       const entry={id:currentEntry ? currentEntry.id : 'manual-'+(crypto.randomUUID ? crypto.randomUUID() : Date.now()+'-'+Math.random().toString(36).slice(2)),
-        date:field('date').value,country_code:field('country_code').value,city:field('city').value,store:field('store').value,
+        date:field('date').value,country_code:'CN',province_code:field('province_code').value,city:field('city').value,store:field('store').value,
         foods:field('foods').value,note:field('note').value,collaboration:field('collaboration').value,source:'manual',confirmed:field('confirmed').checked};
       if(currentEntry && (currentEntry.source==='mcp_candidate' || currentEntry.origin==='mcp')) entry.origin='mcp';
       const mode=field('location_mode').value;
@@ -341,6 +369,7 @@
         else if(currentEntry && currentEntry.location && currentEntry.location.precision==='city' && currentEntry.city===entry.city && currentEntry.country_code===entry.country_code) entry.location=currentEntry.location;
       }
       if(photo) entry.photo=photo;
+      if(selectedStore) entry.store_reference=selectedStore;
       const normalized=E.normalizeEntry(entry,opts());
       const next={...archive,data_kind:'manual',entries:archive.entries.filter(e=>e.id!==normalized.id).concat(normalized)};
       archive=E.normalizeArchive(next,opts()); save(); $('entry-dialog').close(); render(); setView('journal'); toast(persistent?'这一页已保存在本浏览器。':'这一页已加入；请立即导出备份。');
@@ -353,7 +382,7 @@
   function openDetail(entry) {
     $('detail-heading').textContent=entry.store;
     const body=$('detail-body');body.replaceChildren();
-    body.append(node('p',`${entry.date} / ${countryName(entry.country_code)} · ${entry.city}`,'place'));
+    body.append(node('p',`${entry.date} / ${placeName(entry)}`,'place'));
     if(entry.photo) body.append(photoNode(entry));
     body.append(foodTags(entry));
     if(entry.note) body.append(node('p',entry.note));
@@ -365,12 +394,40 @@
   $('add-top').addEventListener('click',()=>openForm());
   $('start-personal').addEventListener('click',startPersonal);
   $('year-filter').addEventListener('change',render);$('country-filter').addEventListener('change',render);
-  field('country_code').replaceChildren(...data.countries.slice().sort((a,b)=>a.name.localeCompare(b.name,'zh')).map(c=>new Option(c.name+' / '+c.code,c.code)));
+  field('province_code').replaceChildren(new Option('请选择省份 / 地区',''), ...provinces.map(f => new Option(f.properties.name,String(f.properties.adcode))));
+  field('store').addEventListener('input', () => { selectedStore = null; });
+  field('city').addEventListener('input', () => { selectedStore = null; });
+  field('province_code').addEventListener('change', () => { selectedStore = null; });
+  fetch('/api/health').then(r => r.ok ? r.json() : null).then(state => {
+    $('store-api-status').textContent = state?.store_lookup ? '官方门店查询已连接。' : '查询门店请先关闭普通启动窗口，再运行“启动门店查询.cmd”。';
+  }).catch(() => { $('store-api-status').textContent = '查询门店请运行“启动门店查询.cmd”。'; });
+  $('store-search-form').addEventListener('submit', async event => {
+    event.preventDefault(); const fields = event.currentTarget.elements;
+    $('search-stores').disabled = true; $('store-results').replaceChildren(); $('store-search-status').textContent = '正在查询官方附近门店……';
+    try {
+      const response = await fetch('/api/stores', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({city:fields.search_city.value,keyword:fields.search_keyword.value,be_type:Number(fields.be_type.value)})});
+      if (!response.ok) { const payload = await response.json().catch(() => null); throw new Error(payload?.error || '请使用“启动门店查询.cmd”连接官方门店查询。'); }
+      const result = await response.json();
+      if (!Array.isArray(result.stores)) throw new Error('门店响应无法读取，请稍后重试。');
+      $('store-search-status').textContent = result.stores.length ? `找到 ${result.stores.length} 家附近门店。` : '本次没有查到门店，试试换一个城市或地标。';
+      for (const store of result.stores) {
+        const card = node('article',undefined,'entry-card'); card.append(node('h3',store.name),node('p',store.address || '地址暂未提供'));
+        card.append(node('p',`${store.business_status===true?'营业中':store.business_status===false?'暂停营业':'营业状态待查询'} · ${store.hours || '营业时间待查询'}`));
+        const button = node('button','在这里留一页打卡','secondary'); button.type='button'; button.addEventListener('click',()=>{
+          openForm(); if (!$('entry-dialog').open) return;
+          field('city').value=store.city; field('store').value=store.name;
+          const city=data.cities.find(c=>[c.city,c.city+'市',c.city_en].includes(store.city)); if(city) field('province_code').value=city.province_code;
+          selectedStore={source:'mcp_nearby',code:store.code,address:store.address || ''}; updateCitySuggestions();
+        }); card.append(button); $('store-results').append(card);
+      }
+    } catch(error) { $('store-search-status').textContent=error.message; }
+    finally { $('search-stores').disabled=false; }
+  });
 
   function downloadArchive() {
     const clean=E.normalizeArchive(archive,opts());
     const url=URL.createObjectURL(new Blob([JSON.stringify(clean,null,2)],{type:'application/json;charset=utf-8'}));
-    const link=document.createElement('a');link.href=url;link.download='麦麦世界护照-'+(clean.data_kind==='synthetic'?'示例-':'')+today()+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('已发起备份下载，请确认浏览器已保存文件。');
+    const link=document.createElement('a');link.href=url;link.download='麦麦中国地图-'+(clean.data_kind==='synthetic'?'示例-':'')+today()+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('已发起备份下载，请确认浏览器已保存文件。');
   }
   $('export').addEventListener('click',downloadArchive);$('top-export').addEventListener('click',downloadArchive);
   $('print').addEventListener('click',()=>window.print());

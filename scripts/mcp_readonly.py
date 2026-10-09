@@ -15,7 +15,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 ENDPOINT = "https://mcp.mcd.cn"
-READ_TOOLS = frozenset({"order-list", "query-order", "now-time-info", "campaign-calendar", "available-coupons"})
+READ_TOOLS = frozenset({"order-list", "query-order", "now-time-info", "campaign-calendar", "available-coupons", "query-nearby-stores"})
 
 
 def decode_sse(response: Any, request_id: int) -> dict[str, Any]:
@@ -81,7 +81,7 @@ class Client:
 
     def initialize(self) -> None:
         result = self.rpc("initialize", {"protocolVersion": "2025-06-18", "capabilities": {},
-                                         "clientInfo": {"name": "mcd-world-passport", "version": "0.1.2"}})
+                                         "clientInfo": {"name": "mcd-china-map", "version": "0.2.0"}})
         protocol = result.get("protocolVersion")
         if not isinstance(protocol, str) or not protocol:
             raise ValueError("server did not negotiate a protocol version")

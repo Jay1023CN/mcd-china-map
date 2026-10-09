@@ -23,10 +23,16 @@ node --test tests/journal-engine.test.js
 py -m unittest discover -s tests -p test_project.py -v
 ```
 
-8 项 JavaScript 测试覆盖日期、候选边界、筛选、去重、照片与归档白名单；8 项 Python 测试覆盖 Windows UTF-8 构建、不同哈希种子的可重复构建、JSON 转义、候选脱敏、虚构响应转换、只读工具限制、SSE、同步失败保留旧数据。
+9 项 JavaScript 测试覆盖日期、中国省份、候选边界、筛选、去重、照片与归档白名单；10 项 Python 测试覆盖 Windows UTF-8 构建、不同哈希种子的可重复构建、JSON 转义、候选脱敏、虚构响应转换、只读工具限制、SSE、同步失败保留旧数据、门店响应投影与本机 HTTP 接口。
 
 浏览器验收：启动本地服务，安装 Playwright，运行 `node tests/browser-smoke.cjs`。可设置 `BROWSER_CHANNEL=msedge` 使用 Edge，`PLAYWRIGHT_MODULE` 指定依赖位置。GitHub Actions 在 Windows 执行检查，CI 是否通过以实际运行状态为准。
 
 ## 修复与限制
 
 显式 UTF-8 读取修复 Windows GBK 构建失败；固定字段顺序修复 Python 随机哈希导致构建结果变化；同步按运行隔离、失败保留旧数据、候选原子替换；启动支持 `-NoBrowser` 供测试。存储仍为本浏览器，无云同步。测试通过不代表替用户确认真实到访。
+
+## 中国地图 v0.2.0 验证
+
+中国分省地图、省份点亮、省份筛选、城市 M 点位、南海插图、门店选择带入表单和门店引用备份均通过独立浏览器验收。手动编辑门店后旧官方引用被清除。真实 nearby 查询以“上海／人民广场／到店自取”返回 5 家门店。门店 HTTP 服务使用同源校验和本机绑定，Token 仅留进程内存。
+
+本机 8765 由另一现有应用占用，本次浏览器测试使用隔离端口 18765；未停止该现有应用。普通发行入口仍固定 8765。

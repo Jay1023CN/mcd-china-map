@@ -6,12 +6,12 @@ const path = require('node:path');
 const http = require('node:http');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const root = path.resolve(__dirname, '..');
-const url = 'http://127.0.0.1:8765/';
+const url = process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
 const output = path.join(root, 'test-results');
 fs.mkdirSync(output, {recursive: true});
 const candidate = {version: 1, data_kind: 'mcp', source: 'Synthetic test fixture, never a real order.', entries: [{id: 'mcp-fixture-only', date: '2026-10-08', country_code: 'CN', city: '', store: '测试门店（虚构）', foods: ['咖啡'], source: 'mcp_candidate', confirmed: false}]};
 const upload = (name, value) => ({name, mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(value))});
-function request(target, method = 'GET', host = '127.0.0.1:8765') {
+function request(target, method = 'GET', host = new URL(url).host) {
   return new Promise((resolve, reject) => {
     const req = http.request(url, {path: target, method, headers: {Host: host}}, response => {
       let bytes = 0;
@@ -37,9 +37,9 @@ async function main() {
     assert.equal(await page.locator('#count-visits').innerText(), '0');
     await page.getByRole('button', {name: '新增打卡', exact: true}).click();
     await page.locator('[name=date]').fill('2026-10-08');
-    await page.locator('[name=country_code]').selectOption('JP');
-    await page.locator('[name=city]').fill('东京');
-    await page.locator('[name=store]').fill('测试东京门店（虚构）');
+    await page.locator('[name=province_code]').selectOption('310000');
+    await page.locator('[name=city]').fill('上海');
+    await page.locator('[name=store]').fill('测试上海门店（虚构）');
     await page.locator('[name=foods]').fill('咖啡，薯条');
     await page.locator('[name=note]').fill('仅用于自动化验收。');
     const photoFixture = await page.evaluate(() => {
@@ -64,7 +64,8 @@ async function main() {
     const download = await downloadPromise;
     const backup = JSON.parse(fs.readFileSync(await download.path(), 'utf8'));
     assert.equal(backup.entries.length, 1);
-    assert.equal(backup.entries[0].country_code, 'JP');
+    assert.equal(backup.entries[0].country_code, 'CN');
+    assert.equal(backup.entries[0].province_code, '310000');
     assert.equal(backup.entries[0].location.precision, 'city');
     assert.ok(backup.entries[0].photo.data_url.startsWith('data:image/jpeg;base64,'));
     await page.locator('#import-file').setInputFiles(upload('fixture-candidate.json', candidate));
@@ -72,11 +73,16 @@ async function main() {
     assert.equal(await page.locator('#count-visits').innerText(), '1');
     await page.getByRole('button', {name: '补齐并确认本人到店'}).click();
     assert.equal(await page.locator('[name=country_code]').isDisabled(), true);
-    await page.locator('[name=city]').fill('上海');
+    await page.locator('[name=province_code]').selectOption('110000');
+    await page.locator('[name=city]').fill('北京');
     await page.locator('[name=confirmed]').check();
     await page.getByRole('button', {name: '保存这一页'}).click();
     assert.equal(await page.locator('#count-visits').innerText(), '2');
     assert.equal(await page.locator('#candidate-count').innerText(), '0');
+    assert.equal(await page.locator('#count-countries').innerText(), '2');
+    await page.locator('#country-filter').selectOption('310000');
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    await page.locator('#country-filter').selectOption('');
     await page.locator('#import-file').setInputFiles(upload('same-candidate.json', candidate));
     await page.locator('#toast').filter({hasText: '导入完成'}).waitFor();
     assert.equal(await page.locator('#count-visits').innerText(), '2');
@@ -101,6 +107,13 @@ async function main() {
     await restored.reload();
     assert.equal(await restored.locator('#count-visits').innerText(), '0');
     await restoreContext.close();
+    const legacyContext=await browser.newContext({timezoneId:'Asia/Shanghai'});
+    await legacyContext.addInitScript(value => {localStorage.setItem('mcd-world-passport-personal-v1',JSON.stringify(value));},backup);
+    const legacyPage=await legacyContext.newPage();await legacyPage.goto(url);
+    assert.equal(await legacyPage.locator('#count-visits').innerText(),'1');
+    await legacyPage.getByRole('tab',{name:'打卡手账',exact:true}).click();
+    assert.equal(await legacyPage.locator('#journal-grid .note').innerText(),'编辑后的测试随记。');
+    await legacyContext.close();
     const limitedContext = await browser.newContext({timezoneId: 'Asia/Shanghai', acceptDownloads: true});
     await limitedContext.addInitScript(() => {
       Storage.prototype.setItem = function () { throw new DOMException('Synthetic quota fixture', 'QuotaExceededError'); };
@@ -116,8 +129,35 @@ async function main() {
     assert.equal(emergency.entries[0].note, '编辑后的测试随记。');
     assert.ok(emergency.entries[0].photo.data_url);
     await limitedContext.close();
+    const storeContext = await browser.newContext({timezoneId: 'Asia/Shanghai', acceptDownloads: true});
+    const storePage = await storeContext.newPage();
+    await storePage.route('**/api/health', route => route.fulfill({json:{store_lookup:true}}));
+    await storePage.route('**/api/stores', route => {
+      assert.deepEqual(route.request().postDataJSON(), {city:'上海',keyword:'测试地标',be_type:1});
+      return route.fulfill({json:{stores:[{name:'官方门店查询测试（虚构）',code:'fixture-store',address:'虚构街道',city:'上海',business_status:true,hours:'07:00–23:00'}]}});
+    });
+    await storePage.goto(url);
+    await storePage.locator('#store-search summary').click();
+    await storePage.locator('[name=search_city]').fill('上海');
+    await storePage.locator('[name=search_keyword]').fill('测试地标');
+    await storePage.locator('#search-stores').click();
+    await storePage.getByRole('button',{name:'在这里留一页打卡'}).click();
+    assert.equal(await storePage.locator('[name=province_code]').inputValue(),'310000');
+    assert.equal(await storePage.locator('[name=store]').inputValue(),'官方门店查询测试（虚构）');
+    await storePage.locator('[name=confirmed]').check();
+    await storePage.getByRole('button',{name:'保存这一页'}).click();
+    const storeDownload = storePage.waitForEvent('download'); await storePage.locator('#export').click();
+    const storeBackup = JSON.parse(fs.readFileSync(await (await storeDownload).path(),'utf8'));
+    assert.deepEqual(storeBackup.entries[0].store_reference,{source:'mcp_nearby',code:'fixture-store',address:'虚构街道'});
+    await storePage.getByRole('button',{name:'编辑这一页',exact:true}).click();
+    await storePage.locator('[name=store]').fill('手动修改的门店');
+    await storePage.getByRole('button',{name:'保存这一页'}).click();
+    const editedDownload=storePage.waitForEvent('download');await storePage.locator('#export').click();
+    const editedBackup=JSON.parse(fs.readFileSync(await (await editedDownload).path(),'utf8'));
+    assert.equal('store_reference' in editedBackup.entries[0],false);
+    await storeContext.close();
     // Capture only the explicitly synthetic public demo.
-    await page.goto(url + 'docs/global-demo.html');
+    await page.goto(url + 'docs/china-demo.html');
     await page.locator('#mode-description').filter({hasText: '虚构'}).waitFor();
     await page.screenshot({path: path.join(output, 'desktop.png'), fullPage: true});
     await page.setViewportSize({width: 390, height: 844});
@@ -126,7 +166,7 @@ async function main() {
     assert.ok(width.content <= width.viewport, 'mobile content must fit viewport');
     assert.deepEqual(errors, []);
     await context.close();
-    console.log('PASS: HTTP serving, private path isolation, create/edit/reload/delete, export/restore, candidate confirmation/reimport, conflict rejection, desktop/mobile rendering. All fixtures synthetic.');
+    console.log('PASS: China map, province filters, official store selection, reference clearing, legacy China migration, create/edit/reload/delete, photo export/restore, candidates/reimport, conflict rejection, desktop/mobile. All fixtures synthetic.');
   } finally { await browser.close(); }
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

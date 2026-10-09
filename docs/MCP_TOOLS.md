@@ -10,7 +10,7 @@
 - [官方接入说明](https://github.com/M-China/mcd-mcp-server#2-快速开始)
 - [官方版本日志](https://github.com/M-China/mcd-mcp-server#4-版本日志)
 
-下文工具名称与用途依据官方说明整理。“读取／计算／写入”描述的是业务作用，不是已验证的 MCP `annotations`。前序开发会话于 2026-10-09 使用有效凭据读取了五个只读工具及其 tools/list schema；本独立项目复用同一客户端与字段转换模块，本地电脑仍须配置自己的 Token。其他工具没有实际调用记录。完整目录不能当作请求参数契约，开发时仍需读取当前客户端实际 schema。
+下文工具名称与用途依据官方说明整理。“读取／计算／写入”描述的是业务作用。本项目于 2026-10-09 读取当前 `tools/list`，实际调用了 `now-time-info`、`order-list`、`query-order` 和 `query-nearby-stores`。运行时使用自己的 Token，并以官方返回的 schema 为参数依据。
 
 ## 接入与认证
 
@@ -95,16 +95,16 @@ Token 对应用户身份和权限；不能将真实 Token 写入仓库、公开�
 
 ## 本项目如何使用
 
-中国订单同步调用 `now-time-info`、`order-list`、`query-order`，把实际返回的已完成订单转换为待确认线索。订单可能是外送或代他人点单，不直接产生本人到店记录；城市缺失时由本人补齐。全球其他国家 / 地区采用手动打卡。
+中国订单同步调用 `now-time-info`、`order-list`、`query-order`，把实际返回的已完成订单转换为待确认线索。订单可能是外送或代他人点单，不直接产生本人到店记录；城市缺失时由本人补齐。港澳台地区由本人手动填写。
 
-客户端允许五个只读工具。`--with-benefits` 可额外读取 `available-coupons` 与 `campaign-calendar` 并保存在私人目录；主页面不展示这两项原始响应。查询可领券不等于已领取，活动日历不证明本人买过联名。
+客户端允许六个只读工具，包含官方 query-nearby-stores 附近门店查询。`--with-benefits` 可额外读取 `available-coupons` 与 `campaign-calendar` 并保存在私人目录；主页面不展示这两项原始响应。查询可领券不等于已领取，活动日历不证明本人买过联名。
 
 页面没有创建或取消订单、领取优惠券、积分兑换、抽奖、预约或代取授权功能。删除本地线索只改变本地手账。
 
 ## 参数与数据边界
 
-前序会话观察到：`order-list`、`available-coupons`、`now-time-info` 无必填参数；`query-order` 必填 `orderId`；`campaign-calendar` 可选 `specifiedDate`（yyyy-MM-dd）。运行时应以 `tools/list` 当前返回的 schema 为准。
+本次观察到：`order-list`、`available-coupons`、`now-time-info` 无必填参数；`query-order` 必填 `orderId`；`campaign-calendar` 可选 `specifiedDate`（yyyy-MM-dd）。`query-nearby-stores` 的城市地标查询使用 `searchType: 2`、`city`、`keyword` 和 `beType`（1 为到店自取、5 为得来速）。运行时以 `tools/list` 当前返回的 schema 为准。
 
 近期历史订单不等于全年完整历史。实际订单中文状态与公开数字枚举存在差异，转换模块只映射已经观察到的文本；无时区的订单时间须通过 `--order-offset +08:00` 显式解释。不推断退款、本人实际吃下的数量、门店坐标或联名购买。
 
-官方 1.0.9 日志描述了取餐柜二维码，但工具表没有独立的代取授权或分享凭证接口；与本全球手账的到店确认无关。详细转换约定见 [MCP_INTEGRATION.md](../MCP_INTEGRATION.md)。
+官方 1.0.9 日志描述了取餐柜二维码，但工具表没有独立的代取授权或分享凭证接口；与本中国地图手账的到店确认无关。详细转换约定见 [MCP_INTEGRATION.md](../MCP_INTEGRATION.md)。

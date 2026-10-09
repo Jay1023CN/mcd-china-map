@@ -11,6 +11,7 @@
   var MAX_ENTRIES = 1000;
   var MAX_PHOTO_BYTES = 1572864;
   var MAX_ARCHIVE_BYTES = 8388608;
+  var PROVINCES = new Set('110000 120000 130000 140000 150000 210000 220000 230000 310000 320000 330000 340000 350000 360000 370000 410000 420000 430000 440000 450000 460000 500000 510000 520000 530000 540000 610000 620000 630000 640000 650000 710000 810000 820000'.split(' '));
 
   function fail(message) { throw new Error(message); }
   function object(value, name) {
@@ -67,6 +68,7 @@
     var date = validDate(input.date, 'date');
     if (date > today) fail('date cannot be in the future');
     var country = text(input.country_code, 'country_code', 2, true).toUpperCase();
+    if (country !== 'CN') fail('this China map only accepts CN records; keep overseas records in their original backup');
     if (!/^[A-Z]{2}$/.test(country) || !ISO_CODES.has(country) || !allowedCountries(options.countries).has(country)) fail('country_code must be an assigned ISO alpha-2 code');
     if (input.source !== 'manual' && input.source !== 'mcp_candidate') fail('source must be manual or mcp_candidate');
     if (typeof input.confirmed !== 'boolean') fail('confirmed must be a boolean');
@@ -86,6 +88,17 @@
       confirmed: input.confirmed
     };
     if (input.note != null) output.note = text(input.note, 'note', 1000, false);
+    if (input.province_code != null && input.province_code !== '') {
+      var province = text(input.province_code, 'province_code', 6, true);
+      if (!PROVINCES.has(province)) fail('province_code is invalid');
+      if ((input.source === 'mcp_candidate' || input.origin === 'mcp') && ['710000', '810000', '820000'].includes(province)) fail('official MCP order candidates only cover mainland China');
+      output.province_code = province;
+    }
+    if (input.store_reference != null) {
+      var reference = object(input.store_reference, 'store_reference');
+      if (reference.source !== 'mcp_nearby') fail('invalid store reference source');
+      output.store_reference = {source: 'mcp_nearby', code: text(reference.code, 'store code', 100, true), address: text(reference.address || '', 'store address', 300, false)};
+    }
     if (input.origin != null) {
       if (input.origin !== 'mcp' || input.source !== 'manual' || !input.confirmed) fail('origin mcp is only valid for a confirmed manual entry');
       if (country !== 'CN') fail('entries originating from the connected McDonald’s MCP must use CN');
@@ -154,10 +167,13 @@
     if (month && (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month) || (year && month.slice(0, 4) !== year))) fail('month filter must use YYYY-MM and match year');
     var countryFilter = options.country_code == null || options.country_code === '' ? null : String(options.country_code).trim().toUpperCase();
     if (countryFilter && !ISO_CODES.has(countryFilter)) fail('country filter is invalid');
+    var provinceFilter = options.province_code || null;
+    if (provinceFilter && !PROVINCES.has(provinceFilter)) fail('province filter is invalid');
     var filtered = archive.entries.filter(function (entry) {
-      return (!year || entry.date.slice(0, 4) === year) && (!month || entry.date.slice(0, 7) === month) && (!countryFilter || entry.country_code === countryFilter);
+      return (!year || entry.date.slice(0, 4) === year) && (!month || entry.date.slice(0, 7) === month) && (!countryFilter || entry.country_code === countryFilter) && (!provinceFilter || entry.province_code === provinceFilter);
     });
     var entries = filtered.filter(function (entry) { return entry.confirmed && entry.source === 'manual'; });
+    var provinces = new Map();
     var countries = new Map();
     var cities = new Map();
     var stores = new Map();
@@ -171,7 +187,8 @@
       return map.get(key);
     }
     entries.forEach(function (entry) {
-      var cityKey = entry.country_code + '\u0000' + identity(entry.city);
+      if (entry.province_code) count(provinces, entry.province_code, function () { return {province_code: entry.province_code, count: 0}; });
+      var cityKey = entry.country_code + '\u0000' + (entry.province_code || '') + '\u0000' + identity(entry.city);
       var storeKey = cityKey + '\u0000' + identity(entry.store);
       var country = count(countries, entry.country_code, function () { return { country_code: entry.country_code, count: 0, cityKeys: new Set(), storeKeys: new Set() }; });
       country.cityKeys.add(cityKey);
@@ -197,6 +214,8 @@
       candidateCount: filtered.filter(function (entry) { return entry.source === 'mcp_candidate'; }).length,
       unconfirmedCount: filtered.filter(function (entry) { return entry.source === 'manual' && !entry.confirmed; }).length,
       distinctCountries: countries.size,
+      distinctProvinces: provinces.size,
+      provinces: ranking(provinces),
       distinctCities: cities.size,
       distinctStores: stores.size,
       countries: values(countries).map(function (country) { return { country_code: country.country_code, count: country.count, cityCount: country.cityKeys.size, storeCount: country.storeKeys.size }; }).sort(function (a, b) { return b.count - a.count || a.country_code.localeCompare(b.country_code); }),

@@ -53,7 +53,7 @@ try {
     exit 1
 }
 
-Write-Host 'McD World Passport - local only' -ForegroundColor Yellow
+Write-Host 'MaiMai China Map - local only' -ForegroundColor Yellow
 Write-Host $url
 Write-Host 'Keep this window open. Close it or press Ctrl+C to stop the local server.'
 Write-Host 'The fixed URL keeps this browser profile connected to the same journal.'
@@ -107,7 +107,7 @@ try {
             $path = [Uri]::UnescapeDataString(($parts[1] -split '\?', 2)[0])
             if ($path -eq '/') { $path = '/index.html' }
             # Public runtime files only; never serve private/, .env or source secrets.
-            $allowed = $path -eq '/index.html' -or $path -eq '/docs/global-demo.html' -or $path.StartsWith('/assets/') -or $path.StartsWith('/web/')
+            $allowed = $path -eq '/index.html' -or $path -eq '/docs/china-demo.html' -or $path.StartsWith('/assets/') -or $path.StartsWith('/web/')
             $segments = $path -split '/'
             $unsafe = -not $path.StartsWith('/') -or $path.Contains('\') -or $path.Contains(':') -or $path -match '[\x00-\x1f]' -or @($segments | Where-Object { $_ -eq '..' -or $_ -eq '.' -or $_.StartsWith('.') }).Count -gt 0
             if (-not $allowed -or $unsafe) {

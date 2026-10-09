@@ -15,11 +15,51 @@ from connect_mcp import save_private
 from import_mcp_footprints import normalize, explicit_city
 from mcp_readonly import Client, decode_sse
 import sync_footprints
+from local_api import query_stores
+from local_api import LocalServer, Handler
+import threading
+from urllib.request import Request, build_opener, ProxyHandler
+from urllib.error import HTTPError
 
 
 class ProjectTests(unittest.TestCase):
+    def test_local_api_checks_origin_host_and_json_before_official_call(self):
+        server=LocalServer(('127.0.0.1',0),Handler)
+        server.token='fixture-only';server.origin=f'http://127.0.0.1:{server.server_port}'
+        thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+        opener=build_opener(ProxyHandler({}))
+        try:
+            self.assertTrue(json.load(opener.open(server.origin+'/api/health',timeout=5))['store_lookup'])
+            for path in ['/private/mcp/global-candidates.json','/assets/%2e%2e/README.md','/assets/%00']:
+                with self.assertRaises(HTTPError) as error:opener.open(server.origin+path,timeout=5)
+                self.assertEqual(error.exception.code,404)
+            with patch('local_api.Client') as factory:
+                request=Request(server.origin+'/api/stores',data=b'{}',headers={'Origin':'https://example.com','Content-Type':'application/json'})
+                with self.assertRaises(HTTPError) as error:opener.open(request,timeout=5)
+                self.assertEqual(error.exception.code,403);factory.assert_not_called()
+                request=Request(server.origin+'/api/stores',data=b'[]',headers={'Origin':server.origin,'Content-Type':'application/json'})
+                with self.assertRaises(HTTPError) as error:opener.open(request,timeout=5)
+                self.assertEqual(error.exception.code,502);factory.assert_not_called()
+            with self.assertRaises(HTTPError) as error:opener.open(Request(server.origin+'/',headers={'Host':'localhost:'+str(server.server_port)}),timeout=5)
+            self.assertEqual(error.exception.code,400)
+        finally:
+            server.shutdown();server.server_close();thread.join(timeout=5)
+
+    def test_nearby_lookup_uses_official_schema_and_strips_private_fields(self):
+        from unittest.mock import Mock
+        client = Mock()
+        client.tools.return_value = [{'name':'query-nearby-stores','inputSchema':{'required':['searchType','beType']}}]
+        client.rpc.return_value = {'structuredContent':{'success':True,'data':[{'storeName':'虚构门店','storeCode':'fixture-store','address':'虚构街道','businessStatus':False,'businessStartTime':'07:00','businessEndTime':'23:00','token':'fixture-secret','customer':'private'}]}}
+        result=query_stores(client,'上海','测试地标',1)
+        client.rpc.assert_called_once_with('tools/call',{'name':'query-nearby-stores','arguments':{'searchType':2,'city':'上海','keyword':'测试地标','beType':1}})
+        self.assertFalse(result['stores'][0]['business_status'])
+        self.assertNotIn('fixture-secret',json.dumps(result))
+        self.assertRaises(ValueError,query_stores,client,'上海','',1)
+        client.rpc.return_value={'isError':True}
+        self.assertRaises(ValueError,query_stores,client,'上海','测试地标',1)
+
     def test_build_is_identical_across_python_hash_seeds(self):
-        code = "import hashlib,json,sys;sys.path.insert(0,'scripts');from build_global_journal import render;from pathlib import Path;print(hashlib.sha256(render(json.loads(Path('examples/global-journal.synthetic.json').read_text(encoding='utf-8'))).encode()).hexdigest())"
+        code = "import hashlib,json,sys;sys.path.insert(0,'scripts');from build_global_journal import render;from pathlib import Path;print(hashlib.sha256(render(json.loads(Path('examples/china-journal.synthetic.json').read_text(encoding='utf-8'))).encode()).hexdigest())"
         digests = [subprocess.check_output([sys.executable, '-c', code], cwd=ROOT, env={**os.environ, 'PYTHONHASHSEED': seed}) for seed in ['1', '2']]
         self.assertEqual(digests[0], digests[1])
 
@@ -30,7 +70,7 @@ class ProjectTests(unittest.TestCase):
             return original(path, *args, **kwargs)
         with patch.object(Path, 'read_text', guarded):
             html = render({'version': 1, 'data_kind': 'manual', 'entries': []})
-        self.assertIn('麦麦世界护照', html)
+        self.assertIn('麦麦中国地图', html)
         self.assertIn('"entries":[]', html)
 
     def test_inline_archive_cannot_close_script_element(self):

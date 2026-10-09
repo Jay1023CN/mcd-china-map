@@ -11,7 +11,7 @@ from string import Template
 from visual_assets import ROOT, asset_uri, font_faces
 
 
-ENTRY_FIELDS = ('id', 'date', 'country_code', 'city', 'store', 'foods', 'note', 'source', 'confirmed', 'origin', 'collaboration')
+ENTRY_FIELDS = ('id', 'date', 'country_code', 'province_code', 'city', 'store', 'foods', 'note', 'source', 'confirmed', 'origin', 'collaboration')
 
 
 def project_archive(raw):
@@ -24,7 +24,7 @@ def project_archive(raw):
         projected['source'] = raw['source']
     for item in raw['entries']:
         entry = {key: item[key] for key in ENTRY_FIELDS if key in item}
-        for key, fields in [('location', ('lat', 'lon', 'precision')), ('photo', ('data_url',))]:
+        for key, fields in [('location', ('lat', 'lon', 'precision')), ('photo', ('data_url',)), ('store_reference', ('source', 'code', 'address'))]:
             if isinstance(item.get(key), dict):
                 entry[key] = {field: item[key][field] for field in fields if field in item[key]}
         projected['entries'].append(entry)
@@ -56,9 +56,9 @@ def candidates(payload):
 
 def render(archive):
     data = {'archive': project_archive(archive),
-            'countries': json.loads((ROOT/'assets/data/countries.json').read_text(encoding='utf-8')),
-            'cities': json.loads((ROOT/'assets/data/cities.json').read_text(encoding='utf-8')),
-            'land': json.loads((ROOT/'assets/data/world-land.json').read_text(encoding='utf-8'))}
+            'countries': [{'code': 'CN', 'name': '中国'}],
+            'provinces': json.loads((ROOT/'assets/data/china-provinces.json').read_text(encoding='utf-8')),
+            'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     encoded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     return Template((ROOT/'templates/global-journal.html').read_text(encoding='utf-8')).substitute(
         font_faces=font_faces(), paper=asset_uri('paper.png'), title_art=asset_uri('global-title.png'),

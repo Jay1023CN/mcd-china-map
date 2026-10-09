@@ -1,0 +1,1032 @@
+[
+  {
+    "country_code": "CN",
+    "province_code": "110000",
+    "city": "北京",
+    "city_en": "Beijing",
+    "lat": 39.90172,
+    "lon": 116.394201,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "120000",
+    "city": "天津",
+    "city_en": "Tianjin",
+    "lat": 39.082772,
+    "lon": 117.196607,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "130000",
+    "city": "邯郸",
+    "city_en": "Handan",
+    "lat": 36.581921,
+    "lon": 114.478032,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "130000",
+    "city": "石家庄",
+    "city_en": "Shijiazhuang",
+    "lat": 38.05196,
+    "lon": 114.478032,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "140000",
+    "city": "侯马",
+    "city_en": "Houma",
+    "lat": 35.619982,
+    "lon": 111.209997,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "140000",
+    "city": "太原",
+    "city_en": "Taiyuan",
+    "lat": 37.876958,
+    "lon": 112.543112,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "150000",
+    "city": "包头",
+    "city_en": "Baotou",
+    "lat": 40.654153,
+    "lon": 109.820074,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "150000",
+    "city": "赤峰",
+    "city_en": "Chifeng",
+    "lat": 42.271961,
+    "lon": 118.948044,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "150000",
+    "city": "海拉尔区",
+    "city_en": "Hailar",
+    "lat": 49.19998,
+    "lon": 119.700022,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "150000",
+    "city": "呼和浩特",
+    "city_en": "Hohhot",
+    "lat": 40.821921,
+    "lon": 111.65805,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "150000",
+    "city": "通辽",
+    "city_en": "Tongliao",
+    "lat": 43.621905,
+    "lon": 122.268048,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "150000",
+    "city": "乌兰浩特",
+    "city_en": "Ulan Hot",
+    "lat": 46.080016,
+    "lon": 122.080031,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "210000",
+    "city": "鞍山",
+    "city_en": "Anshan",
+    "lat": 41.116967,
+    "lon": 122.938085,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "210000",
+    "city": "大连",
+    "city_en": "Dalian",
+    "lat": 38.924784,
+    "lon": 121.627885,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "210000",
+    "city": "锦溪",
+    "city_en": "Jinxi",
+    "lat": 40.752287,
+    "lon": 120.828033,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "210000",
+    "city": "沈阳",
+    "city_en": "Shenyeng",
+    "lat": 41.806925,
+    "lon": 123.448028,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "220000",
+    "city": "长春",
+    "city_en": "Changchun",
+    "lat": 43.866954,
+    "lon": 125.338042,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "220000",
+    "city": "吉林",
+    "city_en": "Jilin",
+    "lat": 43.851917,
+    "lon": 126.548097,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "230000",
+    "city": "北安",
+    "city_en": "Bei'an",
+    "lat": 48.246263,
+    "lon": 126.528604,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "230000",
+    "city": "大庆",
+    "city_en": "Daqing",
+    "lat": 46.581905,
+    "lon": 124.998062,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "230000",
+    "city": "哈尔滨",
+    "city_en": "Harbin",
+    "lat": 45.75193,
+    "lon": 126.648039,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "230000",
+    "city": "佳木斯",
+    "city_en": "Jiamusi",
+    "lat": 46.831967,
+    "lon": 130.348072,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "230000",
+    "city": "鸡西",
+    "city_en": "Jixi",
+    "lat": 45.301906,
+    "lon": 130.968085,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "230000",
+    "city": "齐齐哈尔",
+    "city_en": "Qiqihar",
+    "lat": 47.346923,
+    "lon": 123.988046,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "310000",
+    "city": "上海",
+    "city_en": "Shanghai",
+    "lat": 31.218398,
+    "lon": 121.434559,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "320000",
+    "city": "淮安",
+    "city_en": "Huaiyin",
+    "lat": 33.585165,
+    "lon": 119.065967,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "320000",
+    "city": "南京",
+    "city_en": "Nanjing",
+    "lat": 32.051965,
+    "lon": 118.778029,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "320000",
+    "city": "苏州",
+    "city_en": "Suzhou",
+    "lat": 31.302424,
+    "lon": 120.618071,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "320000",
+    "city": "无锡",
+    "city_en": "Wuxi",
+    "lat": 31.581942,
+    "lon": 120.298039,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "320000",
+    "city": "徐州",
+    "city_en": "Xuzhou",
+    "lat": 34.281958,
+    "lon": 117.178074,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "330000",
+    "city": "杭州",
+    "city_en": "Hangzhou",
+    "lat": 30.25192,
+    "lon": 120.168073,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "330000",
+    "city": "宁波",
+    "city_en": "Ningbo",
+    "lat": 29.881917,
+    "lon": 121.548092,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "330000",
+    "city": "温州",
+    "city_en": "Wenzhou",
+    "lat": 28.021927,
+    "lon": 120.648147,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "340000",
+    "city": "合肥",
+    "city_en": "Hefei",
+    "lat": 31.851977,
+    "lon": 117.278068,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "340000",
+    "city": "淮南",
+    "city_en": "Huainan",
+    "lat": 32.63193,
+    "lon": 116.978035,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "340000",
+    "city": "宿州",
+    "city_en": "Suzhou",
+    "lat": 33.638057,
+    "lon": 116.976943,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "350000",
+    "city": "福州",
+    "city_en": "Fuzhou",
+    "lat": 26.081942,
+    "lon": 119.2981,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "350000",
+    "city": "泉州",
+    "city_en": "Quanzhou",
+    "lat": 24.901962,
+    "lon": 118.578041,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "350000",
+    "city": "厦门",
+    "city_en": "Xiamen",
+    "lat": 24.451938,
+    "lon": 118.078071,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "360000",
+    "city": "南昌",
+    "city_en": "Nanchang",
+    "lat": 28.681938,
+    "lon": 115.87805,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "360000",
+    "city": "萍乡",
+    "city_en": "Pingxiang",
+    "lat": 27.621951,
+    "lon": 113.848097,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "370000",
+    "city": "济南",
+    "city_en": "Jinan",
+    "lat": 36.676928,
+    "lon": 116.993073,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "370000",
+    "city": "临沂",
+    "city_en": "Linyi",
+    "lat": 35.081935,
+    "lon": 118.32803,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "370000",
+    "city": "青岛",
+    "city_en": "Qingdao",
+    "lat": 36.091925,
+    "lon": 120.328063,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "370000",
+    "city": "烟台",
+    "city_en": "Yantai",
+    "lat": 37.532354,
+    "lon": 121.398075,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "370000",
+    "city": "枣庄",
+    "city_en": "Zaozhuang",
+    "lat": 34.881947,
+    "lon": 117.568077,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "370000",
+    "city": "淄博",
+    "city_en": "Zibo",
+    "lat": 36.821365,
+    "lon": 117.99646,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "410000",
+    "city": "南阳",
+    "city_en": "Nanyang",
+    "lat": 33.002346,
+    "lon": 112.528074,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "410000",
+    "city": "郑州",
+    "city_en": "Zhengzhou",
+    "lat": 34.756942,
+    "lon": 113.663147,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "420000",
+    "city": "武汉",
+    "city_en": "Wuhan",
+    "lat": 30.581977,
+    "lon": 114.268071,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "430000",
+    "city": "长沙",
+    "city_en": "Changsha",
+    "lat": 28.201916,
+    "lon": 112.968047,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "430000",
+    "city": "衡阳",
+    "city_en": "Hengyang",
+    "lat": 26.881971,
+    "lon": 112.58807,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "430000",
+    "city": "岳阳",
+    "city_en": "Yueyang",
+    "lat": 29.381999,
+    "lon": 113.098065,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "440000",
+    "city": "东莞",
+    "city_en": "Dongguan",
+    "lat": 23.021537,
+    "lon": 113.750474,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "440000",
+    "city": "广州",
+    "city_en": "Guangzhou",
+    "lat": 23.124723,
+    "lon": 113.261785,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "440000",
+    "city": "汕头",
+    "city_en": "Shantou",
+    "lat": 23.371952,
+    "lon": 116.66808,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "440000",
+    "city": "韶关",
+    "city_en": "Shaoguan",
+    "lat": 24.799971,
+    "lon": 113.579982,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "440000",
+    "city": "深圳",
+    "city_en": "Shenzhen",
+    "lat": 22.548097,
+    "lon": 114.061154,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "440000",
+    "city": "湛江",
+    "city_en": "Zhanjiang",
+    "lat": 21.20193,
+    "lon": 110.378076,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "450000",
+    "city": "白城",
+    "city_en": "Bose",
+    "lat": 23.899716,
+    "lon": 106.613327,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "450000",
+    "city": "桂林",
+    "city_en": "Guilin",
+    "lat": 25.281939,
+    "lon": 110.278082,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "450000",
+    "city": "南宁",
+    "city_en": "Nanning",
+    "lat": 22.821934,
+    "lon": 108.318099,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "450000",
+    "city": "梧州",
+    "city_en": "Wuzhou",
+    "lat": 23.480025,
+    "lon": 111.320016,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "450000",
+    "city": "玉林",
+    "city_en": "Yulin",
+    "lat": 22.63192,
+    "lon": 110.148064,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "500000",
+    "city": "重庆",
+    "city_en": "Chongqing",
+    "lat": 29.566923,
+    "lon": 106.593036,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "510000",
+    "city": "成都",
+    "city_en": "Chengdu",
+    "lat": 30.671946,
+    "lon": 104.068074,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "510000",
+    "city": "绵阳",
+    "city_en": "Mianyang",
+    "lat": 31.464828,
+    "lon": 104.689993,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "510000",
+    "city": "南充",
+    "city_en": "Nanchong",
+    "lat": 30.782378,
+    "lon": 106.128051,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "510000",
+    "city": "内江",
+    "city_en": "Neijiang",
+    "lat": 29.582323,
+    "lon": 105.048066,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "510000",
+    "city": "西昌",
+    "city_en": "Xichang",
+    "lat": 27.880015,
+    "lon": 102.299998,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "520000",
+    "city": "贵阳",
+    "city_en": "Guiyang",
+    "lat": 26.581989,
+    "lon": 106.718093,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "520000",
+    "city": "六盘水",
+    "city_en": "Liupanshui",
+    "lat": 26.596381,
+    "lon": 104.831386,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "530000",
+    "city": "保山",
+    "city_en": "Baoshan",
+    "lat": 25.119977,
+    "lon": 99.15001,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "530000",
+    "city": "个旧",
+    "city_en": "Gejiu",
+    "lat": 23.37998,
+    "lon": 103.150076,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "530000",
+    "city": "昆明",
+    "city_en": "Kunming",
+    "lat": 25.042859,
+    "lon": 102.69744,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "540000",
+    "city": "拉萨",
+    "city_en": "Lhasa",
+    "lat": 29.645024,
+    "lon": 91.10001,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "540000",
+    "city": "日喀则",
+    "city_en": "Xigaze",
+    "lat": 29.250009,
+    "lon": 88.88335,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "610000",
+    "city": "安康",
+    "city_en": "Ankang",
+    "lat": 32.679981,
+    "lon": 109.020002,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "610000",
+    "city": "西安",
+    "city_en": "Xian",
+    "lat": 34.276971,
+    "lon": 108.89305,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "610000",
+    "city": "榆林",
+    "city_en": "Yulin",
+    "lat": 38.283308,
+    "lon": 109.733291,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "620000",
+    "city": "敦煌",
+    "city_en": "Dunhuang",
+    "lat": 40.142678,
+    "lon": 94.662015,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "620000",
+    "city": "嘉峪关",
+    "city_en": "Jiayuguan",
+    "lat": 39.82001,
+    "lon": 98.299984,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "620000",
+    "city": "兰州",
+    "city_en": "Lanzhou",
+    "lat": 36.057974,
+    "lon": 103.790054,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "620000",
+    "city": "天水",
+    "city_en": "Tianshui",
+    "lat": 34.601964,
+    "lon": 105.918038,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "620000",
+    "city": "武威",
+    "city_en": "Wuwei",
+    "lat": 37.928007,
+    "lon": 102.641011,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "620000",
+    "city": "张掖",
+    "city_en": "Zhangye",
+    "lat": 38.929987,
+    "lon": 100.450034,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "630000",
+    "city": "都兰",
+    "city_en": "Dulan",
+    "lat": 36.16659,
+    "lon": 98.266601,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "630000",
+    "city": "格尔木",
+    "city_en": "Golmud",
+    "lat": 36.416626,
+    "lon": 94.883345,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "630000",
+    "city": "西宁",
+    "city_en": "Xining",
+    "lat": 36.621944,
+    "lon": 101.768059,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "640000",
+    "city": "石嘴山",
+    "city_en": "Shizuishan",
+    "lat": 39.233276,
+    "lon": 106.769028,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "640000",
+    "city": "银川",
+    "city_en": "Yinchuan",
+    "lat": 38.46992,
+    "lon": 106.271092,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "650000",
+    "city": "阿勒泰",
+    "city_en": "Altay",
+    "lat": 47.866599,
+    "lon": 88.116626,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "650000",
+    "city": "伊州区",
+    "city_en": "Hami",
+    "lat": 42.826984,
+    "lon": 93.515005,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "650000",
+    "city": "和田",
+    "city_en": "Hotan",
+    "lat": 37.099711,
+    "lon": 79.926945,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "650000",
+    "city": "喀什",
+    "city_en": "Kashgar",
+    "lat": 39.476336,
+    "lon": 75.969926,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "650000",
+    "city": "莎车县",
+    "city_en": "Shache",
+    "lat": 38.426142,
+    "lon": 77.250003,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "650000",
+    "city": "伊宁",
+    "city_en": "Yining",
+    "lat": 43.900019,
+    "lon": 81.350011,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "650000",
+    "city": "乌鲁木齐",
+    "city_en": "Ürümqi",
+    "lat": 43.806958,
+    "lon": 87.57306,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "710000",
+    "city": "高雄",
+    "city_en": "Kaohsiung",
+    "lat": 22.633307,
+    "lon": 120.266602,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "710000",
+    "city": "台中",
+    "city_en": "Taichung",
+    "lat": 24.152078,
+    "lon": 120.681667,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "710000",
+    "city": "台北",
+    "city_en": "Taipei",
+    "lat": 25.035833,
+    "lon": 121.568333,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "810000",
+    "city": "香港",
+    "city_en": "Hong Kong",
+    "lat": 22.306927,
+    "lon": 114.183064,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  },
+  {
+    "country_code": "CN",
+    "province_code": "820000",
+    "city": "澳门",
+    "city_en": "Macau",
+    "lat": 22.189135,
+    "lon": 113.544375,
+    "precision": "city",
+    "source": "Natural Earth 50m populated places"
+  }
+]
