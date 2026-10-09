@@ -1,6 +1,12 @@
 name: Verify China map
 on:
   push:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/GROWTH.md'
+      - 'docs/FEEDBACK.md'
+      - 'docs/growth-assets/**'
   pull_request:
   workflow_dispatch:
 permissions:

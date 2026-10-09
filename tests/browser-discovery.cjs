@@ -3,10 +3,8 @@ const assert = require('node:assert/strict');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
-const today = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-};
+const dateAtShanghai = value => new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(value);
+const today = () => dateAtShanghai(new Date());
 
 async function stubHealth(page) {
   await page.route('**/api/health', route => route.fulfill({json: {
@@ -51,7 +49,7 @@ async function main() {
     const first=inspiration.filter({hasText:'成都'});
     const store=await first.locator('h3').innerText();
     const city=await first.locator('.date').innerText().then(value=>value.split(' · ')[0]);
-    const yesterday=(()=>{const d=new Date();d.setDate(d.getDate()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;})();
+    const yesterday=dateAtShanghai(new Date(Date.now()-24*60*60*1000));
     const wishlistButton=first.getByRole('button',{name:'想去这家',exact:true});
     await wishlistButton.click();
     assert.equal(await page.locator('#wishlist-count').innerText(),'1');
