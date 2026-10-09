@@ -33,6 +33,10 @@ FILES = (
     "tests/journal-engine.test.js", "tests/test_project.py", "tests/test_store_enrichment.py", "tests/browser-smoke.cjs",
     "tests/share-card.test.js", "tests/journey-insights.test.js", "tests/browser-features.cjs",
     "tests/wishlist-engine.test.js", "tests/browser-wishlist.cjs",
+    "tests/test_local_connect.py", "tests/test_sync_orders.py", "tests/browser-connect.cjs",
+    "assets/store-photos/chengdu-east-street.jpg", "assets/store-photos/beijing-shougang.jpg",
+    "docs/GROWTH.md", "docs/FEEDBACK.md", "docs/growth-assets/README.md",
+    "docs/growth-assets/handdrawn-bigmac-project-v5.png", "docs/growth-assets/douyin-bigmac-v5.png",
 )
 
 
@@ -54,7 +58,7 @@ def reviewed_path(name):
 def main():
     # Check every source before creating the archive; no partial package.
     sources = [(name, reviewed_path(name).read_bytes()) for name in FILES]
-    output = ROOT / "packages/mcd-china-map-local-v0.4.0.zip"
+    output = ROOT / "packages/mcd-china-map-local-v0.5.0.zip"
     output.parent.mkdir(exist_ok=True)
     temporary = output.with_suffix(".zip.tmp")
     try:

@@ -181,10 +181,11 @@
   }
   function photoNode(entry) {
     const figure = node('figure', undefined, 'entry-photo');
-    const image = node('img', undefined, 'photo'); image.src = entry.photo?.data_url || entry.default_photo.url;
+    const image = node('img', undefined, 'photo'); image.src = entry.photo?.data_url || data.store_images?.[entry.default_photo.url] || entry.default_photo.url;
+    image.loading='lazy';
     image.alt = entry.photo ? `${entry.city} ${entry.store}的本人打卡照片` : entry.default_photo.caption || `${entry.store}门店照片`;
     image.referrerPolicy = 'no-referrer';
-    image.addEventListener('error', () => { figure.hidden = true; });
+    image.addEventListener('error', () => { image.hidden=true;figure.append(node('p','这张照片暂时没加载出来，来源链接仍可查看。','photo-credit')); });
     figure.append(image);
     if (!entry.photo) {
       const credit = node('figcaption',undefined,'photo-credit');
@@ -365,7 +366,7 @@
   function showPhoto() {
     $('photo-preview').hidden=!(photo || defaultPhoto);
     $('photo-actions').hidden=!photo;
-    if(photo || defaultPhoto) $('photo-preview').src=photo?.data_url || defaultPhoto.url; else $('photo-preview').removeAttribute('src');
+    if(photo || defaultPhoto) $('photo-preview').src=photo?.data_url || data.store_images?.[defaultPhoto.url] || defaultPhoto.url; else $('photo-preview').removeAttribute('src');
     $('photo-preview').referrerPolicy='no-referrer';
     $('photo-caption').replaceChildren();
     if (!photo && defaultPhoto) {
@@ -486,9 +487,61 @@
   field('city').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo(); });
   field('province_code').addEventListener('change', () => { selectedStore = null; });
   $('find-next-store').addEventListener('click',()=>{$('store-search').open=true;$('store-search').scrollIntoView({behavior:'smooth',block:'start'});$('store-search-form').elements.search_city.focus();});
-  fetch('/api/health').then(r => r.ok ? r.json() : null).then(state => {
-    $('store-api-status').textContent = state?.store_lookup ? '官方门店查询已连接。' : '查询门店请先关闭普通启动窗口，再运行“启动门店查询.cmd”。';
-  }).catch(() => { $('store-api-status').textContent = '查询门店请运行“启动门店查询.cmd”。'; });
+  let connectionAvailable=false;
+  function showConnection(state) {
+    connectionAvailable=!!state?.capabilities?.connect;
+    const connected=!!(state?.connected || state?.store_lookup);
+    $('connection-state').textContent=connected?'麦当劳已连接 · 可以查询附近门店':connectionAvailable?'手账已准备好。连接麦当劳，再找下一家门店。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
+    document.querySelector('.connection-bar').classList.toggle('connected',connected);
+    $('open-connect').textContent=connected?'更换连接':'连接麦当劳';
+    $('disconnect-mcd').hidden=!connected || !connectionAvailable;
+    $('load-orders').hidden=!state?.capabilities?.synced_orders;
+    $('sync-orders').hidden=!(connected && state?.order_sync);
+    $('store-api-status').textContent=connected?'官方门店查询已连接。':connectionAvailable?'点击上方“连接麦当劳”，就可以查找附近门店。':'查询门店请安装 Python 3.10 或更新版本，重新运行“启动.cmd”。';
+  }
+  fetch('/api/health').then(r=>r.ok?r.json():null).then(showConnection).catch(()=>showConnection(null));
+  $('open-connect').addEventListener('click',()=>{
+    $('connect-status').textContent=connectionAvailable?'':'当前启动只提供手账功能。安装 Python 3.10 或更新版本后，关闭启动窗口，再运行“启动.cmd”。';
+    $('connect-submit').disabled=!connectionAvailable;$('connect-dialog').showModal();$('connect-token').focus();
+  });
+  $('connect-form').addEventListener('submit',async event=>{
+    event.preventDefault();if(!connectionAvailable)return;
+    $('connect-submit').disabled=true;$('connect-status').textContent='正在连接官方服务……';
+    try {
+      const response=await fetch('/api/connect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:$('connect-token').value})});
+      const result=await response.json();if(!response.ok)throw new Error(result.error || '连接未完成，请检查 Token。');
+      showConnection({...result,capabilities:{connect:true,synced_orders:true}});
+      $('connect-dialog').close();toast('麦当劳已连接，可以找下一站了。');
+    }catch(error){$('connect-status').textContent=error.message;}
+    finally{$('connect-token').value='';$('connect-submit').disabled=false;}
+  });
+  $('disconnect-mcd').addEventListener('click',async()=>{
+    try {
+      const response=await fetch('/api/disconnect',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+      if(!response.ok)throw new Error();showConnection({capabilities:{connect:true,synced_orders:true}});toast('连接已断开，手账和清单仍在。');
+    }catch(error){toast('暂未断开，关闭启动窗口也可以结束连接。');}
+  });
+  $('load-orders').addEventListener('click',async()=>{
+    $('load-orders').disabled=true;
+    try {
+      const response=await fetch('/api/synced-orders');const result=await response.json();
+      if(!response.ok)throw new Error(result.error || '请先运行“同步中国订单.cmd”。');
+      if(!mergeArchive(E.normalizeArchive(result,opts())))return;setView('candidates');toast('本机订单已载入，选择这次本人到过的门店留下一页。');
+    }catch(error){toast(error.message);}
+    finally{$('load-orders').disabled=false;}
+  });
+  $('sync-orders').addEventListener('click',async()=>{
+    const buttons=['sync-orders','load-orders','open-connect','disconnect-mcd'];
+    buttons.forEach(id=>$(id).disabled=true);
+    $('sync-progress').hidden=false;$('sync-progress').textContent='正在整理门店和餐品，稍等片刻……';
+    try {
+      const response=await fetch('/api/sync-orders',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+      const result=await response.json();if(!response.ok)throw new Error(result.error || '订单暂未同步，请稍后再试。');
+      const incoming=E.normalizeArchive(result.archive,opts());if(!mergeArchive(incoming))return;
+      setView('candidates');$('sync-progress').textContent=incoming.entries.length?`已整理 ${incoming.entries.length} 条订单线索，选出这次本人到店的记录。`:'本次没有完成订单，可以先新增一页自己的打卡。';
+    }catch(error){$('sync-progress').textContent=error.message;}
+    finally{buttons.forEach(id=>$(id).disabled=false);}
+  });
   $('store-search-form').addEventListener('submit', async event => {
     event.preventDefault(); const fields = event.currentTarget.elements;
     $('search-stores').disabled = true; $('store-results').replaceChildren(); $('store-search-status').textContent = '正在查询官方附近门店……';
@@ -553,10 +606,11 @@
     }
     try {
       const payload={title:$('share-title').value || '我的麦麦中国足迹',text:shareText()};
-      if(typeof navigator.canShare==='function' && navigator.canShare({files:[shareFile]}))payload.files=[shareFile];
+      const withImage=typeof navigator.canShare==='function' && navigator.canShare({files:[shareFile]});
+      if(withImage)payload.files=[shareFile];
       else payload.url='https://github.com/Jay1023CN/mcd-china-map';
       const result=navigator.share(payload);$('native-share').disabled=true;await result;
-      $('share-status').textContent='已打开系统分享，可选择微信或其他应用。';
+      $('share-status').textContent=withImage?'已打开图片分享，可选择设备上的分享应用。':'已打开文案和链接分享；卡片可以长按保存后一起发送。';
     }catch(error){$('share-status').textContent=error.name==='AbortError'?'分享已取消，卡片还在这里。':'暂时没打开分享，请保存图片或复制文案后发送。';}
     finally{$('native-share').disabled=false;}
   });
@@ -577,6 +631,25 @@
   });
   $('print').addEventListener('click',()=>window.print());
   $('import').addEventListener('click',()=>$('import-file').click());
+  function mergeArchive(incoming) {
+    if(incoming.data_kind==='synthetic' && archive.data_kind!=='synthetic' && (archive.entries.length || archive.wishlist?.length)) throw new Error('synthetic cannot mix with personal');
+    if(archive.data_kind==='synthetic' && incoming.data_kind!=='synthetic' && !startPersonal())return false;
+    const entries=archive.entries.slice();
+    for(const entry of incoming.entries) {
+      const index=entries.findIndex(old=>old.id===entry.id),old=entries[index];
+      if(old?.source==='manual' && old.confirmed && entry.source==='mcp_candidate')continue;
+      if(old?.source==='mcp_candidate' && entry.source==='mcp_candidate')entries[index]=entry;
+      else entries.push(entry);
+    }
+    const combined={version:1,data_kind:incoming.data_kind==='synthetic'?'synthetic':'manual',source:incoming.source || archive.source,entries};
+    if(archive.wishlist || incoming.wishlist){
+      let merged=archive.wishlist || [];
+      for(const item of incoming.wishlist || [])if(!merged.some(old=>old.id===item.id))merged=W.add(merged,item);
+      combined.wishlist=merged;
+    }
+    const normalized=E.normalizeArchive(combined,opts());key=normalized.data_kind==='synthetic'?demoKey:personalKey;
+    archive=normalized;save();render();return true;
+  }
   async function orderCandidates(payload) {
     if(payload.source?.kind!=='mcp' || !Array.isArray(payload.orders)) throw new Error('not actual normalized MCP records');
     if(!crypto.subtle) throw new Error('Web Crypto unavailable');
@@ -597,20 +670,8 @@
       if(file.size>E.limits.archiveBytes) throw new Error('file too large');
       const parsed=JSON.parse(await file.text());
       const incoming=E.normalizeArchive(parsed.version===1?parsed:await orderCandidates(parsed),opts());
-      if(incoming.data_kind==='synthetic' && archive.data_kind!=='synthetic' && (archive.entries.length || archive.wishlist?.length)) throw new Error('synthetic cannot mix with personal');
-      if(archive.data_kind==='synthetic' && incoming.data_kind!=='synthetic') {
-        if(!startPersonal()) return;
-      }
-      const combined={version:1,data_kind:incoming.data_kind==='synthetic'?'synthetic':'manual',source:incoming.source||archive.source,
-        entries:archive.entries.concat(incoming.entries.filter(e=>!archive.entries.some(old=>old.id===e.id&&old.source==='manual'&&old.confirmed&&e.source==='mcp_candidate')))};
-      if(archive.wishlist || incoming.wishlist){
-        let merged=archive.wishlist || [];
-        for(const item of incoming.wishlist || [])if(!merged.some(old=>old.id===item.id))merged=W.add(merged,item);
-        combined.wishlist=merged;
-      }
-      const normalized=E.normalizeArchive(combined,opts());
-      key=normalized.data_kind==='synthetic'?demoKey:personalKey;
-      archive=normalized;save();render();setView(incoming.entries.some(e=>e.source==='mcp_candidate')?'candidates':'journal');toast('导入完成；候选订单仍需逐条确认本人到店。');
+      if(!mergeArchive(incoming))return;
+      setView(incoming.entries.some(e=>e.source==='mcp_candidate')?'candidates':incoming.wishlist?.length && !incoming.entries.length?'wishlist':'journal');toast('导入完成；候选订单仍需逐条确认本人到店。');
     } catch(error) { toast('导入未完成：请使用有效的个人手账或真实规范化 MCP 文件。示例与个人记录不能混合；冲突或超限文件不会覆盖现有内容。'); }
     finally {event.target.value='';}
   });

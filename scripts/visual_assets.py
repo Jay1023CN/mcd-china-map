@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 @lru_cache(maxsize=32)
 def asset_uri(name: str) -> str:
     path = ROOT / "assets" / name
-    types = {".png": "image/png", ".svg": "image/svg+xml", ".ttf": "font/ttf", ".woff2": "font/woff2"}
+    types = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".svg": "image/svg+xml", ".ttf": "font/ttf", ".woff2": "font/woff2"}
     return f"data:{types[path.suffix]};base64," + base64.b64encode(path.read_bytes()).decode("ascii")
 
 

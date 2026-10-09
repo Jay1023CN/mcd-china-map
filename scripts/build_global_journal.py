@@ -65,10 +65,23 @@ def candidates(payload):
 
 
 def render(archive):
+    stores = json.loads((ROOT/'assets/data/store-directory.json').read_text(encoding='utf-8'))
+    store_images = {}
+    for store in stores:
+        photo = store.get('default_photo', {})
+        local_asset = photo.get('local_asset')
+        if local_asset:
+            path = ROOT/'assets'/local_asset
+            approved = ROOT/'assets/store-photos'
+            if (path.parent.resolve() != approved.resolve() or path.is_symlink()
+                    or path.suffix.lower() not in {'.jpg','.jpeg','.png','.webp'}
+                    or path.stat().st_size > 1024*1024):
+                raise ValueError('unreviewed store photo asset')
+            store_images[photo['url']] = asset_uri(local_asset)
     data = {'archive': project_archive(archive),
             'countries': [{'code': 'CN', 'name': '中国'}],
             'provinces': json.loads((ROOT/'assets/data/china-provinces.json').read_text(encoding='utf-8')),
-            'stores': json.loads((ROOT/'assets/data/store-directory.json').read_text(encoding='utf-8')),
+            'stores': stores, 'store_images': store_images,
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     encoded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     return Template((ROOT/'templates/global-journal.html').read_text(encoding='utf-8')).substitute(

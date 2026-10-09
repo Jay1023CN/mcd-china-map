@@ -16,5 +16,43 @@
       "attribution": "上观新闻",
       "caption": "人民广场附近 · 华旭国际大厦餐厅外观"
     }
+  },
+  {
+    "name": "麦当劳成都锦江区东大街旗舰店餐厅",
+    "aliases": [
+      "东大街晶融汇旗舰餐厅",
+      "成都首家麦当劳M³风格玩味旗舰店"
+    ],
+    "city": "成都",
+    "province_code": "510000",
+    "address": "东大街下东大街段169号",
+    "source_url": "https://www.mcdonalds.com.cn/news/20230629-LBS-Store",
+    "short_description": "成都首家M³风格旗舰店，设有半透明黄色旋转楼梯和智能取餐柜。",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2021/01/07/202101071242264856/202101071242264856_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/chengdu-east-street.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20201218-M3-Flagship-Stores",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "东大街晶融汇旗舰餐厅内的半透明旋转黄色楼梯"
+    }
+  },
+  {
+    "name": "麦当劳北京首钢园得来速餐厅",
+    "aliases": [
+      "北京首钢园群明湖得来速餐厅",
+      "麦当劳中国首家零碳餐厅"
+    ],
+    "city": "北京",
+    "province_code": "110000",
+    "address": "群明湖路首钢园南门",
+    "source_url": "https://www.mcdonalds.com.cn/news/20230629-LBS-Store",
+    "short_description": "首钢园群明湖畔的麦当劳绿色旗舰店，官方介绍其光伏系统可支持餐厅日常用电。",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2022/09/20/202209201412032835/202209201412032835_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/beijing-shougang.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20220920-LEED-Net-Zero-Restaurant-Grand-Opening",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "麦当劳中国首家“零碳餐厅”- 北京麦当劳首钢园得来速餐厅外观"
+    }
   }
 ]

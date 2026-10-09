@@ -45,5 +45,6 @@ jobs:
           node tests/browser-smoke.cjs
           node tests/browser-features.cjs
           node tests/browser-wishlist.cjs
+          node tests/browser-connect.cjs
       - name: Verify distribution whitelist
         run: python scripts/package_skill.py
