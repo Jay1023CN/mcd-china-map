@@ -13,6 +13,7 @@ from urllib.parse import unquote, urlsplit
 from urllib.error import HTTPError, URLError
 import webbrowser
 from mcp_readonly import Client
+from build_global_journal import render
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'http://127.0.0.1:8765'
@@ -97,6 +98,9 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path == '/':
             path = '/index.html'
+        if path == '/index.html' and getattr(self.server, 'homepage', None) is not None:
+            self.reply(200, self.server.homepage, 'text/html; charset=utf-8')
+            return
         allowed = path in ['/index.html', '/docs/china-demo.html'] or path.startswith(('/assets/', '/web/'))
         segments = path.split('/')[1:]
         if not allowed or '\\' in path or ':' in path or any(ord(c) < 32 for c in path) or any(p.startswith('.') for p in segments):
@@ -144,8 +148,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--prompt-token', action='store_true')
     parser.add_argument('--no-browser', action='store_true')
+    parser.add_argument('--archive', type=Path, help='open an explicit local journal or synced order archive as the homepage')
     parser.add_argument('--port', type=int, default=8765, help='optional isolated test port')
     args = parser.parse_args()
+    homepage = None
+    if args.archive:
+        try:
+            homepage = render(json.loads(args.archive.read_text(encoding='utf-8'))).encode('utf-8')
+        except (OSError, ValueError, TypeError, KeyError):
+            parser.exit(2, 'Cannot read the local journal archive. Public files were not changed.\n')
     token = os.environ.get('MCD_MCP_TOKEN', '').strip()
     if not token and args.prompt_token:
         token = getpass.getpass('MCP Token（不回显、不保存）：').strip()
@@ -154,6 +165,7 @@ def main():
     except OSError:
         parser.exit(2, 'Local port is occupied. Close the earlier map launcher first.\n')
     server.token = token
+    server.homepage = homepage
     server.origin = f'http://127.0.0.1:{server.server_port}'
     print('麦麦中国地图：' + server.origin, flush=True)
     print('保持本窗口打开。Token 仅用于只读门店查询，关闭进程即清除。', flush=True)

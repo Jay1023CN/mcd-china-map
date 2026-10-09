@@ -30,6 +30,9 @@ class ProjectTests(unittest.TestCase):
         opener=build_opener(ProxyHandler({}))
         try:
             self.assertTrue(json.load(opener.open(server.origin+'/api/health',timeout=5))['store_lookup'])
+            server.homepage=b'<html>fixture personal journal</html>'
+            self.assertEqual(opener.open(server.origin+'/',timeout=5).read(),server.homepage)
+            self.assertEqual(opener.open(Request(server.origin+'/',method='HEAD'),timeout=5).read(),b'')
             for path in ['/private/mcp/global-candidates.json','/assets/%2e%2e/README.md','/assets/%00']:
                 with self.assertRaises(HTTPError) as error:opener.open(server.origin+path,timeout=5)
                 self.assertEqual(error.exception.code,404)

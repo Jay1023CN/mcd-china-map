@@ -465,4 +465,5 @@
     finally {event.target.value='';}
   });
   render();
+  if (archive.entries.some(e => e.source === 'mcp_candidate') && !archive.entries.some(e => e.confirmed)) setView('candidates');
 })();
