@@ -1,18 +1,20 @@
-# 麦麦世界护照
+# 麦麦中国地图
 
-**把世界各地的一餐，写成你自己的手账。**
+**用麦当劳，画出自己的中国足迹。**
 
-面向喜欢旅行、记录餐品与收集印章的用户，由社区独立开发，非麦当劳官方产品。
+面向希望用麦当劳到访记录自己的中国足迹的用户，由社区独立开发，非麦当劳官方产品。
+
+项目已更名并提交参赛申请。当前公开代码是经过 Windows 和真实 MCP 验证的可运行手账基础版，截图和页面仍保留升级前的视觉。中国分省地图、省份足迹和官方附近门店搜索正在开发，尚未作为已完成功能发布。现有打卡、订单线索确认、照片备份与打印可以使用。
 
 手绘纸张、旅行护照和国家 / 地区印章，配上地图、照片与餐品记录。这是在 Windows 本地运行的个人打卡原型：入口从空白手账开始，中国大陆订单作为待本人确认的线索，海外记录由本人手动填写。
 
-![麦麦世界护照手绘界面：虚构示例](docs/global-preview.png)
+![手账基础版界面：虚构示例](docs/global-preview.png)
 
 > 图片及 `docs/global-demo.html` 使用虚构旅行、门店与餐品数据，仅展示界面。`index.html` 不预填这些记录。
 
 ## Windows 打开就能记
 
-从 [GitHub Releases](https://github.com/Jay1023CN/mcd-world-passport/releases) 下载完整 Windows 压缩包并解压。
+从 [GitHub Releases](https://github.com/Jay1023CN/mcd-china-map/releases) 下载完整 Windows 压缩包并解压。
 
 1. 将完整项目文件夹放到 `D:\coding\麦当劳\麦麦世界护照`。
 2. 双击 **`启动.cmd`**。它使用 Windows PowerShell 启动本地 HTTP 服务，无需 Python。
