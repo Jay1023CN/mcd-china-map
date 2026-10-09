@@ -156,9 +156,59 @@ async function main() {
     const editedBackup=JSON.parse(fs.readFileSync(await (await editedDownload).path(),'utf8'));
     assert.equal('store_reference' in editedBackup.entries[0],false);
     await storeContext.close();
+    const photoContext = await browser.newContext({timezoneId: 'Asia/Shanghai', acceptDownloads: true});
+    await photoContext.route('https://example.com/**', route => route.fulfill({
+      status: 200,
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect width="8" height="8" fill="#dd442e"/></svg>'
+    }));
+    const photoPage = await photoContext.newPage();
+    const defaultPhotoUrl = 'https://example.com/store.jpg';
+    const defaultPhotoCandidate = {
+      ...candidate,
+      entries: [{...candidate.entries[0], id: 'mcp-photo-fixture', province_code: '310000', city: '上海', store: '默认照片测试门店（虚构）', default_photo: {
+        url: defaultPhotoUrl,
+        source_url: 'https://example.com/photo-source',
+        attribution: '虚构照片来源署名',
+        caption: '虚构门店环境照'
+      }}]
+    };
+    await photoPage.goto(url);
+    await photoPage.locator('#import-file').setInputFiles(upload('synthetic-photo-candidate.json', defaultPhotoCandidate));
+    await photoPage.locator('#candidate-grid .candidate img.photo').waitFor({state: 'visible'});
+    assert.equal(await photoPage.locator('#candidate-grid .candidate img.photo').getAttribute('src'), defaultPhotoUrl);
+    await photoPage.getByRole('button', {name: '补齐并确认本人到店'}).click();
+    assert.equal(await photoPage.locator('#photo-preview').getAttribute('src'), defaultPhotoUrl);
+    await photoPage.locator('[name=photo]').setInputFiles({name: 'user-fixture.png', mimeType: 'image/png', buffer: Buffer.from(photoFixture, 'base64')});
+    await photoPage.locator('#photo-preview').waitFor({state: 'visible'});
+    assert.match(await photoPage.locator('#photo-preview').getAttribute('src'), /^data:image\/jpeg;base64,/);
+    await photoPage.locator('[name=confirmed]').check();
+    await photoPage.getByRole('button', {name: '保存这一页'}).click();
+    await photoPage.getByRole('tab', {name: '打卡手账', exact: true}).click();
+    assert.match(await photoPage.locator('#journal-grid .entry-card img.photo').getAttribute('src'), /^data:image\/jpeg;base64,/);
+    await photoPage.getByRole('button', {name: '编辑这一页', exact: true}).click();
+    await photoPage.locator('#remove-photo').click();
+    assert.equal(await photoPage.locator('#photo-preview').getAttribute('src'), defaultPhotoUrl);
+    await photoPage.getByRole('button', {name: '保存这一页'}).click();
+    assert.equal(await photoPage.locator('#journal-grid .entry-card img.photo').getAttribute('src'), defaultPhotoUrl);
+    await photoPage.getByRole('button', {name: '翻开', exact: true}).click();
+    assert.equal(await photoPage.locator('#detail-body img.photo').getAttribute('src'), defaultPhotoUrl);
+    await photoPage.locator('[data-close="detail-dialog"]').click();
+    const photoDownload = photoPage.waitForEvent('download');
+    await photoPage.locator('#export').click();
+    const photoBackup = JSON.parse(fs.readFileSync(await (await photoDownload).path(), 'utf8'));
+    assert.equal(photoBackup.entries[0].photo, undefined);
+    assert.deepEqual(photoBackup.entries[0].default_photo, defaultPhotoCandidate.entries[0].default_photo);
+    await photoPage.evaluate(() => localStorage.clear());
+    await photoPage.reload();
+    await photoPage.locator('#import-file').setInputFiles(upload('default-photo-backup.json', photoBackup));
+    await photoPage.locator('#toast').filter({hasText: '导入完成'}).waitFor();
+    await photoPage.getByRole('tab', {name: '打卡手账', exact: true}).click();
+    assert.equal(await photoPage.locator('#journal-grid .entry-card img.photo').getAttribute('src'), defaultPhotoUrl);
+    await photoContext.close();
     // Capture only the explicitly synthetic public demo.
     await page.goto(url + 'docs/china-demo.html');
-    await page.locator('#mode-description').filter({hasText: '虚构'}).waitFor();
+    await page.locator('#mode-description').filter({hasText: '示例手账'}).waitFor();
     await page.screenshot({path: path.join(output, 'desktop.png'), fullPage: true});
     await page.setViewportSize({width: 390, height: 844});
     await page.screenshot({path: path.join(output, 'mobile.png'), fullPage: true});

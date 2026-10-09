@@ -24,7 +24,7 @@ def project_archive(raw):
         projected['source'] = raw['source']
     for item in raw['entries']:
         entry = {key: item[key] for key in ENTRY_FIELDS if key in item}
-        for key, fields in [('location', ('lat', 'lon', 'precision')), ('photo', ('data_url',)), ('store_reference', ('source', 'code', 'address'))]:
+        for key, fields in [('location', ('lat', 'lon', 'precision')), ('photo', ('data_url',)), ('default_photo', ('url', 'source_url', 'attribution', 'caption')), ('store_reference', ('source', 'code', 'address'))]:
             if isinstance(item.get(key), dict):
                 entry[key] = {field: item[key][field] for field in fields if field in item[key]}
         projected['entries'].append(entry)
@@ -58,6 +58,7 @@ def render(archive):
     data = {'archive': project_archive(archive),
             'countries': [{'code': 'CN', 'name': '中国'}],
             'provinces': json.loads((ROOT/'assets/data/china-provinces.json').read_text(encoding='utf-8')),
+            'stores': json.loads((ROOT/'assets/data/store-directory.json').read_text(encoding='utf-8')),
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     encoded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     return Template((ROOT/'templates/global-journal.html').read_text(encoding='utf-8')).substitute(

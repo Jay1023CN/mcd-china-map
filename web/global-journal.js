@@ -25,6 +25,7 @@
   let currentSummary;
   let currentEntry = null;
   let photo = null;
+  let defaultPhoto = null;
   let photoBusy = false;
   let photoRevision = 0;
   let mapPoints = [];
@@ -141,7 +142,7 @@
     $('candidate-count').textContent = s.candidateCount;
     $('save-status').textContent = persistent ? '已保存在本浏览器 · 导出备份可换设备' : '当前在本页内使用 · 请导出备份';
     $('mode-description').textContent = archive.data_kind === 'synthetic'
-      ? '示例手账：下方门店、旅行和餐品记录均为虚构，地图点只示意城市中心，不是你的记录。'
+      ? '示例手账：日期、餐品和随记为演示数据，公开门店照片注明来源。开始个人手账，记录你的足迹。'
       : '写下你的中国探店足迹。确认本人到店后，记录就会点亮所在省份。';
     $('start-personal').hidden = archive.data_kind !== 'synthetic';
     renderPassport(s);
@@ -175,10 +176,18 @@
     if (!s.entries.length) $('recent-list').append(empty('从一家麦当劳开始', '记录一顿早餐、一张纸袋，或旅行途中熟悉的味道。'));
   }
   function photoNode(entry) {
-    const image = node('img', undefined, 'photo'); image.src = entry.photo.data_url;
-    image.alt = `${entry.city} ${entry.store}的本人打卡照片`;
-    image.addEventListener('error', () => { image.hidden = true; });
-    return image;
+    const figure = node('figure', undefined, 'entry-photo');
+    const image = node('img', undefined, 'photo'); image.src = entry.photo?.data_url || entry.default_photo.url;
+    image.alt = entry.photo ? `${entry.city} ${entry.store}的本人打卡照片` : entry.default_photo.caption || `${entry.store}门店照片`;
+    image.referrerPolicy = 'no-referrer';
+    image.addEventListener('error', () => { figure.hidden = true; });
+    figure.append(image);
+    if (!entry.photo) {
+      const credit = node('figcaption',undefined,'photo-credit');
+      const link = node('a', entry.default_photo.attribution || '查看照片来源'); link.href=entry.default_photo.source_url;link.target='_blank';link.rel='noopener noreferrer';
+      credit.append(node('span',entry.default_photo.caption || '门店默认照片'),link);figure.append(credit);
+    }
+    return figure;
   }
   function foodTags(entry) {
     const tags = node('div', undefined, 'food-tags');
@@ -191,7 +200,7 @@
     for (const entry of s.entries) {
       const card = node('article', undefined, 'entry-card');
       card.append(node('span', entry.date, 'date'));
-      if (entry.photo) card.append(photoNode(entry));
+      if (entry.photo || entry.default_photo) card.append(photoNode(entry));
       card.append(node('h3', entry.store), node('p', `${placeName(entry)}`, 'place'), foodTags(entry));
       if (entry.note) card.append(node('p', entry.note, 'note'));
       card.append(node('p', entry.origin === 'mcp' ? '中国订单线索 → 本人确认到店' : '本人手动记录', 'origin'));
@@ -207,6 +216,7 @@
     const grid = $('candidate-grid'); grid.replaceChildren();
     for (const entry of s.candidateEntries) {
       const card = node('article', undefined, 'entry-card candidate');
+      if (entry.photo || entry.default_photo) card.append(photoNode(entry));
       card.append(node('span', entry.date, 'date'), node('h3', entry.store), node('p', entry.city || '城市未提供 · 确认时补齐', 'place'), foodTags(entry), node('p', '订单线索，尚未计入打卡或印章。', 'origin'));
       const confirm = node('button', '补齐并确认本人到店', 'primary'); confirm.type = 'button'; confirm.addEventListener('click', () => openForm(entry));
       const skip = node('button', '不计这条线索', 'quiet'); skip.type = 'button'; skip.style.marginTop = '8px'; skip.style.width = '100%'; skip.addEventListener('click', () => removeEntry(entry));
@@ -300,9 +310,27 @@
     $('location-help').textContent=mode==='none' ? '只保留文字打卡，不在地图上显示。' : mode==='user' ? '坐标由你填写；不自动查询或读取定位。' : match ? `已匹配${match.city}城市中心；不代表门店精确位置。` : '尚未匹配常用城市中心；仍可保存文字，或改为自己填写坐标。';
   }
   function showPhoto() {
-    $('photo-preview').hidden=!photo;
+    $('photo-preview').hidden=!(photo || defaultPhoto);
     $('photo-actions').hidden=!photo;
-    if(photo) $('photo-preview').src=photo.data_url; else $('photo-preview').removeAttribute('src');
+    if(photo || defaultPhoto) $('photo-preview').src=photo?.data_url || defaultPhoto.url; else $('photo-preview').removeAttribute('src');
+    $('photo-preview').referrerPolicy='no-referrer';
+    $('photo-caption').replaceChildren();
+    if (!photo && defaultPhoto) {
+      const link=node('a',defaultPhoto.attribution || '查看来源');link.href=defaultPhoto.source_url;link.target='_blank';link.rel='noopener noreferrer';
+      $('photo-caption').append(node('span', defaultPhoto.caption || '门店默认照片'),link);
+    } else if(photo) $('photo-caption').append(node('span','你上传的照片'));
+    $('remove-photo').textContent=defaultPhoto?'使用门店默认照片':'移除照片';
+  }
+  function applyStoreInfo() {
+    const name=field('store').value.normalize('NFKC').trim();
+    const store=(data.stores || []).find(s=>[s.name,...(s.aliases || [])].some(n=>n.normalize('NFKC').trim()===name));
+    defaultPhoto=store?.default_photo || null;
+    const cityMatches=data.cities.filter(c=>name.startsWith('麦当劳'+c.city));
+    const cityInfo=store || (cityMatches.length===1 ? cityMatches[0] : null);
+    if(cityInfo && !field('city').value.trim()) field('city').value=cityInfo.city;
+    if(cityInfo && field('city').value.replace(/市$/,'')===cityInfo.city && !field('province_code').value) field('province_code').value=cityInfo.province_code;
+    if(store && field('city').value.replace(/市$/,'')!==store.city) defaultPhoto=null;
+    showPhoto();updateCitySuggestions();
   }
   function openForm(entry=null) {
     if (entry && archive.data_kind === 'synthetic') {
@@ -313,9 +341,10 @@
     photoRevision++;
     currentEntry=entry; selectedStore=entry?.store_reference || null;
     form.reset(); photo=entry && entry.photo ? {...entry.photo} : null;
+    defaultPhoto=entry?.default_photo || null;
     photoBusy=false; $('save-entry').disabled=false;
     $('form-heading').textContent=entry && entry.source==='mcp_candidate' ? '把订单线索写成打卡' : entry ? '修改这一页手账' : '新添一页打卡';
-    $('form-note').textContent=entry && entry.source==='mcp_candidate' ? '这条中国大陆订单可能是外送或替别人点单。请确认本人确曾到店，并补齐城市。' : '记录你本人到过的麦当劳，留下一页中国足迹。';
+    $('form-note').textContent=entry && entry.source==='mcp_candidate' ? '门店资料已自动整理。确认这次是本人到店，就能留下一页足迹；也可以换成自己拍的照片。' : '记录你本人到过的麦当劳，留下一页中国足迹。';
     field('date').max=today(); field('date').value=entry ? entry.date : today();
     field('country_code').value='CN';
     field('province_code').value=entry?.province_code || data.cities.find(c => [c.city,c.city+'市'].includes(entry?.city))?.province_code || '';
@@ -329,6 +358,7 @@
       field('lat').value=entry.location.lat; field('lon').value=entry.location.lon;
     } else field('location_mode').value=entry ? 'none':'city';
     $('form-error').hidden=true; showPhoto(); updateCitySuggestions();
+    if (!defaultPhoto) applyStoreInfo();
     $('entry-dialog').showModal(); field('date').focus();
   }
   field('province_code').addEventListener('change',updateCitySuggestions);
@@ -369,6 +399,7 @@
         else if(currentEntry && currentEntry.location && currentEntry.location.precision==='city' && currentEntry.city===entry.city && currentEntry.country_code===entry.country_code) entry.location=currentEntry.location;
       }
       if(photo) entry.photo=photo;
+      if(defaultPhoto) entry.default_photo=defaultPhoto;
       if(selectedStore) entry.store_reference=selectedStore;
       const normalized=E.normalizeEntry(entry,opts());
       const next={...archive,data_kind:'manual',entries:archive.entries.filter(e=>e.id!==normalized.id).concat(normalized)};
@@ -383,7 +414,7 @@
     $('detail-heading').textContent=entry.store;
     const body=$('detail-body');body.replaceChildren();
     body.append(node('p',`${entry.date} / ${placeName(entry)}`,'place'));
-    if(entry.photo) body.append(photoNode(entry));
+    if(entry.photo || entry.default_photo) body.append(photoNode(entry));
     body.append(foodTags(entry));
     if(entry.note) body.append(node('p',entry.note));
     body.append(node('p',entry.location ? (entry.location.precision==='city'?'地图使用城市中心，非门店位置。':'地图使用本人填写的坐标。'):'本页只有文字记录，没有位置标记。','map-note'));
@@ -395,8 +426,8 @@
   $('start-personal').addEventListener('click',startPersonal);
   $('year-filter').addEventListener('change',render);$('country-filter').addEventListener('change',render);
   field('province_code').replaceChildren(new Option('请选择省份 / 地区',''), ...provinces.map(f => new Option(f.properties.name,String(f.properties.adcode))));
-  field('store').addEventListener('input', () => { selectedStore = null; });
-  field('city').addEventListener('input', () => { selectedStore = null; });
+  field('store').addEventListener('input', () => { selectedStore = null; applyStoreInfo(); });
+  field('city').addEventListener('input', () => { selectedStore = null; applyStoreInfo(); });
   field('province_code').addEventListener('change', () => { selectedStore = null; });
   fetch('/api/health').then(r => r.ok ? r.json() : null).then(state => {
     $('store-api-status').textContent = state?.store_lookup ? '官方门店查询已连接。' : '查询门店请先关闭普通启动窗口，再运行“启动门店查询.cmd”。';
@@ -417,7 +448,7 @@
           openForm(); if (!$('entry-dialog').open) return;
           field('city').value=store.city; field('store').value=store.name;
           const city=data.cities.find(c=>[c.city,c.city+'市',c.city_en].includes(store.city)); if(city) field('province_code').value=city.province_code;
-          selectedStore={source:'mcp_nearby',code:store.code,address:store.address || ''}; updateCitySuggestions();
+          selectedStore={source:'mcp_nearby',code:store.code,address:store.address || ''}; applyStoreInfo(); updateCitySuggestions();
         }); card.append(button); $('store-results').append(card);
       }
     } catch(error) { $('store-search-status').textContent=error.message; }

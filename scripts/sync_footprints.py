@@ -12,6 +12,7 @@ from connect_mcp import OUTPUT, save_private
 from import_mcp_footprints import normalize, read_result
 from mcp_readonly import Client
 from build_global_journal import candidates, render
+from store_enrichment import enrich_archive
 
 
 def main():
@@ -60,7 +61,7 @@ def main():
             fetch('campaign-calendar', {}, 'campaign-calendar.result.json')
         payload = normalize(run_output, args.order_offset)
         save_private('footprints.normalized.json', payload, directory=run_output)
-        global_archive = candidates(payload)
+        global_archive = enrich_archive(candidates(payload))
         page = render(global_archive)
         save_private('global-candidates.json', global_archive, directory=run_output)
         for name, content in [('global-passport.html', page)]:

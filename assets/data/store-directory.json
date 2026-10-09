@@ -1,0 +1,20 @@
+[
+  {
+    "name": "麦当劳上海黄浦华旭国际大厦餐厅",
+    "aliases": [
+      "上海黄浦华旭国际大厦CUBE风格旗舰店餐厅",
+      "上海麦当劳城市中心旗舰餐厅",
+      "麦当劳华旭国际大厦店"
+    ],
+    "city": "上海",
+    "province_code": "310000",
+    "address": "上海市黄浦区西藏中路336号",
+    "source_url": "https://www.mcdonalds.com.cn/index/Quality/publicinfo/deliveryinfo?locale=zh&page=535&staticLinkId=886",
+    "default_photo": {
+      "url": "https://sghimages.shobserver.com/img/catch/2026/01/24/7461e0ca-f1ce-4ee9-8bd0-993cfd1bcc62.jpg",
+      "source_url": "https://www.jfdaily.com/sgh/detail?id=1699951",
+      "attribution": "上观新闻",
+      "caption": "人民广场附近 · 华旭国际大厦餐厅外观"
+    }
+  }
+]

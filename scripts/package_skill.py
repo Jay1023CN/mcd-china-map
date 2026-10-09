@@ -13,14 +13,14 @@ FILES = (
     "scripts/build_global_journal.py", "scripts/visual_assets.py",
     "scripts/mcp_readonly.py", "scripts/connect_mcp.py",
     "scripts/import_mcp_footprints.py", "scripts/sync_footprints.py",
-    "scripts/footprints.py", "web/global-journal.js", "web/journal-engine.js",
+    "scripts/footprints.py", "scripts/store_enrichment.py", "web/global-journal.js", "web/journal-engine.js",
     "templates/global-journal.html", "examples/china-journal.synthetic.json",
     "references/tools.md", "docs/SOURCES.md", "docs/MCP_TOOLS.md", "docs/VALIDATION.md",
-    "docs/LOCAL_WINDOWS.md", "docs/REGISTRATION.md",
+    "docs/LOCAL_WINDOWS.md", "docs/REGISTRATION.md", "docs/DEVELOPMENT.md", "docs/PRODUCT-REVIEW.md",
     "docs/china-demo.html", "docs/china-preview.png",
     "assets/global-title.png", "assets/global-passport.png", "assets/paper.png",
     "assets/data/china-provinces.json", "assets/data/china-cities.json",
-    "assets/data/LICENSE-world.txt", "assets/data/CHINA-SOURCES.md",
+    "assets/data/LICENSE-world.txt", "assets/data/CHINA-SOURCES.md", "assets/data/store-directory.json", "assets/data/STORE-SOURCES.md",
     "assets/fonts/source.css", "assets/fonts/dm-mono-source.css",
     "assets/fonts/noto-display-0.ttf", "assets/fonts/noto-display-1.ttf",
     "assets/fonts/noto-display-2.ttf", "assets/fonts/noto-display-3.ttf",
@@ -29,7 +29,7 @@ FILES = (
     "assets/icons/storefront.svg", "assets/icons/bag.svg", "assets/icons/clock.svg",
     "assets/icons/clipboard-text.svg", "assets/icons/map-pin.svg",
     "assets/icons/plus.svg", "assets/icons/x.svg", "assets/icons/LICENSE.txt",
-    "tests/journal-engine.test.js", "tests/test_project.py", "tests/browser-smoke.cjs",
+    "tests/journal-engine.test.js", "tests/test_project.py", "tests/test_store_enrichment.py", "tests/browser-smoke.cjs",
 )
 
 

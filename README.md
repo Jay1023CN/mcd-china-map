@@ -26,6 +26,8 @@
 
 同步后运行 `启动门店查询.cmd` 也会直接打开本机真实订单版，无需手动导入。个人数据留在 `private`，不会覆盖公开首页和示例页。
 
+同步会根据已核实的门店资料和名称自动补城市、省份与城市点位；已收录门店照片会直接带入，并附来源。你也可以上传自己的照片，替换默认显示，备份同时保留两种照片信息。
+
 ## 可以留下什么
 
 - 中国分省地图：34 个省份／地区选项，按本人打卡点亮省份，带南海诸岛插图。
@@ -49,12 +51,12 @@
 py scripts/build_global_journal.py --output index.html
 py scripts/build_global_journal.py --archive examples/china-journal.synthetic.json --output docs/china-demo.html
 node --test tests/journal-engine.test.js
-py -m unittest discover -s tests -p test_project.py -v
+py -m unittest discover -s tests -p 'test_*.py' -v
 py scripts/package_skill.py
 ```
 
 `web/journal-engine.js` 负责归档和统计，`web/global-journal.js` 负责页面交互，`scripts/local_api.py` 提供本机只读门店查询。浏览器验收脚本为 `tests/browser-smoke.cjs`，GitHub Actions 在 Windows 执行检查。
 
-[Skill](SKILL.md) · [MCP 接入](MCP_INTEGRATION.md) · [运行验证](docs/VALIDATION.md) · [素材来源](docs/SOURCES.md) · [参赛申请](https://github.com/M-China/mcd-developer-innovation-challenge/issues/139)
+[Skill](SKILL.md) · [MCP 接入](MCP_INTEGRATION.md) · [开发与文件管理](docs/DEVELOPMENT.md) · [产品与反馈](docs/PRODUCT-REVIEW.md) · [运行验证](docs/VALIDATION.md) · [素材来源](docs/SOURCES.md) · [参赛申请](https://github.com/M-China/mcd-developer-innovation-challenge/issues/139)
 
 社区独立作品，非麦当劳官方产品。原创代码遵循 [MIT License](LICENSE)，第三方素材遵循各自许可。官方参赛声明保留原文。

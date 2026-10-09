@@ -20,10 +20,10 @@ Windows PowerShell 5.1 启动固定 `127.0.0.1:8765` 服务；首页 HTTP 200，
 
 ```powershell
 node --test tests/journal-engine.test.js
-py -m unittest discover -s tests -p test_project.py -v
+py -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-9 项 JavaScript 测试覆盖日期、中国省份、候选边界、筛选、去重、照片与归档白名单；10 项 Python 测试覆盖 Windows UTF-8 构建、不同哈希种子的可重复构建、JSON 转义、候选脱敏、虚构响应转换、只读工具限制、SSE、同步失败保留旧数据、门店响应投影与本机 HTTP 接口。
+10 项 JavaScript 测试覆盖日期、中国省份、候选边界、筛选、去重、上传照片、默认门店照片及来源与归档白名单；22 项 Python 测试覆盖构建、JSON 转义、候选转换、只读工具、SSE、同步保留旧数据、门店查询、本机 HTTP 接口，以及自动补城市、省份、坐标、默认照片、资料冲突和公开／私有目录处理。
 
 浏览器验收：启动本地服务，安装 Playwright，运行 `node tests/browser-smoke.cjs`。可设置 `BROWSER_CHANNEL=msedge` 使用 Edge，`PLAYWRIGHT_MODULE` 指定依赖位置。GitHub Actions 在 Windows 执行检查，CI 是否通过以实际运行状态为准。
 

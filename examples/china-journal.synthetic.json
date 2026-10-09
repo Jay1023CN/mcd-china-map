@@ -28,18 +28,24 @@
       "country_code": "CN",
       "province_code": "310000",
       "city": "上海",
-      "store": "上海街角店 · 虚构",
+      "store": "麦当劳上海黄浦华旭国际大厦餐厅",
       "foods": [
         "咖啡",
         "薯条"
       ],
-      "note": "虚构探店示例：旅途里熟悉的一顿饭。",
+      "note": "演示记录：在人民广场附近留下一页手账。",
       "source": "manual",
       "confirmed": true,
       "location": {
         "lat": 31.218398,
         "lon": 121.434559,
         "precision": "city"
+      },
+      "default_photo": {
+        "url": "https://sghimages.shobserver.com/img/catch/2026/01/24/7461e0ca-f1ce-4ee9-8bd0-993cfd1bcc62.jpg",
+        "source_url": "https://www.jfdaily.com/sgh/detail?id=1699951",
+        "attribution": "上观新闻",
+        "caption": "人民广场附近 · 华旭国际大厦餐厅外观"
       }
     },
     {

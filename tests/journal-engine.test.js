@@ -51,6 +51,24 @@ test('archive strips private fields and preserves photos, notes and location', (
   assert.deepEqual(clean.entries[0].photo, {data_url: 'data:image/png;base64,YQ=='});
   for (const field of ['token', 'orderId', 'phone']) assert.equal(field in clean.entries[0], false);
 });
+test('default store photos retain public source details and require HTTPS', () => {
+  const default_photo = {
+    url: 'https://example.com/store.jpg',
+    source_url: 'https://example.com/source',
+    attribution: '虚构来源署名',
+    caption: '虚构门店环境照',
+    private_note: 'must be dropped'
+  };
+  const clean = E.normalizeArchive(archive([entry({default_photo})]), options);
+  assert.deepEqual(clean.entries[0].default_photo, {
+    url: default_photo.url,
+    source_url: default_photo.source_url,
+    attribution: default_photo.attribution,
+    caption: default_photo.caption
+  });
+  assert.throws(() => E.normalizeEntry(entry({default_photo: {...default_photo, url: 'http://example.com/store.jpg'}}), options));
+  assert.throws(() => E.normalizeEntry(entry({default_photo: {...default_photo, source_url: 'http://example.com/source'}}), options));
+});
 test('identical duplicates deduplicate while conflicts reject the whole import', () => {
   assert.equal(E.normalizeArchive(archive([entry(), entry()]), options).entries.length, 1);
   assert.throws(() => E.normalizeArchive(archive([entry(), entry({note: 'changed'})]), options));

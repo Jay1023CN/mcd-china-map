@@ -119,6 +119,18 @@
       if (byteCount > MAX_PHOTO_BYTES) fail('photo exceeds 1.5 MiB');
       output.photo = { data_url: photo.data_url };
     }
+    if (input.default_photo != null) {
+      var fallback = object(input.default_photo, 'default_photo');
+      var imageUrl = text(fallback.url, 'default photo URL', 2048, true);
+      var sourceUrl = text(fallback.source_url, 'default photo source', 2048, true);
+      for (var url of [imageUrl, sourceUrl]) {
+        try { if (new URL(url).protocol !== 'https:' || new URL(url).username || new URL(url).password) fail('default photo URLs must use HTTPS'); }
+        catch (error) { fail('default photo URLs must use HTTPS'); }
+      }
+      output.default_photo = {url: imageUrl, source_url: sourceUrl,
+        attribution: text(fallback.attribution || '', 'photo attribution', 300, false),
+        caption: text(fallback.caption || '', 'photo caption', 500, false)};
+    }
     if (input.collaboration != null) {
       var collaboration = text(input.collaboration, 'collaboration', 120, false);
       if (collaboration && input.confirmed) {

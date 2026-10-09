@@ -19,7 +19,7 @@ jobs:
       - name: Engine and offline MCP regression tests
         run: |
           node --test tests/journal-engine.test.js
-          python -m unittest discover -s tests -p test_project.py -v
+          python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Rebuild public pages
         run: |
           python scripts/build_global_journal.py --output index.html
