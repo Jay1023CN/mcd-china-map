@@ -261,8 +261,9 @@
       const actions = node('div', undefined, 'entry-buttons');
       const edit = node('button', '编辑这一页'); edit.type = 'button'; edit.addEventListener('click', () => openForm(entry));
       const details = node('button', '翻开'); details.type = 'button'; details.addEventListener('click', () => openDetail(entry));
+      const share=node('button','分享这一页');share.type='button';share.addEventListener('click',()=>openShare(entry));
       const remove = node('button', '删除', 'delete'); remove.type = 'button'; remove.addEventListener('click', () => removeEntry(entry));
-      actions.append(edit, details, remove); card.append(actions); grid.append(card);
+      actions.append(edit, details, share, remove); card.append(actions); grid.append(card);
     }
     if (!s.entries.length) grid.append(empty('这一页还是空白', '点击右上角“新增打卡”，或到“待确认订单”补齐一条本人到店记录。'));
   }
@@ -475,6 +476,7 @@
     if(entry.note) body.append(node('p',entry.note));
     body.append(node('p',entry.location ? (entry.location.precision==='city'?'地图使用城市中心，非门店位置。':'地图使用本人填写的坐标。'):'本页只有文字记录，没有位置标记。','map-note'));
     const edit=node('button','编辑这一页','secondary');edit.type='button';edit.addEventListener('click',()=>{$('detail-dialog').close();openForm(entry);});body.append(edit);
+    const share=node('button','分享这一页','secondary');share.type='button';share.style.marginLeft='8px';share.addEventListener('click',()=>{$('detail-dialog').close();openShare(entry);});body.append(share);
     $('detail-dialog').showModal();
   }
   document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>$(button.dataset.close).close()));
@@ -526,7 +528,7 @@
     try {
       const response=await fetch('/api/synced-orders');const result=await response.json();
       if(!response.ok)throw new Error(result.error || '请先运行“同步中国订单.cmd”。');
-      if(!mergeArchive(E.normalizeArchive(result,opts())))return;setView('candidates');toast('本机订单已载入，选择这次本人到过的门店留下一页。');
+      if(!mergeArchive(E.normalizeArchive(result,opts())))return;showImported('candidates');toast('本机订单已载入，选择这次本人到过的门店留下一页。');
     }catch(error){toast(error.message);}
     finally{$('load-orders').disabled=false;}
   });
@@ -538,7 +540,7 @@
       const response=await fetch('/api/sync-orders',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
       const result=await response.json();if(!response.ok)throw new Error(result.error || '订单暂未同步，请稍后再试。');
       const incoming=E.normalizeArchive(result.archive,opts());if(!mergeArchive(incoming))return;
-      setView('candidates');$('sync-progress').textContent=incoming.entries.length?`已整理 ${incoming.entries.length} 条订单线索，选出这次本人到店的记录。`:'本次没有完成订单，可以先新增一页自己的打卡。';
+      showImported('candidates');$('sync-progress').textContent=incoming.entries.length?`已整理 ${incoming.entries.length} 条订单线索，选出这次本人到店的记录。`:'本次没有完成订单，可以先新增一页自己的打卡。';
     }catch(error){$('sync-progress').textContent=error.message;}
     finally{buttons.forEach(id=>$(id).disabled=false);}
   });
@@ -577,28 +579,75 @@
   }
   $('export').addEventListener('click',downloadArchive);$('top-export').addEventListener('click',downloadArchive);
   let shareCanvas=null,shareFile=null,sharePreviewUrl=null,shareRevision=0;
+  let shareEntry=null;
+  const sharePhotoCache=new Map();
+  let footprintTitle='我的麦麦中国足迹';
   function shareText() {
+    if(shareEntry) {
+      const facts=window.MemoryCard.project(shareEntry,{title:$('share-title').value,includePlace:$('share-cities').checked,includeNote:$('share-note').checked});
+      return [facts.title,facts.date,$('share-cities').checked?[facts.city,facts.store].filter(Boolean).join(' · '):'',facts.foods.join(' · '),facts.note || '',
+        '用麦当劳，画出自己的中国足迹。','https://github.com/Jay1023CN/mcd-china-map'].filter(Boolean).join('\n');
+    }
     const s=currentSummary;
-    return `我的麦麦中国足迹：${s.distinctProvinces} 个省份／地区，${s.distinctCities} 座城市，${s.confirmedCount} 页小小停靠。\n用麦当劳，画出自己的中国足迹。\nhttps://github.com/Jay1023CN/mcd-china-map`;
+    return `${$('share-title').value || '我的麦麦中国足迹'}：${s.distinctProvinces} 个省份／地区，${s.distinctCities} 座城市，${s.confirmedCount} 页小小停靠。\n用麦当劳，画出自己的中国足迹。\nhttps://github.com/Jay1023CN/mcd-china-map`;
+  }
+  async function sharePhoto(entry) {
+    if(entry.photo?.data_url)return entry.photo.data_url;
+    const url=entry.default_photo?.url;if(!url)return null;
+    if(data.store_images?.[url])return data.store_images[url];
+    if(sharePhotoCache.has(url))return sharePhotoCache.get(url);
+    try {
+      const response=await fetch('/api/photo-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+      if(!response.ok)return null;const value=(await response.json()).data_url;
+      if(typeof value==='string' && value.startsWith('data:image/')){if(sharePhotoCache.size>=8)sharePhotoCache.delete(sharePhotoCache.keys().next().value);sharePhotoCache.set(url,value);return value;}
+    }catch(error){}
+    return null;
+  }
+  function openShare(entry=null) {
+    if(!shareEntry)footprintTitle=$('share-title').value;
+    shareEntry=entry;
+    $('share-heading').textContent=entry?'分享这一页探店记':'把中国足迹装进一张卡片';
+    $('share-description').textContent=entry?'照片、餐品和随记，装进一张自己的探店卡。预览满意后再分享。':'按当前筛选生成。选好配色，分享给朋友看看。';
+    $('share-title').value=entry?'一页麦麦探店记':footprintTitle;
+    $('share-place-label').textContent=entry?'显示城市和门店':'显示城市名称';
+    $('share-cities').checked=!!entry;
+    $('share-note-option').hidden=!entry;
+    $('share-photo-option').hidden=!entry;
+    $('share-note').checked=!!entry?.note && !entry.note.startsWith('中国大陆订单线索');
+    $('share-copy-text').hidden=true;
+    $('share-preview').replaceChildren();
+    $('share-dialog').showModal();updateShareCard();
   }
   async function updateShareCard() {
-    const revision=++shareRevision;$('save-share').disabled=true;$('native-share').disabled=true;$('share-status').textContent='正在画出你的足迹……';
+    const revision=++shareRevision;$('save-share').disabled=true;$('native-share').disabled=true;$('copy-share-image').disabled=true;$('share-status').textContent='正在画出你的足迹……';
     try {
-      const canvas=await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
-        title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked});
+      const canvas=shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
+        includePlace:$('share-cities').checked,includeNote:$('share-note').checked,photoDataUrl:await sharePhoto(shareEntry),
+        imageFit:$('share-photo-fit').value,photoCredit:shareEntry.photo?'旅行中的一页记录':shareEntry.default_photo?.attribution}):
+        await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
+          title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked});
       if(revision!==shareRevision || !$('share-dialog').open)return;
       const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       if(revision!==shareRevision || !$('share-dialog').open)return;
-      shareCanvas=canvas;shareFile=new File([blob],'麦麦中国足迹-'+today()+'.png',{type:'image/png'});
+      shareCanvas=canvas;shareFile=new File([blob],(shareEntry?'麦麦探店记-':'麦麦中国足迹-')+today()+'.png',{type:'image/png'});
       const oldUrl=sharePreviewUrl;sharePreviewUrl=URL.createObjectURL(blob);
       const preview=node('img');preview.id='share-image';preview.alt='你的中国足迹分享卡预览';preview.src=sharePreviewUrl;
       $('share-preview').replaceChildren(preview);if(oldUrl)URL.revokeObjectURL(oldUrl);
-      $('save-share').disabled=false;$('native-share').disabled=false;$('share-copy-text').value=shareText();
+      $('save-share').disabled=false;$('native-share').disabled=false;$('copy-share-image').disabled=false;$('share-copy-text').value=shareText();
       $('share-status').textContent='点“分享给朋友”选择应用，也可以长按图片或保存到相册。';
     }catch(error){if(revision===shareRevision)$('share-status').textContent='暂时没画好，再试一次。';}
   }
-  $('open-share').addEventListener('click',()=>{$('share-dialog').showModal();updateShareCard();});
+  $('open-share').addEventListener('click',()=>openShare());
   $('share-title').addEventListener('input',updateShareCard);$('share-theme').addEventListener('change',updateShareCard);$('share-cities').addEventListener('change',updateShareCard);
+  $('share-note').addEventListener('change',updateShareCard);
+  $('share-photo-fit').addEventListener('change',updateShareCard);
+  $('copy-share-image').addEventListener('click',async()=>{
+    if(!shareFile)return;
+    try {
+      await navigator.clipboard.write([new ClipboardItem({'image/png':shareFile})]);
+      $('share-status').textContent='图片已复制，切到微信或 QQ 聊天，粘贴即可发送。';
+    }catch(error){$('share-status').textContent='当前浏览器请保存图片或长按卡片，再发给微信好友。';}
+  });
   $('native-share').addEventListener('click',async()=>{
     if(!shareFile)return;
     if(typeof navigator.share!=='function') {
@@ -624,13 +673,16 @@
     try {
       const blob=await new Promise(resolve=>shareCanvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;
-      link.download='麦麦中国足迹-'+(archive.data_kind==='synthetic'?'示例-':'')+today()+'.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+      link.download=(shareEntry?'麦麦探店记-':'麦麦中国足迹-')+(archive.data_kind==='synthetic'?'示例-':'')+today()+'.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
       $('share-status').textContent='图片已开始下载，去相册或下载文件夹找到它。';
     }catch(error){$('share-status').textContent='图片暂时未保存，请再试一次。';}
     finally{$('save-share').disabled=false;}
   });
   $('print').addEventListener('click',()=>window.print());
   $('import').addEventListener('click',()=>$('import-file').click());
+  function showImported(next) {
+    $('year-filter').value='';$('country-filter').value='';render();setView(next);
+  }
   function mergeArchive(incoming) {
     if(incoming.data_kind==='synthetic' && archive.data_kind!=='synthetic' && (archive.entries.length || archive.wishlist?.length)) throw new Error('synthetic cannot mix with personal');
     if(archive.data_kind==='synthetic' && incoming.data_kind!=='synthetic' && !startPersonal())return false;
@@ -671,7 +723,7 @@
       const parsed=JSON.parse(await file.text());
       const incoming=E.normalizeArchive(parsed.version===1?parsed:await orderCandidates(parsed),opts());
       if(!mergeArchive(incoming))return;
-      setView(incoming.entries.some(e=>e.source==='mcp_candidate')?'candidates':incoming.wishlist?.length && !incoming.entries.length?'wishlist':'journal');toast('导入完成；候选订单仍需逐条确认本人到店。');
+      showImported(incoming.entries.some(e=>e.source==='mcp_candidate')?'candidates':incoming.wishlist?.length && !incoming.entries.length?'wishlist':'journal');toast('导入完成；候选订单仍需逐条确认本人到店。');
     } catch(error) { toast('导入未完成：请使用有效的个人手账或真实规范化 MCP 文件。示例与个人记录不能混合；冲突或超限文件不会覆盖现有内容。'); }
     finally {event.target.value='';}
   });

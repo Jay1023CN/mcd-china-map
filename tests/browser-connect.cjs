@@ -108,7 +108,8 @@ async function main() {
     syncMode = 'success';
     await page.locator('#sync-progress').filter({hasText: '已整理 1 条订单线索'}).waitFor();
     assert.equal(await page.locator('#sync-orders').isDisabled(), false);
-    assert.equal(await page.locator('#candidate-count').innerText(), '0', 'current province filter remains applied after sync');
+    assert.equal(await page.locator('#country-filter').inputValue(), '', 'sync reveals new candidates by clearing the old province filter');
+    assert.equal(await page.locator('#candidate-count').innerText(), '1', 'new candidates are immediately visible after sync');
     await page.locator('#country-filter').selectOption('');
     assert.equal(await page.locator('#candidate-count').innerText(), '1', 'the filtered sync retained the Shanghai candidate');
     assert.equal(await page.locator('#count-visits').innerText(), '0');

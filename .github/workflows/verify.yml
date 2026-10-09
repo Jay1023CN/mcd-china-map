@@ -18,7 +18,7 @@ jobs:
           node-version: '22'
       - name: Engine and offline MCP regression tests
         run: |
-          node --test tests/journal-engine.test.js tests/share-card.test.js tests/journey-insights.test.js tests/wishlist-engine.test.js
+          node --test tests/journal-engine.test.js tests/share-card.test.js tests/journey-insights.test.js tests/wishlist-engine.test.js tests/memory-card.test.js
           python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Rebuild public pages
         run: |
@@ -46,5 +46,6 @@ jobs:
           node tests/browser-features.cjs
           node tests/browser-wishlist.cjs
           node tests/browser-connect.cjs
+          node tests/browser-memory.cjs
       - name: Verify distribution whitelist
         run: python scripts/package_skill.py

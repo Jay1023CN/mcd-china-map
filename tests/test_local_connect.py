@@ -232,6 +232,16 @@ class LocalConnectTests(unittest.TestCase):
             self.assertEqual(error.exception.code, 404)
             self.assertIn('未找到已同步的订单记录', error.exception.read().decode('utf-8'))
 
+    def test_photo_data_route_uses_reviewed_loader_and_same_origin(self):
+        with patch.object(local_api,'load_photo_data',return_value='data:image/png;base64,ZmFrZQ==') as loader:
+            response=self.request('/api/photo-data','POST',{'url':'https://example.com/reviewed.jpg'},self.server.origin)
+            self.assertEqual(json.load(response),{'data_url':'data:image/png;base64,ZmFrZQ=='})
+            loader.assert_called_once_with('https://example.com/reviewed.jpg')
+            with self.assertRaises(HTTPError) as error:
+                self.request('/api/photo-data','POST',{'url':'https://example.com/reviewed.jpg'},'https://other.example')
+            self.assertEqual(error.exception.code,403)
+            self.assertEqual(loader.call_count,1)
+
 
 if __name__ == '__main__':
     unittest.main()

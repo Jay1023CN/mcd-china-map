@@ -17,6 +17,7 @@ from mcp_readonly import Client, READ_TOOLS
 from build_global_journal import render, project_archive
 from store_enrichment import enrich_archive
 from sync_footprints import sync_orders
+from store_photo_data import load_photo_data
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'http://127.0.0.1:8765'
@@ -153,11 +154,18 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self.valid_host():
             return
-        if self.path not in ('/api/stores', '/api/connect', '/api/disconnect', '/api/sync-orders'):
+        if self.path not in ('/api/stores', '/api/connect', '/api/disconnect', '/api/sync-orders', '/api/photo-data'):
             self.reply(405, {'error': 'Only the read-only store query endpoint is available.'})
             return
         if self.headers.get('Origin') != self.server.origin or self.headers.get('Content-Type') != 'application/json':
             self.reply(403, {'error': '请从本机地图页面发起请求。'})
+            return
+        if self.path == '/api/photo-data':
+            try:
+                payload = self.read_json(4096)
+                self.reply(200, {'data_url': load_photo_data(payload.get('url'))})
+            except Exception:
+                self.reply(502, {'error': '这张门店照片暂时没取到，可以使用自己的照片或旅行插画。'})
             return
         if self.path == '/api/disconnect':
             length = self.headers.get('Content-Length', '0')

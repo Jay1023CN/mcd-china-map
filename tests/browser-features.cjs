@@ -34,11 +34,15 @@ const base=process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
     await page.evaluate(()=>{
       Object.defineProperty(navigator,'share',{configurable:true,value:async payload=>{window.shared={title:payload.title,text:payload.text,name:payload.files?.[0]?.name,type:payload.files?.[0]?.type,active:navigator.userActivation.isActive};}});
       Object.defineProperty(navigator,'canShare',{configurable:true,value:payload=>payload.files?.length===1});
-      Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.copied=text;}}});
+      Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.copied=text;},write:async items=>{window.copiedImage={types:items[0].types,blob:await items[0].getType('image/png'),active:navigator.userActivation.isActive};}}});
     });
     await page.locator('#native-share').click();
     const shared=await page.evaluate(()=>window.shared);assert.equal(shared.type,'image/png');assert.equal(shared.active,true);assert.ok(shared.text.includes('8 个省份'));assert.equal(shared.text.includes('西藏中路'),false);
     await page.locator('#copy-share').click();assert.ok((await page.evaluate(()=>window.copied)).includes('github.com/Jay1023CN/mcd-china-map'));
+    await page.locator('#copy-share-image').click();
+    assert.ok(await page.evaluate(()=>window.copiedImage.types.includes('image/png') && window.copiedImage.blob.size>0));
+    assert.equal(await page.evaluate(()=>window.copiedImage.active),true);
+    await page.locator('#share-status').filter({hasText:'切到微信或 QQ'}).waitFor();
     await page.evaluate(()=>Object.defineProperty(navigator,'share',{configurable:true,value:()=>Promise.reject(new DOMException('cancel','AbortError'))}));
     await page.locator('#native-share').click();await page.locator('#share-status').filter({hasText:'分享已取消'}).waitFor();
     await page.evaluate(()=>Object.defineProperty(navigator,'share',{configurable:true,value:undefined}));
