@@ -49,6 +49,7 @@ jobs:
           node tests/browser-national-stores.cjs
           node tests/browser-taiwan-names.cjs
           node tests/browser-directory-saved.cjs
+          node tests/browser-featured-photos.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

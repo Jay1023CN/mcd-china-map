@@ -696,5 +696,80 @@
       "白云山南出口",
       "LEED"
     ]
+  },
+  {
+    "name": "麦当劳长春重庆路活力城餐厅",
+    "aliases": [
+      "长春重庆路活力城餐厅",
+      "长春活力城Ray旗舰店"
+    ],
+    "city": "长春",
+    "search_keyword": "重庆路 活力城",
+    "short_description": "重庆路上的两层 Ray 风格餐厅，圆弧立面和金色拱门很醒目；2022 年开业报道还展示了店内的黄色旋转楼梯。",
+    "province_code": "220000",
+    "address": "重庆路活力城1层麦当劳",
+    "source_url": "https://www.mcdonalds.com.cn/news/20220827-LEED1500",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2022/08/26/202208261607537348/202208261607537348_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/changchun-huolicheng.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20220827-LEED1500",
+      "attribution": "麦当劳官方报道配图，页面未列单独摄影署名",
+      "caption": "长春重庆路活力城餐厅外观（2022-08-27 官方开业报道配图）"
+    },
+    "tags": [
+      "Ray旗舰店",
+      "旋转楼梯",
+      "长春"
+    ]
+  },
+  {
+    "name": "麦当劳乌鲁木齐北京路汇嘉时代广场餐厅",
+    "aliases": [
+      "乌鲁木齐汇嘉时代广场餐厅",
+      "乌鲁木齐北京路汇嘉餐厅"
+    ],
+    "city": "乌鲁木齐",
+    "search_keyword": "北京路 汇嘉时代",
+    "short_description": "玻璃幕墙、黄色楼梯和双语招牌，是 2020 年新疆首批旗舰店报道里的醒目门面。逛北京路汇嘉时代广场时，可以把这一站放进想去清单。",
+    "province_code": "650000",
+    "address": "乌鲁木齐市北京路汇嘉时代广场",
+    "source_url": "https://www.mcdonalds.com.cn/news/20201225-new-restaurants-in-Xinjiang",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2020/12/25/202012251444298491/202012251444298491_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/urumqi-huijia.png",
+      "source_url": "https://www.mcdonalds.com.cn/news/20201225-new-restaurants-in-Xinjiang",
+      "attribution": "麦当劳官方报道配图，页面未列单独摄影署名",
+      "caption": "乌鲁木齐北京路汇嘉时代广场餐厅外景（2020-12-25 官方报道配图）"
+    },
+    "tags": [
+      "Ray旗舰店",
+      "新疆首批门店",
+      "双语招牌"
+    ]
+  },
+  {
+    "name": "麦当劳乌鲁木齐经开万达餐厅",
+    "aliases": [
+      "乌鲁木齐经开万达广场餐厅",
+      "乌鲁木齐万达Ray旗舰店"
+    ],
+    "city": "乌鲁木齐",
+    "search_keyword": "经开 万达",
+    "short_description": "商场里通透的玻璃店面、金色拱门和明亮楼梯，出现在 2020 年新疆首批 Ray 旗舰店报道中。",
+    "province_code": "650000",
+    "address": "乌鲁木齐市经开万达广场",
+    "source_url": "https://www.mcdonalds.com.cn/news/20201225-new-restaurants-in-Xinjiang",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2020/12/25/202012251444402067/202012251444402067_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/urumqi-wanda.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20201225-new-restaurants-in-Xinjiang",
+      "attribution": "麦当劳官方报道配图，页面未列单独摄影署名",
+      "caption": "乌鲁木齐经开万达餐厅外景（2020-12-25 官方报道配图）"
+    },
+    "tags": [
+      "Ray旗舰店",
+      "新疆首批门店",
+      "商场餐厅"
+    ]
   }
 ]

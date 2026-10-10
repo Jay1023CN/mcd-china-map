@@ -42,7 +42,7 @@
 
 <br>
 
-<p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/stores-heading-mobile.svg"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/stores-heading.svg" alt="02 找一家特别的麦：19 座城市，28 家特色门店，按城市找照片与介绍" width="960"></picture></p>
+<p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/stores-heading-mobile.svg"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/stores-heading.svg" alt="02 找一家特别的麦：21 座城市，31 家特色门店，按城市找照片与介绍" width="960"></picture></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/mobile-map-preview.png" alt="手机地图：按城市找特色门店，点击地图标签展开照片与介绍" width="290">
@@ -56,9 +56,11 @@
 
 <p align="center"><sub>另含澳门 39 条公开资料、台湾 508 条餐饮登记，其中 265 条已有分店名称、172 条对应营业税籍资料。出发前请确认营业时间；<a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/NATIONAL-STORES.md">查看来源、覆盖与点位说明</a>。</sub></p>
 
-<p align="center"><strong>找店时，也能翻翻自己收藏的麦。</strong><br><sub>在全国门店页点「已收藏」，继续按城市、店名或路名查找；详情里可以收藏或取消，想去清单会同步更新。</sub></p>
+<p align="center"><strong>v0.15.3 · 先看照片，再挑下一家麦。</strong><br><sub>全国找店新增「有照片」：按城市翻实景图、读介绍，点开就能收藏或记一餐。<br>这次加入长春活力城、乌鲁木齐汇嘉时代广场和经开万达，三家都有官方报道照片。</sub></p>
 
-<p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/national-store-saved-preview.png" alt="手机全国找店：按桃园筛选已收藏门店，旧收藏与新分店名对应，资料来源保留" width="290"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/featured-photo-directory-preview.png" alt="找店照片页：乌鲁木齐两家特色麦的实景照片、介绍和收藏状态" width="760"></p>
+
+<p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/featured-photo-detail-preview.png" alt="手机门店详情：乌鲁木齐汇嘉时代广场，照片、介绍、收藏和记一餐入口" width="290"><br><sub>照片随项目加载，点开不用跳到别的网站。想回头找收藏的麦，切到「已收藏」即可。</sub></p>
 
 <p align="center"><a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/assets/data/STORE-SOURCES.md">看看收录了哪些特色门店</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose">推荐你喜欢的那家</a></p>
 

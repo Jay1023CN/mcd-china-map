@@ -42,7 +42,7 @@ for name, title, primary in [
 
 for name, number, title, subtitle in [
     ('share-heading.svg', '01', '把你的麦麦足迹，晒给朋友看', '一张中国地图，一页探店手账，或一张下一站邀约卡。'),
-    ('stores-heading.svg', '02', '找一家特别的麦', '19 座城市，28 家特色门店。湖畔、老街、城市旗舰，点开看照片。'),
+    ('stores-heading.svg', '02', '找一家特别的麦', '21 座城市，31 家特色门店。湖畔、老街、城市旗舰，点开看照片。'),
     ('plans-heading.svg', '03', '下一站，去吃哪家麦？', '收藏、选日期、约朋友。到店后，把计划写成手账。'),
     ('collections-heading.svg', '04', '把这一城、这一月，好好收藏', '城市回忆册、月度麦麦小报。翻照片，选封面，再分享。'),
 ]:

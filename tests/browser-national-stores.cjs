@@ -73,11 +73,11 @@ async function main(){
     await page.evaluate(()=>document.fonts.ready);
     if(process.env.CAPTURE_NATIONAL){await page.locator('#directory-city-filter').selectOption('石河子');await page.locator('#national-catalog-dialog').screenshot({path:'docs/national-store-search-preview.png'});}
     await page.getByRole('button',{name:'关闭全国门店',exact:true}).click();
-    if(await page.locator('#store-clear').isVisible())await page.locator('#store-clear').click();await page.locator('#tab-wishlist').click();assert.equal(await page.locator('#inspiration-grid .inspiration-card').count(),28);
+    if(await page.locator('#store-clear').isVisible())await page.locator('#store-clear').click();await page.locator('#tab-wishlist').click();assert.equal(await page.locator('#inspiration-grid .inspiration-card').count(),31);
     const [download]=await Promise.all([page.waitForEvent('download'),page.locator('#export').click()]);
     const backup=JSON.parse(fs.readFileSync(await download.path(),'utf8'));assert.equal(backup.entries.length,2);assert.equal(backup.entries[0].store_reference.source,'official_catalog');
     assert.deepEqual(errors,[]);assert.deepEqual(api,[]);
-    console.log('PASS: mobile national pages/province/city/non-reference city, ordinary detail/source, collect without visit, real store location, unlocated visit, refresh/backup, HK simplified search, TW government labeling, Macau records and 28 featured photos.');
+    console.log('PASS: mobile national pages/province/city/non-reference city, ordinary detail/source, collect without visit, real store location, unlocated visit, refresh/backup, HK simplified search, TW government labeling, Macau records and 31 featured photos.');
   }catch(error){fs.mkdirSync('test-results',{recursive:true});const page=context.pages()[0];if(page)await page.screenshot({path:'test-results/national-stores-failure.png'}).catch(()=>{});throw error;}
   finally{await context.close();await browser.close();}
 }

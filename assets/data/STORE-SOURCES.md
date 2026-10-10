@@ -32,7 +32,7 @@
 
 ## 2026-10-10 全国目录扩展
 
-目录现有 28 家特色门店，覆盖 19 座城市。以下为公开资料精选；地图使用城市参考点，详细位置见地址。所有照片镜像存入本仓库，照片权利归原权利人，保留来源与署名信息。历史照片日期以来源报道为准。
+目录现有 31 家特色门店，覆盖 21 座城市。以下为公开资料精选；门店位置沿用全国目录中的官方点位，没有门店点位的条目使用城市概览。所有照片镜像存入本仓库，保留来源与署名信息。历史照片日期以来源报道为准。
 
 # 华北、东北、西北特色门店资料
 
@@ -119,3 +119,22 @@
 | 麦当劳宁波塔餐厅 | [麦当劳官方报道](https://www.mcdonalds.com.cn/news/20241011-Ningbo-500th-restaurant-CUBE)；宁波三江口宁波塔一楼。[原图](https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/10/12/202410121511095370/202410121511095370_640_0.jpg?&rand=0827)为上述报道的门店配图，未列单独摄影署名。 | `assets/store-photos/ningbo-tower.jpg` |
 | 麦当劳南京云龙山路餐厅 | [麦当劳官方报道](https://www.mcdonalds.com.cn/news/20230628-Jiangsu-400-Restaurant/)；南京市建邺区河西大街与云龙山路交叉口西城夜未央街区。[原图](https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2023/06/29/202306291224485105/202306291224485105_640_0.jpg?&rand=0827)为上述报道的门店配图，未列单独摄影署名。 | `assets/store-photos/nanjing-yunlongshan.jpg` |
 | 麦当劳苏州相城仁恒餐厅 | [麦当劳官方报道](https://www.mcdonalds.com.cn/news/20240713-Jiangsu-the-500th-restaurant)；苏州市相城区元和街道四季和鸣商业广场。[原图](https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/07/12/202407121453074453/202407121453074453_640_0.jpg?&rand=0827)为上述报道的门店配图，未列单独摄影署名。 | `assets/store-photos/suzhou-xiangcheng-renheng.jpg` |
+
+## 长春与乌鲁木齐新增精选
+
+### 长春重庆路活力城餐厅
+
+- 门店编号：`cn:license:3230310`，对应全国目录中的“麦当劳长春重庆路活力城餐厅”。地址沿用官方门店查询结果“重庆路活力城1层麦当劳”；门店坐标沿用该目录已有的 GCJ-02 点位（43.891088，125.334842）。
+- 特色与照片：麦当劳官方 [2022-08-27 开业报道](https://www.mcdonalds.com.cn/news/20220827-LEED1500)介绍其两层 Ray 设计、圆弧立面与黄色旋转楼梯。采用图注明确为“餐厅外观日景”的[原图](https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2022/08/26/202208261607537348/202208261607537348_640_0.jpg?&rand=0827)，原样保存为 `assets/store-photos/changchun-huolicheng.jpg`（JPEG，139,695 字节）。图注保留报道日期。
+
+### 乌鲁木齐北京路汇嘉时代广场餐厅
+
+- 门店编号：`cn:license:6180001`，与全国目录中的同名门店对应。位置文字采用官方报道中的“乌鲁木齐市北京路汇嘉时代广场”，没有补写门牌或门店坐标。
+- 特色与照片：麦当劳官方 [2020-12-25 新疆双店开业报道](https://www.mcdonalds.com.cn/news/20201225-new-restaurants-in-Xinjiang)介绍首批 Ray 旗舰店。采用图注“餐厅外景1-汇嘉时代广场餐厅”的[原图](https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2020/12/25/202012251444298491/202012251444298491_640_0.jpg?&rand=0827)，原样保存为 `assets/store-photos/urumqi-huijia.png`（PNG，669,648 字节）。来源 URL 虽以 `.jpg` 结尾，文件头和本地扩展名均按真实 PNG 格式处理；图注保留报道日期。
+
+### 乌鲁木齐经开万达餐厅
+
+- 门店编号：`cn:license:6180002`，与全国目录中的同名门店对应。位置文字采用官方报道中的“乌鲁木齐市经开万达广场”，没有补写门牌或门店坐标。
+- 特色与照片：同一篇 [2020-12-25 官方报道](https://www.mcdonalds.com.cn/news/20201225-new-restaurants-in-Xinjiang)中的图注“餐厅外景2-经开万达广场餐厅”明确对应这家店。该[原图](https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2020/12/25/202012251444402067/202012251444402067_640_0.jpg?&rand=0827)原样保存为 `assets/store-photos/urumqi-wanda.jpg`（JPEG，118,974 字节）；图注保留报道日期。
+
+三张照片均使用官方报道原图，页面未列单独摄影署名，署名保留为“麦当劳官方报道配图，页面未列单独摄影署名”。两家乌鲁木齐门店的照片按原图图注分别绑定。离线同步将它们挂接到原有全国门店编号，门店总数仍为 9,276。
