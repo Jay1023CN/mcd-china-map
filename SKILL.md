@@ -9,22 +9,22 @@ description: 用麦当劳中国 MCP 读取附近门店与历史订单，结合�
 
 ## 手账
 
-运行 `启动.cmd`，固定使用 `http://127.0.0.1:8765/`。新增记录填写日期、省份／地区、城市、门店；用户本人确认到店后保存。只有已确认记录计入足迹；文字记录也可以点亮省份。照片在浏览器本地处理，完成后导出 JSON 备份。
+运行 `启动.cmd`，固定使用 `http://127.0.0.1:8765/`。新增记录填写日期、省份／地区、城市、门店；保存即可留下足迹，文字记录也可以点亮省份。照片在浏览器本地处理，完成后导出 JSON 备份。
 
-归档使用 version=1，country_code=CN，可选 province_code、location、photo、store_reference。旧版中国记录可导入，省份缺失时通过编辑补齐。旧版海外记录保持在原备份，不截断或覆盖。
+归档使用 version=1，country_code=CN，可选 province_code、location、photo、store_reference。旧版中国记录可导入，省份会按已有城市资料自动匹配，也可以编辑。旧版海外记录保持在原备份，不截断或覆盖。
 
 ## 官方附近门店
 
 运行 `启动门店查询.cmd`，在终端隐藏输入 Token，或使用运行时 MCD_MCP_TOKEN。凭据不写文件、参数、日志或归档。
 
-页面填写用户需要查询的城市、地标与取餐方式。连接 `https://mcp.mcd.cn`，完成 initialize、初始化通知、tools/list，核对 query-nearby-stores 当前 schema。明确传入 searchType=2、city、keyword、beType（1 到店自取、5 得来速）。返回的名称、编码和地址可带入手账，但仍由本人确认到店。此工具没有提供精确门店经纬度，不把城市参考点当成门店位置。
+页面填写用户需要查询的城市、地标与取餐方式。连接 `https://mcp.mcd.cn`，完成 initialize、初始化通知、tools/list，核对 query-nearby-stores 当前 schema。明确传入 searchType=2、city、keyword、beType（1 到店自取、5 得来速）。返回的名称、编码和地址可带入手账，用户保存后成为手账记录。此工具没有提供精确门店经纬度，不把城市参考点当成门店位置。
 
-## 订单线索
+## 订单手账
 
-运行 `同步中国订单.cmd`，只读调用 now-time-info、order-list、query-order。无时区的下单时间按显式 --order-offset 解释。将 private/mcp/global-candidates.json 导入页面，补齐省份、城市并由本人确认。原始响应按运行保存在 private/mcp/runs，失败保留上次成功结果。
+运行 `同步中国订单.cmd`，只读调用 now-time-info、order-list、query-order。无时区的下单时间按显式 --order-offset 解释。将 private/mcp/global-candidates.json 导入页面，完成订单自动生成可编辑手账，城市、省份和默认照片按资料自动匹配。用户可修改随记、上传照片或删除。已删除的订单 ID 随备份保存在 deleted_order_ids，刷新或重复同步时保持删除。原始响应按运行保存在 private/mcp/runs，失败保留上次成功结果。
 
 MCP 只覆盖中国大陆；港澳台手账由本人手动记录。订单不直接证明本人到店，不把本次返回范围描述为全年完整历史。
 
 ## 交付
 
-报告实际文件、用户确认的记录数和查询范围。最多 1000 条记录，单张照片 1.5 MiB、归档 8 MiB。同 ID 冲突拒绝导入；虚构演示与个人手账分开保存。只读客户端不允许下单、取消、领券、兑换、抽奖或预约。
+报告实际文件、手账记录数和本次查询范围。最多 1000 条记录，单张照片 1.5 MiB、归档 8 MiB。普通手账同 ID 冲突拒绝导入；同 ID 订单重复同步保留用户编辑；虚构演示与个人手账分开保存。只读客户端不允许下单、取消、领券、兑换、抽奖或预约。

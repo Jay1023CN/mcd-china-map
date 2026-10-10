@@ -12,11 +12,13 @@
 
 ## 历史订单
 
-`同步中国订单.cmd` 调用 now-time-info、order-list，并对本次列表引用调用 query-order；显式 --order-offset +08:00 解释无时区时间。生成未确认中国大陆候选，导入后由本人补齐省份、城市并确认到店。
+`同步中国订单.cmd` 调用 now-time-info、order-list，并对本次列表引用调用 query-order；显式 --order-offset +08:00 解释无时区时间。生成本次完成订单的规范化记录，页面通过 web/order-journal.js 自动转成可编辑手账，并匹配城市、省份和默认照片。重复同步保留用户编辑，已删除订单保持删除。
 
 私有响应按运行存入 private/mcp/runs。候选文件 private/mcp/global-candidates.json 完整生成后原子替换；同步失败保留以前的响应和成功结果。订单编号、支付链接和 Token 不进入候选归档或公开演示。
 
 客户端允许六个只读工具：query-nearby-stores、now-time-info、order-list、query-order、available-coupons、campaign-calendar。后两项只在显式可选福利查询时读取，当前页面不展示福利面板。
+
+网页连接版的独立 Cookie、记住连接和会话加密保存见 [WEB.md](docs/WEB.md)。公开 GitHub Pages 当前提供手账与地图，MCP 后端等待服务器接入。
 
 ## 实际验证
 
