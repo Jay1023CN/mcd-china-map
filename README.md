@@ -84,15 +84,14 @@ GitHub Pages 网页版现已提供地图和手账功能。网页中的 Token 登
 
 ## 试用与反馈
 
-[打开虚构数据的中国地图演示](docs/china-demo.html) · [提交体验反馈](https://github.com/Jay1023CN/mcd-china-map/issues/new/choose) · [查看素材来源](docs/SOURCES.md)
+[打开麦麦中国地图网页版](https://jay1023cn.github.io/mcd-china-map/) · [提交体验反馈](https://github.com/Jay1023CN/mcd-china-map/issues/new/choose) · [查看素材来源](docs/SOURCES.md)
 
-演示使用虚构记录，不含个人手账。旧版中国记录可恢复；旧版海外备份请保留在原版本中。
+旧版中国记录可恢复；旧版海外备份请保留在原版本中。
 
 ## 开发
 
 ```powershell
 py scripts/build_global_journal.py --output index.html
-py scripts/build_global_journal.py --archive examples/china-journal.synthetic.json --output docs/china-demo.html
 node --test tests/journal-engine.test.js
 py -m unittest discover -s tests -p 'test_*.py' -v
 py scripts/package_skill.py
