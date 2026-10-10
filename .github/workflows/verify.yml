@@ -26,6 +26,7 @@ jobs:
         run: python -m pip install -r requirements-web.txt
       - name: Engine and offline MCP regression tests
         run: |
+          $PSNativeCommandUseErrorActionPreference = $true
           node --test tests/journal-engine.test.js tests/order-journal.test.js tests/share-card.test.js tests/journey-insights.test.js tests/wishlist-engine.test.js tests/memory-card.test.js tests/journal-search.test.js tests/archive-merge.test.js
           node --test tests/journal-collections.test.cjs tests/store-navigation.test.cjs
           python -m unittest discover -s tests -p 'test_*.py' -v
@@ -40,6 +41,7 @@ jobs:
           npx playwright install chromium
       - name: Run isolated browser acceptance
         run: |
+          $PSNativeCommandUseErrorActionPreference = $true
           New-Item -ItemType Directory -Force private | Out-Null
           Start-Process powershell.exe -WindowStyle Hidden -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'scripts/serve-local.ps1', '-NoBrowser')
           $ready = $false
@@ -62,6 +64,7 @@ jobs:
         run: python tests/run_browser_web_sessions.py
       - name: Run mobile static web acceptance
         run: |
+          $PSNativeCommandUseErrorActionPreference = $true
           python scripts/build_web_app.py
           $env:STATIC_WEB_ROOT = "$PWD/dist/web"
           node tests/browser-mobile-web.cjs

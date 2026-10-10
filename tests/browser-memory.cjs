@@ -158,6 +158,7 @@ async function main() {
       return !!image && image.naturalWidth > 0;
     });
     assert.match(await savedPhoto.getAttribute('src'), /^data:image\//);
+    await savedStoreCard.locator('.photo-source summary').click();
     assert.match(await savedStoreCard.locator('.photo-credit').innerText(), /麦当劳官网新闻配图/);
 
     await journalPage.getByRole('button', {name: '新增打卡', exact: true}).click();

@@ -59,7 +59,7 @@ async function main() {
     await defaultPhoto.waitFor();
     await defaultPhoto.evaluate(image=>image.decode());
     assert.ok(await defaultPhoto.evaluate(image=>image.naturalWidth>0 && image.naturalHeight>0),'wishlist card should show its default photo');
-    const note=plan.locator('textarea');
+    const note=plan.locator('textarea:not([readonly])');
     await note.fill('想和朋友看看黄色旋转楼梯。');
     await plan.getByRole('button',{name:'分享下一站',exact:true}).click();
     assert.equal(await page.locator('#share-heading').innerText(),'分享想去的下一站');

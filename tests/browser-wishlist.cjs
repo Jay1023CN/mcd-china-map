@@ -46,13 +46,13 @@ async function main() {
 
     await page.getByRole('tab', {name: /想去清单/}).click();
     assert.equal(await page.locator('#wishlist-grid .entry-card').count(), 1);
-    const note = page.locator('#wishlist-grid textarea');
+    const note = page.locator('#wishlist-grid textarea:not([readonly])');
     await note.fill('想看看这家虚构门店的设计。');
     await note.press('Tab');
     await page.locator('#toast').filter({hasText: '想去的理由已保存'}).waitFor();
     await page.reload();
     await page.getByRole('tab', {name: /想去清单/}).click();
-    assert.equal(await page.locator('#wishlist-grid textarea').inputValue(), '想看看这家虚构门店的设计。');
+    assert.equal(await page.locator('#wishlist-grid textarea:not([readonly])').inputValue(), '想看看这家虚构门店的设计。');
 
     const downloadPromise = page.waitForEvent('download');
     await page.locator('#export').click();
@@ -70,7 +70,7 @@ async function main() {
     await restored.locator('#toast').filter({hasText: '导入完成'}).waitFor();
     await restored.getByRole('tab', {name: /想去清单/}).click();
     assert.equal(await restored.locator('#wishlist-grid .entry-card').count(), 1);
-    assert.equal(await restored.locator('#wishlist-grid textarea').inputValue(), '想看看这家虚构门店的设计。');
+    assert.equal(await restored.locator('#wishlist-grid textarea:not([readonly])').inputValue(), '想看看这家虚构门店的设计。');
     assert.equal(await restored.locator('#count-visits').innerText(), '0');
 
     await restored.getByRole('button', {name: '到了，留一页打卡', exact: true}).click();
