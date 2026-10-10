@@ -83,6 +83,54 @@ async function assertMobileGeometry(page) {
   }
 }
 
+async function assertStoreMarkers(page) {
+  const markers=page.locator('#map-store-markers .map-store-marker');
+  await markers.first().waitFor({state:'visible'});
+  assert.equal(await markers.count(),5,'the five public stores should have named photo markers');
+  const geometry=await page.locator('#world-map').boundingBox();
+  const boxes=await markers.evaluateAll(items=>items.map(item=>{const r=item.getBoundingClientRect();return {city:item.dataset.city,x:r.x,y:r.y,w:r.width,h:r.height,anchorY:Number(item.dataset.anchorY)};}));
+  for(const box of boxes){
+    assert.ok(box.x>=geometry.x && box.x+box.w<=geometry.x+geometry.width+1,'marker stays inside the map: '+box.city);
+    assert.ok(box.y>=geometry.y && box.y+box.h<=geometry.y+geometry.height+1,'marker stays above the map footer: '+box.city);
+    assert.ok(Math.abs(box.y+box.h/2-geometry.y-box.anchorY)<geometry.height/3,'label stays near its city rather than moving across China: '+box.city);
+  }
+  for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){
+    const a=boxes[i],b=boxes[j];
+    assert.ok(a.x+a.w<=b.x || b.x+b.w<=a.x || a.y+a.h<=b.y || b.y+b.h<=a.y,'nearby cities must not have overlapping labels: '+a.city+'/'+b.city);
+  }
+  for(let i=0;i<await markers.count();i++){
+    await markers.nth(i).locator('img').evaluate(image=>image.decode());
+    assert.ok((await markers.nth(i).locator('strong').innerText()).length>1,'store name is visible on the map');
+  }
+  return markers;
+}
+
+async function checkDesktopStores(browser) {
+  const {context,apiRequests}=await newMobileContext(browser);
+  try {
+    const page=await context.newPage();await page.setViewportSize({width:1440,height:1000});
+    await page.goto(staticUrl,{waitUntil:'load'});
+    const markers=await assertStoreMarkers(page);
+    const beijing=markers.filter({has:page.locator('small',{hasText:'北京'})});
+    await beijing.click();
+    assert.match(await page.locator('#store-discovery-body h3').innerText(),/首钢园/);
+    await page.locator('[data-close="store-discovery-dialog"]').click();
+    // Click the canvas anchor itself, not a text-list surrogate; CSS ratios used to displace this hit target.
+    const anchor=await beijing.evaluate(button=>({x:Number(button.dataset.anchorX),y:Number(button.dataset.anchorY)}));
+    const canvas=await page.locator('#world-map').boundingBox();
+    await page.mouse.click(canvas.x+anchor.x,canvas.y+anchor.y);
+    await page.locator('#store-discovery-dialog').waitFor({state:'visible'});
+    assert.match(await page.locator('#store-discovery-body h3').innerText(),/首钢园/,'the visible map anchor opens its own store');
+    await page.keyboard.press('Escape');
+    await page.locator('#show-store-layer').uncheck();
+    assert.equal(await markers.count(),0,'hiding the store layer removes the labels');
+    await page.locator('#show-store-layer').check();await assertStoreMarkers(page);
+    await page.locator('#country-filter').selectOption('440000');await page.locator('#country-filter').dispatchEvent('change');
+    assert.equal(await markers.count(),2,'province filter limits the store markers');
+    assert.deepEqual(apiRequests,[]);
+  } finally {await context.close();}
+}
+
 async function addMobileEntry(page) {
   await page.locator('#add-top').tap();
   const dialog=page.locator('#entry-dialog');
@@ -126,21 +174,35 @@ async function runChromium() {
   const pageErrors=[];
   page.on('pageerror',error=>pageErrors.push(error.message));
   try {
+    await checkDesktopStores(browser);
     await page.goto(staticUrl,{waitUntil:'load'});
     await assertNoConnectionMisleadingUi(page);
     await assertMobileGeometry(page);
     assert.equal(await page.locator('#count-visits').innerText(),'0','the empty static archive should start with no visits');
     assert.equal(await page.locator('#show-store-layer').isChecked(),true,'public store discovery should be enabled by default');
-    const mapStores=page.locator('#store-map-points button');
-    await mapStores.first().waitFor();
+    const mapStores=await assertStoreMarkers(page);
     await mapStores.first().tap();
-    await page.locator('#detail-dialog').waitFor({state:'visible'});
-    const discoveryCard=page.locator('#detail-body .entry-card').first();
+    const storeDialog=page.locator('#store-discovery-dialog');
+    await storeDialog.waitFor({state:'visible'});
+    await storeDialog.evaluate(dialog=>Promise.all(dialog.getAnimations().map(animation=>animation.finished)));
+    const sheet=await storeDialog.boundingBox();
+    assert.ok(Math.abs(sheet.y+sheet.height-844)<=1,'mobile store detail opens as a bottom sheet: '+JSON.stringify(sheet));
+    const discoveryCard=page.locator('#store-discovery-body .store-discovery-card').first();
     await discoveryCard.waitFor();
+    assert.match(await discoveryCard.locator('h3').innerText(),/麦当劳/);
+    assert.ok((await discoveryCard.locator('.place').innerText()).length>3,'store address is shown');
+    await discoveryCard.locator('img.photo').evaluate(image=>image.decode());
     await discoveryCard.getByRole('button',{name:'想去这家',exact:true}).tap();
     assert.equal(await page.locator('#count-visits').innerText(),'0','opening and collecting a public map store must not create a visit');
     assert.equal(await page.locator('#wishlist-count').innerText(),'1','collecting a public map store should add one plan');
-    await page.locator('[data-close="detail-dialog"]').tap();
+    assert.equal(await discoveryCard.getByRole('button',{name:'已收藏想去',exact:true}).isDisabled(),true,'collection gives persistent button feedback');
+    await page.locator('[data-close="store-discovery-dialog"]').tap();
+    await mapStores.first().tap();
+    assert.equal(await page.locator('#store-discovery-body').getByRole('button',{name:'已收藏想去',exact:true}).isDisabled(),true,'reopening retains collection state');
+    await page.locator('#store-discovery-body').getByRole('button',{name:'我去过，记一餐',exact:true}).tap();
+    assert.match(await page.locator('[name=store]').inputValue(),/麦当劳/,'store detail carries the selected store into a journal');
+    assert.equal(await page.locator('#photo-preview').isVisible(),true,'store detail carries its photo into a journal');
+    await page.locator('[data-close="entry-dialog"]').first().tap();
     await addMobileEntry(page);
     await assertNoConnectionMisleadingUi(page);
     await clickJournalTab(page);

@@ -11,7 +11,7 @@ FILES = (
     "scripts/web_api.py", "scripts/web_sessions.py", "scripts/build_web_app.py", "docs/WEB.md",
     "tests/test_build_web_app.py", "tests/test_web_sessions.py", "tests/test_web_order_sync.py",
     "tests/browser-web-sessions.cjs", "tests/run_browser_web_sessions.py", "tests/browser-mobile-web.cjs",
-    "docs/mobile-map-preview.png", "docs/product-preview.gif",
+    "docs/mobile-map-preview.png", "docs/store-detail-preview.png", "docs/product-preview.gif",
     "index.html", "启动.cmd", "备用启动.cmd", "scripts/start-local.cmd", "启动门店查询.cmd", "同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
     "LICENSE", "CONTEST_DECLARATION.md", "MCP_INTEGRATION.md",
     "mcp-config.example.json",

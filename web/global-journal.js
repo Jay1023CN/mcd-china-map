@@ -169,6 +169,8 @@
   storeLayer.append(storeToggle,node('span','先看看有哪些门店（不计入足迹）'));
   $('map-points').before(storeLayer);
   const storePointList=node('div',undefined,'map-points');storePointList.id='store-map-points';$('map-points').after(storePointList);
+  const storeMarkers=node('div',undefined,'map-store-markers');storeMarkers.id='map-store-markers';
+  storeMarkers.setAttribute('aria-label','地图上的门店，点击查看照片和介绍');$('world-map').after(storeMarkers);
   storeToggle.addEventListener('change',drawMap);
 
   function knownStores() {
@@ -178,22 +180,65 @@
     return [...new Map(items.map(s=>[s.city+'/'+s.name,s])).values()];
   }
   function openStoreDiscovery(stores) {
-    const body=$('detail-body');body.replaceChildren();$('detail-heading').textContent='看看这座城的麦当劳';
+    const body=$('store-discovery-body');body.replaceChildren();
+    $('store-discovery-heading').textContent=stores.length===1?'看看这家麦当劳':stores[0].city+' · '+stores.length+' 家门店';
     for(const store of stores) {
-      const card=node('article',undefined,'entry-card');card.append(node('h3',store.name),node('p',store.address || store.city,'place'));
+      const card=node('article',undefined,'store-discovery-card');
       if(store.default_photo)card.append(photoNode({city:store.city,store:store.name,default_photo:store.default_photo}));
-      if(store.short_description)card.append(node('p',store.short_description,'note'));
+      else card.append(node('div',store.city+' · 麦当劳','store-photo-placeholder'));
+      const info=node('div',undefined,'store-discovery-info');
+      info.append(node('span',store.city,'store-city'),node('h3',store.name),node('p',store.address || store.city,'place'));
+      if(store.short_description)info.append(node('p',store.short_description,'note'));
+      if(store.source_url){const source=node('a','查看门店资料 ↗','store-source');source.href=store.source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);}
       const actions=node('div',undefined,'wishlist-actions');
-      const collect=node('button','想去这家','secondary');collect.type='button';collect.addEventListener('click',()=>{
+      const collected=(archive.wishlist || []).some(item=>item.source===store.source && item.code===store.code);
+      const collect=node('button',collected?'已收藏想去':'想去这家','primary');collect.type='button';collect.disabled=collected;collect.addEventListener('click',()=>{
         if(!startPersonal())return;
-        try {archive=E.normalizeArchive({...archive,wishlist:W.add(archive.wishlist || [],store)},opts());save();renderWishlist();collect.textContent='已收藏想去';toast('已放进想去清单，等你到了再留一页。');}
+        try {archive=E.normalizeArchive({...archive,wishlist:W.add(archive.wishlist || [],store)},opts());save();renderWishlist();collect.textContent='已收藏想去';collect.disabled=true;toast('已放进想去清单。');}
         catch(error){toast('这家店暂未收藏，请检查清单是否已满。');}
       });
-      const visit=node('button','我去过，记一餐','quiet');visit.type='button';visit.addEventListener('click',()=>{$('detail-dialog').close();openStoreForm(store);});
-      actions.append(collect,visit);card.append(actions);body.append(card);
+      const visit=node('button','我去过，记一餐','quiet');visit.type='button';visit.addEventListener('click',()=>{$('store-discovery-dialog').close();openStoreForm(store);});
+      actions.append(collect,visit);info.append(actions);card.append(info);body.append(card);
     }
-    body.append(node('p','这里展示已收录门店，打开或收藏不增加个人足迹。城市参考点用于浏览，门店具体位置请看地址。','map-note'));
-    $('detail-dialog').showModal();
+    body.append(node('p','地图标记在城市参考点，具体位置见门店地址。','map-note'));
+    $('store-discovery-dialog').showModal();body.scrollTop=0;$('store-discovery-dialog').scrollTop=0;
+  }
+
+  function storeMarkerLabel(store) {
+    let name=store.name.replace(/^麦当劳/, '');
+    if(name.startsWith(store.city))name=name.slice(store.city.length);
+    return name.replace(/(?:餐厅|旗舰店)$/, '') || store.name;
+  }
+
+  function drawStoreLabels(points,ctx,width,height) {
+    const compact=width<500, labelWidth=compact?116:164,labelHeight=compact?46:50,gap=6;
+    const placed=[];
+    for(const point of [...points].sort((a,b)=>a.y-b.y)) {
+      const offsets=[[14,-labelHeight/2],[-labelWidth-24,-labelHeight/2],[14,-labelHeight-12],[-labelWidth-24,-labelHeight-12],[14,12],[-labelWidth-24,12]];
+      // Close cities can share a small area; labels move outwards while a leader keeps their map anchor visible.
+      for(let step=2;step<7;step++)offsets.push([14,-labelHeight*step],[-labelWidth-24,-labelHeight*step],[14,labelHeight*(step-1)],[-labelWidth-24,labelHeight*(step-1)]);
+      let best;
+      for(const [dx,dy] of offsets) {
+        const box={x:Math.max(gap,Math.min(width-labelWidth-gap,point.x+dx)),y:Math.max(gap,Math.min(height-labelHeight-gap,point.y+dy)),w:labelWidth,h:labelHeight};
+        const overlap=placed.reduce((sum,other)=>sum+Math.max(0,Math.min(box.x+box.w+gap,other.x+other.w+gap)-Math.max(box.x,other.x))*Math.max(0,Math.min(box.y+box.h+gap,other.y+other.h+gap)-Math.max(box.y,other.y)),0);
+        const distance=Math.hypot(box.x+box.w/2-point.x,box.y+box.h/2-point.y);
+        const score=overlap*100+distance;
+        if(!best || score<best.score)best={...box,score};
+        if(!overlap)break;
+      }
+      placed.push(best);
+      const edgeX=Math.max(best.x,Math.min(best.x+best.w,point.x)),edgeY=Math.max(best.y,Math.min(best.y+best.h,point.y));
+      ctx.beginPath();ctx.moveTo(point.x,point.y);ctx.lineTo(edgeX,edgeY);ctx.strokeStyle='#b29a72';ctx.lineWidth=1;ctx.stroke();
+      const first=point.stores[0],button=node('button',undefined,'map-store-marker');button.type='button';
+      button.style.left=best.x+'px';button.style.top=best.y+'px';button.style.width=labelWidth+'px';button.style.height=labelHeight+'px';
+      button.dataset.city=point.city;button.dataset.anchorX=point.x;button.dataset.anchorY=point.y;
+      button.setAttribute('aria-label',point.city+' · '+point.stores.map(s=>s.name).join('、')+'，查看门店照片和介绍');
+      button.title=point.stores.map(s=>s.name).join('\n');
+      if(first.default_photo){const thumbnail=node('img');thumbnail.src=data.store_images?.[first.default_photo.url] || first.default_photo.url;thumbnail.alt='';thumbnail.referrerPolicy='no-referrer';button.append(thumbnail);}
+      else button.append(node('span','店','map-store-icon'));
+      const label=node('span',undefined,'map-store-marker-text');label.append(node('small',point.city+(point.stores.length>1?' · '+point.stores.length+' 家':'')),node('strong',storeMarkerLabel(first)));button.append(label);
+      button.addEventListener('click',()=>openStoreDiscovery(point.stores));storeMarkers.append(button);
+    }
   }
 
   function refillFilters() {
@@ -399,7 +444,7 @@
   }
 
   function drawMap() {
-    const canvas = $('world-map'), width = Math.max(1, canvas.clientWidth), height = width / 1.4;
+    const canvas = $('world-map'), width = Math.max(1, canvas.clientWidth), height = Math.max(1,canvas.clientHeight);
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
     const ctx = canvas.getContext('2d'); ctx.scale(ratio, ratio);
@@ -438,7 +483,7 @@
     const sea = (lon, lat) => [inset.x + (lon - 105) / 20 * inset.w, inset.y + (25 - lat) / 24 * inset.h];
     for (const feature of data.provinces.features) { const path = outline(feature, sea); ctx.fillStyle = '#e8dfc5'; ctx.strokeStyle = '#b5a786'; ctx.lineWidth = .6; ctx.fill(path, 'evenodd'); ctx.stroke(path); }
     ctx.restore(); ctx.strokeStyle = '#cbbb9c'; ctx.strokeRect(inset.x, inset.y, inset.w, inset.h); ctx.fillStyle = '#7a6e5b'; ctx.font = '10px sans-serif'; ctx.textAlign = 'left'; ctx.fillText('南海诸岛', inset.x + 6, inset.y + inset.h - 8);
-    mapPoints = [];storeMapPoints=[];storePointList.replaceChildren();
+    mapPoints = [];storeMapPoints=[];storePointList.replaceChildren();storeMarkers.replaceChildren();
     if(storeToggle.checked){
       const storeGroups=new Map();
       for(const store of knownStores()) {
@@ -449,11 +494,11 @@
         storeGroups.get(key).stores.push({...store,province_code:store.province_code || city.province_code});
       }
       for(const point of storeGroups.values()) {
-        ctx.beginPath();ctx.arc(point.x,point.y,12,0,Math.PI*2);ctx.fillStyle='#fff9eb';ctx.fill();ctx.strokeStyle='#7a6e5b';ctx.lineWidth=2;ctx.stroke();
-        ctx.fillStyle='#7a6e5b';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText('店',point.x,point.y+4);storeMapPoints.push(point);
-        const button=node('button',point.city+' · '+point.stores.length+' 家已收录门店','map-point');button.type='button';
+        ctx.beginPath();ctx.arc(point.x,point.y,5,0,Math.PI*2);ctx.fillStyle='#fff9eb';ctx.fill();ctx.strokeStyle='#9e7950';ctx.lineWidth=2;ctx.stroke();storeMapPoints.push(point);
+        const button=node('button',point.city+' · '+storeMarkerLabel(point.stores[0])+(point.stores.length>1?' 等 '+point.stores.length+' 家':''),'map-point');button.type='button';
         button.addEventListener('click',()=>openStoreDiscovery(point.stores));storePointList.append(button);
       }
+      drawStoreLabels(storeMapPoints,ctx,width,height);
     }
     const groups = new Map();
     for (const entry of currentSummary.entries.filter(e => e.location)) {
@@ -469,7 +514,7 @@
     }
     const pointList = $('map-points'); pointList.replaceChildren();
     for (const point of mapPoints) { const button = node('button', placeName(point.entry) + ' · ' + point.count + ' 页', 'map-point'); button.type = 'button'; button.addEventListener('click', () => openDetail(point.entry)); pointList.append(button); }
-    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录，空心“店”是可以先看的门店。` : '先点空心“店”看看已收录门店，收藏想去；真正到店记一餐，再点亮自己的足迹。';
+    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录，照片标签可以点开看店。` : '点地图上的照片标签，看看店名、照片和地址，喜欢就收藏到下一站。';
   }
   $('world-map').addEventListener('click', event => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -633,6 +678,11 @@
     $('detail-dialog').showModal();
   }
   document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>$(button.dataset.close).close()));
+  $('store-discovery-dialog').addEventListener('click',event=>{
+    if(event.target!==event.currentTarget)return;
+    const bounds=event.currentTarget.getBoundingClientRect();
+    if(event.clientX<bounds.left || event.clientX>bounds.right || event.clientY<bounds.top || event.clientY>bounds.bottom)event.currentTarget.close();
+  });
   $('add-top').addEventListener('click',()=>openForm());
   $('start-personal').addEventListener('click',startPersonal);
   $('year-filter').addEventListener('change',render);$('country-filter').addEventListener('change',render);
