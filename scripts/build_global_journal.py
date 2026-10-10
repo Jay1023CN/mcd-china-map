@@ -107,6 +107,8 @@ def render(archive):
         merge_js=(ROOT/'web/archive-merge.js').read_text(encoding='utf-8'),
         insights_js=(ROOT/'web/journey-insights.js').read_text(encoding='utf-8'),
         orders_js=(ROOT/'web/order-journal.js').read_text(encoding='utf-8'),
+        collections_js=(ROOT/'web/journal-collections.js').read_text(encoding='utf-8'),
+        navigation_js=(ROOT/'web/store-navigation.js').read_text(encoding='utf-8'),
         app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
 
 

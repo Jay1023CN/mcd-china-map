@@ -27,6 +27,7 @@ jobs:
       - name: Engine and offline MCP regression tests
         run: |
           node --test tests/journal-engine.test.js tests/order-journal.test.js tests/share-card.test.js tests/journey-insights.test.js tests/wishlist-engine.test.js tests/memory-card.test.js tests/journal-search.test.js tests/archive-merge.test.js
+          node --test tests/journal-collections.test.cjs tests/store-navigation.test.cjs
           python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Rebuild public pages
         run: |
@@ -64,5 +65,6 @@ jobs:
           python scripts/build_web_app.py
           $env:STATIC_WEB_ROOT = "$PWD/dist/web"
           node tests/browser-mobile-web.cjs
+          node tests/browser-collections.cjs
       - name: Verify distribution whitelist
         run: python scripts/package_skill.py

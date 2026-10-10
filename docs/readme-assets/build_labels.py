@@ -44,6 +44,7 @@ for name, number, title, subtitle in [
     ('share-heading.svg', '01', '把你的麦麦足迹，晒给朋友看', '一张中国地图，一页探店手账，或一张下一站邀约卡。'),
     ('stores-heading.svg', '02', '找一家特别的麦', '19 座城市，28 家特色门店。湖畔、老街、城市旗舰，点开看照片。'),
     ('plans-heading.svg', '03', '下一站，去吃哪家麦？', '收藏、选日期、约朋友。到店后，把计划写成手账。'),
+    ('collections-heading.svg', '04', '把这一城、这一月，好好收藏', '城市回忆册、月度麦麦小报。翻照片，选封面，再分享。'),
 ]:
     content = '<rect width="960" height="138" rx="7" fill="#fff9eb"/>'
     content += text(number, 24, 36, 19, '#ba4835') + text(title, 24, 82, 37, '#302a22')
@@ -69,4 +70,4 @@ for name, number, title, subtitle in [
     write(name.replace('.svg', '-mobile.svg'), 390, 138, content)
 
 FONT.close()
-print('Created two SVG actions and six responsive SVG headings using the bundled OFL font.')
+print('Created two SVG actions and eight responsive SVG headings using the bundled OFL font.')

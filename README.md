@@ -49,6 +49,18 @@
 
 <br>
 
+<p><picture><source media="(max-width: 600px)" srcset="docs/readme-assets/collections-heading-mobile.svg"><img src="docs/readme-assets/collections-heading.svg" alt="04 把这一城、这一月，好好收藏：城市回忆册与月度麦麦小报" width="960"></picture></p>
+
+<p align="center">
+  <a href="docs/city-album-preview.png"><img src="docs/city-album-preview.png" alt="城市回忆册实际手机页面：上海公开门店照片与演示手账，点击可翻开详情" width="260"></a>
+  &nbsp;&nbsp;
+  <a href="docs/monthly-newspaper-preview.png"><img src="docs/monthly-newspaper-preview.png" alt="月度麦麦小报：按月份整理照片、城市与常吃的餐品。数据为演示记录" width="310"></a>
+</p>
+
+<p align="center"><sub>手账自动按城市装订 · 点击月份翻小报 · 自动选照片或自己挑一张 · 改标题、保存与分享<br>v0.13 新增 · 以上为公开门店照片与演示记录 · 门店详情和下一站清单均可打开高德地图</sub></p>
+
+<br>
+
 <details>
 <summary><strong>看一段操作演示：打开地图，翻一页手账</strong></summary>
 
@@ -59,7 +71,7 @@
 <details>
 <summary><strong>第一次用：网页版与本地版怎么选？</strong></summary>
 
-**想先试试：** [打开网页版](https://jay1023cn.github.io/mcd-china-map/)，直接记一餐、上传照片、收藏门店、排期、生成分享卡。无需安装。
+**想先试试：** [打开网页版](https://jay1023cn.github.io/mcd-china-map/)，直接记一餐、上传照片、收藏门店、排期、翻城市回忆册、生成月度小报和分享卡。无需安装。
 
 **想同步自己的麦当劳订单：** [下载 Windows 完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击 `启动.cmd`。普通手账无需 Python；安装 Python 3.10+ 后，可连接自己的 [麦当劳中国 MCP Token](https://open.mcd.cn/mcp)，自动整理完成订单、查询官方附近门店。门店资料与默认照片自动带入，仍可编辑随记、换照片或删除记录。
 
