@@ -929,6 +929,22 @@
     }catch(error){}
     return null;
   }
+  let snackImagePromise;
+  function shareSnackImage() {
+    if(snackImagePromise)return snackImagePromise;
+    snackImagePromise=(async()=>{
+      let uri=data.card_sketch;
+      if(typeof uri!=='string')return null;
+      if(/^assets\/[a-f0-9]{64}\.png$/.test(uri)) {
+        const response=await fetch(new URL(uri,location.href));if(!response.ok)return null;
+        const blob=await response.blob();if(blob.type!=='image/png' || blob.size>3*1024*1024)return null;
+        uri=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});
+      }
+      if(!/^data:image\/png;base64,[A-Za-z0-9+/]+=*$/.test(uri))return null;
+      return await new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>resolve(null);image.src=uri;});
+    })().catch(()=>null);
+    return snackImagePromise;
+  }
   function openShare(entry=null) {
     if(!shareEntry)footprintTitle=$('share-title').value;
     shareEntry=entry;
@@ -950,11 +966,12 @@
     const revision=++shareRevision;$('save-share').disabled=true;$('native-share').disabled=true;$('copy-share-image').disabled=true;$('share-status').textContent='正在画出你的足迹……';
     try {
       const canvas=shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
-        kind:shareEntry.kind,
+        kind:shareEntry.kind,snackImage:await shareSnackImage(),
+        photoAnnotation:$('share-cities').checked?(data.stores.find(store=>store.name===shareEntry.store)?.tags || []).find(tag=>tag.length<=10):'',
         includePlace:$('share-cities').checked,includeNote:$('share-note').checked,photoDataUrl:await sharePhoto(shareEntry),
-        imageFit:$('share-photo-fit').value,photoCredit:shareEntry.photo?'旅行中的一页记录':shareEntry.default_photo?.attribution}):
+        imageFit:$('share-photo-fit').value,photoCredit:shareEntry.photo?'本人上传照片':shareEntry.default_photo?.attribution}):
         await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
-          title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked});
+          title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked,snackImage:await shareSnackImage()});
       if(revision!==shareRevision || !$('share-dialog').open)return;
       const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       if(revision!==shareRevision || !$('share-dialog').open)return;

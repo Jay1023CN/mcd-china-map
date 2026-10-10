@@ -89,6 +89,7 @@ def render(archive):
             'countries': [{'code': 'CN', 'name': '中国'}],
             'provinces': json.loads((ROOT/'assets/data/china-provinces.json').read_text(encoding='utf-8')),
             'stores': stores, 'store_images': store_images,
+            'card_sketch': asset_uri('notebook-food-sketch.png'),
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     if archive.get('data_kind') == 'synthetic':
         data['runtime'] = {'local_api': False}

@@ -59,10 +59,15 @@ test('render returns a full-size canvas and draws an invitation for an empty sum
   const oldDocument = global.document;
   const drawnText = [];
   const textCalls = [];
+  let geometryFillCount = 0;
+  const clipRects = [];
+  const ellipses = [];
   const ctx = {
-    fillRect() {}, beginPath() {}, moveTo() {}, arcTo() {}, closePath() {}, fill() {}, stroke() {},
+    fillRect() {}, beginPath() {}, moveTo() {}, arcTo() {}, closePath() {}, stroke() {},
     fillText(...args) { drawnText.push(String(args[0])); textCalls.push({text: String(args[0]), args, font: this.font}); },
-    save() {}, restore() {}, rect() {}, clip() {}, lineTo() {},
+    save() {}, restore() {}, rect(...args) { clipRects.push(args); }, clip() {}, lineTo() {},
+    ellipse(...args) { ellipses.push(args); }, quadraticCurveTo() {}, arc() {},
+    fill(rule) { if (rule === 'evenodd') geometryFillCount += 1; },
     measureText(text) {
       const size = Number((this.font || '').match(/(\d+)px/)?.[1] || 10);
       return {width: Array.from(String(text)).length * size};
@@ -73,19 +78,26 @@ test('render returns a full-size canvas and draws an invitation for an empty sum
   try {
     const rendered = await ShareCard.render({confirmedCount: 0, distinctProvinces: 0, distinctCities: 0,
       distinctStores: 0, provinces: [], cities: [], entries: []}, {
-      title: '旅行中的长标题'.repeat(5), provinces: {type: 'FeatureCollection', features: []}
+      title: '旅行中的长标题'.repeat(5), provinces: {type: 'FeatureCollection', features: [{
+        type: 'Feature', properties: {adcode: '440000'}, geometry: {type: 'Polygon', coordinates: [[
+          [113, 20], [114, 20], [114, 21], [113, 20]
+        ]]}
+      }]}
     });
     assert.equal(rendered, canvas);
     assert.equal(canvas.width, 1080);
     assert.equal(canvas.height, 1440);
     assert.ok(drawnText.some(text => text.includes('第一家麦当劳')));
-    assert.ok(drawnText.includes('麦麦中国地图 · 旅行足迹'));
-    assert.ok(drawnText.includes('足迹册'));
-    const title = textCalls.find(call => call.text === '旅行中的长标题'.repeat(5));
-    assert.ok(title);
-    assert.equal(title.args.length, 3);
-    assert.ok(Number(title.font.match(/(\d+)px/)[1]) < 60);
-    assert.ok(ctx.measureText(title.text).width <= 895);
+    assert.ok(drawnText.includes('麦麦中国地图'));
+    const titleParts = textCalls.filter(call => call.font.includes('"LXGW WenKai"') && [194, 276].includes(call.args[2]));
+    assert.equal(titleParts.length, 2);
+    assert.equal(titleParts.map(call => call.text).join(''), '旅行中的长标题'.repeat(5));
+    assert.ok(Number(titleParts[0].font.match(/(\d+)px/)[1]) < 64);
+    assert.ok(titleParts.every(call => { ctx.font = call.font; return ctx.measureText(call.text).width <= 930; }));
+    assert.ok(geometryFillCount > 0);
+    assert.ok(clipRects.length >= 2);
+    assert.ok(drawnText.includes('南海诸岛'));
+    assert.ok(ellipses.every(args => args[2] <= 150), 'no oval background may constrain the China map');
   } finally {
     if (oldDocument === undefined) delete global.document;
     else global.document = oldDocument;

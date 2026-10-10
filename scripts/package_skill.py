@@ -32,6 +32,7 @@ FILES = (
     "docs/discovery-preview.png",
     "docs/plan-card-preview.png",
     "assets/global-title.png", "assets/global-passport.png", "assets/paper.png",
+    "assets/notebook-food-sketch.png",
     "assets/data/china-provinces.json", "assets/data/china-cities.json",
     "assets/data/LICENSE-world.txt", "assets/data/CHINA-SOURCES.md", "assets/data/store-directory.json", "assets/data/STORE-SOURCES.md",
     "assets/fonts/source.css", "assets/fonts/dm-mono-source.css",
@@ -39,6 +40,7 @@ FILES = (
     "assets/fonts/noto-display-2.ttf", "assets/fonts/noto-display-3.ttf",
     "assets/fonts/dm-mono-0.ttf", "assets/fonts/dm-mono-1.ttf",
     "assets/fonts/NotoSansSC-OFL.txt", "assets/fonts/DMMono-OFL.txt",
+    "assets/fonts/lxgw-wenkai-regular.woff2", "assets/fonts/LXGWWenKai-OFL.txt", "assets/fonts/LXGWWenKai-SOURCE.md",
     "assets/icons/storefront.svg", "assets/icons/bag.svg", "assets/icons/clock.svg",
     "assets/icons/clipboard-text.svg", "assets/icons/map-pin.svg",
     "assets/icons/plus.svg", "assets/icons/x.svg", "assets/icons/LICENSE.txt",
@@ -76,6 +78,9 @@ FILES = (
     "docs/growth-assets/handdrawn-bigmac-project-v5.png", "docs/growth-assets/douyin-bigmac-v5.png",
     "docs/growth-assets/handdrawn-card-direction.md",
     "docs/growth-assets/handdrawn-store-direction-v1.png", "docs/growth-assets/handdrawn-plan-direction-v1.png",
+    "docs/growth-assets/notebook-plan-whole-v3.png", "docs/growth-assets/notebook-layout-v3.md",
+    "docs/growth-assets/notebook-plan-whole-v2.png", "docs/growth-assets/notebook-imagegen-prompts.md",
+    "docs/growth-assets/notebook-food-sketch-v1.png", "docs/growth-assets/notebook-food-sketch-v2.png",
 )
 
 

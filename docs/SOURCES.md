@@ -19,6 +19,8 @@
 - 世界护照艺术字、旅行插画、纸张纹理等通过 Image Gen 生成，不是麦当劳官方宣传素材。
 - 不使用用户私聊截图、聊天者姓名或头像。旅行、门店与餐品演示明确标为虚构，不作为真实到访或订单证明。
 - [Noto Sans SC](https://fonts.google.com/specimen/Noto+Sans+SC)、[DM Mono](https://fonts.google.com/specimen/DM+Mono) 为 SIL OFL 字体，许可在 `assets/fonts`。固定界面文字字体子集以外的动态文字使用设备字体回退。
+- 手账标题与短随记采用 [LXGW WenKai Regular v1.522](https://github.com/lxgw/LxgwWenKai/releases/tag/v1.522)，完整字库本地 WOFF2 压缩，保留 [OFL 许可及来源](../assets/fonts/LXGWWenKai-SOURCE.md)。
+- `assets/notebook-food-sketch.png` 为 Image Gen 生成的透明蜡笔食品插画，只作手账装饰，不代表记录者吃过这些餐品；门店照片继续采用目录内真实公开照片，不能用生成样稿内的重绘照片代替。
 - [Phosphor Icons](https://github.com/phosphor-icons/core) 为 MIT 图标，许可在 `assets/icons/LICENSE.txt`。
 - 构建 HTML 内嵌所需图片、字体、地图与脚本，页面无需向外部服务请求这些素材。
 

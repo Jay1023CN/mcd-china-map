@@ -66,11 +66,11 @@ GitHub Pages 网页版现已提供地图和手账功能。网页中的 Token 登
 <table>
   <tr>
     <td align="center"><img src="docs/memory-card-preview.png" alt="北京首钢园示例：探店手账分享卡" width="320"><br><strong>探店分享卡</strong></td>
-    <td align="center"><img src="docs/plan-card-preview.png" alt="成都东大街示例：下一站计划卡" width="320"><br><strong>下一站计划卡</strong></td>
+    <td align="center"><img src="docs/plan-card-preview.png" alt="杭州千岛湖公开门店照片：下一站计划卡" width="320"><br><strong>下一站计划卡</strong></td>
   </tr>
 </table>
 
-分享卡支持编辑标题、选择照片显示方式，并决定是否保留门店和随记。示例中的记录和门店照片用于公开演示。
+分享卡像一页旅行手账：圆笔黑红标题、原始门店照片、城市记号和随记自然排在同一张纸上，食品小插画与蓝笔注记相连。支持编辑标题、选择照片全图或裁切，并决定是否保留门店和随记。示例中的记录和门店照片用于公开演示。
 
 ## 还可以做什么
 
