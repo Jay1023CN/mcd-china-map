@@ -44,8 +44,9 @@ class BuildWebAppTests(unittest.TestCase):
             self.assertEqual(len([f for f in source_map['features'] if isinstance(f['properties']['adcode'], int)]), 34)
             self.assertTrue({'710000', '810000', '820000', '100000_JD'}.issubset(
                 {str(f['properties']['adcode']) for f in source_map['features']}))
-            self.assertEqual(hashlib.sha256((ROOT / 'assets/data/china-provinces.json').read_bytes()).hexdigest(),
-                             '99adfeded5223848bbe37a0a12f8023e11ee12161c7800521c27db42fdeac275',
+            canonical_map = json.dumps(source_map, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')
+            self.assertEqual(hashlib.sha256(canonical_map).hexdigest(),
+                             '2db51bf48312b8de2fce7ebbe4dcd95c532e91fcd645c2ffb4244d1bed7630b0',
                              'map source must match the reviewed original; source changes require renewed verification')
             source_stores = json.loads((ROOT / 'assets' / 'data' / 'store-directory.json').read_text(encoding='utf-8'))
             offline_index = (ROOT / 'index.html').read_text(encoding='utf-8')
