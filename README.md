@@ -17,8 +17,11 @@
 </p>
 
 <p align="center">
-  <strong>先花一分钟，收藏你的下一站</strong><br>
+  <strong>「下次旅行，哪家麦值得顺路去？」</strong><br>
+  先花一分钟，收藏你的下一站：<br>
   打开网页版 → 选一座城或点门店标签 → 看照片和介绍 → 点「想去这家」。<br>
+  <sub>得到一份自己的想去清单；到店后再把照片和随手记写成探店卡。</sub><br>
+  <sub>适合找特色店的麦门朋友、旅行顺路探店的人，也适合想留住日常一餐的人。</sub><br>
   <sub>收藏不算到访；去过的店再点「我去过，记一餐」。需要同步官方订单时使用本机版。</sub><br>
   <a href="https://jay1023cn.github.io/mcd-china-map/">现在试试</a> · <a href="docs/TRY-AND-SUPPORT.md">怎样记一餐、分享和备份</a>
 </p>
