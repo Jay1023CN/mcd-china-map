@@ -29,8 +29,15 @@ EXTERNAL_MIME_TYPES = {
 }
 
 
+PUBLIC_METADATA = '<meta name="description" content="找特色麦当劳，收藏下一站，把餐品、照片和随手记攒成中国足迹。网页版无需安装，支持分享卡、城市回忆册、月度小报与备份。"><meta property="og:title" content="麦麦中国地图｜吃一顿麦，留一页手账，点亮一座城"><meta property="og:description" content="先收藏一家想去的店，再把照片和小事写进自己的中国地图。网页版无需安装。"><meta property="og:image" content="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/cover-v1.png"><meta property="og:type" content="website">'
+PUBLIC_SUPPORT = '<aside class="project-support" aria-label="支持开源作品"><p><strong>下一座城，你想去吃哪家麦？</strong><br>喜欢这份手账，欢迎到 GitHub 点颗 Star 收藏作品。</p><a href="https://github.com/Jay1023CN/mcd-china-map" target="_blank" rel="noopener noreferrer">去 GitHub 点 Star ↗</a><small>登录后点仓库顶部的 Star；显示 Starred 就已收藏。</small></aside><style>.project-support{border-top:1px solid var(--line);padding:20px 0;display:flex;align-items:center;gap:12px 24px;flex-wrap:wrap}.project-support p{flex:1;min-width:220px;margin:0;color:var(--muted);font-size:12px}.project-support strong{color:var(--ink);font-size:14px}.project-support a{display:inline-flex;align-items:center;min-height:44px;color:var(--red);text-underline-offset:4px}.project-support small{flex-basis:100%;font-size:11px;color:var(--muted)}@media print{.project-support{display:none}}</style>'
+
+
 def _blank_html(runtime=None):
     html = render(BLANK_ARCHIVE)
+    # Public visitors can return to the repository; offline journal builds stay self-contained.
+    html = html.replace("</title>", "</title>" + PUBLIC_METADATA, 1)
+    html = html.replace('<div class="lower">', PUBLIC_SUPPORT + '<div class="lower">', 1)
     match = DATA_SCRIPT.search(html)
     if match is None:
         raise ValueError('journal data block is missing')
