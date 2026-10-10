@@ -10,7 +10,7 @@
   var WIDTH = 1080;
   var HEIGHT = 1440;
   var FONT = '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif';
-  var TITLE_FONT = '"Ma Shan Zheng", ' + FONT;
+  var TITLE_FONT = FONT;
   var MAX_PHOTO_BYTES = 2 * 1024 * 1024;
 
   function clean(value, max) {
@@ -71,7 +71,7 @@
     ctx.beginPath();
     ctx.moveTo(x + 10, y + 8); ctx.lineTo(x + 143, y + 7); ctx.lineTo(x + 145, y + 38);
     ctx.lineTo(x + 9, y + 40); ctx.closePath(); ctx.stroke();
-    ctx.font = '400 24px ' + TITLE_FONT;
+    ctx.font = '700 19px ' + TITLE_FONT;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(text, x + 76, y + 24, 128);
     ctx.restore();
@@ -114,9 +114,7 @@
 
   function waitForFonts() {
     if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
-      return Promise.resolve(document.fonts.ready).then(function () {
-        if (typeof document.fonts.load === 'function') return document.fonts.load('32px "Ma Shan Zheng"');
-      }).catch(function () {});
+      return Promise.resolve(document.fonts.ready).catch(function () {});
     }
     return Promise.resolve();
   }
@@ -224,10 +222,10 @@
 
   function drawFittedTitle(ctx, text, x, y, maxWidth, baseSize, minSize) {
     var size = baseSize;
-    ctx.font = '400 ' + size + 'px ' + TITLE_FONT;
+    ctx.font = '900 ' + size + 'px ' + TITLE_FONT;
     while (size > minSize && ctx.measureText(text).width > maxWidth) {
       size -= 1;
-      ctx.font = '400 ' + size + 'px ' + TITLE_FONT;
+      ctx.font = '900 ' + size + 'px ' + TITLE_FONT;
     }
     ctx.fillText(text, x, y);
   }
@@ -256,12 +254,10 @@
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
     drawPaper(ctx, palette);
 
-    ctx.fillStyle = palette.gold;
-    ctx.beginPath(); ctx.moveTo(91, 103); ctx.lineTo(373, 99); ctx.lineTo(378, 139); ctx.lineTo(96, 143); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = isRed ? palette.baseDark : '#4b3e2b';
-    ctx.font = '700 20px ' + FONT;
+    ctx.fillStyle = palette.ink;
+    ctx.font = '600 19px ' + FONT;
     ctx.textBaseline = 'middle';
-    ctx.fillText('麦麦中国地图', 112, 111);
+    ctx.fillText('麦麦中国地图', 96, 111);
     ctx.fillStyle = palette.muted;
     ctx.font = '600 19px ' + FONT;
     ctx.textAlign = 'right';
@@ -276,9 +272,9 @@
     ctx.font = '400 25px ' + FONT;
     ctx.fillText(options.kind==='plan'?'把想去的那家，先放进旅程。':'把喜欢的味道，记在路上。', 98, 284);
     handLine(ctx, 96, 318, 984, 316, palette.line, 2);
-    drawStamp(ctx, 832, 290, options.kind === 'plan' ? '计划中' : '探店记录', palette);
+    if(options.kind !== 'plan')drawStamp(ctx, 832, 290, '探店记录', palette);
 
-    var frame = {x: 125, y: 365, w: 830, h: 585};
+    var frame = {x: 96, y: 365, w: 888, h: 585};
     ctx.fillStyle = '#fffdf6';
     ctx.fillRect(frame.x, frame.y, frame.w, frame.h);
     ctx.strokeStyle = palette.ink; ctx.lineWidth = 2;

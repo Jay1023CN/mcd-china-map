@@ -39,7 +39,6 @@ FILES = (
     "assets/fonts/noto-display-2.ttf", "assets/fonts/noto-display-3.ttf",
     "assets/fonts/dm-mono-0.ttf", "assets/fonts/dm-mono-1.ttf",
     "assets/fonts/NotoSansSC-OFL.txt", "assets/fonts/DMMono-OFL.txt",
-    "assets/fonts/ma-shan-zheng.woff2", "assets/fonts/MaShanZheng-OFL.txt", "assets/fonts/HANDWRITING.md",
     "assets/icons/storefront.svg", "assets/icons/bag.svg", "assets/icons/clock.svg",
     "assets/icons/clipboard-text.svg", "assets/icons/map-pin.svg",
     "assets/icons/plus.svg", "assets/icons/x.svg", "assets/icons/LICENSE.txt",

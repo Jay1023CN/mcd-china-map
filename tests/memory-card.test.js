@@ -120,7 +120,6 @@ test('plan cards keep the plan label and subtitle despite an entry date and cust
     kind: 'plan', title: '自定义标题'
   });
   assert.ok(ctx.texts.includes('下一站计划 · 尚未打卡'));
-  assert.ok(ctx.texts.includes('计划中'));
   assert.ok(ctx.texts.includes('把想去的那家，先放进旅程。'));
   assert.ok(ctx.texts.includes('自定义标题'));
   assert.ok(ctx.texts.includes('在地图上，记下一站喜欢'));

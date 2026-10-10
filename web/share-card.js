@@ -12,7 +12,7 @@
   var MAX_PROVINCE_TAGS = 8;
   var MAX_CITY_TAGS = 10;
   var FONT = '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif';
-  var TITLE_FONT = '"Ma Shan Zheng", ' + FONT;
+  var TITLE_FONT = FONT;
 
   function count(value) {
     return Number.isFinite(value) && value > 0 ? Math.floor(value) : 0;
@@ -131,7 +131,7 @@
     ctx.save(); ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 3;
     ctx.beginPath(); ctx.moveTo(x + 3, y + 2); ctx.lineTo(x + 156, y); ctx.lineTo(x + 153, y + 47); ctx.lineTo(x, y + 45); ctx.closePath(); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(x + 9, y + 8); ctx.lineTo(x + 149, y + 7); ctx.lineTo(x + 146, y + 40); ctx.lineTo(x + 7, y + 39); ctx.closePath(); ctx.stroke();
-    ctx.font = '400 24px ' + TITLE_FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, x + 77, y + 24, 132);
+    ctx.font = '700 19px ' + TITLE_FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, x + 77, y + 24, 132);
     ctx.restore();
   }
 
@@ -150,19 +150,17 @@
 
   function drawFittedTitle(ctx, text, x, y, maxWidth, baseSize, minSize) {
     var size = baseSize;
-    ctx.font = '400 ' + size + 'px ' + TITLE_FONT;
+    ctx.font = '900 ' + size + 'px ' + TITLE_FONT;
     while (size > minSize && ctx.measureText(text).width > maxWidth) {
       size -= 1;
-      ctx.font = '400 ' + size + 'px ' + TITLE_FONT;
+      ctx.font = '900 ' + size + 'px ' + TITLE_FONT;
     }
     ctx.fillText(text, x, y);
   }
 
   function waitForFonts() {
     if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
-      return Promise.resolve(document.fonts.ready).then(function () {
-        if (typeof document.fonts.load === 'function') return document.fonts.load('32px "Ma Shan Zheng"');
-      }).catch(function () {});
+      return Promise.resolve(document.fonts.ready).catch(function () {});
     }
     return Promise.resolve();
   }
