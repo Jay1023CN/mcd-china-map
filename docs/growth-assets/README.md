@@ -1,5 +1,13 @@
 # 宣传素材
 
+## 小红书 Star 引导收尾图｜作者已认可（2026-10-10）
+
+- [小红书第六张：GitHub Star 引导图（1080 × 1440 PNG）](xhs-star-github-v1.png) · [查看原图](https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/growth-assets/xhs-star-github-v1.png)
+- **首选用途**：小红书图文最后一张，先介绍地图、门店和手账，再用此图引导读者访问仓库、支持 Star；也可用于 QQ、项目更新帖等结尾。
+- **正确 GitHub 地址**：https://github.com/Jay1023CN/mcd-china-map 。图片内已包含完整地址，正文也应附上完整网址，不能只写 `GitHub: Jay1023CN/mcd-china-map`。
+- **画面说明**：作者认可的合成宣传排版，配图使用项目真实页面的历史公开示例截图；不是当前网页的实时截图，不代表真实到访数量、用户评价或官方合作。保留「个人开发 · 非官方项目」身份。
+- 后续宣传材料优先**复用这张原图**，不要为了统一视觉重新生成导致 GitHub URL 拼写错；发布前仍需检查图片、文案、平台规则与第三方素材使用权限。
+
 2026-10-10 当前状态：主开发已确认 [v0.11.0 正式发布](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.11.0)，28 店／19 城／15 省目录及筛选、收藏已上线。作者已评价[整页手账 v3 样稿](notebook-plan-whole-v3.png)“这个好看”；该样稿与[动态字段实施规则](notebook-layout-v3.md)已进入实际 Canvas，照片放大、随记字号和换行调整后的三张图已目视查看，未见内容遮挡，已随 v0.11.0 公开。样稿由内置 imagegen 生成，不能当程序导出或上线截图；生成照片不能替代原照片。[餐品透明素材 v1](notebook-food-sketch-v1.png)在实际暖纸卡中未见明显光圈，继续采用；不是用户餐品记录。
 
 本轮公开素材是巨无霸手绘版，目标是让麦门爱好者看懂项目创意、比赛身份和 GitHub 入口。用户明确要求加巨无霸与薯条，并授权交主开发放进 GitHub 吸引用户。图片为原创手绘宣传插画，不是软件界面或私人足迹。

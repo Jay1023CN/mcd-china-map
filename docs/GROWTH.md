@@ -29,6 +29,7 @@ https://github.com/Jay1023CN/mcd-china-map
 | 2 | [手机地图](mobile-map-preview.png) / [门店详情](store-detail-preview.png) | 选城市、看照片、收藏下一站 |
 | 3 | [探店卡](memory-card-preview.png) | 一顿麦能留下什么 |
 | 4 | [城市回忆册](city-album-card-preview.png) / [月度小报](monthly-newspaper-preview.png) | 记录之后的回看和分享 |
+| 5 | [GitHub Star 收尾图](growth-assets/xhs-star-github-v1.png) | 小红书第六张，展示完整 GitHub 网址并邀请 Star；合成宣传图使用公开示例截图，不是最新交互 UI |
 
 产品图使用已有公开门店照片与演示记录，保留示例说明。正在制作的产品宣传视频继续沿用，不再制作一支相同视频；本节仅补充发布正文与入口。
 
