@@ -1,0 +1,65 @@
+name: Publish web app
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pages.yml'
+      - 'scripts/build_web_app.py'
+      - 'scripts/build_global_journal.py'
+      - 'scripts/project_version.py'
+      - 'scripts/visual_assets.py'
+      - 'templates/**'
+      - 'web/**'
+      - 'assets/**'
+      - 'tests/test_build_web_app.py'
+      - 'tests/browser-mobile-web.cjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build a blank personal journal
+        run: |
+          python -m unittest discover -s tests -p 'test_build_web_app.py' -v
+          python scripts/build_web_app.py
+      - name: Verify mobile web use before publishing
+        env:
+          STATIC_WEB_ROOT: ${{ github.workspace }}/dist/web
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+          node tests/browser-mobile-web.cjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

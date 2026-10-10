@@ -6,7 +6,7 @@
 
 把探店时吃过的餐品、拍下的照片和随手记，贴到一张属于自己的中国地图上。
 
-<a href="https://github.com/Jay1023CN/mcd-china-map/releases/latest"><strong>下载 Windows 完整体验包</strong></a>　·　<a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a>　·　<a href="docs/GROWTH.md">宣传素材</a>
+<a href="https://jay1023cn.github.io/mcd-china-map/"><strong>打开网页版</strong></a>　·　<a href="https://github.com/Jay1023CN/mcd-china-map/releases/latest">下载 Windows 完整体验包</a>　·　<a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a>　·　<a href="docs/GROWTH.md">宣传素材</a>
 
 <br>
 
@@ -29,6 +29,10 @@
 
 ### 从一次探店开始
 
+直接打开 [麦麦中国地图网页版](https://jay1023cn.github.io/mcd-china-map/)，就能写手账、加照片、点亮地图、收藏特色门店、生成分享卡，以及备份恢复和打印。无需安装，在电脑和手机浏览器里都可以使用。记录保存在当前浏览器，换设备前记得导出备份。
+
+需要本机 MCP 门店查询和订单同步时，也可以下载本地包：
+
 1. 从 [Releases](https://github.com/Jay1023CN/mcd-china-map/releases) 下载 Windows 完整压缩包并解压。
 2. 双击 `启动.cmd`，浏览器会打开 <http://127.0.0.1:8765/>。
 3. 点击“新增打卡”，填写城市、门店和餐品，再加照片与随手记。
@@ -49,7 +53,7 @@
 
 新版把已完成订单自动整理成可编辑的手账：门店、餐品、城市、省份和默认照片自动带入。想留下什么由你决定，可以改随记、换自己的照片，也可以删除。删掉的订单记录在刷新或再次同步后不会重新出现。
 
-**当前最新公开 Release 仍为 v0.8.1。** 上述订单整理体验属于后续开发版，不代表 v0.8.1 安装包已经包含这些变化；网页登录连接也仍在开发中，当前 README 不提供公网使用入口。
+GitHub Pages 网页版现已提供地图和手账功能。网页中的 Token 登录、官方门店查询和订单同步将在服务器接入后开放；现在可通过本机网页服务使用，支持 Windows、Linux 和 macOS，见 [网页版使用与部署](docs/WEB.md)。当前下载链接对应的安装包版本以 Release 页面为准。
 
 ## 分享一页，或约下一站
 
