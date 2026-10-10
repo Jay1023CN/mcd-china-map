@@ -587,6 +587,79 @@ def import_hong_kong(path):
     return result, {'url': snapshot['source'], 'collected_at': snapshot['collected_at'], 'rows': len(result)}
 
 
+def apply_macau_reviewed_sources(stores, base):
+    """Attach reviewed public evidence; query row numbers never identify stores."""
+    cross_path = base / 'macau-iam-directory-crosswalk.json'
+    if not cross_path.exists():
+        return None
+    paths = {'iam':base/'macau-iam-license-snapshot.json', 'directory':base/'macau-directory-cross-check.json',
+             'event':base/'macau-event-merchant-snapshot.json', 'tourism':base/'macau-tourism-license-partial.json'}
+    cross = read(cross_path)
+    for key, path in paths.items():
+        # Git checkouts may use CRLF. Only line endings may differ from the
+        # reviewed input; changed source content requires a fresh crosswalk.
+        content = path.read_bytes().replace(b'\r\n', b'\n')
+        digests = {hashlib.sha256(content).hexdigest(),hashlib.sha256(content.replace(b'\n',b'\r\n')).hexdigest()}
+        if cross['input_sha256'][key] not in digests:
+            raise ValueError('Macau reviewed input changed: ' + key)
+    iam, directory, event = read(paths['iam']), read(paths['directory']), read(paths['event'])
+    raw = iam['rows']
+    if not iam['full_query_pagination_collected'] or len(raw) != iam['published_query_total'] or [r['source_row'] for r in raw] != list(range(len(raw))):
+        raise ValueError('Incomplete Macau IAM query')
+    iam_by_row = {r['source_row']:r for r in raw}
+    if len(cross['rows']) != len(raw) or {r['iam_source_row'] for r in cross['rows']} != set(iam_by_row):
+        raise ValueError('Incomplete or repeated Macau reviewed rows')
+    events = {r['phone']:r for r in event['rows']}
+    directory_by_phone = {r['phone']:r for r in directory['rows']}
+    if len(events) != len(event['rows']) or len(directory_by_phone) != len(directory['rows']):
+        raise ValueError('Ambiguous Macau source phone')
+    existing_links = added = 0
+    for row in cross['rows']:
+        source = iam_by_row[row['iam_source_row']]
+        if (row['license_address'],row['license_source_url'],row['iam_name']) != (source['address'],source['source_url'],source['name']):
+            raise ValueError('Macau reviewed address changed')
+        if row['eligible_to_attach_iam_source']:
+            if row['relationship'] not in {'complete_address_agreement','event_phone_and_address'}:
+                raise ValueError('Unconfirmed Macau relationship cannot attach a source')
+            original = directory_by_phone.get(row['directory_phone'])
+            if not original or (original['name'],original['address']) != (row['directory_name'],row['directory_address']):
+                raise ValueError('Macau directory identity changed')
+            candidates = [s for s in stores if s.get('directory_phone') == row['directory_phone'] and s['name'] == row['directory_name']]
+            if len(candidates) != 1:
+                raise ValueError('Macau reviewed identity not unique')
+            store = candidates[0]
+            if row['relationship'] == 'event_phone_and_address' and row.get('event_evidence') != events.get(row['directory_phone']):
+                raise ValueError('Macau independent event evidence changed')
+            existing_links += 1
+        elif row['relationship'] == 'new_branch_supported':
+            evidence = row.get('event_evidence')
+            if not evidence or evidence != events.get(evidence['phone']) or evidence['phone'] in directory_by_phone or any(s.get('directory_phone') == evidence['phone'] for s in stores):
+                raise ValueError('Macau new branch requires unique reviewed public evidence')
+            code = 'mo:directory:' + hashlib.sha256(evidence['phone'].encode()).hexdigest()[:20]
+            store = {'id':code,'code':code,'country_code':'CN','province_code':'820000','city':'澳门',
+                     'name':evidence['name'],'address':evidence['address'],'directory_phone':evidence['phone'],
+                     'source':'macau_public_event_merchant','source_url':evidence['source_url'],'featured':False,
+                     'record_kind':'public_directory','current_open_status_verified':False,
+                     'aliases':['麦当劳'],
+                     'short_description':'公开商户资料与市政署登记地址交叉核对，出发前请再确认营业时间。'}
+            stores.append(store)
+            added += 1
+        else:
+            continue
+        store.update({'iam_address':source['address'], 'iam_source_url':source['source_url'],
+                      'iam_checked_at':iam['fetched_at'], 'iam_match_method':row['relationship']})
+    for row in event['rows']:
+        candidates = [s for s in stores if s.get('directory_phone') == row['phone']]
+        if len(candidates) == 1:
+            store = candidates[0]
+            store.update({'merchant_name':row['name'],'merchant_source_url':row['source_url'],'merchant_checked_at':event['fetched_at']})
+            store['aliases'] = list(dict.fromkeys([*store.get('aliases',[]),row['name']]))
+    return {'url':iam['source_url'],'collected_at':iam['fetched_at'],'rows':len(raw),'pages':len(iam['pages']),
+            'pagination_verified':True,'existing_store_matches':existing_links,'new_reviewed_stores':added,
+            'matched_store_records':existing_links+added,'coverage_complete':False,
+            'event_source':{'url':event['source_url'],'collected_at':event['fetched_at'],'rows':len(event['rows'])}}
+
+
 def import_macau(path):
     if not path.exists():
         return [], None
@@ -638,6 +711,11 @@ def import_macau(path):
     venue_source = None
     if venue_path.exists():
         venue = read(venue_path)
+        lisboeta_path = path.parent / 'macau-lisboeta-venue-snapshot.json'
+        if lisboeta_path.exists():
+            additional = read(lisboeta_path)
+            venue['rows'].extend({**row,'fetched_at':additional['fetched_at']} for row in additional['rows'])
+            venue['fetched_at'] = max(venue['fetched_at'],additional['fetched_at'])
         for row in venue['rows']:
             candidates = [s for s in stores if s.get('directory_phone') == row['directory_phone'] and s['name'] == row['directory_name']]
             if len(candidates) != 1 or not row.get('live_page_facts_verified'):
@@ -648,12 +726,15 @@ def import_macau(path):
                           'venue_hours':row['opening_hours_as_published'], 'venue_match_method':row['match_method']})
             # The university source identifies S1 but the directory retains its
             # fuller G016/G017/G018 units. Do not remove useful address detail.
-            if 'university' not in row['match_method']:
+            # Lisboaeta's directory retains the street/house number as well as
+            # L01/F07. Keep it while adding the official H853 visitor location.
+            if 'university' not in row['match_method'] and 'lisboetamacau.com' not in row['source_url']:
                 store['address'] = row['visitor_address']
         venue_source = {'rows':len(venue['rows']), 'collected_at':venue['fetched_at'], 'coverage_complete':False}
+    reviewed = apply_macau_reviewed_sources(stores,path.parent)
     return stores, {'url': snapshot['source'], 'collected_at': snapshot['collected_at'],
                     'rows': len(stores), 'government_license_rows': len(snapshot['stores']),
-                    'directory': directory_source, 'official_venue_visitor_pages':venue_source, 'coverage_complete': False}
+                    'directory': directory_source, 'official_venue_visitor_pages':venue_source, 'reviewed_iam_sources':reviewed, 'coverage_complete': False}
 
 
 def import_taiwan_registrations(path):
@@ -728,6 +809,7 @@ def build(snapshot, stores, hk_source, unmatched, failures, macau_source=None, l
                'hong_kong_stores': sum(s.get('source') == 'official_hong_kong' for s in stores),
                'macau_verified_partial_stores': sum(s.get('source') == 'macau_government_tourism_license' for s in stores),
                'macau_public_directory_records': sum(s.get('source') == 'macau_public_business_directory' for s in stores),
+               'macau_public_event_records': sum(s.get('source') == 'macau_public_event_merchant' for s in stores),
                'taiwan_restaurant_registration_records': sum(s.get('source') == 'taiwan_food_restaurant_registration' for s in stores),
                'locator_failed_queries': len(failures),
                'locator_keyword_status': locator_status,

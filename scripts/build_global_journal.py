@@ -129,7 +129,8 @@ def render(archive):
     fields = ('id','code','name','city','province_code','address','source','source_url','featured','featured_name',
               'locator_name','location','aliases','tags','short_description','search_keyword','default_photo','district','locality_note','record_kind','operator_name','brand_name_source_url',
               'tax_registration_id','tax_registered_name','tax_status','tax_source_url','tax_checked_at',
-              'venue_address','venue_location','venue_source_url','venue_checked_at','venue_hours','venue_match_method','license_address')
+              'venue_address','venue_location','venue_source_url','venue_checked_at','venue_hours','venue_match_method','license_address',
+              'iam_address','iam_source_url','iam_checked_at','iam_match_method','merchant_name','merchant_source_url','merchant_checked_at')
     data['national_catalog'] = {'schema_version':1,'generated_at':national['generated_at'],
                                'coverage':national['coverage'],'sources':national['sources'],
                                'stores':[{key:store[key] for key in fields if key in store} for store in national['stores']]}

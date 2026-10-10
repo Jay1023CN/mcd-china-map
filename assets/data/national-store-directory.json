@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-10T11:10:09.539583+00:00",
+  "generated_at": "2026-10-10T11:36:37.193744+00:00",
   "sources": {
     "mainland": {
       "url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo",
@@ -15,7 +15,7 @@
     "macau": {
       "url": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1",
       "collected_at": "2026-10-10T05:47:30.501525+00:00",
-      "rows": 38,
+      "rows": 39,
       "government_license_rows": 6,
       "directory": {
         "url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
@@ -24,9 +24,25 @@
         "government_license_matches": 6
       },
       "official_venue_visitor_pages": {
-        "rows": 6,
-        "collected_at": "2026-10-10T11:07:44.085056+00:00",
+        "rows": 7,
+        "collected_at": "2026-10-10T11:32:18.689504+00:00",
         "coverage_complete": false
+      },
+      "reviewed_iam_sources": {
+        "url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+        "collected_at": "2026-10-10T11:19:34.173177+00:00",
+        "rows": 31,
+        "pages": 4,
+        "pagination_verified": true,
+        "existing_store_matches": 10,
+        "new_reviewed_stores": 1,
+        "matched_store_records": 11,
+        "coverage_complete": false,
+        "event_source": {
+          "url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+          "collected_at": "2026-10-10T11:27:20.309678+00:00",
+          "rows": 6
+        }
       },
       "coverage_complete": false
     },
@@ -39,9 +55,9 @@
       "record_kind": "government_registration",
       "brand_directory_verified": false,
       "official_branch_name_matches": 211,
-      "tax_branch_names_added": 38,
-      "named_registration_records": 249,
-      "operating_tax_matched_records": 143,
+      "tax_branch_names_added": 54,
+      "named_registration_records": 265,
+      "operating_tax_matched_records": 172,
       "operating_tax_source": {
         "dataset_page": "https://data.gov.tw/dataset/9400",
         "source_url": "https://eip.fia.gov.tw/data/BGMOPEN1.zip",
@@ -61,7 +77,7 @@
     }
   },
   "coverage": {
-    "total_stores": 9275,
+    "total_stores": 9276,
     "mainland_disclosure_rows": 8448,
     "mainland_unique_stores": 8448,
     "mainland_expected_pages": 1028,
@@ -92,6 +108,7 @@
     "hong_kong_stores": 269,
     "macau_verified_partial_stores": 6,
     "macau_public_directory_records": 32,
+    "macau_public_event_records": 1,
     "taiwan_restaurant_registration_records": 508,
     "locator_failed_queries": 0,
     "locator_keyword_status": {
@@ -207324,7 +207341,17 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "澳門城市日大馬路26號, 32號及36號海景花園 利景閣地面層 SR/C, TR/C 及UR/C舖位",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "event_phone_and_address",
+      "merchant_name": "海景麥當勞餐廳",
+      "merchant_source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "merchant_checked_at": "2026-10-10T11:27:20.309678+00:00",
+      "aliases": [
+        "海景麥當勞餐廳"
+      ]
     },
     {
       "id": "mo:directory:649a7987aec45213cf98",
@@ -207340,7 +207367,17 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "澳門孫逸仙大馬路澳門科學館地面層",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "event_phone_and_address",
+      "merchant_name": "澳門科學館麥當勞餐廳",
+      "merchant_source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "merchant_checked_at": "2026-10-10T11:27:20.309678+00:00",
+      "aliases": [
+        "澳門科學館麥當勞餐廳"
+      ]
     },
     {
       "id": "mo:directory:a5454e54e891165e39fb",
@@ -207410,7 +207447,17 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "澳門海港前地外港客運碼頭3樓的商用空間3006號",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "event_phone_and_address",
+      "merchant_name": "澳門外港客運碼頭麥當勞餐廳",
+      "merchant_source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "merchant_checked_at": "2026-10-10T11:27:20.309678+00:00",
+      "aliases": [
+        "澳門外港客運碼頭麥當勞餐廳"
+      ]
     },
     {
       "id": "mo:directory:3d56c2b6cf5a2b797418",
@@ -207426,7 +207473,11 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "澳門賈伯樂提督街(提督街)150-152號栢威大廈(第一座, 第二座)地下A座",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "complete_address_agreement"
     },
     {
       "id": "mo:directory:8c7d95f5b80c5cffc6f2",
@@ -207522,7 +207573,11 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "氹仔基馬拉斯大馬路127-153號濠景花園第三座地下A座",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "complete_address_agreement"
     },
     {
       "id": "mo:directory:c914e60129b1ac5b1029",
@@ -207570,7 +207625,11 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "澳門罅些喇提督大馬路 / 提督馬路162-166號賈梅士商業中心, 慕拉士大廈, 高美士大廈地下B-G座及一樓I-J座",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "complete_address_agreement"
     },
     {
       "id": "mo:directory:e9ba6529cd8c9a2bf465",
@@ -207586,7 +207645,17 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "澳門北京街230-246號澳門金融中心地下J座及一樓H,I,J,K座",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "event_phone_and_address",
+      "merchant_name": "澳門金融中心麥當勞餐廳",
+      "merchant_source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "merchant_checked_at": "2026-10-10T11:27:20.309678+00:00",
+      "aliases": [
+        "澳門金融中心麥當勞餐廳"
+      ]
     },
     {
       "id": "mo:directory:6c36c0abb9d3e8a2ca12",
@@ -207602,7 +207671,13 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "venue_address": "澳門葡京人 H853 Fun Factory 娛樂小鎮 1 樓 F07舖",
+      "venue_location": "H853 Fun Factory 娛樂小鎮 1 樓 F07舖",
+      "venue_source_url": "https://www.lisboetamacau.com/zh-hant/dining/venues/mcdonalds/",
+      "venue_checked_at": "2026-10-10T11:32:18.689504+00:00",
+      "venue_hours": "10:00 - 20:00",
+      "venue_match_method": "unique_published_phone_and_existing_directory_phone"
     },
     {
       "id": "mo:directory:c2f2e458d113743c49c8",
@@ -207618,7 +207693,11 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "氹仔柯維納馬路212號樂駿盈軒(第一座)地下AY座(A區)",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "complete_address_agreement"
     },
     {
       "id": "mo:directory:c44d8a61a9d2bbb2e0f4",
@@ -207634,7 +207713,17 @@
       "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
       "record_kind": "public_directory",
       "current_open_status_verified": false,
-      "short_description": "公开商户目录中的分店地址，营业状态请再确认。"
+      "short_description": "公开商户目录中的分店地址，营业状态请再确认。",
+      "iam_address": "澳門布魯塞爾街28、32、36及42號建興龍廣場(興海閣,建富閣)地下及閣樓Q、R、S及T座閣樓",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "event_phone_and_address",
+      "merchant_name": "建興龍麥當勞餐廳",
+      "merchant_source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "merchant_checked_at": "2026-10-10T11:27:20.309678+00:00",
+      "aliases": [
+        "建興龍麥當勞餐廳"
+      ]
     },
     {
       "id": "mo:directory:f091ece9e440742dec2b",
@@ -207656,7 +207745,38 @@
       "venue_source_url": "https://css.cmdo.um.edu.mo/outlets/?lang=zh-hant",
       "venue_checked_at": "2026-10-10T11:07:43.450053+00:00",
       "venue_hours": "07:00–23:00",
-      "venue_match_method": "existing_unique_university_branch_and_named_venue_listing"
+      "venue_match_method": "existing_unique_university_branch_and_named_venue_listing",
+      "iam_address": "氹仔大學大馬路澳門大學S1研究生宿舍地面層G016, G017及G018舖",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "complete_address_agreement"
+    },
+    {
+      "id": "mo:directory:211ece1cb1f7e16198ec",
+      "code": "mo:directory:211ece1cb1f7e16198ec",
+      "country_code": "CN",
+      "province_code": "820000",
+      "city": "澳门",
+      "name": "利新麥當勞餐廳",
+      "address": "澳門高美士街124-126號利新大廈地下A座",
+      "directory_phone": "28373930",
+      "source": "macau_public_event_merchant",
+      "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "featured": false,
+      "record_kind": "public_directory",
+      "current_open_status_verified": false,
+      "aliases": [
+        "麦当劳",
+        "利新麥當勞餐廳"
+      ],
+      "short_description": "公开商户资料与市政署登记地址交叉核对，出发前请再确认营业时间。",
+      "iam_address": "澳門高美士街124-126號利新大廈地下及閣樓A座",
+      "iam_source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "iam_checked_at": "2026-10-10T11:19:34.173177+00:00",
+      "iam_match_method": "new_branch_supported",
+      "merchant_name": "利新麥當勞餐廳",
+      "merchant_source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "merchant_checked_at": "2026-10-10T11:27:20.309678+00:00"
     },
     {
       "id": "tw:fda:B-112411160-00844-1",
@@ -208641,12 +208761,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 台中市北區中清路一段786號",
+        "台中新大雅",
+        "和德昌股份有限公司台中新大雅分公司",
+        "台中新大雅分公司",
         "台中新大雅"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "28976213",
+      "tax_registered_name": "和德昌股份有限公司台中新大雅分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:B-112411160-01154-6",
@@ -208663,12 +208791,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 台中市西屯區台灣大道四段1058號",
+        "台中中港六",
+        "和德昌股份有限公司台中中港六分公司",
+        "台中中港六分公司",
         "台中中港六"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "53006019",
+      "tax_registered_name": "和德昌股份有限公司台中中港六分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:B-112411160-01156-8",
@@ -208772,7 +208908,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "台中市",
-      "name": "和德昌股份有限公司 · 台中市北屯區北屯路432之1號",
+      "name": "麥當勞台中北屯分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "台中市北屯區北屯路432之1號",
       "source": "taiwan_food_restaurant_registration",
@@ -208780,11 +208916,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 台中市北屯區北屯路432之1號"
+        "和德昌股份有限公司 · 台中市北屯區北屯路432之1號",
+        "和德昌股份有限公司台中北屯分公司",
+        "台中北屯分公司",
+        "台中北屯"
       ],
+      "tax_registration_id": "53665342",
+      "tax_registered_name": "和德昌股份有限公司台中北屯分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:B-112411160-01208-6",
@@ -209603,12 +209747,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 南投縣名間鄉濁水村彰南路1-7號",
+        "名間彰南",
+        "和德昌股份有限公司名間彰南分公司",
+        "名間彰南分公司",
         "名間彰南"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "24806738",
+      "tax_registered_name": "和德昌股份有限公司名間彰南分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:M-112411160-01058-0",
@@ -209754,7 +209906,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "基隆市",
-      "name": "和德昌股份有限公司 · 基隆市信義區信一路91號一樓",
+      "name": "麥當勞基隆義六分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "基隆市信義區信一路91號一樓",
       "source": "taiwan_food_restaurant_registration",
@@ -209762,11 +209914,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 基隆市信義區信一路91號一樓"
+        "和德昌股份有限公司 · 基隆市信義區信一路91號一樓",
+        "和德昌股份有限公司基隆義六分公司",
+        "基隆義六分公司",
+        "基隆義六"
       ],
+      "tax_registration_id": "90078393",
+      "tax_registered_name": "和德昌股份有限公司基隆義六分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:V-112411160-00903-7",
@@ -210224,7 +210384,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "台南市",
-      "name": "和德昌股份有限公司 · 台南市仁德區區仁義里33鄰中正路三段58號",
+      "name": "麥當勞台南仁德分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "台南市仁德區區仁義里33鄰中正路三段58號",
       "source": "taiwan_food_restaurant_registration",
@@ -210232,11 +210392,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 台南市仁德區區仁義里33鄰中正路三段58號"
+        "和德昌股份有限公司 · 台南市仁德區區仁義里33鄰中正路三段58號",
+        "和德昌股份有限公司台南仁德分公司",
+        "台南仁德分公司",
+        "台南仁德"
       ],
+      "tax_registration_id": "24806694",
+      "tax_registered_name": "和德昌股份有限公司台南仁德分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:D-112411160-01131-3",
@@ -210361,12 +210529,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 台南市新市區中山路213號",
+        "新市中山",
+        "和德昌股份有限公司新市中山分公司",
+        "新市中山分公司",
         "新市中山"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "24806955",
+      "tax_registered_name": "和德昌股份有限公司新市中山分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:D-112411160-01230-3",
@@ -210498,7 +210674,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "台南市",
-      "name": "和德昌股份有限公司 · 台南市永康區安康里12鄰中華路613號",
+      "name": "麥當勞台南中華三分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "台南市永康區安康里12鄰中華路613號",
       "source": "taiwan_food_restaurant_registration",
@@ -210506,11 +210682,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 台南市永康區安康里12鄰中華路613號"
+        "和德昌股份有限公司 · 台南市永康區安康里12鄰中華路613號",
+        "和德昌股份有限公司台南中華三分公司",
+        "台南中華三分公司",
+        "台南中華三"
       ],
+      "tax_registration_id": "89131602",
+      "tax_registered_name": "和德昌股份有限公司台南中華三分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:D-112411160-01761-2",
@@ -211508,7 +211692,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "高雄市",
-      "name": "和德昌股份有限公司 · 高雄市三民區本揚里24鄰澄清路550號",
+      "name": "麥當勞高雄新澄清分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "高雄市三民區本揚里24鄰澄清路550號",
       "source": "taiwan_food_restaurant_registration",
@@ -211516,11 +211700,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 高雄市三民區本揚里24鄰澄清路550號"
+        "和德昌股份有限公司 · 高雄市三民區本揚里24鄰澄清路550號",
+        "和德昌股份有限公司高雄新澄清分公司",
+        "高雄新澄清分公司",
+        "高雄新澄清"
       ],
+      "tax_registration_id": "53001653",
+      "tax_registered_name": "和德昌股份有限公司高雄新澄清分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:E-112411160-01155-0",
@@ -211600,7 +211792,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "高雄市",
-      "name": "和德昌股份有限公司 · 高雄市鳳山區過埤里4鄰鳳頂路50號",
+      "name": "麥當勞鳳山鳳頂分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "高雄市鳳山區過埤里4鄰鳳頂路50號",
       "source": "taiwan_food_restaurant_registration",
@@ -211608,11 +211800,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 高雄市鳳山區過埤里4鄰鳳頂路50號"
+        "和德昌股份有限公司 · 高雄市鳳山區過埤里4鄰鳳頂路50號",
+        "和德昌股份有限公司鳳山鳳頂分公司",
+        "鳳山鳳頂分公司",
+        "鳳山鳳頂"
       ],
+      "tax_registration_id": "53659799",
+      "tax_registered_name": "和德昌股份有限公司鳳山鳳頂分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:E-112411160-01199-8",
@@ -211640,7 +211840,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "高雄市",
-      "name": "和德昌股份有限公司 · 高雄市仁武區鳳仁路95之25號",
+      "name": "麥當勞仁武鳳仁分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "高雄市仁武區鳳仁路95之25號",
       "source": "taiwan_food_restaurant_registration",
@@ -211648,11 +211848,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 高雄市仁武區鳳仁路95之25號"
+        "和德昌股份有限公司 · 高雄市仁武區鳳仁路95之25號",
+        "和德昌股份有限公司仁武鳳仁分公司",
+        "仁武鳳仁分公司",
+        "仁武鳳仁"
       ],
+      "tax_registration_id": "53675427",
+      "tax_registered_name": "和德昌股份有限公司仁武鳳仁分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:E-112411160-01214-6",
@@ -213895,12 +214103,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 宜蘭縣礁溪鄉礁溪路四段158號",
+        "宜蘭礁溪",
+        "和德昌股份有限公司宜蘭礁溪分公司",
+        "宜蘭礁溪分公司",
         "宜蘭礁溪"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "24806569",
+      "tax_registered_name": "和德昌股份有限公司宜蘭礁溪分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:G-112411160-01138-3",
@@ -214721,12 +214937,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 桃園市龍潭區中豐路412號",
+        "龍潭中豐",
+        "和德昌股份有限公司龍潭中豐分公司",
+        "龍潭中豐分公司",
         "龍潭中豐"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "24806929",
+      "tax_registered_name": "和德昌股份有限公司龍潭中豐分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:H-112411160-01065-3",
@@ -215235,12 +215459,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 桃園市蘆竹區大竹路432號",
+        "蘆竹大竹",
+        "和德昌股份有限公司蘆竹大竹分公司",
+        "蘆竹大竹分公司",
         "蘆竹大竹"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "54379162",
+      "tax_registered_name": "和德昌股份有限公司蘆竹大竹分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:H-112411160-01270-1",
@@ -215308,7 +215540,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "桃園市",
-      "name": "和德昌股份有限公司 · 桃園市平鎮區雙連里7鄰民族路雙連一段88號",
+      "name": "麥當勞平鎮民族分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "桃園市平鎮區雙連里7鄰民族路雙連一段88號",
       "source": "taiwan_food_restaurant_registration",
@@ -215316,11 +215548,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 桃園市平鎮區雙連里7鄰民族路雙連一段88號"
+        "和德昌股份有限公司 · 桃園市平鎮區雙連里7鄰民族路雙連一段88號",
+        "和德昌股份有限公司平鎮民族分公司",
+        "平鎮民族分公司",
+        "平鎮民族"
       ],
+      "tax_registration_id": "90682358",
+      "tax_registered_name": "和德昌股份有限公司平鎮民族分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:H-112411160-01737-9",
@@ -215358,7 +215598,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "桃園市",
-      "name": "和德昌股份有限公司 · 桃園市龜山區大湖里19鄰忠義路2段548號",
+      "name": "麥當勞龜山忠義分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "桃園市龜山區大湖里19鄰忠義路2段548號",
       "source": "taiwan_food_restaurant_registration",
@@ -215366,11 +215606,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 桃園市龜山區大湖里19鄰忠義路2段548號"
+        "和德昌股份有限公司 · 桃園市龜山區大湖里19鄰忠義路2段548號",
+        "和德昌股份有限公司龜山忠義分公司",
+        "龜山忠義分公司",
+        "龜山忠義"
       ],
+      "tax_registration_id": "93784652",
+      "tax_registered_name": "和德昌股份有限公司龜山忠義分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:H-112411160-01751-5",
@@ -215656,7 +215904,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "桃園市",
-      "name": "和德昌股份有限公司 · 桃園市平鎮區環南路三段31號",
+      "name": "麥當勞平鎮環南門市部",
       "operator_name": "和德昌股份有限公司",
       "address": "桃園市平鎮區環南路三段31號",
       "source": "taiwan_food_restaurant_registration",
@@ -215664,11 +215912,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 桃園市平鎮區環南路三段31號"
+        "和德昌股份有限公司 · 桃園市平鎮區環南路三段31號",
+        "和德昌股份有限公司平鎮環南門市部",
+        "平鎮環南門市部",
+        "平鎮環南"
       ],
+      "tax_registration_id": "61485277",
+      "tax_registered_name": "和德昌股份有限公司平鎮環南門市部",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:H-112411160-01893-2",
@@ -215938,7 +216194,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "彰化縣",
-      "name": "和德昌股份有限公司 · 彰化縣溪湖鎮員鹿路二段430號",
+      "name": "麥當勞彰化溪湖分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "彰化縣溪湖鎮員鹿路二段430號",
       "source": "taiwan_food_restaurant_registration",
@@ -215946,11 +216202,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 彰化縣溪湖鎮員鹿路二段430號"
+        "和德昌股份有限公司 · 彰化縣溪湖鎮員鹿路二段430號",
+        "和德昌股份有限公司彰化溪湖分公司",
+        "彰化溪湖分公司",
+        "彰化溪湖"
       ],
+      "tax_registration_id": "53012835",
+      "tax_registered_name": "和德昌股份有限公司彰化溪湖分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:N-112411160-01193-1",
@@ -215958,7 +216222,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "彰化縣",
-      "name": "和德昌股份有限公司 · 彰化縣彰化市中山路1段478號",
+      "name": "麥當勞彰化中山二分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "彰化縣彰化市中山路1段478號",
       "source": "taiwan_food_restaurant_registration",
@@ -215966,11 +216230,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 彰化縣彰化市中山路1段478號"
+        "和德昌股份有限公司 · 彰化縣彰化市中山路1段478號",
+        "和德昌股份有限公司彰化中山二分公司",
+        "彰化中山二分公司",
+        "彰化中山二"
       ],
+      "tax_registration_id": "53663415",
+      "tax_registered_name": "和德昌股份有限公司彰化中山二分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:N-112411160-01201-1",
@@ -215987,12 +216259,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 彰化縣北斗鎮中山路二段102號",
+        "北斗中山",
+        "和德昌股份有限公司北斗中山分公司",
+        "北斗中山分公司",
         "北斗中山"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "53664527",
+      "tax_registered_name": "和德昌股份有限公司北斗中山分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:N-112411160-01693-6",
@@ -216009,12 +216289,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 彰化縣員林市中山路一段330號",
+        "員林中山二",
+        "和德昌股份有限公司員林中山二分公司",
+        "員林中山二分公司",
         "員林中山二"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "51359228",
+      "tax_registered_name": "和德昌股份有限公司員林中山二分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:N-112411160-01733-1",
@@ -216022,7 +216310,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "彰化縣",
-      "name": "和德昌股份有限公司 · 彰化縣秀水鄉福安村23鄰彰水路二段749號",
+      "name": "麥當勞彰化秀水分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "彰化縣秀水鄉福安村23鄰彰水路二段749號",
       "source": "taiwan_food_restaurant_registration",
@@ -216030,11 +216318,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 彰化縣秀水鄉福安村23鄰彰水路二段749號"
+        "和德昌股份有限公司 · 彰化縣秀水鄉福安村23鄰彰水路二段749號",
+        "和德昌股份有限公司彰化秀水分公司",
+        "彰化秀水分公司",
+        "彰化秀水"
       ],
+      "tax_registration_id": "90077887",
+      "tax_registered_name": "和德昌股份有限公司彰化秀水分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:N-112411160-01889-3",
@@ -216101,12 +216397,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 新竹縣竹東鎮長春路3段191號",
+        "竹東長春",
+        "和德昌股份有限公司竹東長春分公司",
+        "竹東長春分公司",
         "竹東長春"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "43195547",
+      "tax_registered_name": "和德昌股份有限公司竹東長春分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:J-112411160-00987-7",
@@ -218102,7 +218406,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "台北市",
-      "name": "和德昌股份有限公司 · 台北市士林區中山北路六段152及154號一樓",
+      "name": "麥當勞台北中山北分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "台北市士林區中山北路六段152及154號一樓",
       "source": "taiwan_food_restaurant_registration",
@@ -218110,11 +218414,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 台北市士林區中山北路六段152及154號一樓"
+        "和德昌股份有限公司 · 台北市士林區中山北路六段152及154號一樓",
+        "和德昌股份有限公司台北中山北分公司",
+        "台北中山北分公司",
+        "台北中山北"
       ],
+      "tax_registration_id": "90270216",
+      "tax_registered_name": "和德昌股份有限公司台北中山北分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:A-112411160-01784-4",
@@ -218353,12 +218665,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 屏東縣屏東市民生路3之10號",
+        "屏東民生",
+        "和德昌股份有限公司屏東民生分公司",
+        "屏東民生分公司",
         "屏東民生"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "16837791",
+      "tax_registered_name": "和德昌股份有限公司屏東民生分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:T-112411160-01097-0",
@@ -218375,12 +218695,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 屏東縣屏東市自由路498之3號",
+        "屏東自由",
+        "和德昌股份有限公司屏東自由分公司",
+        "屏東自由分公司",
         "屏東自由"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "70815041",
+      "tax_registered_name": "和德昌股份有限公司屏東自由分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:T-112411160-01115-1",
@@ -218864,7 +219192,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "苗栗縣",
-      "name": "和德昌股份有限公司 · 苗栗縣頭份市自強路230號一樓",
+      "name": "麥當勞頭份自強分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "苗栗縣頭份市自強路230號一樓",
       "source": "taiwan_food_restaurant_registration",
@@ -218872,11 +219200,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 苗栗縣頭份市自強路230號一樓"
+        "和德昌股份有限公司 · 苗栗縣頭份市自強路230號一樓",
+        "和德昌股份有限公司頭份自強分公司",
+        "頭份自強分公司",
+        "頭份自強"
       ],
+      "tax_registration_id": "62242051",
+      "tax_registered_name": "和德昌股份有限公司頭份自強分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:K-112411160-01731-6",
@@ -219052,7 +219388,7 @@
       "country_code": "CN",
       "province_code": "710000",
       "city": "雲林縣",
-      "name": "和德昌股份有限公司 · 雲林縣斗南鎮延平路2段455號",
+      "name": "麥當勞斗南延平分公司",
       "operator_name": "和德昌股份有限公司",
       "address": "雲林縣斗南鎮延平路2段455號",
       "source": "taiwan_food_restaurant_registration",
@@ -219060,11 +219396,19 @@
       "aliases": [
         "麦当劳",
         "麥當勞",
-        "和德昌股份有限公司 · 雲林縣斗南鎮延平路2段455號"
+        "和德昌股份有限公司 · 雲林縣斗南鎮延平路2段455號",
+        "和德昌股份有限公司斗南延平分公司",
+        "斗南延平分公司",
+        "斗南延平"
       ],
+      "tax_registration_id": "24807862",
+      "tax_registered_name": "和德昌股份有限公司斗南延平分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:P-112411160-01085-3",
@@ -219249,12 +219593,20 @@
         "麦当劳",
         "麥當勞",
         "和德昌股份有限公司 · 花蓮縣花蓮市中山路549之6號",
+        "花蓮中山二",
+        "和德昌股份有限公司花蓮中山二分公司",
+        "花蓮中山二分公司",
         "花蓮中山二"
       ],
       "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+      "tax_registration_id": "53659685",
+      "tax_registered_name": "和德昌股份有限公司花蓮中山二分公司",
+      "tax_status": "listed_as_operating",
+      "tax_source_url": "https://data.gov.tw/dataset/9400",
+      "tax_checked_at": "2026-10-10T11:02:30.845124+00:00",
       "featured": false,
       "record_kind": "government_registration",
-      "short_description": "政府餐饮场所登记地址，未提供营业状态；出发前请再确认。"
+      "short_description": "本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。"
     },
     {
       "id": "tw:fda:U-112411160-01843-0",

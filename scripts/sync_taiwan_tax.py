@@ -27,10 +27,25 @@ def address_key(address):
     value = re.sub(r'\s+', '', unicodedata.normalize('NFKC', address).replace('臺', '台'))
     for chinese, digit in zip('一二三四五六七八九', '123456789'):
         value = value.replace(chinese + '段', digit + '段')
+    # City districts may contain 鎮/市 in their name (平鎮區、新市區).
+    # End them at 區; counties instead use a township/town/county-city suffix.
+    prefix = r'((?:[^縣市]{2,4}市[^路街巷弄號區\d]{1,5}區|[^縣市]{2,4}縣[^路街巷弄號鄉鎮市區\d]{1,5}[鄉鎮市]))'
+    # FDA contains a repeated administrative suffix (仁德區區). Correct only
+    # an identical suffix immediately after the complete city/district prefix.
+    value = re.sub('^' + prefix + r'([鄉鎮市區])',
+                   lambda match: match[1] if match[1].endswith(match[2]) else match[0], value)
     # Tax addresses optionally include a village/neighborhood immediately after
     # the city and district. Keep the entire road, house number and floor suffix.
-    return re.sub(r'^([^縣市]{2,4}[縣市][^鄉鎮市區]{1,5}[鄉鎮市區])'
-                  r'[^路街巷弄號\d]{1,6}[里村](?=[^路街巷弄號\d]+(?:路|街|大道))', r'\1', value)
+    value = re.sub('^' + prefix +
+                   r'[^路街巷弄號\d]{1,6}[里村](?:\d{1,3}鄰)?(?=[^路街巷弄號\d]+(?:路|街|大道))', r'\1', value)
+    value = re.sub('^' + prefix +
+                   r'\d{1,3}鄰(?=[^路街巷弄號\d]+(?:路|街|大道))', r'\1', value)
+    # A numbered sub-address stays a numbered sub-address; never turn a range
+    # of multiple house numbers into one address or drop floor information.
+    value = re.sub(r'(\d)[―－﹣−-](\d+號)', r'\1之\2', value)
+    digits = dict(zip('一二三四五六七八九', '123456789'))
+    return re.sub(r'(號|地下)([一二三四五六七八九])樓',
+                  lambda match: match[1] + digits[match[2]] + '樓', value)
 
 
 def restaurant(row):

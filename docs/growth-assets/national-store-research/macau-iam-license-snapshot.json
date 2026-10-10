@@ -1,0 +1,322 @@
+{
+  "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+  "official_link_directory": "https://www.iam.gov.mo/data/onestopservice_c.json",
+  "link_directory_response_sha256": "1602b52bef2ec7935965be19eaccc94891207d0b778befb3648301041cef11db",
+  "fetched_at": "2026-10-10T11:19:34.173177+00:00",
+  "query": {
+    "place_name": "麥當勞",
+    "areas": [
+      "M",
+      "T",
+      "C"
+    ]
+  },
+  "published_query_total": 31,
+  "row_count": 31,
+  "pages": [
+    {
+      "page": 1,
+      "rows": 10,
+      "response_sha256": "65a61f7a2e61d466c24ae002ddc416ad9dddf4b9160fe69a6830d639772bdc0b"
+    },
+    {
+      "page": 2,
+      "rows": 10,
+      "response_sha256": "4503893f22b37912ad53ca3ecbf197b6254aa85ad502c0bcf93712e388b7f73e"
+    },
+    {
+      "page": 3,
+      "rows": 10,
+      "response_sha256": "3407dc324d345b69fedaf0b24ca17dfe04ff032309d7280d997429658518be56"
+    },
+    {
+      "page": 4,
+      "rows": 1,
+      "response_sha256": "52a0d2e02bdfe8a8eec400ca8e86c679041e72438d199ac685be25916ee66168"
+    }
+  ],
+  "full_query_pagination_collected": true,
+  "brand_entire_region_coverage_verified": false,
+  "scope_note": "All rows of the IAM public licensed/registered premises query for the exact displayed brand name. Cross-check Tourism licenses, alternate registered names and venue listings before claiming all Macau physical restaurants. Page publication is not a physical opening-status visit.",
+  "rows": [
+    {
+      "name": "麥當勞",
+      "address": "氹仔基馬拉斯大馬路127-153號濠景花園第三座地下A座",
+      "source_row": 0,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門城市日大馬路26號, 32號及36號海景花園 利景閣地面層 SR/C, TR/C 及UR/C舖位",
+      "source_row": 1,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門鵝眉街1號至3號A舖",
+      "source_row": 2,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "氹仔大連街389號寶龍花園地下F座",
+      "source_row": 3,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門永安街151及180號，菜園路12,18及22號信達廣場(第二座)地下P00-11,P00-15至18及一樓P01-05至09及P01-15",
+      "source_row": 4,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門巴波沙大馬路無門牌號數新城市花園(第二十一座)地下及一樓A座",
+      "source_row": 5,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門林茂海邊大馬路394-398號及林茂海邊街293號,泉福翡翠地下B座及F座",
+      "source_row": 6,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門高士德大馬路46號利嘉、利年、利華,地下及一樓B座",
+      "source_row": 7,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門白鴿巢前地6號,7號及8號,地牢",
+      "source_row": 8,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門水坑尾街135-137號,141號及143-147號銀輝大廈地下B,C,D座及閣樓D座",
+      "source_row": 9,
+      "source_page": 1,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門北京街230-246號澳門金融中心地下J座及一樓H,I,J,K座",
+      "source_row": 10,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "氹仔地堡街5-161號,泉福新邨第二期(偉鴻閣,偉圖閣,偉大閣,偉展閣,偉興閣,偉盛閣)地下A,B,C座",
+      "source_row": 11,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門慕拉士大馬路124號至126號龍園(飛龍閣,雲龍閣,騰龍閣,躍龍閣)地下A座",
+      "source_row": 12,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門永樂街102號僑光工業大廈地下K,L,M及N座，永華街75,79及96號",
+      "source_row": 13,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "氹仔大學大馬路澳門大學S1研究生宿舍地面層G016, G017及G018舖",
+      "source_row": 14,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門黑沙環中街158號寰宇天下地下AB座商舖B",
+      "source_row": 15,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "氹仔柯維納馬路212號樂駿盈軒(第一座)地下AY座(A區)",
+      "source_row": 16,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門布魯塞爾街28、32、36及42號建興龍廣場(興海閣,建富閣)地下及閣樓Q、R、S及T座閣樓",
+      "source_row": 17,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門賈伯樂提督街(提督街)150-152號栢威大廈(第一座, 第二座)地下A座",
+      "source_row": 18,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "氹仔奧林匹克大馬路481-487號花城(利盛,利豐,利厚,利盈,利茂)地下M座",
+      "source_row": 19,
+      "source_page": 2,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門孫逸仙大馬路澳門科學館地面層",
+      "source_row": 20,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門海港前地外港客運碼頭3樓的商用空間3006號",
+      "source_row": 21,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門河邊新街凱泉灣,地下F、G及H座",
+      "source_row": 22,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門沙梨頭南街209,182,188號，海灣南街196-202號信和廣場(第一座融合閣,第二座祥和閣,第三座盈和閣)AC座地下及一樓,AD座地下,AE及AF座一樓",
+      "source_row": 23,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "氹仔ZONA ADJACENTE À PONTA DE CABRITA,澳門國際機場客運大樓閣樓C舖",
+      "source_row": 24,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門馬交石街204–212號,御景灣第一座地下E舖",
+      "source_row": 25,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門南灣湖景大馬路766號,760號及744-A號,湖景豪庭,地下B座,地下及閣樓C座及D座",
+      "source_row": 26,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "路環業興二街65-77號業興大廈(第五座)地下A座",
+      "source_row": 27,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門高美士街124-126號利新大廈地下及閣樓A座",
+      "source_row": 28,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門板樟堂街13 - 19-A號，德香里6號信達堡地下C座及一樓A,B,C,D,E,F座",
+      "source_row": 29,
+      "source_page": 3,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "麥當勞",
+      "address": "澳門罅些喇提督大馬路 / 提督馬路162-166號賈梅士商業中心, 慕拉士大廈, 高美士大廈地下B-G座及一樓I-J座",
+      "source_row": 30,
+      "source_page": 4,
+      "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+      "source_type": "iam_public_licensed_food_premises_query",
+      "physical_current_operation_verified": false
+    }
+  ]
+}

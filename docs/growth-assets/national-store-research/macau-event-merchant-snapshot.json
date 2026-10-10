@@ -1,0 +1,116 @@
+{
+  "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+  "script_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.js",
+  "data_url": "https://api.findmacau.com/fm/find/shop/consumer/search?language=taiwan&keywords=%E9%BA%A5%E7%95%B6%E5%8B%9E",
+  "source_type": "public_event_participating_merchant_directory",
+  "fetched_at": "2026-10-10T11:27:20.309678+00:00",
+  "page_sha256": "dfc49e2a9483be7ab3e6665de8e55f5590c36d9e882d4e69a03cf557b7ef0427",
+  "script_sha256": "cce5a87b13517070a4e6b26f9c665671e509410714b5530de03b35ae76a60442",
+  "response_sha256": "3824bc851185cf0fa7efc04afab7750e0191ce77307e945038ab23c8d45c3f45",
+  "query": {
+    "language": "taiwan",
+    "keywords": "麥當勞"
+  },
+  "row_count": 6,
+  "directory_phone_matches": 5,
+  "brand_entire_region_coverage_verified": false,
+  "scope_note": "普通页面JS使用的匿名商户查询，不需登录。活动合作平台目录，不冒充品牌或政府门店名册；公布坐标未确认坐标系，不直接用于导航。",
+  "rows": [
+    {
+      "name": "海景麥當勞餐廳",
+      "address": "澳門城市日大馬路26,32及36號海景花園(利景閣)地下S,T,U舖",
+      "phone": "28757282",
+      "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "data_url": "https://api.findmacau.com/fm/find/shop/consumer/search?language=taiwan&keywords=%E9%BA%A5%E7%95%B6%E5%8B%9E",
+      "source_type": "public_event_participating_merchant_directory",
+      "directory_phone_match": "麥當勞（海景花園店）",
+      "directory_phone_match_unique": true,
+      "coordinates_as_published": {
+        "lat": 22.189017,
+        "lon": 113.560959
+      },
+      "coordinate_reference_system_verified": false,
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "澳門金融中心麥當勞餐廳",
+      "address": "澳門北京街230-246號金融中心地下J座及1樓H,I,J,K座",
+      "phone": "28232208",
+      "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "data_url": "https://api.findmacau.com/fm/find/shop/consumer/search?language=taiwan&keywords=%E9%BA%A5%E7%95%B6%E5%8B%9E",
+      "source_type": "public_event_participating_merchant_directory",
+      "directory_phone_match": "麥當勞（金融中心）",
+      "directory_phone_match_unique": true,
+      "coordinates_as_published": {
+        "lat": 22.194781,
+        "lon": 113.560207
+      },
+      "coordinate_reference_system_verified": false,
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "利新麥當勞餐廳",
+      "address": "澳門高美士街124-126號利新大廈地下A座",
+      "phone": "28373930",
+      "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "data_url": "https://api.findmacau.com/fm/find/shop/consumer/search?language=taiwan&keywords=%E9%BA%A5%E7%95%B6%E5%8B%9E",
+      "source_type": "public_event_participating_merchant_directory",
+      "directory_phone_match": null,
+      "directory_phone_match_unique": false,
+      "coordinates_as_published": {
+        "lat": 22.195763088613123,
+        "lon": 113.56238508608162
+      },
+      "coordinate_reference_system_verified": false,
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "澳門科學館麥當勞餐廳",
+      "address": "澳門孫逸仙大馬路澳門科學館地下",
+      "phone": "28757123",
+      "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "data_url": "https://api.findmacau.com/fm/find/shop/consumer/search?language=taiwan&keywords=%E9%BA%A5%E7%95%B6%E5%8B%9E",
+      "source_type": "public_event_participating_merchant_directory",
+      "directory_phone_match": "麥當勞（科學館店）",
+      "directory_phone_match_unique": true,
+      "coordinates_as_published": {
+        "lat": 22.191142841268615,
+        "lon": 113.56745482545122
+      },
+      "coordinate_reference_system_verified": false,
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "建興龍麥當勞餐廳",
+      "address": "澳門布魯塞爾街28、32、36及42號建興龍廣場 (興海閣,建富閣) 地下Q、R、S座及T座的閣樓",
+      "phone": "28300160",
+      "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "data_url": "https://api.findmacau.com/fm/find/shop/consumer/search?language=taiwan&keywords=%E9%BA%A5%E7%95%B6%E5%8B%9E",
+      "source_type": "public_event_participating_merchant_directory",
+      "directory_phone_match": "麥當勞（建興龍店）",
+      "directory_phone_match_unique": true,
+      "coordinates_as_published": {
+        "lat": 22.192507,
+        "lon": 113.562828
+      },
+      "coordinate_reference_system_verified": false,
+      "physical_current_operation_verified": false
+    },
+    {
+      "name": "澳門外港客運碼頭麥當勞餐廳",
+      "address": "澳門新口岸外港客運碼頭3樓3006號",
+      "phone": "28703031",
+      "source_url": "https://file.findmacau.com/app/findmacau_h5/newfindings/macau-zape-fest-2026.html",
+      "data_url": "https://api.findmacau.com/fm/find/shop/consumer/search?language=taiwan&keywords=%E9%BA%A5%E7%95%B6%E5%8B%9E",
+      "source_type": "public_event_participating_merchant_directory",
+      "directory_phone_match": "麥當勞（外港碼頭店）",
+      "directory_phone_match_unique": true,
+      "coordinates_as_published": {
+        "lat": 22.199869,
+        "lon": 113.570696
+      },
+      "coordinate_reference_system_verified": false,
+      "physical_current_operation_verified": false
+    }
+  ]
+}

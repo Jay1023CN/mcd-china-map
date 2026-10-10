@@ -1,0 +1,30 @@
+{
+  "source_url": "https://www.lisboetamacau.com/zh-hant/dining/venues/mcdonalds/",
+  "data_url": "https://www.lisboetamacau.com/zh-hant/wp-json/wp/v2/dining/5362",
+  "source_type": "official_venue_public_visitor_listing",
+  "fetched_at": "2026-10-10T11:32:18.689504+00:00",
+  "page_sha256": "46fccd524bf332cd18c479bb9f111a105e91061d64a03e3f83af90eeb38193c8",
+  "response_sha256": "7cd68f899b4a80270a58224eaec01fe49ca4e0a10d9bd629c215a3ef716a28f5",
+  "published_modified_at": "2025-11-26T04:43:44Z",
+  "added_store_count": 0,
+  "row_count": 1,
+  "brand_entire_region_coverage_verified": false,
+  "scope_note": "页面HTML明确链接的公开JSON；只保存具名门店访客事实和来源，不保存WP作者/后台字段。发布时间不代表今日实时在营。",
+  "rows": [
+    {
+      "directory_name": "麥當勞（葡京人店）",
+      "directory_phone": "28870082",
+      "directory_address": "澳門路氹填海區溜冰路128號葡京人酒店L01樓F07號舖",
+      "source_url": "https://www.lisboetamacau.com/zh-hant/dining/venues/mcdonalds/",
+      "data_url": "https://www.lisboetamacau.com/zh-hant/wp-json/wp/v2/dining/5362",
+      "source_type": "official_venue_public_visitor_listing",
+      "visitor_location": "H853 Fun Factory 娛樂小鎮 1 樓 F07舖",
+      "visitor_address": "澳門葡京人 H853 Fun Factory 娛樂小鎮 1 樓 F07舖",
+      "opening_hours_as_published": "10:00 - 20:00",
+      "phone_as_published": "+853 2887 0082",
+      "match_method": "unique_published_phone_and_existing_directory_phone",
+      "live_page_facts_verified": true,
+      "physical_current_operation_verified": false
+    }
+  ]
+}

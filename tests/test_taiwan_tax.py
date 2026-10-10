@@ -34,6 +34,30 @@ class TaxTests(unittest.TestCase):
         self.assertFalse(T.match_food_registration([food,dict(food,食品業者登錄字號='fda:two')],[tax()]))
         self.assertFalse(T.match_food_registration([food],[tax(),tax(ban='87654321')]))
 
+    def test_neighborhood_and_numbered_sub_address_spellings_keep_house_and_floor(self):
+        self.assertEqual(T.address_key('臺中市西屯區福林里００１鄰臺灣大道４段１０５８號'),
+                         T.address_key('台中市西屯區台灣大道四段1058號'))
+        self.assertEqual(T.address_key('苗栗縣頭份市東庄里自強路２３０號１樓'),
+                         T.address_key('苗栗縣頭份市自強路230號一樓'))
+        self.assertEqual(T.address_key('台中市北屯區北屯路432－1號'),
+                         T.address_key('台中市北屯區北屯路432之1號'))
+        for wrong in ('台中市北屯區北屯路432號','台中市北屯區北屯路432之2號',
+                      '台中市北屯區北屯路432之1號1樓','台中市西屯區北屯路432之1號'):
+            self.assertNotEqual(T.address_key(wrong),T.address_key('台中市北屯區北屯路432之1號'))
+        self.assertNotEqual(T.address_key('台北市中山區北安路626、628號'),
+                            T.address_key('台北市中山區北安路626號'))
+
+    def test_duplicate_district_suffix_is_explicit_and_different_districts_remain_distinct(self):
+        self.assertEqual(T.address_key('台南市仁德區區仁義里33鄰中正路三段58號'),
+                         T.address_key('台南市仁德區仁義里中正路3段58號'))
+        self.assertNotEqual(T.address_key('台南市永康區中正路3段58號'),
+                            T.address_key('台南市仁德區中正路3段58號'))
+        for detailed, plain in (
+            ('桃園市平鎮區雙連里7鄰民族路雙連一段88號','桃園市平鎮區民族路雙連1段88號'),
+            ('臺南市新市區永就里中山路２１３號','台南市新市區中山路213號'),
+            ('雲林縣斗六市鎮西里雲林路二段241號','雲林縣斗六市雲林路2段241號')):
+            self.assertEqual(T.address_key(detailed),T.address_key(plain))
+
     def test_headquarters_and_non_restaurant_or_other_owner_are_excluded(self):
         self.assertFalse(T.restaurant(tax(ban=T.PARENT)))
         self.assertFalse(T.restaurant(tax(行業代號='458312')))
@@ -58,10 +82,10 @@ class TaxTests(unittest.TestCase):
         self.assertEqual(len(source['rows']),409)
         self.assertEqual(len({r['統一編號'] for r in source['rows']}),409)
         catalog=json.loads((ROOT/'assets/data/national-store-directory.json').read_text(encoding='utf-8'))
-        self.assertEqual(catalog['sources']['taiwan']['operating_tax_matched_records'],143)
-        self.assertEqual(catalog['sources']['taiwan']['tax_branch_names_added'],38)
-        self.assertEqual(catalog['sources']['taiwan']['named_registration_records'],249)
-        self.assertEqual(len(catalog['stores']),9275)
+        self.assertEqual(catalog['sources']['taiwan']['operating_tax_matched_records'],172)
+        self.assertEqual(catalog['sources']['taiwan']['tax_branch_names_added'],54)
+        self.assertEqual(catalog['sources']['taiwan']['named_registration_records'],265)
+        self.assertEqual(len(catalog['stores']),9276)
 
 
 if __name__ == '__main__':unittest.main()

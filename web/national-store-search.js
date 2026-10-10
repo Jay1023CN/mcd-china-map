@@ -14,7 +14,8 @@
       address:clean(value.address,500),source:clean(value.source,60),source_url:clean(value.source_url,1000),featured:value.featured===true};
     if(/^\d{6}$/.test(value.province_code || ''))item.province_code=value.province_code;
     for(const field of ['district','short_description','search_keyword','featured_name','locator_name','official_name','locality_note','record_kind','operator_name','brand_name_source_url','tax_registration_id','tax_registered_name','tax_status','tax_source_url','tax_checked_at',
-      'venue_address','venue_location','venue_source_url','venue_checked_at','venue_hours','venue_match_method','license_address']){
+      'venue_address','venue_location','venue_source_url','venue_checked_at','venue_hours','venue_match_method','license_address',
+      'iam_address','iam_source_url','iam_checked_at','iam_match_method','merchant_name','merchant_source_url','merchant_checked_at']){
       if(typeof value[field]==='string')item[field]=clean(value[field],500);
     }
     for(const field of ['aliases','tags'])item[field]=Array.isArray(value[field])?value[field].filter(v=>typeof v==='string').map(v=>clean(v,200)).slice(0,40):[];
