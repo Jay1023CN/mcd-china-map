@@ -22,7 +22,7 @@ async function addEntry(page, {city, store, province='310000', foods, note='', d
   await page.locator('[name=store]').fill(store);
   await page.locator('[name=foods]').fill(foods);
   await page.locator('[name=note]').fill(note);
-  await page.locator('[name=confirmed]').check();
+  assert.equal(await page.locator('[name=confirmed]').isChecked(),true,'manual visits are confirmed automatically');
   await page.locator('#save-entry').click();
   await page.locator('#entry-dialog').waitFor({state:'hidden'});
 }
@@ -62,7 +62,8 @@ async function main() {
     assert.equal(await page.locator('#wishlist-grid h3').innerText(),store);
 
     await page.locator('#wishlist-grid').getByRole('button',{name:'到了，留一页打卡',exact:true}).click();
-    assert.equal(await page.locator('[name=confirmed]').isChecked(),false,'a plan must not become a confirmed visit by itself');
+    assert.equal(await page.locator('[name=confirmed]').isChecked(),true,'a saved arrival is automatically confirmed as a visit');
+    assert.equal(await page.locator('[name=confirmed]').isVisible(),false,'the confirmation control is hidden from the user');
     assert.equal(await page.locator('[name=complete_wishlist]').isChecked(),true);
     await page.locator('[name=date]').fill(yesterday);
     await page.locator('[name=foods]').fill('灵感测试餐品，城市咖啡');
@@ -70,7 +71,6 @@ async function main() {
     await page.locator('[name=province_code]').selectOption('510000');
     await page.locator('[name=province_code]').dispatchEvent('change');
     assert.equal(await page.locator('[name=complete_wishlist]').isChecked(),true);
-    await page.locator('[name=confirmed]').check();
     await page.locator('#save-entry').click();
     await page.locator('#entry-dialog').waitFor({state:'hidden'});
     assert.equal(await page.locator('#wishlist-count').innerText(),'0','confirmed inspiration arrival should leave the wishlist even after changing province');
@@ -101,11 +101,11 @@ async function main() {
     assert.equal(await page.locator('[name=city]').inputValue(),created.city);
     assert.equal(await page.locator('[name=store]').inputValue(),created.store);
     assert.equal(await page.locator('[name=foods]').inputValue(),created.foods.join('，'));
-    assert.equal(await page.locator('[name=confirmed]').isChecked(),false,'repeat visit must require explicit confirmation');
+    assert.equal(await page.locator('[name=confirmed]').isChecked(),true,'a repeat visit is automatically confirmed when saved');
+    assert.equal(await page.locator('[name=confirmed]').isVisible(),false);
     assert.equal(await page.locator('[name=note]').inputValue(),'','prior note must not carry into a new visit');
     assert.equal(await page.locator('#photo-preview').isVisible(),true,'default store photo should carry forward');
     assert.equal(await page.locator('#photo-actions').isVisible(),false,'the previous user-uploaded photo must not carry forward');
-    await page.locator('[name=confirmed]').check();
     await page.locator('#save-entry').click();
     await page.locator('#entry-dialog').waitFor({state:'hidden'});
     const afterRepeat=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
@@ -119,15 +119,16 @@ async function main() {
     assert.ok(repeated.default_photo && !repeated.photo,'repeat visit keeps default photo without reusing a personal upload');
     assert.equal(await page.locator('#count-visits').innerText(),'2');
 
-    const candidateId='mcp-discovery-import-fixture';
-    const candidate={id:candidateId,date:today(),country_code:'CN',province_code:'310000',city:'上海',store:'虚构订单候选',foods:['候选餐品不应进入味道回顾'],source:'mcp_candidate',confirmed:false};
+    const draftId='manual-draft-discovery-fixture';
+    const draft={id:draftId,date:today(),country_code:'CN',province_code:'310000',city:'上海',store:'虚构未确认草稿',foods:['未确认手动草稿不应进入味道回顾'],source:'manual',confirmed:false};
     const current=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
-    current.entries.push(candidate);
+    current.entries.push(draft);
     await page.evaluate(value=>localStorage.setItem('mcd-china-map-personal-v1',JSON.stringify(value)),current);
     await page.reload();
     assert.ok(await page.locator('#journey-tastes').isVisible(),'confirmed foods should provide taste shortcuts');
     assert.ok(await page.locator('#taste-list button').count()<=5,'taste shortcuts should be capped at five foods');
-    assert.equal((await page.locator('#taste-list').innerText()).includes('候选餐品不应进入味道回顾'),false,'unconfirmed candidates must not contribute taste memories');
+    assert.equal((await page.locator('#taste-list').innerText()).includes('未确认手动草稿不应进入味道回顾'),false,'unconfirmed manual drafts must not contribute taste memories');
+    assert.equal(await page.locator('#count-visits').innerText(),'2','an unconfirmed manual draft must not add a visit');
     await page.locator('#year-filter').selectOption(created.date.slice(0,4));
     await page.locator('#country-filter').selectOption('510000');
     await page.locator('#taste-list').getByRole('button',{name:/灵感测试餐品/}).click();
@@ -146,17 +147,24 @@ async function main() {
     assert.equal(await page.locator('#journal-query').inputValue(),'','saving a new entry should clear the text search');
     assert.equal(await page.locator('#journal-grid').getByRole('heading',{name:'保存后自动恢复可见的新打卡'}).count(),1,'the new entry should be visible immediately after saving');
 
-    const confirmed={...candidate,source:'manual',confirmed:true,origin:'mcp'};
-    const importArchive={version:1,data_kind:'manual',entries:[confirmed]};
+    const orderId='mcp-112233445566778899aabbcc';
+    const importedOrder={id:orderId,date:today(),country_code:'CN',province_code:'310000',city:'上海',store:'虚构自动整理订单',foods:['自动订单测试餐品'],note:'中国大陆订单线索；请核对是否本人到店。',source:'mcp_candidate',confirmed:false};
+    const importArchive={version:1,data_kind:'mcp',entries:[importedOrder]};
     await page.locator('#import-file').setInputFiles({name:'confirmed-fixture.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(importArchive))});
-    await page.locator('#toast').filter({hasText:'导入完成'}).waitFor();
-    const merged=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
-    const upgraded=merged.entries.filter(entry=>entry.id===candidateId);
-    assert.equal(upgraded.length,1,'same-id candidate should be replaced rather than duplicated');
-    assert.equal(upgraded[0].source,'manual');
-    assert.equal(upgraded[0].confirmed,true);
-    assert.equal(merged.entries.some(entry=>entry.store===store),true,'candidate upgrade must preserve prior visits');
-    assert.equal(merged.entries.some(entry=>entry.store==='保存后自动恢复可见的新打卡'),true,'candidate upgrade must preserve a newly saved visit');
+    await page.locator('#toast').filter({hasText:'导入完成，订单已自动整理成手账'}).waitFor();
+    let merged=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
+    const imported=merged.entries.filter(entry=>entry.id===orderId);
+    assert.equal(imported.length,1,'an imported order should create one journal page');
+    assert.equal(imported[0].source,'manual');
+    assert.equal(imported[0].confirmed,true);
+    assert.equal(imported[0].origin,'mcp');
+    assert.equal(imported[0].note,'','the generated order hint should not become a personal note');
+    assert.equal(await page.locator('#count-visits').innerText(),'4');
+    await page.locator('#import-file').setInputFiles({name:'same-order-again.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(importArchive))});
+    await page.locator('#toast').filter({hasText:'导入完成，订单已自动整理成手账'}).waitFor();
+    merged=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
+    assert.equal(merged.entries.filter(entry=>entry.id===orderId).length,1,'reimporting the same order must not duplicate its page');
+    assert.equal(await page.locator('#count-visits').innerText(),'4');
     await page.setViewportSize({width:390,height:844});
     await page.getByRole('tab',{name:/想去清单/}).click();
     let mobile=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,grid:document.getElementById('inspiration-grid').getBoundingClientRect().right}));
@@ -191,7 +199,7 @@ async function main() {
     assert.deepEqual(finalArchive.entries.map(entry=>entry.store),['双页同步第一条']);
     assert.deepEqual(errors,[],'no browser runtime errors expected');
     await syncContext.close();
-    console.log('PASS: five embedded public inspiration cards, wishlist persistence/deduplication, confirmed manual arrival/default photo/no fake MCP reference, multi-term journal search and reset-on-save, taste shortcuts using confirmed foods only, repeat-visit page flow, confirmed candidate import upgrade, mobile wishlist/search sizing, and two-tab add/delete/merge synchronization. No token or external API calls used.');
+    console.log('PASS: five embedded public inspiration cards, wishlist persistence/deduplication, automatic visit confirmation/default photo/no fake MCP reference, multi-term journal search and reset-on-save, taste shortcuts excluding unconfirmed manual drafts, repeat-visit and automatic order import flows, mobile wishlist/search sizing, and two-tab add/delete/merge synchronization. No token or external API calls used.');
   } finally {
     await browser.close();
   }

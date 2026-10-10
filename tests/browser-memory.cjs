@@ -148,7 +148,7 @@ async function main() {
     assert.equal(await journalPage.locator('[name=city]').inputValue(), '北京');
     assert.equal(await journalPage.locator('[name=province_code]').inputValue(), '110000');
     await journalPage.locator('[name=foods]').fill('咖啡，薯条');
-    await journalPage.locator('[name=confirmed]').check();
+    assert.equal(await journalPage.locator('[name=confirmed]').isChecked(), true, 'saved manual pages are confirmed automatically');
     await journalPage.getByRole('button', {name: '保存这一页'}).click();
     assert.equal(await journalPage.locator('#count-visits').innerText(), '1');
     const savedStoreCard = journalPage.locator('#journal-grid .entry-card').filter({has: journalPage.locator('h3').filter({hasText: '麦当劳北京首钢园得来速餐厅'})});
@@ -173,7 +173,7 @@ async function main() {
     await journalPage.locator('[name=photo]').setInputFiles({name: 'synthetic-upload.png', mimeType: 'image/png', buffer: Buffer.from(uploadData, 'base64')});
     await journalPage.locator('#photo-preview').waitFor({state: 'visible'});
     await journalPage.waitForFunction(() => !document.getElementById('save-entry').disabled);
-    await journalPage.locator('[name=confirmed]').check();
+    assert.equal(await journalPage.locator('[name=confirmed]').isChecked(), true, 'saved manual pages are confirmed automatically');
     await journalPage.getByRole('button', {name: '保存这一页'}).click();
     const uploadedCard = journalPage.locator('#journal-grid .entry-card').filter({has: journalPage.locator('h3').filter({hasText: '合成上传照片测试门店'})});
     assert.match(await uploadedCard.locator('img.photo').getAttribute('src'), /^data:image\/jpeg;base64,/);

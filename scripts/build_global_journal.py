@@ -24,6 +24,12 @@ def project_archive(raw):
         if len(raw['source']) > 1000:
             raise ValueError('archive source exceeds 1000 characters')
         projected['source'] = raw['source']
+    if 'deleted_order_ids' in raw:
+        values = raw['deleted_order_ids']
+        import re
+        if not isinstance(values, list) or len(values) > 1000 or any(not isinstance(value, str) or not re.fullmatch(r'mcp-[0-9a-f]{24}', value) for value in values):
+            raise ValueError('invalid deleted order records')
+        projected['deleted_order_ids'] = list(dict.fromkeys(values))
     if 'wishlist' in raw:
         wishlist = raw['wishlist']
         if not isinstance(wishlist, list) or len(wishlist) > 100:
@@ -84,6 +90,8 @@ def render(archive):
             'provinces': json.loads((ROOT/'assets/data/china-provinces.json').read_text(encoding='utf-8')),
             'stores': stores, 'store_images': store_images,
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
+    if archive.get('data_kind') == 'synthetic':
+        data['runtime'] = {'local_api': False}
     encoded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     return Template((ROOT/'templates/global-journal.html').read_text(encoding='utf-8')).substitute(
         app_version=VERSION,
@@ -97,6 +105,7 @@ def render(archive):
         search_js=(ROOT/'web/journal-search.js').read_text(encoding='utf-8'),
         merge_js=(ROOT/'web/archive-merge.js').read_text(encoding='utf-8'),
         insights_js=(ROOT/'web/journey-insights.js').read_text(encoding='utf-8'),
+        orders_js=(ROOT/'web/order-journal.js').read_text(encoding='utf-8'),
         app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
 
 

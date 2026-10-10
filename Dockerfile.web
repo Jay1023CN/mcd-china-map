@@ -1,0 +1,12 @@
+FROM python:3.13-slim
+WORKDIR /app
+COPY requirements-web.txt .
+RUN pip install --no-cache-dir -r requirements-web.txt && useradd --uid 10001 --create-home journal
+COPY scripts/ scripts/
+COPY templates/ templates/
+COPY web/ web/
+COPY assets/ assets/
+RUN mkdir -p private/web dist && chown -R journal:journal private dist
+USER journal
+EXPOSE 8080
+CMD ["python", "scripts/web_api.py", "--host", "0.0.0.0", "--port", "8080"]

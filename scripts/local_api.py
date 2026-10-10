@@ -124,7 +124,7 @@ class Handler(BaseHTTPRequestHandler):
                     self.reply(404, {'error': '未找到已同步的订单记录，请先同步订单。'})
                     return
                 raw = json.loads(target.read_text(encoding='utf-8'))
-                archive = enrich_archive(project_archive(raw), directory=ROOT / 'assets' / 'data' / 'store-directory.json')
+                archive = enrich_archive(project_archive(raw))
                 self.reply(200, archive)
             except FileNotFoundError:
                 self.reply(404, {'error': '未找到已同步的订单记录，请先同步订单。'})
@@ -264,7 +264,7 @@ def main():
     homepage = None
     if args.archive:
         try:
-            homepage = render(json.loads(args.archive.read_text(encoding='utf-8'))).encode('utf-8')
+            homepage = render(enrich_archive(json.loads(args.archive.read_text(encoding='utf-8')))).encode('utf-8')
         except (OSError, ValueError, TypeError, KeyError):
             parser.exit(2, 'Cannot read the local journal archive. Public files were not changed.\n')
     token = os.environ.get('MCD_MCP_TOKEN', '').strip()

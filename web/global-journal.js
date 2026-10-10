@@ -1,6 +1,8 @@
 (function () {
   'use strict';
   const data = JSON.parse(document.getElementById('journal-data').textContent);
+  const webSessions = data.runtime?.web_sessions === true;
+  const localApi = webSessions || (data.runtime?.local_api !== false && ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname));
   const E = window.JournalEngine;
   const W = window.WishlistEngine;
   const $ = id => document.getElementById(id);
@@ -8,8 +10,8 @@
   const countryName = code => names.get(code) || code;
   const provinces = data.provinces.features.filter(f => typeof f.properties.adcode === 'number');
   const provinceNames = new Map(provinces.map(f => [String(f.properties.adcode), f.properties.name]));
-  const provinceName = code => provinceNames.get(code) || '待补充省份';
-  const placeName = entry => provinceName(entry.province_code) + ' · ' + entry.city;
+  const provinceName = code => provinceNames.get(code) || '';
+  const placeName = entry => [provinceName(entry.province_code), entry.city].filter(Boolean).join(' · ') || '中国';
   let mapRegions = [];
   let selectedStore = null;
   let selectedWishlistId = null;
@@ -18,10 +20,18 @@
     return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
   };
   const opts = () => ({today: today(), countries: data.countries});
-  const personalKey = 'mcd-china-map-personal-v1';
+  const guestKey = 'mcd-china-map-personal-v1';
+  const accountStorageKey = 'mcd-china-map-last-account';
+  let activeAccount = null;
+  let lastAccount = null;
+  try { if(webSessions)lastAccount=localStorage.getItem(accountStorageKey); } catch(error) {}
+  if(!/^[a-f0-9]{32}$/.test(lastAccount || ''))lastAccount=null;
+  let personalKey = lastAccount ? `${guestKey}-${lastAccount}` : guestKey;
   const demoKey = 'mcd-china-map-demo-v1';
   let key = data.archive.data_kind === 'synthetic' ? demoKey : personalKey;
-  let archive = E.normalizeArchive(data.archive, opts());
+  const materialize = value => window.OrderJournal.materialize(value, {cities: data.cities, stores: data.stores});
+  const normalizedArchive = value => E.normalizeArchive(materialize(value), opts());
+  let archive = normalizedArchive(data.archive);
   let storageBase = JSON.parse(JSON.stringify(archive));
   let persistent = false;
   let view = 'map';
@@ -32,6 +42,8 @@
   let photoBusy = false;
   let photoRevision = 0;
   let mapPoints = [];
+  let storeMapPoints = [];
+  let nearbyStores = [];
   let toastTimer;
   const form = $('entry-form');
   const field = name => form.elements.namedItem(name);
@@ -57,7 +69,7 @@
     try {
       const latest=localStorage.getItem(key);
       if(latest){
-        const remote=E.normalizeArchive(JSON.parse(latest),opts());
+        const remote=normalizedArchive(JSON.parse(latest));
         if((key===demoKey)!==(remote.data_kind==='synthetic'))throw new Error('archive storage kind mismatch');
         archive=E.normalizeArchive(window.ArchiveMerge.merge(storageBase,archive,remote),opts());
       }
@@ -80,12 +92,21 @@
       }
     }
     if (stored) {
-      const prior = E.normalizeArchive(JSON.parse(stored), opts());
+      const prior = normalizedArchive(JSON.parse(stored));
       storageBase=JSON.parse(JSON.stringify(prior));
       if ((key === demoKey) !== (prior.data_kind === 'synthetic')) throw new Error('archive storage kind mismatch');
       if (archive.data_kind !== 'synthetic' && prior.data_kind !== 'synthetic') {
+        const initialEntries = new Map(archive.entries.map(entry => [entry.id, entry]));
+        prior.entries = prior.entries.map(entry => {
+          const initial = initialEntries.get(entry.id);
+          if (entry.origin !== 'mcp' || !initial || entry.store !== initial.store ||
+              entry.city.replace(/市$/, '') !== initial.city.replace(/市$/, '')) return entry;
+          return {...entry, ...(!entry.default_photo && initial.default_photo ? {default_photo:initial.default_photo} : {}),
+            ...(!entry.province_code && initial.province_code ? {province_code:initial.province_code} : {})};
+        });
         const ids = new Set(prior.entries.map(e => e.id));
-        prior.entries.push(...archive.entries.filter(e => !ids.has(e.id)));
+        const deleted = new Set(prior.deleted_order_ids || []);
+        prior.entries.push(...archive.entries.filter(e => !ids.has(e.id) && !deleted.has(e.id)));
       }
       archive = E.normalizeArchive(prior, opts());
       persistent = true;
@@ -97,7 +118,7 @@
     if(event.storageArea!==localStorage || event.key!==key || !event.newValue)return;
     if(document.activeElement?.matches('#wishlist-grid textarea'))return;
     try{
-      const remote=E.normalizeArchive(JSON.parse(event.newValue),opts());
+      const remote=normalizedArchive(JSON.parse(event.newValue));
       if((key===demoKey)!==(remote.data_kind==='synthetic'))return;
       archive=E.normalizeArchive(window.ArchiveMerge.merge(storageBase,archive,remote),opts());
       storageBase=JSON.parse(JSON.stringify(remote));persistent=true;render();
@@ -138,11 +159,42 @@
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view)));
   document.querySelector('[role=tablist]').addEventListener('keydown', event => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-    const keys = ['map', 'journal', 'candidates', 'wishlist'];
+    const keys = ['map', 'journal', 'candidates', 'wishlist'].filter(name => !$('tab-' + name).hidden);
     const delta = event.key === 'ArrowLeft' ? -1 : 1;
     const index = event.key === 'Home' ? 0 : event.key === 'End' ? keys.length-1 : (keys.indexOf(view) + delta + keys.length) % keys.length;
     event.preventDefault(); setView(keys[index]); $('tab-' + keys[index]).focus();
   });
+  const storeLayer=node('label',undefined,'check map-store-toggle');
+  const storeToggle=node('input');storeToggle.type='checkbox';storeToggle.id='show-store-layer';storeToggle.checked=true;
+  storeLayer.append(storeToggle,node('span','先看看有哪些门店（不计入足迹）'));
+  $('map-points').before(storeLayer);
+  const storePointList=node('div',undefined,'map-points');storePointList.id='store-map-points';$('map-points').after(storePointList);
+  storeToggle.addEventListener('change',drawMap);
+
+  function knownStores() {
+    const items=[...data.stores.map(s=>({...s,source:'manual',code:'catalog:'+s.name})),
+      ...(data.discovery_stores || []).map(s=>({...s,source:'manual',code:s.code || 'map:'+s.name})),
+      ...nearbyStores.map(s=>({...s,source:'mcp_nearby'}))];
+    return [...new Map(items.map(s=>[s.city+'/'+s.name,s])).values()];
+  }
+  function openStoreDiscovery(stores) {
+    const body=$('detail-body');body.replaceChildren();$('detail-heading').textContent='看看这座城的麦当劳';
+    for(const store of stores) {
+      const card=node('article',undefined,'entry-card');card.append(node('h3',store.name),node('p',store.address || store.city,'place'));
+      if(store.default_photo)card.append(photoNode({city:store.city,store:store.name,default_photo:store.default_photo}));
+      if(store.short_description)card.append(node('p',store.short_description,'note'));
+      const actions=node('div',undefined,'wishlist-actions');
+      const collect=node('button','想去这家','secondary');collect.type='button';collect.addEventListener('click',()=>{
+        if(!startPersonal())return;
+        try {archive=E.normalizeArchive({...archive,wishlist:W.add(archive.wishlist || [],store)},opts());save();renderWishlist();collect.textContent='已收藏想去';toast('已放进想去清单，等你到了再留一页。');}
+        catch(error){toast('这家店暂未收藏，请检查清单是否已满。');}
+      });
+      const visit=node('button','我去过，记一餐','quiet');visit.type='button';visit.addEventListener('click',()=>{$('detail-dialog').close();openStoreForm(store);});
+      actions.append(collect,visit);card.append(actions);body.append(card);
+    }
+    body.append(node('p','这里展示已收录门店，打开或收藏不增加个人足迹。城市参考点用于浏览，门店具体位置请看地址。','map-note'));
+    $('detail-dialog').showModal();
+  }
 
   function refillFilters() {
     const year = $('year-filter').value;
@@ -166,7 +218,8 @@
     $('save-status').textContent = persistent ? '已保存在本浏览器 · 导出备份可换设备' : '当前在本页内使用 · 请导出备份';
     $('mode-description').textContent = archive.data_kind === 'synthetic'
       ? '示例手账：日期、餐品和随记为演示数据，公开门店照片注明来源。开始个人手账，记录你的足迹。'
-      : '写下你的中国探店足迹。确认本人到店后，记录就会点亮所在省份。';
+      : localApi ? '订单自动写成手账，也可以添上自己的照片和小事。留下的每一页，都会点亮所在省份。'
+      : '先收藏一家想去的店，再把照片和小事写进自己的中国地图。';
     $('start-personal').hidden = archive.data_kind !== 'synthetic';
     renderPassport(s);
     renderRecent(s);
@@ -177,6 +230,7 @@
       const chip = node('span', m.month, 'month-chip'); chip.append(node('b', m.count + ' 页')); return chip;
     }));
     if (!s.months.length) $('month-list').append(node('p', '写下第一条本人打卡，这里就会留下月份记录。', 'map-note'));
+    $('tab-candidates').hidden = true;
     setView(view);
   }
   function renderPassport(s) {
@@ -194,6 +248,10 @@
     $('recent-list').replaceChildren();
     for (const entry of s.entries.slice(0, 3)) {
       const row = node('li'); const button = node('button'); button.type = 'button';
+      if (entry.photo || entry.default_photo) {
+        const image = node('img', undefined, 'recent-photo'); image.src = entry.photo?.data_url || data.store_images?.[entry.default_photo.url] || entry.default_photo.url;
+        image.alt = entry.store; image.loading = 'lazy'; image.referrerPolicy = 'no-referrer'; button.append(image);
+      }
       button.append(node('strong', entry.store), node('small', `${entry.date} / ${placeName(entry)}`));
       button.addEventListener('click', () => openDetail(entry)); row.append(button); $('recent-list').append(row);
     }
@@ -209,8 +267,9 @@
     figure.append(image);
     if (!entry.photo) {
       const credit = node('figcaption',undefined,'photo-credit');
-      const link = node('a', entry.default_photo.attribution || '查看照片来源'); link.href=entry.default_photo.source_url;link.target='_blank';link.rel='noopener noreferrer';
-      credit.append(node('span',entry.default_photo.caption || '门店默认照片'),link);figure.append(credit);
+      const details = node('details', undefined, 'photo-source'); details.append(node('summary','照片来源'));
+      const link = node('a', entry.default_photo.attribution || '查看原图'); link.href=entry.default_photo.source_url;link.target='_blank';link.rel='noopener noreferrer';
+      details.append(node('span',entry.default_photo.caption || '门店照片'),link); credit.append(details); figure.append(credit);
     }
     return figure;
   }
@@ -282,13 +341,13 @@
       card.append(node('span',store.city+' · 门店灵感','date'));
       if(store.default_photo)card.append(photoNode({city:store.city,store:store.name,default_photo:store.default_photo}));
       card.append(node('h3',store.name),node('p',store.short_description || '人民广场附近的城市旗舰店，逛完市中心，留下一顿熟悉的味道。','note'),node('p',store.address,'place'));
-      const source=node('a','门店资料');source.href=store.source_url;source.target='_blank';source.rel='noopener noreferrer';card.append(source);
+      const source=node('a','门店资料 ↗','store-source');source.href=store.source_url;source.target='_blank';source.rel='noopener noreferrer';card.append(source);
       const actions=node('div',undefined,'wishlist-actions');
       const collect=node('button',(archive.wishlist || []).some(s=>s.id===id)?'已放入想去清单':'想去这家','secondary');collect.type='button';
       collect.addEventListener('click',()=>{try{archive=E.normalizeArchive({...archive,wishlist:W.add(archive.wishlist || [],candidate)},opts());save();renderWishlist();toast('已收藏，下一次打开还在想去清单。');}catch(error){toast('想去清单最多保存 100 家店。');}});
       const check=node('button','查询这家店','quiet');check.type='button';check.addEventListener('click',()=>{
         const search=$('store-search');search.open=true;document.querySelector('[name=search_city]').value=store.city;document.querySelector('[name=search_keyword]').value=store.search_keyword || store.name;search.scrollIntoView({behavior:'smooth',block:'start'});$('search-stores').focus();
-      });actions.append(collect,check);card.append(actions);grid.append(card);
+      });check.hidden=!localApi;actions.append(collect,check);card.append(actions);grid.append(card);
     }
   }
   function openStoreForm(store,wishlistId=null) {
@@ -314,7 +373,7 @@
       if (entry.photo || entry.default_photo) card.append(photoNode(entry));
       card.append(node('h3', entry.store), node('p', `${placeName(entry)}`, 'place'), foodTags(entry));
       if (entry.note) card.append(node('p', entry.note, 'note'));
-      card.append(node('p', entry.origin === 'mcp' ? '中国订单线索 → 本人确认到店' : '本人手动记录', 'origin'));
+      card.append(node('p', entry.origin === 'mcp' ? '从麦当劳订单自动整理' : '自己写下的这一页', 'origin'));
       const actions = node('div', undefined, 'entry-buttons');
       const edit = node('button', '编辑这一页'); edit.type = 'button'; edit.addEventListener('click', () => openForm(entry));
       const details = node('button', '翻开'); details.type = 'button'; details.addEventListener('click', () => openDetail(entry));
@@ -322,7 +381,7 @@
       const remove = node('button', '删除', 'delete'); remove.type = 'button'; remove.addEventListener('click', () => removeEntry(entry));
       actions.append(edit, details, share, remove); card.append(actions); grid.append(card);
     }
-    if (!entries.length) grid.append(query?empty('暂时没找到这一页','换个餐品、门店或城市关键词，或清除搜索再翻翻。'):empty('这一页还是空白', '点击右上角“新增打卡”，或到“待确认订单”补齐一条本人到店记录。'));
+    if (!entries.length) grid.append(query?empty('暂时没找到这一页','换个餐品、门店或城市关键词，或清除搜索再翻翻。'):empty('这一页还是空白', '点击“新增打卡”记录一餐，或同步麦当劳订单自动生成手账。'));
   }
   $('journal-query').addEventListener('input',()=>renderEntries(currentSummary));
   $('clear-journal-query').addEventListener('click',()=>{$('journal-query').value='';renderEntries(currentSummary);$('journal-query').focus();});
@@ -331,8 +390,8 @@
     for (const entry of s.candidateEntries) {
       const card = node('article', undefined, 'entry-card candidate');
       if (entry.photo || entry.default_photo) card.append(photoNode(entry));
-      card.append(node('span', entry.date, 'date'), node('h3', entry.store), node('p', entry.city || '城市未提供 · 确认时补齐', 'place'), foodTags(entry), node('p', '订单线索，尚未计入打卡或印章。', 'origin'));
-      const confirm = node('button', '补齐并确认本人到店', 'primary'); confirm.type = 'button'; confirm.addEventListener('click', () => openForm(entry));
+      card.append(node('span', entry.date, 'date'), node('h3', entry.store), node('p', placeName(entry), 'place'), foodTags(entry));
+      const confirm = node('button', '编辑这一页', 'primary'); confirm.type = 'button'; confirm.addEventListener('click', () => openForm(entry));
       const skip = node('button', '不计这条线索', 'quiet'); skip.type = 'button'; skip.style.marginTop = '8px'; skip.style.width = '100%'; skip.addEventListener('click', () => removeEntry(entry));
       card.append(confirm, skip); grid.append(card);
     }
@@ -379,7 +438,23 @@
     const sea = (lon, lat) => [inset.x + (lon - 105) / 20 * inset.w, inset.y + (25 - lat) / 24 * inset.h];
     for (const feature of data.provinces.features) { const path = outline(feature, sea); ctx.fillStyle = '#e8dfc5'; ctx.strokeStyle = '#b5a786'; ctx.lineWidth = .6; ctx.fill(path, 'evenodd'); ctx.stroke(path); }
     ctx.restore(); ctx.strokeStyle = '#cbbb9c'; ctx.strokeRect(inset.x, inset.y, inset.w, inset.h); ctx.fillStyle = '#7a6e5b'; ctx.font = '10px sans-serif'; ctx.textAlign = 'left'; ctx.fillText('南海诸岛', inset.x + 6, inset.y + inset.h - 8);
-    mapPoints = [];
+    mapPoints = [];storeMapPoints=[];storePointList.replaceChildren();
+    if(storeToggle.checked){
+      const storeGroups=new Map();
+      for(const store of knownStores()) {
+        const city=data.cities.find(c=>[c.city,c.city+'市',c.city_en].includes(store.city));
+        if(!city || ($('country-filter').value && $('country-filter').value!==(store.province_code || city.province_code)))continue;
+        const [x,y]=xy(city.lon,city.lat);const key=city.province_code+'/'+city.city;
+        if(!storeGroups.has(key))storeGroups.set(key,{x,y,city:city.city,stores:[]});
+        storeGroups.get(key).stores.push({...store,province_code:store.province_code || city.province_code});
+      }
+      for(const point of storeGroups.values()) {
+        ctx.beginPath();ctx.arc(point.x,point.y,12,0,Math.PI*2);ctx.fillStyle='#fff9eb';ctx.fill();ctx.strokeStyle='#7a6e5b';ctx.lineWidth=2;ctx.stroke();
+        ctx.fillStyle='#7a6e5b';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText('店',point.x,point.y+4);storeMapPoints.push(point);
+        const button=node('button',point.city+' · '+point.stores.length+' 家已收录门店','map-point');button.type='button';
+        button.addEventListener('click',()=>openStoreDiscovery(point.stores));storePointList.append(button);
+      }
+    }
     const groups = new Map();
     for (const entry of currentSummary.entries.filter(e => e.location)) {
       const [x, y] = xy(entry.location.lon, entry.location.lat);
@@ -394,13 +469,15 @@
     }
     const pointList = $('map-points'); pointList.replaceChildren();
     for (const point of mapPoints) { const button = node('button', placeName(point.entry) + ' · ' + point.count + ' 页', 'map-point'); button.type = 'button'; button.addEventListener('click', () => openDetail(point.entry)); pointList.append(button); }
-    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。点击地图上的 M 或下方城市，翻开手账。` : '从第一家麦当劳开始，让中国地图一点点亮起来。';
+    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录，空心“店”是可以先看的门店。` : '先点空心“店”看看已收录门店，收藏想去；真正到店记一餐，再点亮自己的足迹。';
   }
   $('world-map').addEventListener('click', event => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX-rect.left, y = event.clientY-rect.top;
     const nearest = mapPoints.map(p=>({...p,d:Math.hypot(p.x-x,p.y-y)})).sort((a,b)=>a.d-b.d)[0];
     if(nearest && nearest.d<18) { openDetail(nearest.entry); return; }
+    const storePoint=storeMapPoints.map(p=>({...p,d:Math.hypot(p.x-x,p.y-y)})).sort((a,b)=>a.d-b.d)[0];
+    if(storePoint && storePoint.d<18){openStoreDiscovery(storePoint.stores);return;}
     const canvas = event.currentTarget, ctx = canvas.getContext('2d');
     const region = mapRegions.find(r => ctx.isPointInPath(r.path, x * canvas.width / rect.width, y * canvas.height / rect.height, 'evenodd'));
     if (region) { $('country-filter').value = region.code; render(); }
@@ -458,8 +535,8 @@
     form.reset(); photo=entry && entry.photo ? {...entry.photo} : null;
     defaultPhoto=entry?.default_photo || null;
     photoBusy=false; $('save-entry').disabled=false;
-    $('form-heading').textContent=entry && entry.source==='mcp_candidate' ? '把订单线索写成打卡' : entry ? '修改这一页手账' : '新添一页打卡';
-    $('form-note').textContent=entry && entry.source==='mcp_candidate' ? '门店资料已自动整理。确认这次是本人到店，就能留下一页足迹；也可以换成自己拍的照片。' : '记录你本人到过的麦当劳，留下一页中国足迹。';
+    $('form-heading').textContent=entry ? '修改这一页手账' : '新添一页打卡';
+    $('form-note').textContent='门店资料和照片自动带入，想写什么、换哪张照片，都由你决定。';
     field('date').max=today(); field('date').value=entry ? entry.date : today();
     field('country_code').value='CN';
     field('province_code').value=entry?.province_code || data.cities.find(c => [c.city,c.city+'市'].includes(entry?.city))?.province_code || '';
@@ -468,7 +545,9 @@
     for (const name of ['city','store','note','collaboration']) field(name).value=entry && entry[name] ? entry[name] : '';
     if(entry?.source==='mcp_candidate' && field('note').value.startsWith('中国大陆订单线索'))field('note').value='';
     field('foods').value=entry ? entry.foods.join('，') : '';
-    field('confirmed').checked=!!(entry && entry.confirmed);
+    field('confirmed').checked=true;
+    field('city').required=entry?.origin !== 'mcp';
+    field('province_code').required=entry?.origin !== 'mcp';
     if(entry && entry.location) {
       field('location_mode').value=entry.location.precision==='user' ? 'user':'city';
       field('lat').value=entry.location.lat; field('lon').value=entry.location.lon;
@@ -480,8 +559,8 @@
   field('province_code').addEventListener('change',updateCitySuggestions);
   field('city').addEventListener('input',updateLocationHelp);
   field('location_mode').addEventListener('change',updateLocationHelp);
-  field('photo').addEventListener('change', async event => {
-    const file=event.target.files[0]; if(!file) return;
+  async function readPhoto(file) {
+    if(!file) return;
     if(!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size>10*1024*1024) { toast('请选择 10 MB 以内的 JPEG、PNG 或 WebP 照片。'); field('photo').value=''; return; }
     const revision=++photoRevision;
     photoBusy=true; $('save-entry').disabled=true;
@@ -498,14 +577,17 @@
       photo={data_url:value}; showPhoto();
     } catch(error) { toast('照片无法读取或缩小后仍过大，请换一张图片。'); }
     finally {if(revision===photoRevision){photoBusy=false; $('save-entry').disabled=false; field('photo').value='';}}
-  });
+  }
+  field('photo').addEventListener('change', event => readPhoto(event.target.files[0]));
+  $('take-photo').addEventListener('click', () => $('camera-input').click());
+  $('camera-input').addEventListener('change', event => { readPhoto(event.target.files[0]); event.target.value=''; });
   $('remove-photo').addEventListener('click',()=>{photoRevision++;photoBusy=false;$('save-entry').disabled=false;field('photo').value='';photo=null;showPhoto();});
   form.addEventListener('submit',event=>{
     event.preventDefault(); if(photoBusy) return;
     try {
       const entry={id:currentEntry ? currentEntry.id : 'manual-'+(crypto.randomUUID ? crypto.randomUUID() : Date.now()+'-'+Math.random().toString(36).slice(2)),
         date:field('date').value,country_code:'CN',province_code:field('province_code').value,city:field('city').value,store:field('store').value,
-        foods:field('foods').value,note:field('note').value,collaboration:field('collaboration').value,source:'manual',confirmed:field('confirmed').checked};
+        foods:field('foods').value,note:field('note').value,collaboration:field('collaboration').value,source:'manual',confirmed:true};
       if(currentEntry && (currentEntry.source==='mcp_candidate' || currentEntry.origin==='mcp')) entry.origin='mcp';
       const mode=field('location_mode').value;
       if(mode==='user') entry.location={lat:Number(field('lat').value),lon:Number(field('lon').value),precision:'user'};
@@ -524,8 +606,10 @@
     } catch(error) { $('form-error').textContent='未能保存：请检查必填内容、日期、坐标和照片大小。'; $('form-error').hidden=false; }
   });
   function removeEntry(entry) {
-    if(!window.confirm(entry.source==='mcp_candidate' ? '移除这条未确认线索？不会改变麦当劳订单。' : '删除这一页手账？原麦当劳订单不会受到影响。')) return;
-    archive={...archive,entries:archive.entries.filter(e=>e.id!==entry.id)}; save(); render(); toast('记录已移除。');
+    if(!window.confirm('删除这一页手账？')) return;
+    const deleted = new Set(archive.deleted_order_ids || []);
+    if (entry.origin === 'mcp' || entry.source === 'mcp_candidate') deleted.add(entry.id);
+    archive={...archive,deleted_order_ids:[...deleted],entries:archive.entries.filter(e=>e.id!==entry.id)}; save(); render(); toast('记录已移除。');
   }
   function openDetail(entry) {
     $('detail-heading').textContent=entry.store;
@@ -557,47 +641,95 @@
   field('store').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo(); });
   field('city').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo(); });
   field('province_code').addEventListener('change', () => { selectedStore = null; });
-  $('find-next-store').addEventListener('click',()=>{$('store-search').open=true;$('store-search').scrollIntoView({behavior:'smooth',block:'start'});$('store-search-form').elements.search_city.focus();});
+  $('find-next-store').addEventListener('click',()=>{
+    if(!localApi){$('inspiration-grid').scrollIntoView({behavior:'smooth',block:'start'});return;}
+    $('store-search').open=true;$('store-search').scrollIntoView({behavior:'smooth',block:'start'});$('store-search-form').elements.search_city.focus();
+  });
   let connectionAvailable=false;
+  function useAccount(account) {
+    if(!webSessions || !/^[a-f0-9]{32}$/.test(account || ''))return;
+    activeAccount=account;
+    const nextKey=`${guestKey}-${account}`;
+    if(nextKey===personalKey)return;
+    try {
+      const stored=localStorage.getItem(nextKey);
+      const next=stored?normalizedArchive(JSON.parse(stored)):
+        (!lastAccount && archive.data_kind!=='synthetic'?archive:{version:1,data_kind:'manual',entries:[]});
+      if(next.data_kind==='synthetic')throw new Error('account archive contains demo');
+      personalKey=nextKey;key=nextKey;archive=next;storageBase=JSON.parse(JSON.stringify(next));
+      lastAccount=account;localStorage.setItem(accountStorageKey,account);
+      save();render();
+    }catch(error){
+      personalKey=nextKey;key=nextKey;archive={version:1,data_kind:'manual',entries:[]};
+      storageBase=JSON.parse(JSON.stringify(archive));persistent=false;lastAccount=account;render();
+      toast('这份手账暂未读取，原记录没有覆盖。请恢复备份，或换回原来的连接。');
+    }
+    nearbyStores=[];selectedStore=null;$('store-results').replaceChildren();
+    if(view==='map')requestAnimationFrame(drawMap);
+  }
+  function connectionHeaders() {
+    return {'Content-Type':'application/json',...(webSessions && activeAccount?{'X-Journal-Account':activeAccount}:{})};
+  }
   function showConnection(state) {
+    if(!localApi){
+      document.querySelector('.connection-bar').hidden=true;$('store-search').hidden=true;$('connect-dialog').hidden=true;
+      $('find-next-store').textContent='看看特色门店';
+      document.querySelector('.inspiration-heading p').textContent='先从这些公开特色店开始，收藏想去的地方，到了再记一页。';
+      return;
+    }
     connectionAvailable=!!state?.capabilities?.connect;
+    if(webSessions){
+      activeAccount=state?.account_id || null;
+      if(activeAccount)useAccount(activeAccount);
+      $('connection-note').textContent='用你自己的麦当劳中国 MCP Token 连接，就能同步订单、查找门店。';
+      $('remember-field').hidden=false;
+      $('load-orders').textContent='载入已同步订单';
+    }
     const connected=!!(state?.connected || state?.store_lookup);
-    $('connection-state').textContent=connected?'麦当劳已连接 · 可以查询附近门店':connectionAvailable?'手账已准备好。连接麦当劳，再找下一家门店。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
+    $('connection-state').textContent=connected?(webSessions && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'手账已准备好。连接麦当劳，再找下一家门店。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
     document.querySelector('.connection-bar').classList.toggle('connected',connected);
     $('open-connect').textContent=connected?'更换连接':'连接麦当劳';
     $('disconnect-mcd').hidden=!connected || !connectionAvailable;
     $('load-orders').hidden=!state?.capabilities?.synced_orders;
     $('sync-orders').hidden=!(connected && state?.order_sync);
-    $('store-api-status').textContent=connected?'官方门店查询已连接。':connectionAvailable?'点击上方“连接麦当劳”，就可以查找附近门店。':'查询门店请安装 Python 3.10 或更新版本，重新运行“启动.cmd”。';
+    $('store-api-status').textContent=connected?'官方门店查询已连接。':connectionAvailable?'点击上方“连接麦当劳”，就可以查找附近门店。':webSessions?'网页服务暂未响应，请刷新后重试。':'查询门店请安装 Python 3.10 或更新版本，重新运行“启动.cmd”。';
   }
-  fetch('/api/health').then(r=>r.ok?r.json():null).then(showConnection).catch(()=>showConnection(null));
+  if(localApi)fetch('/api/health').then(r=>r.ok?r.json():null).then(showConnection).catch(()=>showConnection(null));
+  else showConnection(null);
+  if(webSessions)window.addEventListener('storage',event=>{
+    if(event.key===accountStorageKey || event.key==='mcd-china-map-connection-change'){
+      fetch('/api/health').then(r=>r.ok?r.json():null).then(showConnection).catch(()=>showConnection(null));
+    }
+  });
   $('open-connect').addEventListener('click',()=>{
-    $('connect-status').textContent=connectionAvailable?'':'当前启动只提供手账功能。安装 Python 3.10 或更新版本后，关闭启动窗口，再运行“启动.cmd”。';
+    $('connect-status').textContent=connectionAvailable?'':webSessions?'网页服务暂未响应，请刷新后重试。':'当前启动只提供手账功能。安装 Python 3.10 或更新版本后，关闭启动窗口，再运行“启动.cmd”。';
     $('connect-submit').disabled=!connectionAvailable;$('connect-dialog').showModal();$('connect-token').focus();
   });
   $('connect-form').addEventListener('submit',async event=>{
     event.preventDefault();if(!connectionAvailable)return;
     $('connect-submit').disabled=true;$('connect-status').textContent='正在连接官方服务……';
     try {
-      const response=await fetch('/api/connect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:$('connect-token').value})});
+      const response=await fetch('/api/connect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:$('connect-token').value,...(webSessions?{remember:$('connect-remember').checked}:{})})});
       const result=await response.json();if(!response.ok)throw new Error(result.error || '连接未完成，请检查 Token。');
       showConnection({...result,capabilities:{connect:true,synced_orders:true}});
+      if(webSessions)try{localStorage.setItem('mcd-china-map-connection-change',String(Date.now()));}catch(error){}
       $('connect-dialog').close();toast('麦当劳已连接，可以找下一站了。');
     }catch(error){$('connect-status').textContent=error.message;}
     finally{$('connect-token').value='';$('connect-submit').disabled=false;}
   });
   $('disconnect-mcd').addEventListener('click',async()=>{
     try {
-      const response=await fetch('/api/disconnect',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+      const response=await fetch('/api/disconnect',{method:'POST',headers:connectionHeaders(),body:'{}'});
       if(!response.ok)throw new Error();showConnection({capabilities:{connect:true,synced_orders:true}});toast('连接已断开，手账和清单仍在。');
-    }catch(error){toast('暂未断开，关闭启动窗口也可以结束连接。');}
+      if(webSessions){$('load-orders').hidden=true;try{localStorage.setItem('mcd-china-map-connection-change',String(Date.now()));}catch(error){}}
+    }catch(error){toast(webSessions?'暂未断开，请刷新页面后重试。':'暂未断开，关闭启动窗口也可以结束连接。');}
   });
   $('load-orders').addEventListener('click',async()=>{
     $('load-orders').disabled=true;
     try {
-      const response=await fetch('/api/synced-orders');const result=await response.json();
+      const response=await fetch('/api/synced-orders',{headers:connectionHeaders()});const result=await response.json();
       if(!response.ok)throw new Error(result.error || '请先运行“同步中国订单.cmd”。');
-      if(!mergeArchive(E.normalizeArchive(result,opts())))return;showImported('candidates');toast('本机订单已载入，选择这次本人到过的门店留下一页。');
+      if(!mergeArchive(E.normalizeArchive(result,opts())))return;showImported('journal');toast('订单已自动整理成手账。');
     }catch(error){toast(error.message);}
     finally{$('load-orders').disabled=false;}
   });
@@ -606,10 +738,10 @@
     buttons.forEach(id=>$(id).disabled=true);
     $('sync-progress').hidden=false;$('sync-progress').textContent='正在整理门店和餐品，稍等片刻……';
     try {
-      const response=await fetch('/api/sync-orders',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+      const response=await fetch('/api/sync-orders',{method:'POST',headers:connectionHeaders(),body:'{}'});
       const result=await response.json();if(!response.ok)throw new Error(result.error || '订单暂未同步，请稍后再试。');
       const incoming=E.normalizeArchive(result.archive,opts());if(!mergeArchive(incoming))return;
-      showImported('candidates');$('sync-progress').textContent=incoming.entries.length?`已整理 ${incoming.entries.length} 条订单线索，选出这次本人到店的记录。`:'本次没有完成订单，可以先新增一页自己的打卡。';
+      showImported('journal');$('sync-progress').textContent=incoming.entries.length?`已自动整理 ${incoming.entries.length} 页订单手账，可以直接编辑、换照片或删除。`:'本次没有完成订单，可以先新增一页自己的打卡。';
     }catch(error){$('sync-progress').textContent=error.message;}
     finally{buttons.forEach(id=>$(id).disabled=false);}
   });
@@ -617,10 +749,11 @@
     event.preventDefault(); const fields = event.currentTarget.elements;
     $('search-stores').disabled = true; $('store-results').replaceChildren(); $('store-search-status').textContent = '正在查询官方附近门店……';
     try {
-      const response = await fetch('/api/stores', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({city:fields.search_city.value,keyword:fields.search_keyword.value,be_type:Number(fields.be_type.value)})});
+      const response = await fetch('/api/stores', {method:'POST',headers:connectionHeaders(),body:JSON.stringify({city:fields.search_city.value,keyword:fields.search_keyword.value,be_type:Number(fields.be_type.value)})});
       if (!response.ok) { const payload = await response.json().catch(() => null); throw new Error(payload?.error || '请使用“启动门店查询.cmd”连接官方门店查询。'); }
       const result = await response.json();
       if (!Array.isArray(result.stores)) throw new Error('门店响应无法读取，请稍后重试。');
+      nearbyStores=result.stores;if(view==='map')drawMap();
       $('store-search-status').textContent = result.stores.length ? `找到 ${result.stores.length} 家附近门店。` : '本次没有查到门店，试试换一个城市或地标。';
       for (const store of result.stores) {
         const card = node('article',undefined,'entry-card'); card.append(node('h3',store.name),node('p',store.address || '地址暂未提供'));
@@ -665,6 +798,7 @@
     const url=entry.default_photo?.url;if(!url)return null;
     if(data.store_images?.[url])return data.store_images[url];
     if(sharePhotoCache.has(url))return sharePhotoCache.get(url);
+    if(!localApi)return null;
     try {
       const response=await fetch('/api/photo-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
       if(!response.ok)return null;const value=(await response.json()).data_url;
@@ -753,21 +887,25 @@
   $('print').addEventListener('click',()=>window.print());
   $('import').addEventListener('click',()=>$('import-file').click());
   function showImported(next) {
+    if (next === 'candidates') next = 'journal';
     $('journal-query').value='';
     $('year-filter').value='';$('country-filter').value='';render();setView(next);
   }
   function mergeArchive(incoming) {
+    incoming = normalizedArchive(incoming);
     if(incoming.data_kind==='synthetic' && archive.data_kind!=='synthetic' && (archive.entries.length || archive.wishlist?.length)) throw new Error('synthetic cannot mix with personal');
     if(archive.data_kind==='synthetic' && incoming.data_kind!=='synthetic' && !startPersonal())return false;
     const entries=archive.entries.slice();
     for(const entry of incoming.entries) {
       const index=entries.findIndex(old=>old.id===entry.id),old=entries[index];
+      if (old?.origin === 'mcp' && entry.origin === 'mcp') continue;
       if(old?.source==='manual' && old.confirmed && entry.source==='mcp_candidate')continue;
       if(old?.source==='mcp_candidate' && entry.source==='manual' && entry.confirmed){entries[index]=entry;continue;}
       if(old?.source==='mcp_candidate' && entry.source==='mcp_candidate')entries[index]=entry;
       else entries.push(entry);
     }
-    const combined={version:1,data_kind:incoming.data_kind==='synthetic'?'synthetic':'manual',source:incoming.source || archive.source,entries};
+    const combined={version:1,data_kind:incoming.data_kind==='synthetic'?'synthetic':'manual',source:incoming.source || archive.source,entries,
+      deleted_order_ids:[...new Set([...(archive.deleted_order_ids || []), ...(incoming.deleted_order_ids || [])])]};
     if(archive.wishlist || incoming.wishlist){
       let merged=archive.wishlist || [];
       for(const item of incoming.wishlist || [])if(!merged.some(old=>old.id===item.id))merged=W.add(merged,item);
@@ -795,12 +933,12 @@
     try {
       if(file.size>E.limits.archiveBytes) throw new Error('file too large');
       const parsed=JSON.parse(await file.text());
-      const incoming=E.normalizeArchive(parsed.version===1?parsed:await orderCandidates(parsed),opts());
+      const incoming=normalizedArchive(parsed.version===1?parsed:await orderCandidates(parsed));
       if(!mergeArchive(incoming))return;
-      showImported(incoming.entries.some(e=>e.source==='mcp_candidate')?'candidates':incoming.wishlist?.length && !incoming.entries.length?'wishlist':'journal');toast('导入完成；候选订单仍需逐条确认本人到店。');
+      showImported(incoming.wishlist?.length && !incoming.entries.length?'wishlist':'journal');toast('导入完成，订单已自动整理成手账。');
     } catch(error) { toast('导入未完成：请使用有效的个人手账或真实规范化 MCP 文件。示例与个人记录不能混合；冲突或超限文件不会覆盖现有内容。'); }
     finally {event.target.value='';}
   });
   render();
-  if (archive.entries.some(e => e.source === 'mcp_candidate') && !archive.entries.some(e => e.confirmed)) setView('candidates');
+  if (archive.entries.some(e => e.origin === 'mcp')) { save(); setView('journal'); }
 })();

@@ -77,14 +77,14 @@ async function main() {
     assert.equal(await restored.locator('[name=city]').inputValue(), '上海');
     assert.equal(await restored.locator('[name=province_code]').inputValue(), '310000');
     assert.equal(await restored.locator('[name=store]').inputValue(), store.name);
-    assert.equal(await restored.locator('[name=confirmed]').isChecked(), false, 'arrival flow must require an explicit visit confirmation');
+    assert.equal(await restored.locator('[name=confirmed]').isChecked(), true, 'arrival pages are confirmed automatically');
+    assert.equal(await restored.locator('[name=confirmed]').isVisible(), false, 'confirmation is not an extra user action');
     assert.equal(await restored.locator('[name=complete_wishlist]').isChecked(), true);
     await restored.getByRole('button', {name: '取消', exact: true}).click();
     assert.equal(await restored.locator('#wishlist-grid .entry-card').count(), 1, 'canceling the arrival form must preserve the wishlist');
 
     await restored.getByRole('button', {name: '到了，留一页打卡', exact: true}).click();
-    assert.equal(await restored.locator('[name=confirmed]').isChecked(), false);
-    await restored.locator('[name=confirmed]').check();
+    assert.equal(await restored.locator('[name=confirmed]').isChecked(), true);
     await restored.getByRole('button', {name: '保存这一页'}).click();
     assert.equal(await restored.locator('#count-visits').innerText(), '1');
     assert.equal(await restored.locator('#wishlist-count').innerText(), '0');

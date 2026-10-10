@@ -10,3 +10,5 @@ private/
 packages/
 test-results/
 node_modules/
+.venv-web/
+.venv-web-unix/

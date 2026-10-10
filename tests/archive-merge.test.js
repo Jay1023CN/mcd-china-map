@@ -53,6 +53,21 @@ test('confirmed manual visit is not replaced by an MCP candidate with the same i
   assert.deepEqual(ArchiveMerge.merge(base, local, remote).entries, [confirmed]);
 });
 
+test('MCP deletion tombstones union across tabs and suppress stale MCP candidates and converted orders', () => {
+  const candidateId = 'mcp-aaaaaaaaaaaaaaaaaaaaaaaa';
+  const convertedId = 'mcp-bbbbbbbbbbbbbbbbbbbbbbbb';
+  const base = archive([], {deleted_order_ids: [candidateId]});
+  const local = archive([], {deleted_order_ids: [candidateId, convertedId]});
+  const remote = archive([
+    {id: candidateId, source: 'mcp_candidate', confirmed: false, store: '已删除候选'},
+    {id: convertedId, source: 'manual', confirmed: true, origin: 'mcp', store: '已删除自动手账'},
+    {id: 'manual-keep', source: 'manual', confirmed: true, store: '本人手动记录'}
+  ], {deleted_order_ids: [convertedId]});
+  const merged = ArchiveMerge.merge(base, local, remote);
+  assert.deepEqual(merged.deleted_order_ids, [candidateId, convertedId]);
+  assert.deepEqual(merged.entries, [{id: 'manual-keep', source: 'manual', confirmed: true, store: '本人手动记录'}]);
+});
+
 test('uses local metadata, drops unknown top-level fields and omits absent wishlist', () => {
   const merged = ArchiveMerge.merge(
     {...archive(), private: 'base'},

@@ -86,7 +86,7 @@
       id: text(input.id, 'id', 100, true),
       date: date,
       country_code: country,
-      city: text(input.city == null && input.source === 'mcp_candidate' ? '' : input.city, 'city', 120, input.source !== 'mcp_candidate'),
+      city: text(input.city == null && (input.source === 'mcp_candidate' || input.origin === 'mcp') ? '' : input.city, 'city', 120, input.source !== 'mcp_candidate' && input.origin !== 'mcp'),
       store: text(input.store, 'store', 200, true),
       foods: foods.map(function (food) { return text(food, 'food', 120, true); }),
       source: input.source,
@@ -153,9 +153,21 @@
     if (!Array.isArray(input.entries) || input.entries.length > MAX_ENTRIES) fail('archive must contain at most 1000 entries');
     var dataKind = input.data_kind || 'manual';
     if (!['manual', 'synthetic', 'mcp'].includes(dataKind)) fail('data_kind is invalid');
+    var deletedOrderIds = null;
+    var deletedOrderIdSet = new Set();
+    if (Object.prototype.hasOwnProperty.call(input, 'deleted_order_ids')) {
+      if (!Array.isArray(input.deleted_order_ids) || input.deleted_order_ids.length > MAX_ENTRIES) fail('deleted_order_ids must contain at most 1000 ids');
+      deletedOrderIds = input.deleted_order_ids.map(function (id) {
+        if (typeof id !== 'string' || !/^mcp-[a-f0-9]{24}$/.test(id)) fail('deleted_order_ids contain an invalid MCP id');
+        if (deletedOrderIdSet.has(id)) fail('deleted_order_ids contain a duplicate id');
+        deletedOrderIdSet.add(id);
+        return id;
+      });
+    }
     var ids = new Map();
     var entries = [];
     input.entries.forEach(function (entry) {
+      if (entry && typeof entry === 'object' && !Array.isArray(entry) && typeof entry.id === 'string' && deletedOrderIdSet.has(entry.id) && (entry.source === 'mcp_candidate' || entry.origin === 'mcp')) return;
       var normalized = normalizeEntry(entry, options);
       var value = JSON.stringify(normalized);
       if (ids.has(normalized.id)) {
@@ -167,6 +179,7 @@
     });
     var archive = { version: 1, data_kind: dataKind, entries: entries };
     if (input.source != null) archive.source = text(input.source, 'archive source', 1000, false);
+    if (deletedOrderIds !== null) archive.deleted_order_ids = deletedOrderIds;
     if (Object.prototype.hasOwnProperty.call(input, 'wishlist')) {
       if (!wishlistEngine || typeof wishlistEngine.normalize !== 'function') fail('wishlist support is unavailable');
       archive.wishlist = wishlistEngine.normalize(input.wishlist);
@@ -212,9 +225,11 @@
       var cityKey = entry.country_code + '\u0000' + (entry.province_code || '') + '\u0000' + identity(entry.city);
       var storeKey = cityKey + '\u0000' + identity(entry.store);
       var country = count(countries, entry.country_code, function () { return { country_code: entry.country_code, count: 0, cityKeys: new Set(), storeKeys: new Set() }; });
-      country.cityKeys.add(cityKey);
+      if (entry.city) {
+        country.cityKeys.add(cityKey);
+        count(cities, cityKey, function () { return { country_code: entry.country_code, city: entry.city, count: 0 }; });
+      }
       country.storeKeys.add(storeKey);
-      count(cities, cityKey, function () { return { country_code: entry.country_code, city: entry.city, count: 0 }; });
       count(stores, storeKey, function () { return { country_code: entry.country_code, city: entry.city, store: entry.store, count: 0 }; });
       count(months, entry.date.slice(0, 7), function () { return { month: entry.date.slice(0, 7), count: 0 }; });
       count(years, entry.date.slice(0, 4), function () { return { year: entry.date.slice(0, 4), count: 0 }; });

@@ -8,7 +8,7 @@ const candidate = {
   data_kind: 'mcp',
   source: 'Synthetic connection test fixture; never an actual order.',
   entries: [{
-    id: 'mcp-connection-fixture',
+    id: 'mcp-0123456789abcdef01234567',
     date: '2026-10-09',
     country_code: 'CN',
     province_code: '310000',
@@ -38,12 +38,14 @@ async function main() {
     const syncRequests = [];
     let connectionMode = 'success';
     let syncMode = 'success';
+    let connected = false;
     let finishSync;
     page.on('pageerror', error => errors.push(error.message));
     await page.route('**/api/health', route => route.fulfill({json: {
       capabilities: {connect: true, synced_orders: true},
-      connected: false,
-      store_lookup: false
+      connected,
+      store_lookup: connected,
+      order_sync: connected
     }}));
     await page.route('**/api/connect', async route => {
       const body = route.request().postDataJSON();
@@ -52,6 +54,7 @@ async function main() {
       if (connectionMode === 'failure') {
         return route.fulfill({status: 401, json: {error: '连接未完成，请检查 Token。'}});
       }
+      connected = true;
       return route.fulfill({json: {connected: true, store_lookup: true, order_sync: true}});
     });
     await page.route('**/api/sync-orders', route => {
@@ -86,17 +89,19 @@ async function main() {
     assert.equal(await page.locator('#disconnect-mcd').isVisible(), true);
 
     await page.locator('#load-orders').click();
-    await page.locator('#candidate-grid .candidate').waitFor();
-    assert.equal(await page.locator('#candidate-count').innerText(), '1');
-    assert.equal(await page.locator('#count-visits').innerText(), '0', 'unconfirmed order candidates must not count as visits');
+    const importedOrder = page.locator('#journal-grid .entry-card').filter({hasText: '虚构订单测试门店'});
+    await importedOrder.waitFor();
+    assert.equal(await page.locator('#candidate-count').innerText(), '0', 'completed orders should be materialized directly as journal pages');
+    assert.equal(await page.locator('#count-visits').innerText(), '1', 'a completed order should immediately become a confirmed journal page');
+    assert.match(await importedOrder.locator('.origin').innerText(), /从麦当劳订单自动整理/);
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
     await page.locator('#load-orders').click();
-    await page.locator('#toast').filter({hasText: '本机订单已载入'}).waitFor();
-    assert.equal(await page.locator('#candidate-count').innerText(), '1', 'loading the same candidate twice must not duplicate it');
+    await page.locator('#toast').filter({hasText: '订单已自动整理成手账'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '1', 'loading the same order twice must not add another page');
 
     assert.equal(await page.locator('#sync-orders').isVisible(), true, 'order sync is available after a successful connection');
     await page.locator('#country-filter').selectOption('110000');
-    assert.equal(await page.locator('#candidate-count').innerText(), '0', 'the Beijing filter hides the Shanghai candidate while sync is tested');
+    assert.equal(await page.locator('#count-visits').innerText(), '0', 'the Beijing filter hides the Shanghai journal page while sync is tested');
     syncMode = 'waiting';
     await page.locator('#sync-orders').click();
     await page.locator('#sync-progress').filter({hasText: '正在整理门店和餐品'}).waitFor();
@@ -106,50 +111,59 @@ async function main() {
     assert.equal(typeof finishSync, 'function');
     await finishSync();
     syncMode = 'success';
-    await page.locator('#sync-progress').filter({hasText: '已整理 1 条订单线索'}).waitFor();
+    await page.locator('#sync-progress').filter({hasText: '已自动整理 1 页订单手账'}).waitFor();
     assert.equal(await page.locator('#sync-orders').isDisabled(), false);
-    assert.equal(await page.locator('#country-filter').inputValue(), '', 'sync reveals new candidates by clearing the old province filter');
-    assert.equal(await page.locator('#candidate-count').innerText(), '1', 'new candidates are immediately visible after sync');
+    assert.equal(await page.locator('#country-filter').inputValue(), '', 'sync clears the old province filter');
+    assert.equal(await page.locator('#count-visits').innerText(), '1', 'the same synced order remains one confirmed page');
     await page.locator('#country-filter').selectOption('');
-    assert.equal(await page.locator('#candidate-count').innerText(), '1', 'the filtered sync retained the Shanghai candidate');
-    assert.equal(await page.locator('#count-visits').innerText(), '0');
+    assert.equal(await page.locator('#candidate-count').innerText(), '0');
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
 
-    await page.getByRole('button', {name: '补齐并确认本人到店'}).click();
-    assert.equal(await page.locator('[name=confirmed]').isChecked(), false);
-    await page.locator('[name=confirmed]').check();
-    await page.getByRole('button', {name: '保存这一页'}).click();
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
-    assert.equal(await page.locator('#candidate-count').innerText(), '0');
-    assert.equal(await page.locator('#wishlist-count').innerText(), '1');
+    await page.getByRole('tab', {name: '打卡手账', exact: true}).click();
+    const automaticPage = page.locator('#journal-grid .entry-card').filter({hasText: '虚构订单测试门店'});
+    page.once('dialog', dialog => dialog.accept());
+    await automaticPage.getByRole('button', {name: '删除', exact: true}).click();
+    assert.equal(await page.locator('#count-visits').innerText(), '0', 'deleting an automatic order page removes it from the journal');
+    let savedArchive = await page.evaluate(() => JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
+    assert.deepEqual(savedArchive.deleted_order_ids, [candidate.entries[0].id], 'deletion should persist a stable order tombstone');
 
     await page.locator('#load-orders').click();
-    await page.locator('#toast').filter({hasText: '本机订单已载入'}).waitFor();
-    assert.equal(await page.locator('#candidate-count').innerText(), '0', 'a confirmed candidate must not return on later syncs');
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
-    assert.equal(await page.locator('#wishlist-count').innerText(), '1', 'syncing candidates must retain the existing wishlist');
-
+    await page.locator('#toast').filter({hasText: '订单已自动整理成手账'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '0', 'loading a deleted order must not recreate its page');
     await page.locator('#sync-orders').click();
-    await page.locator('#sync-progress').filter({hasText: '已整理 1 条订单线索'}).waitFor();
-    assert.equal(await page.locator('#candidate-count').innerText(), '0', 'order sync must not restore an already confirmed candidate');
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    await page.locator('#sync-progress').filter({hasText: '已自动整理 1 页订单手账'}).waitFor();
+    assert.equal(await page.locator('#candidate-count').innerText(), '0');
+    assert.equal(await page.locator('#count-visits').innerText(), '0', 'sync must honor the deletion tombstone');
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
+
+    await page.reload();
+    assert.equal(await page.locator('#count-visits').innerText(), '0', 'the deleted order remains absent after reload');
+    savedArchive = await page.evaluate(() => JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
+    assert.deepEqual(savedArchive.deleted_order_ids, [candidate.entries[0].id]);
+    await page.locator('#load-orders').click();
+    await page.locator('#toast').filter({hasText: '订单已自动整理成手账'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '0', 'reloading the deleted order after refresh must not recreate it');
+    await page.locator('#sync-orders').click();
+    await page.locator('#sync-progress').filter({hasText: '已自动整理 1 页订单手账'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '0', 'sync after refresh must still honor the tombstone');
 
     syncMode = 'failure';
     await page.locator('#sync-orders').click();
     await page.locator('#sync-progress').filter({hasText: '订单同步失败，之前已保存的订单记录保持不变。'}).waitFor();
     assert.equal(await page.locator('#sync-orders').isDisabled(), false);
     assert.equal(await page.locator('#candidate-count').innerText(), '0');
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    assert.equal(await page.locator('#count-visits').innerText(), '0');
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
-    assert.deepEqual(syncRequests, [{}, {}, {}]);
+    assert.deepEqual(syncRequests, [{}, {}, {}, {}]);
 
     await page.locator('#disconnect-mcd').click();
     await page.locator('#toast').filter({hasText: '连接已断开'}).waitFor();
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    connected = false;
+    assert.equal(await page.locator('#count-visits').innerText(), '0');
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
     await page.getByRole('tab', {name: '打卡手账', exact: true}).click();
-    assert.equal(await page.locator('#journal-grid .entry-card').count(), 1, 'disconnecting must preserve confirmed journal pages');
+    assert.equal(await page.locator('#journal-grid .entry-card').count(), 0, 'disconnecting preserves the prior deletion and its tombstone');
 
     connectionMode = 'failure';
     await page.locator('#open-connect').click();
@@ -159,7 +173,7 @@ async function main() {
     assert.equal(await page.locator('#connect-dialog').evaluate(dialog => dialog.open), true);
     assert.equal(await page.locator('#connect-token').inputValue(), '');
     assert.equal(await page.locator('#connect-status').innerText(), '连接未完成，请检查 Token。');
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    assert.equal(await page.locator('#count-visits').innerText(), '0');
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
     assert.deepEqual(connectRequests[1], {token: 'fixturebadtoken'});
     assert.doesNotMatch(await page.locator('#connect-status').innerText(), /fixturebadtoken/);
@@ -185,7 +199,7 @@ async function main() {
     assert.ok(fallbackBounds.scroll <= fallbackBounds.client + 1, 'mobile journal dialog must not overflow horizontally');
     assert.deepEqual(errors, []);
     await fallbackContext.close();
-    console.log('PASS: local Token connection request/clearing, candidate import and deduplication, confirmed candidate stability, sync pending/success/failure with province filter, wishlist/journal retention, disconnect and health fallback, and mobile dialogs. API responses are synthetic; no official service is contacted.');
+    console.log('PASS: local Token connection request/clearing, automatic order materialization and deduplication, deletion tombstone across reload/load/sync, sync pending/success/failure with province filter, wishlist retention, disconnect and health fallback, and mobile dialogs. API responses are synthetic; no official service is contacted.');
   } finally {
     await browser.close();
   }

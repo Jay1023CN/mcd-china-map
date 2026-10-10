@@ -215,7 +215,8 @@ class LocalConnectTests(unittest.TestCase):
                     self.fail(f'synced-orders returned {error.code}: {error.read()!r}')
                 body = response.read()
                 enrich.assert_called_once()
-                self.assertEqual(enrich.call_args.kwargs['directory'], root / 'assets' / 'data' / 'store-directory.json')
+                # Default enrichment loads the user's local directory too.
+                self.assertEqual(enrich.call_args.kwargs, {})
                 if response.status != 200:
                     self.fail(f'synced-orders returned {response.status}: {body!r}')
         archive = json.loads(body)

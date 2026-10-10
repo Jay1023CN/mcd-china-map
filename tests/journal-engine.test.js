@@ -25,6 +25,52 @@ test('confirmed China candidates retain origin and cannot become overseas MCP vi
   assert.equal(E.normalizeEntry(entry({origin: 'mcp'}), options).origin, 'mcp');
   assert.throws(() => E.normalizeEntry(entry({origin: 'mcp', country_code: 'JP'}), options));
 });
+test('synced order conversion produces a counted MCP-origin journal page and strips order credentials', () => {
+  const syncedOrder = {
+    id: 'safe-local-order-fixture', date: '2026-10-08', country_code: 'CN', province_code: '310000',
+    city: '上海', store: '虚构同步门店', foods: ['咖啡'], source: 'manual', confirmed: true, origin: 'mcp',
+    location: {lat: 31.23, lon: 121.47, precision: 'city'},
+    default_photo: {url: 'https://example.com/store.jpg', source_url: 'https://example.com/source', attribution: '虚构公开资料', caption: '虚构门店照'},
+    orderId: 'private-order-id', token: 'private-token'
+  };
+  const clean = E.normalizeArchive(archive([syncedOrder]), options);
+  assert.equal(clean.entries[0].source, 'manual');
+  assert.equal(clean.entries[0].confirmed, true);
+  assert.equal(clean.entries[0].origin, 'mcp');
+  assert.equal(E.summarize(clean, options).confirmedCount, 1, 'a converted order should appear as a journal visit');
+  assert.deepEqual(clean.entries[0].location, {lat: 31.23, lon: 121.47, precision: 'city'});
+  assert.deepEqual(clean.entries[0].default_photo, syncedOrder.default_photo);
+  assert.equal('orderId' in clean.entries[0], false);
+  assert.equal('token' in clean.entries[0], false);
+  assert.throws(() => E.normalizeEntry({...syncedOrder, source: 'mcp_candidate'}, options), /MCP candidates must remain unconfirmed/);
+});
+test('unknown-city MCP journal entries still count as visits but not as cities', () => {
+  const unknownCity = entry({id: 'mcp-aaaaaaaaaaaaaaaaaaaaaaaa', city: '', source: 'manual', confirmed: true, origin: 'mcp'});
+  const clean = E.normalizeArchive(archive([unknownCity]), options);
+  const summary = E.summarize(clean, options);
+  assert.equal(clean.entries[0].city, '');
+  assert.equal(summary.confirmedCount, 1);
+  assert.equal(summary.distinctCities, 0);
+  assert.equal(summary.countries[0].cityCount, 0);
+});
+test('deleted MCP order ids are validated, retained and only filter MCP-sourced entries', () => {
+  const removed = 'mcp-aaaaaaaaaaaaaaaaaaaaaaaa';
+  const removedOrigin = 'mcp-bbbbbbbbbbbbbbbbbbbbbbbb';
+  const input = archive([
+    entry({id: removed, city: '', source: 'mcp_candidate', confirmed: false}),
+    entry({id: removed, store: '本人手动同ID记录'}),
+    entry({id: removedOrigin, city: '', source: 'manual', confirmed: true, origin: 'mcp'}),
+    entry({id: 'manual-keep', store: '另一条手动记录'})
+  ]);
+  input.deleted_order_ids = [removed, removedOrigin];
+  const clean = E.normalizeArchive(input, options);
+  assert.deepEqual(clean.deleted_order_ids, [removed, removedOrigin]);
+  assert.deepEqual(clean.entries.map(item => item.id), [removed, 'manual-keep']);
+  for (const deleted_order_ids of [null, ['not-an-mcp-id'], [`mcp-${'A'.repeat(24)}`], [removed, removed]]) {
+    assert.throws(() => E.normalizeArchive({...archive([]), deleted_order_ids}, options));
+  }
+  assert.throws(() => E.normalizeArchive({...archive([]), deleted_order_ids: Array.from({length: 1001}, (_, i) => `mcp-${i.toString(16).padStart(24, '0')}`)}, options));
+});
 test('store identities normalize case, full width characters and spaces', () => {
   const result = E.summarize(archive([entry({store: ' ＡＢＣ  店 '}), entry({id: 'visit-2', store: 'abc 店'}), entry({id: 'visit-3', province_code: '110000', city: '北京'})]), options);
   assert.equal(result.confirmedCount, 3);

@@ -40,6 +40,25 @@
     return !!item && item.source === 'mcp_candidate';
   }
 
+  function mcpEntry(item) {
+    return candidate(item) || (!!item && item.origin === 'mcp');
+  }
+
+  function deletedOrderIds(base, local, remote) {
+    var result = [];
+    var seen = new Set();
+    [base, local, remote].forEach(function (archive) {
+      if (!Array.isArray(archive.deleted_order_ids)) return;
+      archive.deleted_order_ids.forEach(function (id) {
+        var key = typeof id === 'string' ? 'string:' + id : canonical(id);
+        if (seen.has(key)) return;
+        seen.add(key);
+        result.push(clone(id));
+      });
+    });
+    return result;
+  }
+
   function mergeList(baseItems, localItems, remoteItems) {
     var base = idMap(baseItems);
     var local = idMap(localItems);
@@ -89,6 +108,15 @@
       source: clone(local.source),
       entries: mergeList(base.entries, local.entries, remote.entries)
     };
+    if (Object.prototype.hasOwnProperty.call(base, 'deleted_order_ids') ||
+        Object.prototype.hasOwnProperty.call(local, 'deleted_order_ids') ||
+        Object.prototype.hasOwnProperty.call(remote, 'deleted_order_ids')) {
+      output.deleted_order_ids = deletedOrderIds(base, local, remote);
+      var deleted = new Set(output.deleted_order_ids.filter(function (id) { return typeof id === 'string'; }));
+      output.entries = output.entries.filter(function (entry) {
+        return !deleted.has(entry.id) || !mcpEntry(entry);
+      });
+    }
     if (Object.prototype.hasOwnProperty.call(base, 'wishlist') ||
         Object.prototype.hasOwnProperty.call(local, 'wishlist') ||
         Object.prototype.hasOwnProperty.call(remote, 'wishlist')) {

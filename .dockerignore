@@ -1,0 +1,15 @@
+.git
+.venv-web
+private
+dist
+packages
+test-results
+node_modules
+__pycache__
+*.pyc
+.env
+.env.*
+*.local.json
+.mcp.json
+*.log
+*.zip

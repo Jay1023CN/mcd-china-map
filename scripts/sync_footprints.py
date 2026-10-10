@@ -15,7 +15,8 @@ from build_global_journal import candidates, render
 from store_enrichment import enrich_archive
 
 
-def sync_orders(token, order_offset='+08:00', with_benefits=False, progress=None):
+def sync_orders(token, order_offset='+08:00', with_benefits=False, progress=None,
+                *, output_dir=None, store_directory=None, render_page=True):
     """Fetch the current read-only order range and publish private candidates.
 
     ``progress`` is an optional callback receiving status strings. The token is
@@ -23,10 +24,11 @@ def sync_orders(token, order_offset='+08:00', with_benefits=False, progress=None
     """
     if progress is not None and not callable(progress):
         raise ValueError('progress must be callable')
+    output = OUTPUT if output_dir is None else output_dir
     client = Client(token)
     client.initialize()
     tools = {tool['name']: tool for tool in client.tools()}
-    run_output = OUTPUT / 'runs' / (datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ-') + uuid4().hex[:8])
+    run_output = output / 'runs' / (datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ-') + uuid4().hex[:8])
     save_private('tools.json', {'tools': list(tools.values())}, directory=run_output)
 
     def report(message):
@@ -58,21 +60,21 @@ def sync_orders(token, order_offset='+08:00', with_benefits=False, progress=None
         fetch('campaign-calendar', {}, 'campaign-calendar.result.json')
     payload = normalize(run_output, order_offset)
     save_private('footprints.normalized.json', payload, directory=run_output)
-    global_archive = enrich_archive(candidates(payload))
-    page = render(global_archive)
+    global_archive = enrich_archive(candidates(payload), directory=store_directory)
+    page = render(global_archive) if render_page else None
     save_private('global-candidates.json', global_archive, directory=run_output)
-    for name, content in [('global-passport.html', page)]:
+    for name, content in ([('global-passport.html', page)] if page is not None else []):
         path = run_output / name
         fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
         with os.fdopen(fd, 'w', encoding='utf-8') as stream:
             stream.write(content)
         os.chmod(path, 0o600)
     # Publish the import file only after the entire run has succeeded.
-    save_private('footprints.normalized.json', payload)
-    save_private('global-candidates.json', global_archive)
+    save_private('footprints.normalized.json', payload, directory=output)
+    save_private('global-candidates.json', global_archive, directory=output)
     save_private('latest-sync.json', {'completed_at': datetime.now(timezone.utc).isoformat(),
-                                    'response_directory': str(run_output.relative_to(OUTPUT)),
-                                    'candidate_count': len(global_archive['entries'])})
+                                    'response_directory': str(run_output.relative_to(output)),
+                                    'candidate_count': len(global_archive['entries'])}, directory=output)
     report('Import file generated: private/mcp/global-candidates.json')
     report('Raw responses and candidate page saved in a separate private/mcp/runs directory.')
     report('China orders remain unconfirmed candidates; no visit has been assumed.')

@@ -7,6 +7,11 @@ from project_version import VERSION
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_ROOT = "麦麦中国地图"
 FILES = (
+    "requirements-web.txt", "Dockerfile.web", ".dockerignore", ".gitattributes", "启动网页版.cmd", "启动网页版.sh",
+    "scripts/web_api.py", "scripts/web_sessions.py", "scripts/build_web_app.py", "docs/WEB.md",
+    "tests/test_build_web_app.py", "tests/test_web_sessions.py", "tests/test_web_order_sync.py",
+    "tests/browser-web-sessions.cjs", "tests/run_browser_web_sessions.py", "tests/browser-mobile-web.cjs",
+    "docs/mobile-map-preview.png", "docs/product-preview.gif",
     "index.html", "启动.cmd", "备用启动.cmd", "scripts/start-local.cmd", "启动门店查询.cmd", "同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
     "LICENSE", "CONTEST_DECLARATION.md", "MCP_INTEGRATION.md",
     "mcp-config.example.json",
@@ -14,7 +19,7 @@ FILES = (
     "scripts/build_global_journal.py", "scripts/visual_assets.py",
     "scripts/mcp_readonly.py", "scripts/connect_mcp.py",
     "scripts/import_mcp_footprints.py", "scripts/sync_footprints.py",
-    "scripts/footprints.py", "scripts/store_enrichment.py", "web/global-journal.js", "web/journal-engine.js",
+    "scripts/footprints.py", "scripts/store_enrichment.py", "web/global-journal.js", "web/journal-engine.js", "web/order-journal.js", "tests/order-journal.test.js",
     "web/share-card.js", "web/journey-insights.js", "web/wishlist-engine.js", "web/memory-card.js",
     "scripts/store_photo_data.py", "tests/test_store_photo_data.py", "tests/memory-card.test.js", "tests/browser-memory.cjs",
     "scripts/project_version.py",
@@ -55,7 +60,7 @@ def reviewed_path(name):
     resolved = path.resolve(strict=True)
     relative = resolved.relative_to(ROOT)
     if resolved != path.absolute() or any(
-        (part.startswith(".") and part != ".gitignore") or part in {"private", "packages", "__pycache__"}
+        (part.startswith(".") and part not in {".gitignore", ".gitattributes", ".dockerignore"}) or part in {"private", "packages", "__pycache__"}
         for part in relative.parts
     ):
         raise ValueError("Only reviewed regular source files may be packaged")

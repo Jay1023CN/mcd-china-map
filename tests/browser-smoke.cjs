@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, '..');
 const url = process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
 const output = path.join(root, 'test-results');
 fs.mkdirSync(output, {recursive: true});
-const candidate = {version: 1, data_kind: 'mcp', source: 'Synthetic test fixture, never a real order.', entries: [{id: 'mcp-fixture-only', date: '2026-10-08', country_code: 'CN', city: '', store: '测试门店（虚构）', foods: ['咖啡'], source: 'mcp_candidate', confirmed: false}]};
+const candidate = {version: 1, data_kind: 'mcp', source: 'Synthetic test fixture, never a real order.', entries: [{id: 'mcp-0123456789abcdef01234567', date: '2026-10-08', country_code: 'CN', province_code: '310000', city: '上海', store: '测试门店（虚构）', foods: ['咖啡'], source: 'mcp_candidate', confirmed: false}]};
 const upload = (name, value) => ({name, mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(value))});
 function request(target, method = 'GET', host = new URL(url).host) {
   return new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ async function main() {
     });
     await page.locator('[name=photo]').setInputFiles({name: 'fixture.png', mimeType: 'image/png', buffer: Buffer.from(photoFixture, 'base64')});
     await page.locator('#photo-preview').waitFor({state: 'visible'});
-    await page.locator('[name=confirmed]').check();
+    assert.equal(await page.locator('[name=confirmed]').isChecked(), true, 'manual visits are confirmed automatically');
     await page.getByRole('button', {name: '保存这一页'}).click();
     assert.equal(await page.locator('#count-visits').innerText(), '1');
     await page.reload();
@@ -69,31 +69,32 @@ async function main() {
     assert.equal(backup.entries[0].location.precision, 'city');
     assert.ok(backup.entries[0].photo.data_url.startsWith('data:image/jpeg;base64,'));
     await page.locator('#import-file').setInputFiles(upload('fixture-candidate.json', candidate));
-    await page.locator('#candidate-grid .candidate').waitFor();
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
-    await page.getByRole('button', {name: '补齐并确认本人到店'}).click();
-    assert.equal(await page.locator('[name=country_code]').isDisabled(), true);
-    await page.locator('[name=province_code]').selectOption('110000');
-    await page.locator('[name=city]').fill('北京');
-    await page.locator('[name=confirmed]').check();
-    await page.getByRole('button', {name: '保存这一页'}).click();
-    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    const automaticOrder = page.locator('#journal-grid .entry-card').filter({hasText: '测试门店（虚构）'});
+    await automaticOrder.waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '2', 'an imported completed order should immediately become a visit page');
     assert.equal(await page.locator('#candidate-count').innerText(), '0');
-    assert.equal(await page.locator('#count-countries').innerText(), '2');
-    await page.locator('#country-filter').selectOption('310000');
-    assert.equal(await page.locator('#count-visits').innerText(), '1');
-    await page.locator('#country-filter').selectOption('');
+    assert.match(await automaticOrder.locator('.origin').innerText(), /从麦当劳订单自动整理/);
     await page.locator('#import-file').setInputFiles(upload('same-candidate.json', candidate));
     await page.locator('#toast').filter({hasText: '导入完成'}).waitFor();
-    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    assert.equal(await page.locator('#count-visits').innerText(), '2', 'importing the same order twice must not add another page');
     assert.equal(await page.locator('#candidate-count').innerText(), '0');
+    page.once('dialog', dialog => dialog.accept());
+    await automaticOrder.getByRole('button', {name: '删除', exact: true}).click();
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
+    const deletedArchive = await page.evaluate(() => JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));
+    assert.deepEqual(deletedArchive.deleted_order_ids, [candidate.entries[0].id]);
+    await page.reload();
+    await page.locator('#import-file').setInputFiles(upload('deleted-order-again.json', candidate));
+    await page.locator('#toast').filter({hasText: '导入完成'}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(), '1', 'a deleted order must stay absent after reload and reimport');
+    assert.equal(await page.locator('#count-countries').innerText(), '1');
     const conflict = {...backup, entries: [{...backup.entries[0], store: 'conflicting fixture'}]};
     await page.locator('#import-file').setInputFiles(upload('synthetic.json', {...backup, data_kind: 'synthetic'}));
     await page.locator('#toast').filter({hasText: '导入未完成'}).waitFor();
-    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
     await page.locator('#import-file').setInputFiles(upload('conflict.json', conflict));
     await page.locator('#toast').filter({hasText: '导入未完成'}).waitFor();
-    assert.equal(await page.locator('#count-visits').innerText(), '2');
+    assert.equal(await page.locator('#count-visits').innerText(), '1');
     const restoreContext = await browser.newContext({timezoneId: 'Asia/Shanghai'});
     const restored = await restoreContext.newPage();
     await restored.goto(url);
@@ -144,7 +145,7 @@ async function main() {
     await storePage.getByRole('button',{name:'在这里留一页打卡'}).click();
     assert.equal(await storePage.locator('[name=province_code]').inputValue(),'310000');
     assert.equal(await storePage.locator('[name=store]').inputValue(),'官方门店查询测试（虚构）');
-    await storePage.locator('[name=confirmed]').check();
+    assert.equal(await storePage.locator('[name=confirmed]').isChecked(), true, 'official store visits are confirmed automatically');
     await storePage.getByRole('button',{name:'保存这一页'}).click();
     const storeDownload = storePage.waitForEvent('download'); await storePage.locator('#export').click();
     const storeBackup = JSON.parse(fs.readFileSync(await (await storeDownload).path(),'utf8'));
@@ -166,7 +167,7 @@ async function main() {
     const defaultPhotoUrl = 'https://example.com/store.jpg';
     const defaultPhotoCandidate = {
       ...candidate,
-      entries: [{...candidate.entries[0], id: 'mcp-photo-fixture', province_code: '310000', city: '上海', store: '默认照片测试门店（虚构）', default_photo: {
+      entries: [{...candidate.entries[0], id: 'mcp-abcdef0123456789abcdef01', province_code: '310000', city: '上海', store: '默认照片测试门店（虚构）', default_photo: {
         url: defaultPhotoUrl,
         source_url: 'https://example.com/photo-source',
         attribution: '虚构照片来源署名',
@@ -175,14 +176,16 @@ async function main() {
     };
     await photoPage.goto(url);
     await photoPage.locator('#import-file').setInputFiles(upload('synthetic-photo-candidate.json', defaultPhotoCandidate));
-    await photoPage.locator('#candidate-grid .candidate img.photo').waitFor({state: 'visible'});
-    assert.equal(await photoPage.locator('#candidate-grid .candidate img.photo').getAttribute('src'), defaultPhotoUrl);
-    await photoPage.getByRole('button', {name: '补齐并确认本人到店'}).click();
+    const photoOrder = photoPage.locator('#journal-grid .entry-card').filter({hasText: '默认照片测试门店（虚构）'});
+    await photoOrder.locator('img.photo').waitFor({state: 'visible'});
+    assert.equal(await photoOrder.locator('img.photo').getAttribute('src'), defaultPhotoUrl);
+    assert.equal(await photoPage.locator('#count-visits').innerText(), '1', 'imported order is immediately a journal page');
+    await photoOrder.getByRole('button', {name: '编辑这一页', exact: true}).click();
     assert.equal(await photoPage.locator('#photo-preview').getAttribute('src'), defaultPhotoUrl);
     await photoPage.locator('[name=photo]').setInputFiles({name: 'user-fixture.png', mimeType: 'image/png', buffer: Buffer.from(photoFixture, 'base64')});
     await photoPage.locator('#photo-preview').waitFor({state: 'visible'});
     assert.match(await photoPage.locator('#photo-preview').getAttribute('src'), /^data:image\/jpeg;base64,/);
-    await photoPage.locator('[name=confirmed]').check();
+    assert.equal(await photoPage.locator('[name=confirmed]').isChecked(), true, 'automatic order page remains confirmed while editing');
     await photoPage.getByRole('button', {name: '保存这一页'}).click();
     await photoPage.getByRole('tab', {name: '打卡手账', exact: true}).click();
     assert.match(await photoPage.locator('#journal-grid .entry-card img.photo').getAttribute('src'), /^data:image\/jpeg;base64,/);
