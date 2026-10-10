@@ -339,6 +339,16 @@
         info.append(node('p','税籍名称：'+store.tax_registered_name,'note'));
         const source=node('a','查看营业税籍来源 ↗','store-source');source.href=store.tax_source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);
       }
+      if(store.dessert_service_source_url){
+        info.append(node('p','官方资料列有甜品站。','note'));
+        if(store.dessert_station_address && store.dessert_station_address!==store.address)info.append(node('p','甜品站地址：'+store.dessert_station_address,'note'));
+        if(store.dessert_station_source_url){const source=node('a','甜品站地址列表 ↗','store-source');source.href=store.dessert_station_source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);}
+      }
+      if(store.government_service_source_url){
+        info.append(node('p','政府活动资料（'+store.government_service_published_date+'）：'+store.government_service_name,'note'));
+        if(store.government_service_address!==store.address)info.append(node('p','当时列示地址：'+store.government_service_address,'note'));
+        const source=node('a','查看这份政府资料 ↗','store-source');source.href=store.government_service_source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);
+      }
       if(store.venue_source_url){
         if(store.venue_location && !store.address.includes(store.venue_location))info.append(node('p','场地位置：'+store.venue_location,'note'));
         info.append(node('p','场地页面营业时间：'+store.venue_hours+'；出发前请再确认。','note'));

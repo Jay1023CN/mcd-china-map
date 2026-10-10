@@ -7,6 +7,12 @@ from project_version import VERSION
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_ROOT = "麦麦中国地图"
 FILES = (
+    '打开在线地图.cmd', 'docs/ARCHITECTURE.md', 'scripts/regional_store_sources.py', 'tests/test_regional_store_sources.py', 'tests/browser-regional-sources.cjs',
+    'docs/growth-assets/national-store-research/hong-kong-official-dessert-station-snapshot.json',
+    'docs/growth-assets/national-store-research/collect-hong-kong-dessert-stations.py',
+    'docs/growth-assets/national-store-research/macau-ferry-venue-snapshot.json', 'docs/growth-assets/national-store-research/collect-macau-ferry-venues.py',
+    'docs/growth-assets/national-store-research/macau-government-senior-card-snapshot.json', 'docs/growth-assets/national-store-research/collect-macau-senior-card.py',
+    'docs/growth-assets/national-store-research/macau-government-address-crosswalk.json', 'docs/growth-assets/national-store-research/reconcile-macau-government-addresses.py',
     "requirements-web.txt", "Dockerfile.web", ".dockerignore", ".gitattributes", "启动网页版.cmd", "启动网页版.sh",
     "scripts/web_api.py", "scripts/web_sessions.py", "scripts/build_web_app.py", "docs/WEB.md", "docs/TRY-AND-SUPPORT.md",
     "tests/test_build_web_app.py", "tests/test_web_sessions.py", "tests/test_web_order_sync.py",

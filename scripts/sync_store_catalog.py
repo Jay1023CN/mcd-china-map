@@ -584,7 +584,10 @@ def import_hong_kong(path):
             store['location'] = {'lat': item['lat'], 'lon': item['lng'], 'precision': 'store',
                                  'coordinate_system': 'official_google_maps_unverified'}
         result.append(store)
-    return result, {'url': snapshot['source'], 'collected_at': snapshot['collected_at'], 'rows': len(result)}
+    from regional_store_sources import attach_hong_kong_desserts
+    dessert = attach_hong_kong_desserts(result, snapshot, path.parent)
+    return result, {'url': snapshot['source'], 'collected_at': snapshot['collected_at'], 'rows': len(result),
+                    'dessert_stations': dessert}
 
 
 def apply_macau_reviewed_sources(stores, base):
@@ -716,6 +719,13 @@ def import_macau(path):
             additional = read(lisboeta_path)
             venue['rows'].extend({**row,'fetched_at':additional['fetched_at']} for row in additional['rows'])
             venue['fetched_at'] = max(venue['fetched_at'],additional['fetched_at'])
+        ferry_path = path.parent / 'macau-ferry-venue-snapshot.json'
+        if ferry_path.exists():
+            ferry = read(ferry_path)
+            venue['rows'].extend({**row, 'fetched_at':ferry['fetched_at']} for row in ferry['rows'])
+            venue['fetched_at'] = max(venue['fetched_at'],ferry['fetched_at'])
+        if len({row['directory_phone'] for row in venue['rows']}) != len(venue['rows']):
+            raise ValueError('Repeated Macau official visitor phone')
         for row in venue['rows']:
             candidates = [s for s in stores if s.get('directory_phone') == row['directory_phone'] and s['name'] == row['directory_name']]
             if len(candidates) != 1 or not row.get('live_page_facts_verified'):
@@ -732,9 +742,12 @@ def import_macau(path):
                 store['address'] = row['visitor_address']
         venue_source = {'rows':len(venue['rows']), 'collected_at':venue['fetched_at'], 'coverage_complete':False}
     reviewed = apply_macau_reviewed_sources(stores,path.parent)
+    from regional_store_sources import attach_macau_dated_government
+    government_service = attach_macau_dated_government(stores, path.parent)
     return stores, {'url': snapshot['source'], 'collected_at': snapshot['collected_at'],
                     'rows': len(stores), 'government_license_rows': len(snapshot['stores']),
-                    'directory': directory_source, 'official_venue_visitor_pages':venue_source, 'reviewed_iam_sources':reviewed, 'coverage_complete': False}
+                    'directory': directory_source, 'official_venue_visitor_pages':venue_source, 'reviewed_iam_sources':reviewed,
+                    'dated_government_service_points':government_service, 'coverage_complete': False}
 
 
 def import_taiwan_registrations(path):

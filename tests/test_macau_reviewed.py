@@ -30,7 +30,7 @@ class MacauTests(unittest.TestCase):
         self.assertFalse(new['current_open_status_verified'])
         self.assertEqual(source['reviewed_iam_sources']['existing_store_matches'],10)
         self.assertEqual(source['reviewed_iam_sources']['matched_store_records'],11)
-        self.assertEqual(source['official_venue_visitor_pages']['rows'],7)
+        self.assertEqual(source['official_venue_visitor_pages']['rows'],8)
         by_phone = {s['directory_phone']:s for s in stores}
         self.assertIn('溜冰路128號',by_phone['28870082']['address'])
         self.assertIn('F07',by_phone['28870082']['venue_location'])

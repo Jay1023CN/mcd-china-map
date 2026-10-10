@@ -1,0 +1,33 @@
+{
+  "source_type": "official_venue_public_visitor_listing",
+  "source_url": "https://www.marine.gov.mo/shop.aspx",
+  "fetched_at": "2026-10-10T11:37:44.732609+00:00",
+  "index_sha256": "9a153e799352eb5c100711b878a734fbf8abfd491a92bdaf10bbaafcc5b4aab8",
+  "row_count": 1,
+  "added_store_count": 0,
+  "brand_entire_region_coverage_verified": false,
+  "rows": [
+    {
+      "directory_name": "麥當勞（外港碼頭店）",
+      "directory_phone": "28703031",
+      "source_url": "https://www.marine.gov.mo/shop_detail.aspx?local=HK&lang=Chn&shopid=3006",
+      "source_type": "official_venue_public_visitor_listing",
+      "response_sha256": "4d528e5acb056c1a73bb37335c1786228870698f709ab4b9db5a85d9d0f6a39e",
+      "visitor_location": "三樓 3006室 (公眾區域)",
+      "visitor_address": "澳門外港客運碼頭 三樓 3006室 (公眾區域)",
+      "opening_hours_as_published": "07:00-19:30",
+      "phone_as_published": "(853) 2870 3031",
+      "match_method": "unique_published_phone_and_existing_directory_phone",
+      "live_page_facts_verified": true,
+      "physical_current_operation_verified": false
+    }
+  ],
+  "taipa_terminal_follow_up": {
+    "source_url": "https://www.marine.gov.mo/shop.aspx?local=TP&port=ALL",
+    "response_sha256": "5341e10949d192902c14cc9902f56ef0f87fd6d75cc8c1bf6100743140830a93",
+    "rendered_shop_link_count": 60,
+    "named_brand_shop_links": 0,
+    "closed_status_verified": false,
+    "note": "当前场地方氹仔分区没列麦当劳。历史店不能据缺项直接删掉或认定结业，也不能混作外港3006。"
+  }
+}

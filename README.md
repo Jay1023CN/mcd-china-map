@@ -56,7 +56,7 @@
 
 <p align="center"><sub>另含澳门 39 条公开资料、台湾 508 条餐饮登记，其中 265 条已有分店名称、172 条对应营业税籍资料。出发前请确认营业时间；<a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/NATIONAL-STORES.md">查看来源、覆盖与点位说明</a>。</sub></p>
 
-<p align="center"><strong>v0.15.3 · 先看照片，再挑下一家麦。</strong><br><sub>全国找店新增「有照片」：按城市翻实景图、读介绍，点开就能收藏或记一餐。<br>这次加入长春活力城、乌鲁木齐汇嘉时代广场和经开万达，三家都有官方报道照片。</sub></p>
+<p align="center"><strong>v0.15.4 · 香港找甜品，澳门找一站顺路的麦。</strong><br><sub>搜「香港 甜品站」，查看地址和品牌出处；澳门外港码头店补上三楼 3006 室的官方访客资料。<br>「有照片」也能继续翻实景图、读介绍，看看长春活力城、乌鲁木齐汇嘉时代广场和经开万达。</sub></p>
 
 <p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/featured-photo-directory-preview.png" alt="找店照片页：乌鲁木齐两家特色麦的实景照片、介绍和收藏状态" width="760"></p>
 

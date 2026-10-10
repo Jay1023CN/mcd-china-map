@@ -1,0 +1,825 @@
+{
+  "input_sha256": {
+    "government": "d534047cfc565cb4c15cdecdeaeaf3a529f487c39447ee299d8f387c1f0b92d0",
+    "directory": "2e4ec900befad938851ff070d7034e771f638dce2b778cdf8d3d577a4c8a447f",
+    "iam": "274e25602ec4f949e0fcb1ed219bcaa1bfd04c12a7b4b78f7e81c34159aa74f2"
+  },
+  "normalization": "NFKC、空白、逗号/顿号/括号、横杠字体及开头澳門前缀；不删除街道、门牌、楼层或铺位。",
+  "government_rows": 30,
+  "unique_existing_directory_addresses": 9,
+  "government_iam_full_address_matches": 4,
+  "added_store_count": 0,
+  "rows": [
+    {
+      "government_evidence": {
+        "name": "麥當勞（水坑尾店）",
+        "address": "澳門水坑尾街135-147號地下",
+        "address_lines_as_published": "澳門水坑尾街135-147號地下",
+        "area": "中南區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 37,
+        "source_pdf_page_one_based": 8,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（水坑尾街店）",
+          "address": "水坑尾街135-147號地下",
+          "phone": "28339221",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28339221",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（高士德店）",
+        "address": "澳門高士德大馬路46-48號利嘉閣B座地下",
+        "address_lines_as_published": "澳門高士德大馬路46-48號利嘉閣B座地下",
+        "area": "中南區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 38,
+        "source_pdf_page_one_based": 8,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（白鴿巢店）",
+        "address": "澳門白鴿巢前地6,7,8號地下",
+        "address_lines_as_published": "澳門白鴿巢前地6,7,8號地下",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-22:30",
+        "source_row": 39,
+        "source_pdf_page_one_based": 8,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（峨眉街店）",
+        "address": "澳門鵝眉街1-3A號信傑大廈地下A舖",
+        "address_lines_as_published": "澳門鵝眉街1-3A號信傑大廈地下A舖",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-22:30",
+        "source_row": 40,
+        "source_pdf_page_one_based": 8,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（海景店）",
+        "address": "澳門城市日大馬路26,32及36號海景花園(利景閣)地下S,T,U舖",
+        "address_lines_as_published": "澳門城市日大馬路26,32及36號\n海景花園(利景閣)地下S,T,U舖",
+        "area": "中南區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 41,
+        "source_pdf_page_one_based": 9,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（科學館店）",
+        "address": "澳門孫逸仙大馬路澳門科學館地下",
+        "address_lines_as_published": "澳門孫逸仙大馬路澳門科學館地下",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至三、五至日：10:00-18:00；(逢星期四休息)",
+        "source_row": 42,
+        "source_pdf_page_one_based": 9,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（凱泉灣店）",
+        "address": "澳門河邊新街凱泉灣地下F, G及H座",
+        "address_lines_as_published": "澳門河邊新街凱泉灣地下F, G及H座",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:30",
+        "source_row": 43,
+        "source_pdf_page_one_based": 9,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [
+        {
+          "name": "麥當勞",
+          "address": "澳門河邊新街凱泉灣,地下F、G及H座",
+          "source_row": 22,
+          "source_page": 3,
+          "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+          "source_type": "iam_public_licensed_food_premises_query",
+          "physical_current_operation_verified": false
+        }
+      ],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（禦景灣店）",
+        "address": "澳門馬交石街禦景灣第一座地下E舖",
+        "address_lines_as_published": "澳門馬交石街禦景灣第一座地下E舖",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至五、日：07:00~23:30；星期六：07:00~24:00",
+        "source_row": 44,
+        "source_pdf_page_one_based": 9,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（外港客運碼頭店）",
+        "address": "澳門新口岸外港客運碼頭3樓3006號",
+        "address_lines_as_published": "澳門新口岸外港客運碼頭3樓3006號",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至四：07:00~22:00；星期五至日：07:00~23:00",
+        "source_row": 45,
+        "source_pdf_page_one_based": 9,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（栢威店）",
+        "address": "澳門賈伯樂提督街150-152號,栢威大廈地下A座",
+        "address_lines_as_published": "澳門賈伯樂提督街150-152號,\n栢威大廈地下A座",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:00",
+        "source_row": 46,
+        "source_pdf_page_one_based": 10,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（柏威店）",
+          "address": "澳門賈伯樂提督街150-152號,栢威大廈地下A座",
+          "phone": "28357861",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28357861",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（湖景店）",
+        "address": "澳門南灣湖景大馬路744-A至766號湖景豪庭(第一座,第二座,第三座,第四座) BCD座",
+        "address_lines_as_published": "澳門南灣湖景大馬路744-A\n至766號湖景豪庭(第一座,第二座,第三座,第四\n座) BCD座",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:30",
+        "source_row": 47,
+        "source_pdf_page_one_based": 10,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（信達堡店）",
+        "address": "澳門板樟堂街13號至19A號 ,信達堡地下C座及一樓A座至F座",
+        "address_lines_as_published": "澳門板樟堂街13號至19A號 ,\n信達堡地下C座及一樓A座至F座",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:00",
+        "source_row": 48,
+        "source_pdf_page_one_based": 10,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（賈梅士商業中心店）",
+        "address": "澳門罅些喇提督大馬路162-166號賈梅士商業中心地下B至G座及一樓I至J座",
+        "address_lines_as_published": "澳門罅些喇提督大馬路162-166號\n賈梅士商業中心地下B至G座及一樓I至J座",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:00",
+        "source_row": 49,
+        "source_pdf_page_one_based": 10,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（賈梅士商業中心）",
+          "address": "澳門罅些喇提督大馬路162-166號賈梅士商業中心地下B至G座及一樓I至J座",
+          "phone": "28920004",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28920004",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（澳門金融中心店）",
+        "address": "澳門北京街230-246號金融中心地下J座及1樓H,I,J,K座",
+        "address_lines_as_published": "澳門北京街230-246號\n金融中心地下J座及1樓H,I,J,K座",
+        "area": "中南區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 50,
+        "source_pdf_page_one_based": 10,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（金融中心）",
+          "address": "澳門北京街230-246號金融中心地下J座及1樓H,I,J,K座",
+          "phone": "28232208",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28232208",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（建興龍店）",
+        "address": "澳門布魯塞爾街28、32、36及42號建興龍廣場 (興海閣,建富閣)地下Q、R、S座及T座的閣樓",
+        "address_lines_as_published": "澳門布魯塞爾街28、32、36及42號\n建興龍廣場 (興海閣,建富閣)\n地下Q、R、S座及T座的閣樓",
+        "area": "中南區",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:30",
+        "source_row": 51,
+        "source_pdf_page_one_based": 11,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（建興龍店）",
+          "address": "澳門布魯塞爾街28、32、36及42號建興龍廣場 (興海閣,建富閣) 地下Q、R、S座及T座的閣樓",
+          "phone": "28300160",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28300160",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（新城市店）",
+        "address": "澳門李寶椿街新城市商業中心第二期 II-A-1號舖",
+        "address_lines_as_published": "澳門李寶椿街新城市商業中心第二期 II-A-\n1號舖",
+        "area": "北區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 93,
+        "source_pdf_page_one_based": 19,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（龍園店）",
+        "address": "澳門慕拉士大馬路124 - 126號地下",
+        "address_lines_as_published": "澳門慕拉士大馬路124 - 126號地下",
+        "area": "北區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 94,
+        "source_pdf_page_one_based": 19,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（僑光店）",
+        "address": "澳門黑沙環永華街79-91號僑光大廈地下",
+        "address_lines_as_published": "澳門黑沙環永華街79-91號僑光大廈地下",
+        "area": "北區",
+        "historical_service_hours_as_published": "星期一至日：06:30-24:00",
+        "source_row": 95,
+        "source_pdf_page_one_based": 19,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（信達廣場店）",
+        "address": "澳門菜園路信達廣場第二座商場地面層G01及一樓104舖位",
+        "address_lines_as_published": "澳門菜園路信達廣場第二座\n商場地面層G01及一樓104舖位",
+        "area": "北區",
+        "historical_service_hours_as_published": "星期一至五、日：06:30-23:30；星期六：06:30-24:00",
+        "source_row": 96,
+        "source_pdf_page_one_based": 20,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（信和廣場店）",
+        "address": "澳門沙梨頭南街199-209號信和廣場地面層AC-AD舖",
+        "address_lines_as_published": "澳門沙梨頭南街199-209號\n信和廣場地面層AC-AD舖",
+        "area": "北區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 97,
+        "source_pdf_page_one_based": 20,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（信和廣場）",
+          "address": "沙梨頭南街199 - 209號信和廣場地面層AC - AD舖",
+          "phone": "28261802",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28261802",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（泉福翡翠店）",
+        "address": "澳門林茂海邊大馬路泉福翡翠地下B,F座",
+        "address_lines_as_published": "澳門林茂海邊大馬路泉福翡翠地下B,F座",
+        "area": "北區",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:30",
+        "source_row": 98,
+        "source_pdf_page_one_based": 20,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（寰宇天下）",
+        "address": "澳門黑沙環中街230號寰宇天下地下",
+        "address_lines_as_published": "澳門黑沙環中街230號寰宇天下地下",
+        "area": "北區",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 99,
+        "source_pdf_page_one_based": 20,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（寶龍店）",
+        "address": "氹仔孫逸仙博士大馬路289-349號寶龍花園F座地下",
+        "address_lines_as_published": "氹仔孫逸仙博士大馬路289-349號\n寶龍花園F座地下",
+        "area": "離島區-氹仔",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 120,
+        "source_pdf_page_one_based": 24,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（泉福店）",
+        "address": "氹仔地堡街泉福新村第二期第一座偉鴻閣地下A舖”A R/C”、B舖 “B R/C”及C舖” C R/C”",
+        "address_lines_as_published": "氹仔地堡街泉福新村第二期第一座偉鴻閣地下\nA舖”A R/C”、B舖 “B R/C”及C舖” C R/C”",
+        "area": "離島區-氹仔",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:00",
+        "source_row": 121,
+        "source_pdf_page_one_based": 25,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（國際機場店）",
+        "address": "氹仔偉龍馬路澳門國際機場客運大樓閣樓C舖",
+        "address_lines_as_published": "氹仔偉龍馬路澳門國際機場\n客運大樓閣樓C舖",
+        "area": "離島區-氹仔",
+        "historical_service_hours_as_published": "星期一至日：06:00-22:00",
+        "source_row": 122,
+        "source_pdf_page_one_based": 25,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（花城店）",
+        "address": "氹仔奧林匹克大馬路481-487號花城(利盛,利豐, 利厚,利盈,利茂)地下M座",
+        "address_lines_as_published": "氹仔奧林匹克大馬路481-487號\n花城(利盛,利豐, 利厚,利盈,利茂)地下M座",
+        "area": "離島區-氹仔",
+        "historical_service_hours_as_published": "星期日至四：07:00-23:30；星期五至六：07:00-24:00",
+        "source_row": 123,
+        "source_pdf_page_one_based": 25,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [
+        {
+          "name": "麥當勞",
+          "address": "氹仔奧林匹克大馬路481-487號花城(利盛,利豐,利厚,利盈,利茂)地下M座",
+          "source_row": 19,
+          "source_page": 2,
+          "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+          "source_type": "iam_public_licensed_food_premises_query",
+          "physical_current_operation_verified": false
+        }
+      ],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（濠景花園）",
+        "address": "氹仔基馬拉斯大馬路127-153號濠景花園第三座地下A座",
+        "address_lines_as_published": "氹仔基馬拉斯大馬路127-153號\n濠景花園第三座地下A座",
+        "area": "離島區-氹仔",
+        "historical_service_hours_as_published": "星期日至四：07:00-23:30；星期五至六：07:00-24:00",
+        "source_row": 124,
+        "source_pdf_page_one_based": 25,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（濠景店）",
+          "address": "澳門氹仔基馬拉斯大馬路127-153號濠景花園第三座地下A座",
+          "phone": "28781185",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [
+        {
+          "name": "麥當勞",
+          "address": "氹仔基馬拉斯大馬路127-153號濠景花園第三座地下A座",
+          "source_row": 0,
+          "source_page": 1,
+          "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+          "source_type": "iam_public_licensed_food_premises_query",
+          "physical_current_operation_verified": false
+        }
+      ],
+      "directory_full_address_unique": true,
+      "directory_phone": "28781185",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（科大店）",
+        "address": "氹仔偉龍馬路科技大學P棟P102鋪",
+        "address_lines_as_published": "氹仔偉龍馬路科技大學P棟P102鋪",
+        "area": "離島區-氹仔",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:00",
+        "source_row": 125,
+        "source_pdf_page_one_based": 25,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（澳門科技大學店）",
+          "address": "澳門氹仔偉龍馬路科技大學 P棟P102鋪",
+          "phone": "28451098",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28451098",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（樂駿盈軒店）",
+        "address": "澳門氹仔柯維納馬路212號樂駿盈軒第一座地下AY座",
+        "address_lines_as_published": "澳門氹仔柯維納馬路212號\n樂駿盈軒第一座地下AY座",
+        "area": "離島區-氹仔",
+        "historical_service_hours_as_published": "24小時",
+        "source_row": 126,
+        "source_pdf_page_one_based": 26,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [
+        {
+          "name": "麥當勞（樂駿盈軒店）",
+          "address": "澳門氹仔柯維納馬路 212 號 樂駿盈軒第一座地下 AY 座",
+          "phone": "28316002",
+          "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+          "source_type": "public_business_directory",
+          "current_open_status_verified": false
+        }
+      ],
+      "iam_candidates": [],
+      "directory_full_address_unique": true,
+      "directory_phone": "28316002",
+      "eligible_to_attach_dated_government_source": true,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "完整地址双向唯一，可附2025政府具名来源；不覆盖现营业时间。"
+    },
+    {
+      "government_evidence": {
+        "name": "麥當勞（路環業興店）",
+        "address": "路環業興二街65-77號業興大廈 (第五座) 地下A座",
+        "address_lines_as_published": "路環業興二街65-77號\n業興大廈 (第五座) 地下A座",
+        "area": "離島區-路環",
+        "historical_service_hours_as_published": "星期一至日：07:00-23:30",
+        "source_row": 135,
+        "source_pdf_page_one_based": 27,
+        "source_url": "https://www.gov.mo/zh-hant/wp-content/uploads/sites/4/2025/03/2025%E5%B9%B4%E7%A4%BE%E5%8D%80%E6%B6%88%E8%B2%BB%E5%A4%A7%E5%A5%AC%E8%B3%9E_%E9%95%B7%E8%80%85%E5%8D%A1%E6%B6%88%E8%B2%BB%E7%AB%8B%E6%B8%9B%E5%84%AA%E6%83%A0_%E6%8B%8D%E5%8D%A1%E6%9C%8D%E5%8B%99%E9%BB%9E.pdf",
+        "source_type": "government_dated_event_service_point_list",
+        "published_updated_date": "2025/03/21",
+        "physical_current_operation_verified": false
+      },
+      "directory_candidates": [],
+      "iam_candidates": [
+        {
+          "name": "麥當勞",
+          "address": "路環業興二街65-77號業興大廈(第五座)地下A座",
+          "source_row": 27,
+          "source_page": 3,
+          "source_url": "https://app.iam.gov.mo/LFBPriceEnquiry/spring/main?lang=cn",
+          "source_type": "iam_public_licensed_food_premises_query",
+          "physical_current_operation_verified": false
+        }
+      ],
+      "directory_full_address_unique": false,
+      "directory_phone": null,
+      "eligible_to_attach_dated_government_source": false,
+      "eligible_to_attach_new_iam_source": false,
+      "current_operation_verified": false,
+      "review_note": "未与现目录完整地址唯一对应；保留原始楼层、铺位和门牌继续核对。"
+    }
+  ]
+}
