@@ -126,6 +126,7 @@ async function checkDesktopStores(browser) {
     assert.equal(await markers.count(),0,'hiding the store layer removes the labels');
     await page.locator('#show-store-layer').check();await assertStoreMarkers(page);
     await page.locator('#country-filter').selectOption('440000');await page.locator('#country-filter').dispatchEvent('change');
+    await page.waitForFunction(()=>document.querySelectorAll('#map-store-markers .map-store-marker').length===2);
     assert.equal(await markers.count(),2,'province filter limits the store markers');
     assert.deepEqual(apiRequests,[]);
   } finally {await context.close();}
