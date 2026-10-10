@@ -37,6 +37,7 @@
   let view = 'map';
   let currentSummary;
   let currentEntry = null;
+  let formCollectionReturn = null;
   let photo = null;
   let defaultPhoto = null;
   let photoBusy = false;
@@ -437,7 +438,8 @@
     collections=window.JournalCollections.build(s.entries);albumList.replaceChildren();
     for(const city of collections.cities){
       const button=node('button',undefined,'city-album');button.type='button';
-      const cover=city.entries.find(entry=>entry.photo || entry.default_photo);
+      const coverId=window.CollectionPreferences.get(archive.collection_preferences,'city:'+city.key).cover_id;
+      const cover=city.entries.find(entry=>entry.id===coverId && (entry.photo || entry.default_photo)) || city.entries.find(entry=>entry.photo || entry.default_photo);
       if(cover){const image=node('img');image.src=cover.photo?.data_url || data.store_images?.[cover.default_photo.url] || cover.default_photo.url;image.alt=city.city+'回忆册封面';image.loading='lazy';image.referrerPolicy='no-referrer';button.append(image);}
       else button.append(node('span','一座城 · 一顿麦','album-no-photo'));
       button.append(node('strong',city.city),node('span',city.count+' 页 · '+provinceName(city.province_code)),node('small','翻开这座城 →'));
@@ -446,8 +448,16 @@
     if(!collections.cities.length)albumList.append(node('p','记下一餐，这座城的回忆会自动装订在这里。','map-note'));
   }
   function selectedCollection(){return (collectionMode==='city'?collections.cities:collections.months).find(item=>(collectionMode==='city'?item.key:item.month)===collectionKey);}
+  function collectionPreference(){return window.CollectionPreferences.get(archive.collection_preferences,collectionMode+':'+collectionKey);}
+  function saveCollectionPreference(patch){
+    archive={...archive,collection_preferences:window.CollectionPreferences.update(archive.collection_preferences,collectionMode+':'+collectionKey,patch)};save();
+  }
+  function collectionSelectedIds(selected){
+    const preference=collectionPreference(),available=new Set(selected.entries.map(entry=>entry.id));
+    return (preference.selected_ids===undefined?selected.entries.slice(0,6).map(entry=>entry.id):preference.selected_ids).filter(id=>available.has(id));
+  }
   function openCollection(mode,key){
-    collectionMode=mode;collectionKey=key;collectionCover='';
+    collectionMode=mode;collectionKey=key;collectionCover=collectionPreference().cover_id || '';
     $('collection-switch-label').textContent=mode==='city'?'换一座城':'换一个月';
     const list=mode==='city'?collections.cities:collections.months;
     $('collection-switch').replaceChildren(...list.map(item=>new Option(mode==='city'?item.city+' · '+provinceName(item.province_code):item.month,mode==='city'?item.key:item.month)));
@@ -459,30 +469,74 @@
     $('collection-heading').textContent=monthly?selected.month+' · 麦麦小报':selected.city+' · 我的麦麦回忆册';
     $('collection-summary').textContent=monthly?`${selected.count} 页回忆 · ${selected.cities.length} 座城市 · ${selected.storeCount} 家麦当劳`:
       `${selected.count} 页回忆 · ${entries[entries.length-1].date} — ${entries[0].date}`;
-    $('collection-share').hidden=!monthly;$('collection-cover-field').hidden=!monthly;
+    const preference=collectionPreference(),selectedIds=collectionSelectedIds(selected);
+    $('collection-share').hidden=false;$('collection-cover-field').hidden=false;
+    $('collection-share').textContent=monthly?'生成这月小报，分享给朋友':`分享选中的 ${selectedIds.length} 页回忆`;
+    $('collection-share').disabled=!monthly && !selectedIds.length;
     const photos=entries.filter(entry=>entry.photo || entry.default_photo);
-    $('collection-cover').replaceChildren(new Option('自动挑选照片，最多 3 张',''),...photos.map(entry=>new Option(entry.date+' · '+entry.store,entry.id)));
+    if(!photos.some(entry=>entry.id===collectionCover))collectionCover='';
+    $('collection-cover-label').textContent=monthly?'小报主照片':'回忆册封面';
+    $('collection-cover').replaceChildren(new Option(monthly?'自动挑选照片，最多 3 张':'自动用最近一张照片',''),...photos.map(entry=>new Option(entry.date+' · '+entry.store,entry.id)));
     $('collection-cover').value=collectionCover;
     $('collection-cover').disabled=!photos.length;
+    $('collection-pick-actions').hidden=monthly;$('collection-photo-editor').hidden=!monthly;
+    $('collection-caption').maxLength=monthly?100:140;$('collection-caption').value=preference.caption || '';
+    $('collection-layout').value=preference.layout || 'strip';
+    const choices=$('collection-photo-choices');choices.replaceChildren();
+    const photoIds=preference.photo_ids || (collectionCover?[collectionCover]:[]);
+    if(monthly)for(let index=0;index<3;index++){
+      const label=node('label',undefined,'field');label.append(node('span',['第一张 · 主图','第二张','第三张'][index]));
+      const select=node('select');select.id='collection-photo-'+index;select.replaceChildren(new Option('空位',''),...photos.map(entry=>new Option(entry.date+' · '+entry.store,entry.id)));select.value=photoIds[index] || '';
+      select.addEventListener('change',()=>{
+        const slots=[0,1,2].map(i=>$('collection-photo-'+i).value);
+        const other=slots.findIndex((id,i)=>slots[index] && i!==index && id===slots[index]);
+        if(other>=0)slots[other]=photoIds[index] || '';
+        const ids=slots.filter(Boolean);
+        collectionCover=ids[0] || '';saveCollectionPreference({photo_ids:ids,cover_id:collectionCover});renderCollection();
+      });label.append(select);choices.append(label);
+    }
+    $('collection-photo-help').textContent=preference.photo_ids===undefined?'当前自动选图。指定照片后，按第一、二、三张的顺序排版。':photoIds.length?`已指定 ${photoIds.length} 张照片，可调换顺序或移除。`:'这期用文字回忆，也可以选照片。';
     $('collection-tastes').textContent=monthly && selected.topFoods.length?'这个月常吃：'+selected.topFoods.slice(0,3).map(food=>food.name+' × '+food.count).join(' / '):'';
     const grid=$('collection-grid');grid.replaceChildren();
     for(const entry of entries){
+      const sheet=node('article',undefined,'collection-sheet');
+      if(!monthly){
+        const label=node('label',undefined,'collection-pick');const check=node('input');check.type='checkbox';check.checked=selectedIds.includes(entry.id);check.dataset.entryId=entry.id;
+        label.append(check,node('span','选入分享长图'));check.addEventListener('change',()=>{
+          let next=collectionSelectedIds(selected);
+          if(check.checked){if(next.length>=12){check.checked=false;toast('一张长图最多选 12 页，先取消一页再选。');return;}next.push(entry.id);}
+          else next=next.filter(id=>id!==entry.id);
+          saveCollectionPreference({selected_ids:next});$('collection-share').textContent=`分享选中的 ${next.length} 页回忆`;$('collection-share').disabled=!next.length;
+        });sheet.append(label);
+      }
       const card=node('button',undefined,'collection-page');card.type='button';
       if(entry.photo || entry.default_photo){const image=node('img');image.src=entry.photo?.data_url || data.store_images?.[entry.default_photo.url] || entry.default_photo.url;image.alt=entry.store;image.loading='lazy';image.referrerPolicy='no-referrer';card.append(image);}
       const text=node('span',undefined,'collection-page-text');text.append(node('small',entry.date+' · '+entry.city),node('strong',entry.store));
       if(entry.foods.length)text.append(node('span',entry.foods.join(' / ')));
       if(entry.note)text.append(node('p',entry.note));card.append(text);
-      card.addEventListener('click',()=>{$('collection-dialog').close();openDetail(entry);
+      card.addEventListener('click',()=>{$('collection-dialog').close();openDetail(entry,true);
         const back=node('button',monthly?'回到这月小报':'回到城市回忆册','quiet');back.type='button';back.addEventListener('click',()=>{$('detail-dialog').close();renderCollection();$('collection-dialog').showModal();});$('detail-body').prepend(back);
-      });grid.append(card);
+      });sheet.append(card);grid.append(sheet);
     }
     $('collection-dialog').scrollTop=0;
   }
-  $('collection-switch').addEventListener('change',()=>{collectionKey=$('collection-switch').value;collectionCover='';renderCollection();});
-  $('collection-cover').addEventListener('change',()=>{collectionCover=$('collection-cover').value;});
+  $('collection-switch').addEventListener('change',()=>{collectionKey=$('collection-switch').value;collectionCover=collectionPreference().cover_id || '';renderCollection();});
+  $('collection-cover').addEventListener('change',()=>{
+    const value=$('collection-cover').value,patch={cover_id:value};
+    if(collectionMode==='month')patch.photo_ids=value?[value]:undefined;
+    else if(value){const ids=collectionSelectedIds(selectedCollection());if(!ids.includes(value)){if(ids.length>=12){$('collection-cover').value=collectionCover;toast('先取消一页，再把这张封面选入长图。');return;}patch.selected_ids=[value,...ids];}}
+    collectionCover=value;saveCollectionPreference(patch);renderCollections(currentSummary);renderCollection();
+  });
+  $('collection-caption').addEventListener('input',()=>saveCollectionPreference({caption:$('collection-caption').value}));
+  $('collection-layout').addEventListener('change',()=>saveCollectionPreference({layout:$('collection-layout').value}));
+  $('collection-auto-photos').addEventListener('click',()=>{collectionCover='';saveCollectionPreference({photo_ids:undefined,cover_id:''});renderCollection();});
+  $('collection-latest-pages').addEventListener('click',()=>{saveCollectionPreference({selected_ids:undefined});renderCollection();});
+  $('collection-clear-pages').addEventListener('click',()=>{saveCollectionPreference({selected_ids:[]});renderCollection();});
   $('collection-share').addEventListener('click',()=>{
     const selected=selectedCollection();if(!selected)return;
-    $('collection-dialog').close();openShare({...selected,kind:'month',coverId:collectionCover});
+    const preference=collectionPreference();
+    $('collection-dialog').close();openShare({...selected,kind:collectionMode==='month'?'month':'city',coverId:collectionCover,
+      selectedIds:collectionSelectedIds(selected),photoIds:preference.photo_ids,caption:preference.caption || '',layout:preference.layout || 'strip'});
   });
   function renderJourney() {
     const insights=window.JourneyInsights.build(archive,{today:today()});
@@ -762,12 +816,13 @@
     if(store && field('city').value.replace(/市$/,'')!==store.city) defaultPhoto=null;
     showPhoto();updateCitySuggestions();
   }
-  function openForm(entry=null) {
+  function openForm(entry=null,fromCollection=false) {
     if (entry && archive.data_kind === 'synthetic') {
       toast('这条是虚构示例。请用“新增打卡”开始记录你本人的到访。');
       return;
     }
     if(!startPersonal()) return;
+    formCollectionReturn=fromCollection?{mode:collectionMode,key:collectionKey}:null;
     photoRevision++;
     currentEntry=entry; selectedStore=entry?.store_reference || null;
     selectedWishlistId=null;$('wishlist-complete').hidden=true;
@@ -842,6 +897,10 @@
       const next={...archive,data_kind:'manual',entries:archive.entries.filter(e=>e.id!==normalized.id).concat(normalized)};
       if(selectedWishlistId && field('complete_wishlist').checked) next.wishlist=W.remove(archive.wishlist || [],selectedWishlistId);
       archive=E.normalizeArchive(next,opts()); save(); $('entry-dialog').close(); showImported('journal'); toast(persistent?'这一页已保存在本浏览器。':'这一页已加入；请立即导出备份。');
+      if(formCollectionReturn){
+        collectionMode=formCollectionReturn.mode;collectionKey=formCollectionReturn.key;formCollectionReturn=null;
+        if(selectedCollection()){collectionCover=collectionPreference().cover_id || '';renderCollection();$('collection-dialog').showModal();}
+      }
     } catch(error) { $('form-error').textContent='未能保存：请检查必填内容、日期、坐标和照片大小。'; $('form-error').hidden=false; }
   });
   function removeEntry(entry) {
@@ -850,7 +909,7 @@
     if (entry.origin === 'mcp' || entry.source === 'mcp_candidate') deleted.add(entry.id);
     archive={...archive,deleted_order_ids:[...deleted],entries:archive.entries.filter(e=>e.id!==entry.id)}; save(); render(); toast('记录已移除。');
   }
-  function openDetail(entry) {
+  function openDetail(entry,fromCollection=false) {
     $('detail-heading').textContent=entry.store;
     const body=$('detail-body');body.replaceChildren();
     body.append(node('p',`${entry.date} / ${placeName(entry)}`,'place'));
@@ -859,7 +918,7 @@
     body.append(navigationActions(entry));
     if(entry.note) body.append(node('p',entry.note));
     body.append(node('p',entry.location ? (entry.location.precision==='city'?'地图使用城市中心，非门店位置。':'地图使用本人填写的坐标。'):'本页只有文字记录，没有位置标记。','map-note'));
-    const edit=node('button','编辑这一页','secondary');edit.type='button';edit.addEventListener('click',()=>{$('detail-dialog').close();openForm(entry);});body.append(edit);
+    const edit=node('button','编辑这一页','secondary');edit.type='button';edit.addEventListener('click',()=>{$('detail-dialog').close();openForm(entry,fromCollection);});body.append(edit);
     const share=node('button','分享这一页','secondary');share.type='button';share.style.marginLeft='8px';share.addEventListener('click',()=>{$('detail-dialog').close();openShare(entry);});body.append(share);
     if(archive.data_kind!=='synthetic'){
       const again=node('button','再来这家，记新的一页','quiet');again.type='button';again.addEventListener('click',()=>{
@@ -1033,10 +1092,17 @@
   const sharePhotoCache=new Map();
   let footprintTitle='我的麦麦中国足迹';
   function shareText() {
+    if(shareEntry?.kind==='city'){
+      const facts=window.JournalCollections.projectCity(shareEntry,{selectedIds:shareEntry.selectedIds,coverId:shareEntry.coverId,
+        title:$('share-title').value,caption:shareEntry.caption,includeCities:$('share-cities').checked,includeNote:$('share-note').checked});
+      return [facts.title,facts.city,`选了 ${facts.count} 页 · 这座城共有 ${facts.totalCount} 页回忆`,facts.caption,
+        ...facts.pages.map(page=>[page.date,page.store,page.foods.join(' / '),page.note].filter(Boolean).join(' · ')),
+        '用麦当劳，画出自己的中国足迹。','https://jay1023cn.github.io/mcd-china-map/'].filter(Boolean).join('\n');
+    }
     if(shareEntry?.kind==='month'){
-      const facts=window.JournalCollections.projectMonth(shareEntry,{title:$('share-title').value,includeCities:$('share-cities').checked});
+      const facts=window.JournalCollections.projectMonth(shareEntry,{title:$('share-title').value,caption:shareEntry.caption,includeCities:$('share-cities').checked});
       return [facts.title,facts.month+' · '+facts.count+' 页回忆 / '+facts.cityCount+' 座城市 / '+facts.storeCount+' 家麦当劳',
-        facts.cities?.join(' · '),facts.topFoods.map(food=>food.name+' × '+food.count).join(' / '),
+        facts.cities?.join(' · '),facts.topFoods.map(food=>food.name+' × '+food.count).join(' / '),facts.caption,
         '用麦当劳，画出自己的中国足迹。','https://jay1023cn.github.io/mcd-china-map/'].filter(Boolean).join('\n');
     }
     if(shareEntry) {
@@ -1089,7 +1155,8 @@
     shareEntry=entry;
     const plan=entry?.kind==='plan';
     const monthly=entry?.kind==='month';
-    shareCollectionBack.hidden=!monthly;
+    const cityAlbum=entry?.kind==='city';shareCollectionBack.hidden=!monthly && !cityAlbum;
+    shareCollectionBack.textContent=cityAlbum?'回到回忆册，换几页':'回到小报，换张照片';
     $('share-heading').textContent=plan?'分享想去的下一站':entry?'分享这一页探店记':'把中国足迹装进一张卡片';
     $('share-description').textContent=plan?'把想去的店和理由装进一张卡，邀请朋友一起出发。计划卡不会计入足迹。':entry?'照片、餐品和随记，装进一张自己的探店卡。预览满意后再分享。':'按当前筛选生成。选好配色，分享给朋友看看。';
     $('share-title').value=plan?'下一站，想去这家':entry?'一页麦麦探店记':footprintTitle;
@@ -1105,25 +1172,36 @@
       $('share-title').value=entry.month.slice(5)+' 月的麦麦小事';$('share-place-label').textContent='显示走过的城市';
       $('share-note-option').hidden=true;$('share-photo-option').hidden=true;
     }
+    if(cityAlbum){
+      $('share-heading').textContent='分享我的城市回忆册';$('share-description').textContent='选中的几页装订成一张长图。城市、店名和随记可以单独选择是否显示。';
+      $('share-title').value='这一城的麦麦回忆';$('share-place-label').textContent='显示城市和门店';$('share-note-label').textContent='带上选中几页的随记';
+      $('share-note').checked=true;$('share-photo-option').hidden=true;
+    }
     $('share-preview').replaceChildren();
     $('share-dialog').showModal();updateShareCard();
   }
   async function updateShareCard() {
     const revision=++shareRevision;$('save-share').disabled=true;$('native-share').disabled=true;$('copy-share-image').disabled=true;$('share-status').textContent='正在画出你的足迹……';
     try {
-      let monthPhotos=[],monthPhotoCredit='';
-      if(shareEntry?.kind==='month'){
-        const used=new Set(),candidates=shareEntry.coverId?shareEntry.entries.filter(entry=>entry.id===shareEntry.coverId):shareEntry.entries;
+      const sharedEntry=shareEntry;
+      let monthPhotos=[],cityPhotos=[],monthPhotoCredit='';
+      if(sharedEntry?.kind==='month' || sharedEntry?.kind==='city'){
+        const cityAlbum=sharedEntry.kind==='city',ids=cityAlbum?sharedEntry.selectedIds:sharedEntry.photoIds;
+        const used=new Set(),candidates=ids!==undefined?ids.map(id=>sharedEntry.entries.find(entry=>entry.id===id)).filter(Boolean):sharedEntry.coverId?sharedEntry.entries.filter(entry=>entry.id===sharedEntry.coverId):sharedEntry.entries;
         for(const entry of candidates){
-          const identity=entry.photo?.data_url || entry.default_photo?.url;if(!identity || used.has(identity))continue;used.add(identity);
-          const photo=await sharePhoto(entry);if(!photo)continue;monthPhotos.push(photo);
+          const identity=entry.photo?.data_url || entry.default_photo?.url;if(!identity || (!cityAlbum && sharedEntry.photoIds===undefined && used.has(identity)))continue;used.add(identity);
+          const photo=await sharePhoto(entry);if(!photo)continue;
+          if(revision!==shareRevision || !$('share-dialog').open)return;
+          if(cityAlbum)cityPhotos.push({entryId:entry.id,dataUrl:photo});else monthPhotos.push(photo);
           if(entry.default_photo && !entry.photo)monthPhotoCredit='门店照片来自公开资料 · 来源见手账';
-          if(monthPhotos.length===3)break;
+          if(!cityAlbum && monthPhotos.length===3)break;
         }
       }
-      const canvas=shareEntry?.kind==='month'?await window.JournalCollections.renderMonth(shareEntry,{
+      const canvas=sharedEntry?.kind==='city'?await window.JournalCollections.renderCity(sharedEntry,{
+        title:$('share-title').value,theme:$('share-theme').value,caption:sharedEntry.caption,selectedIds:sharedEntry.selectedIds,coverId:sharedEntry.coverId,
+        includeCities:$('share-cities').checked,includeNote:$('share-note').checked,photos:cityPhotos,photoCredit:monthPhotoCredit,snackImage:await shareSnackImage()}):sharedEntry?.kind==='month'?await window.JournalCollections.renderMonth(sharedEntry,{
         title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked,
-        photos:monthPhotos,photoCredit:monthPhotoCredit,snackImage:await shareSnackImage()}):shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
+        caption:sharedEntry.caption,layout:sharedEntry.layout,photos:monthPhotos,photoCredit:monthPhotoCredit,snackImage:await shareSnackImage()}):shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
         kind:shareEntry.kind,snackImage:await shareSnackImage(),
         photoAnnotation:$('share-cities').checked?(data.stores.find(store=>store.name===shareEntry.store)?.tags || []).find(tag=>tag.length<=10):'',
         includePlace:$('share-cities').checked,includeNote:$('share-note').checked,photoDataUrl:await sharePhoto(shareEntry),
@@ -1133,7 +1211,7 @@
       if(revision!==shareRevision || !$('share-dialog').open)return;
       const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       if(revision!==shareRevision || !$('share-dialog').open)return;
-      shareCanvas=canvas;shareFile=new File([blob],(shareEntry?.kind==='month'?'麦麦月度小报-':shareEntry?.kind==='plan'?'麦麦想去-':shareEntry?'麦麦探店记-':'麦麦中国足迹-')+today()+'.png',{type:'image/png'});
+      shareCanvas=canvas;shareFile=new File([blob],(shareEntry?.kind==='city'?'麦麦城市回忆册-':shareEntry?.kind==='month'?'麦麦月度小报-':shareEntry?.kind==='plan'?'麦麦想去-':shareEntry?'麦麦探店记-':'麦麦中国足迹-')+today()+'.png',{type:'image/png'});
       const oldUrl=sharePreviewUrl;sharePreviewUrl=URL.createObjectURL(blob);
       const preview=node('img');preview.id='share-image';preview.alt='你的中国足迹分享卡预览';preview.src=sharePreviewUrl;
       $('share-preview').replaceChildren(preview);if(oldUrl)URL.revokeObjectURL(oldUrl);
@@ -1177,7 +1255,7 @@
     try {
       const blob=await new Promise(resolve=>shareCanvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;
-      link.download=(shareEntry?.kind==='month'?'麦麦月度小报-':shareEntry?.kind==='plan'?'麦麦想去-':shareEntry?'麦麦探店记-':'麦麦中国足迹-')+(archive.data_kind==='synthetic'?'示例-':'')+today()+'.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+      link.download=(shareEntry?.kind==='city'?'麦麦城市回忆册-':shareEntry?.kind==='month'?'麦麦月度小报-':shareEntry?.kind==='plan'?'麦麦想去-':shareEntry?'麦麦探店记-':'麦麦中国足迹-')+(archive.data_kind==='synthetic'?'示例-':'')+today()+'.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
       $('share-status').textContent='图片已开始下载，去相册或下载文件夹找到它。';
     }catch(error){$('share-status').textContent='图片暂时未保存，请再试一次。';}
     finally{$('save-share').disabled=false;}
@@ -1208,6 +1286,9 @@
       let merged=archive.wishlist || [];
       for(const item of incoming.wishlist || [])if(!merged.some(old=>old.id===item.id))merged=W.add(merged,item);
       combined.wishlist=merged;
+    }
+    if(archive.collection_preferences || incoming.collection_preferences){
+      combined.collection_preferences=[...new Map([...(archive.collection_preferences || []),...(incoming.collection_preferences || [])].map(item=>[item.id,item])).values()];
     }
     const normalized=E.normalizeArchive(combined,opts());key=normalized.data_kind==='synthetic'?demoKey:personalKey;
     archive=normalized;save();render();return true;

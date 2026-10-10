@@ -103,6 +103,18 @@ class ProjectTests(unittest.TestCase):
         self.assertRaises(ValueError, project_archive, {**legacy, 'wishlist': [{}] * 101})
         self.assertRaises(ValueError, project_archive, {**legacy, 'wishlist': {}})
 
+    def test_collection_choices_project_with_backup_fields_only(self):
+        legacy = {'version': 1, 'data_kind': 'manual', 'entries': []}
+        choices = [{'id': 'city:310000|上海', 'cover_id': 'a', 'selected_ids': ['b', 'a'],
+                    'caption': '一起去吃麦', 'token': 'secret'},
+                   {'id': 'month:2026-10', 'photo_ids': [], 'layout': 'feature'}]
+        projected = project_archive({**legacy, 'collection_preferences': choices})
+        self.assertEqual(projected['collection_preferences'], [
+            {key: value for key, value in choices[0].items() if key != 'token'}, choices[1]])
+        self.assertNotIn('collection_preferences', project_archive(legacy))
+        self.assertRaises(ValueError, project_archive, {**legacy, 'collection_preferences': [{'id': 'month:2026-13'}]})
+        self.assertRaises(ValueError, project_archive, {**legacy, 'collection_preferences': [{'id': 'month:2026-10', 'caption': {'token': 'secret'}}]})
+
     def test_candidate_conversion_drops_identifiers_and_does_not_confirm(self):
         orders = [{'id': 'fixture-order-only', 'created_at': '2026-10-08T22:00:00+08:00', 'status': 'completed', 'store': {'name': '虚构门店'}, 'items': [{'name': '咖啡'}]}, {'status': 'cancelled'}]
         result = candidates({'source': {'kind': 'mcp'}, 'orders': orders})

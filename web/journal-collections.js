@@ -85,6 +85,49 @@
       topFoods: summary.topFoods.slice(0, 3).map(function (food) { return {name: clean(food.name, 24), count: food.count}; }),
       theme: options.theme === 'red' ? 'red' : 'paper'};
     if (options.includeCities === true) result.cities = summary.cities.map(function (city) { return clean(city.city, 32); });
+    var caption = clean(options.caption, 100);
+    if (caption) result.caption = caption;
+    return result;
+  }
+  function selectCity(collection, options) {
+    collection = collection && typeof collection === 'object' ? collection : {};
+    options = options && typeof options === 'object' ? options : {};
+    var city = cityInfo(collection), seen = new Set();
+    var all = entriesSorted(collection.entries).filter(function (entry) {
+      var info = cityInfo(entry), id = clean(entry.id, 100);
+      if (!city || (collection.key != null && collection.key !== city.key) || !info || info.key !== city.key || !id || seen.has(id)) return false;
+      seen.add(id); return true;
+    });
+    var entries;
+    if (options.selectedIds === undefined) entries = all.slice(0, 6);
+    else {
+      var byId = new Map(all.map(function (entry) { return [clean(entry.id, 100), entry]; })), selected = new Set();
+      entries = [];
+      (Array.isArray(options.selectedIds) ? options.selectedIds : []).forEach(function (value) {
+        var id = clean(value, 100);
+        if (entries.length >= 12 || selected.has(id) || !byId.has(id)) return;
+        entries.push(byId.get(id)); selected.add(id);
+      });
+    }
+    var coverId = clean(options.coverId, 100), cover = entries.findIndex(function (entry) { return clean(entry.id, 100) === coverId; });
+    if (cover > 0) entries.unshift(entries.splice(cover, 1)[0]);
+    return {city: city && city.city || '', entries: entries, totalCount: all.length};
+  }
+  function projectCity(collection, options) {
+    options = options && typeof options === 'object' ? options : {};
+    var selected = selectCity(collection, options);
+    var result = {title: clean(options.title, 42) || '我的麦麦城市回忆册', count: selected.entries.length,
+      totalCount: selected.totalCount, pages: selected.entries.map(function (entry) {
+        var page = {date: entry.date, foods: (Array.isArray(entry.foods) ? entry.foods : []).map(function (item) {
+          return clean(typeof item === 'string' ? item : item && (item.name || item.title), 24);
+        }).filter(Boolean).slice(0, 5)};
+        if (options.includeCities === true) page.store = clean(entry.store || entry.store_name, 48);
+        if (options.includeNote === true) page.note = clean(entry.note, 140);
+        return page;
+      })};
+    if (options.includeCities === true) result.city = clean(selected.city, 32);
+    var caption = clean(options.caption, 140);
+    if (caption) result.caption = caption;
     return result;
   }
   function wrap(ctx, text, width) {
@@ -127,12 +170,92 @@
     else { sh = w / ratio; sy = (h - sh) / 2; }
     ctx.drawImage(image, sx, sy, sw, sh, x, y, width, height);
   }
-  async function renderMonth(collection, options) {
-    options = options && typeof options === 'object' ? options : {};
-    if (typeof document === 'undefined') throw new Error('Monthly cards need a browser canvas');
+  function drawLines(ctx, text, x, y, width, maxLines, lineHeight) {
+    var lines = wrap(ctx, text, width);
+    lines.slice(0, maxLines).forEach(function (value, index) {
+      var rest = index === maxLines - 1 && lines.length > maxLines ? '…' : '';
+      ctx.fillText(ellipsis(ctx, value + rest, width), x, y + index * lineHeight);
+    });
+  }
+  async function waitForFonts() {
+    if (typeof document === 'undefined') throw new Error('Journal cards need a browser canvas');
     if (document.fonts) {
       try { if (document.fonts.load) await document.fonts.load('400 32px "LXGW WenKai"'); await document.fonts.ready; } catch (_) {}
     }
+  }
+  function drawSnack(ctx, image, x, y, width, height) {
+    var w = image && Number(image.naturalWidth || image.width), h = image && Number(image.naturalHeight || image.height);
+    if (w > 0 && h > 0) { var scale = Math.min(width / w, height / h); ctx.drawImage(image, x, y, w * scale, h * scale); }
+  }
+  async function renderCity(collection, options) {
+    options = options && typeof options === 'object' ? options : {};
+    await waitForFonts();
+    var selected = selectCity(collection, options), facts = projectCity(collection, options);
+    var photoInputs = new Map();
+    (Array.isArray(options.photos) ? options.photos : []).forEach(function (photo) {
+      if (!photo || typeof photo !== 'object') return;
+      var id = clean(photo.entryId, 100);
+      if (!photoInputs.has(id) && validPhoto(photo.dataUrl)) photoInputs.set(id, photo.dataUrl);
+    });
+    var photos = await Promise.all(selected.entries.map(function (entry) { return loadPhoto(photoInputs.get(clean(entry.id, 100))); }));
+    var top = 416, rowHeight = 480, rows = Math.ceil(facts.count / 2);
+    var height = facts.count ? top + rows * rowHeight + 150 : 900;
+    var canvas = document.createElement('canvas'); canvas.width = WIDTH; canvas.height = height;
+    var ctx = canvas.getContext('2d'); if (!ctx) throw new Error('Canvas is unavailable');
+    var paper = options.theme === 'red' ? '#fff1e8' : '#fff9ed', ink = '#302a22', muted = '#887760', red = '#e44832';
+    ctx.fillStyle = paper; ctx.fillRect(0, 0, WIDTH, height);
+    ctx.fillStyle = 'rgba(116,91,54,.035)';
+    for (var fiber = 0; fiber < Math.ceil(height / 24); fiber++) ctx.fillRect(18 + (fiber * 137) % 1038, 24 + (fiber * 211) % (height - 48), 2, 2);
+    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left'; ctx.fillStyle = ink; ctx.font = '400 28px ' + FONT;
+    ctx.fillText('麦麦中国地图 · 城市回忆册', 68, 66);
+    if (facts.city) { ctx.textAlign = 'right'; ctx.fillStyle = red; ctx.font = '400 27px ' + FONT; ctx.fillText(ellipsis(ctx, facts.city, 340), 1012, 66); ctx.textAlign = 'left'; }
+    line(ctx, 68, 90, 944, '#ddcdb1');
+    var size = 68, titleLines;
+    do { ctx.font = '400 ' + size + 'px ' + FONT; titleLines = wrap(ctx, facts.title, 944); if (titleLines.length <= 2 || size <= 40) break; size -= 2; } while (true);
+    ctx.fillStyle = red; drawLines(ctx, facts.title, 68, 165, 944, 2, size + 12);
+    ctx.fillStyle = muted; ctx.font = '400 24px ' + FONT;
+    drawLines(ctx, facts.caption || '同一座城，不同的小停靠。把喜欢的一页页，装订在一起。', 70, 275, 940, 4, 28);
+    ctx.fillStyle = ink; ctx.font = '400 23px ' + FONT;
+    ctx.fillText('挑了 ' + facts.count + ' 页 · 这座城共有 ' + facts.totalCount + ' 页回忆', 70, 398);
+    if (!facts.count) {
+      ctx.fillStyle = ink; ctx.font = '400 43px ' + FONT; ctx.fillText('先挑几页喜欢的回忆', 70, 532);
+      ctx.fillStyle = muted; ctx.font = '400 26px ' + FONT; ctx.fillText('选好之后，再把这座城装进一张长图。', 72, 588);
+      line(ctx, 72, 624, 330, '#e7bf42');
+    }
+    facts.pages.forEach(function (page, index) {
+      var width = 460, x = index === facts.count - 1 && facts.count % 2 ? (WIDTH - width) / 2 : 68 + index % 2 * 484;
+      var y = top + Math.floor(index / 2) * rowHeight;
+      ctx.save(); ctx.shadowColor = 'rgba(68,48,24,.10)'; ctx.shadowBlur = 9; ctx.shadowOffsetY = 4;
+      ctx.fillStyle = '#fffdf8'; ctx.fillRect(x, y, width, 456); ctx.restore();
+      ctx.fillStyle = '#fff'; ctx.fillRect(x + 10, y + 10, width - 20, 218);
+      if (photos[index]) drawPhoto(ctx, photos[index], x + 20, y + 20, width - 40, 198);
+      else {
+        ctx.fillStyle = '#f1e9d8'; ctx.fillRect(x + 20, y + 20, width - 40, 198);
+        ctx.fillStyle = muted; ctx.font = '400 26px ' + FONT; ctx.fillText('这一餐，留在手账里', x + 48, y + 123);
+        line(ctx, x + 48, y + 151, 244, '#e7bf42');
+      }
+      ctx.fillStyle = red; ctx.font = '400 22px ' + FONT; ctx.fillText(page.date, x + 22, y + 260);
+      ctx.textAlign = 'right'; ctx.fillStyle = muted; ctx.font = '400 18px ' + FONT; ctx.fillText(String(index + 1).padStart(2, '0'), x + width - 24, y + 260); ctx.textAlign = 'left';
+      var textY = y + 300;
+      if (page.store) { ctx.fillStyle = ink; ctx.font = '400 26px ' + FONT; drawLines(ctx, page.store, x + 22, textY, width - 44, 2, 30); textY += 60; }
+      if (page.foods.length) { ctx.fillStyle = '#975842'; ctx.font = '400 21px ' + FONT; drawLines(ctx, page.foods.join(' · '), x + 22, textY, width - 44, 2, 25); textY += 54; }
+      if (page.note) {
+        ctx.fillStyle = muted; ctx.font = '400 20px ' + FONT;
+        var remaining = Math.max(1, Math.floor((y + 430 - textY) / 24) + 1);
+        drawLines(ctx, page.note, x + 22, textY, width - 44, Math.min(3, remaining), 24);
+      }
+    });
+    var footerY = height - 125;
+    ctx.fillStyle = muted; ctx.font = '400 26px ' + FONT; ctx.fillText('用麦当劳，画出自己的中国足迹。', 70, footerY + 25);
+    drawSnack(ctx, options.snackImage, 836, footerY - 30, 174, 96);
+    line(ctx, 68, height - 57, 944, '#ddcdb1');
+    ctx.fillStyle = muted; ctx.font = '400 17px ' + FONT;
+    ctx.fillText(ellipsis(ctx, clean(options.photoCredit, 160) || '来自我的照片手账 · 麦麦中国地图', 940), 70, height - 22);
+    return canvas;
+  }
+  async function renderMonth(collection, options) {
+    options = options && typeof options === 'object' ? options : {};
+    await waitForFonts();
     var facts = projectMonth(collection, options);
     var photos = await Promise.all((Array.isArray(options.photos) ? options.photos : []).slice(0, 3).map(loadPhoto));
     photos = photos.filter(Boolean);
@@ -152,15 +275,19 @@
     do { ctx.font = '400 ' + fontSize + 'px ' + FONT; titleLines = wrap(ctx, facts.title, 914); if (titleLines.length <= 2 || fontSize <= 40) break; fontSize -= 2; } while (true);
     ctx.fillStyle = red;
     titleLines.slice(0, 2).forEach(function (text, index) { ctx.fillText(ellipsis(ctx, text, 914), 78, 202 + index * (fontSize + 12)); });
-    ctx.fillStyle = muted; ctx.font = '400 25px ' + FONT;
-    ctx.fillText('把这一月的照片、餐品和小停靠，装进一页。', 80, 322);
+    ctx.fillStyle = muted; ctx.font = '400 24px ' + FONT;
+    drawLines(ctx, facts.caption || '把这一月的照片、餐品和小停靠，装进一页。', 80, 317, 914, 2, 29);
     var gap = 18, frameW = (924 - gap * (photos.length - 1)) / Math.max(1, photos.length), frameH = 390;
     if (photos.length) photos.forEach(function (image, index) {
-      var x = 78 + index * (frameW + gap);
+      var x = 78 + index * (frameW + gap), y = 365, w = frameW, h = frameH;
+      if (options.layout === 'feature' && photos.length > 1) {
+        if (index === 0) { w = 602; }
+        else { x = 698; w = 304; h = photos.length === 3 ? 186 : frameH; y += photos.length === 3 ? (index - 1) * 204 : 0; }
+      }
       ctx.save(); ctx.shadowColor = 'rgba(68,48,24,.12)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 5;
-      ctx.fillStyle = '#fff'; ctx.fillRect(x, 365, frameW, frameH); ctx.restore();
-      drawPhoto(ctx, image, x + 12, 377, frameW - 24, frameH - 58);
-      ctx.fillStyle = muted; ctx.font = '400 18px ' + FONT; ctx.fillText('这一月的小停靠 ' + (index + 1), x + 14, 739);
+      ctx.fillStyle = '#fff'; ctx.fillRect(x, y, w, h); ctx.restore();
+      drawPhoto(ctx, image, x + 12, y + 12, w - 24, h - 50);
+      ctx.fillStyle = muted; ctx.font = '400 18px ' + FONT; ctx.fillText('这一月的小停靠 ' + (index + 1), x + 14, y + h - 16);
     });
     else {
       ctx.fillStyle = '#f1e9d8'; ctx.fillRect(78, 365, 924, frameH);
@@ -206,5 +333,5 @@
     ctx.fillText(ellipsis(ctx, credit || '来自我的照片手账 · 麦麦中国地图', 924), 80, 1391);
     return canvas;
   }
-  return {build: build, projectMonth: projectMonth, renderMonth: renderMonth, WIDTH: WIDTH, HEIGHT: HEIGHT};
+  return {build: build, projectMonth: projectMonth, renderMonth: renderMonth, projectCity: projectCity, renderCity: renderCity, WIDTH: WIDTH, HEIGHT: HEIGHT};
 });

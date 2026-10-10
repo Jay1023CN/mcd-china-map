@@ -43,16 +43,38 @@ async function main(){
     assert.equal(nav.searchParams.get('city'),'上海');assert.ok(nav.searchParams.get('keyword').includes(seed.stores[0].address));assert.equal(nav.searchParams.has('center'),false);
     await page.locator('#detail-body .store-navigation button').click();assert.ok((await page.evaluate(()=>window.collectionCopy)).includes(seed.stores[0].name));
     await page.getByRole('button',{name:'回到城市回忆册',exact:true}).click();
+    await page.locator('#collection-grid .collection-page').first().click();
+    await page.locator('#detail-body').getByRole('button',{name:'编辑这一页',exact:true}).click();
+    await page.locator('#save-entry').click();
+    await page.locator('#collection-dialog').waitFor({state:'visible'});assert.equal(await page.locator('#collection-grid .collection-page').count(),2,'saving an album page returns to that album');
+    await page.locator('#collection-clear-pages').click();assert.equal(await page.locator('#collection-share').isDisabled(),true);
+    await page.locator('.collection-pick input[data-entry-id="collection-sh-2"]').check();
+    await page.locator('#collection-cover').selectOption('collection-sh-2');await page.locator('#collection-caption').fill('演示：和朋友沿街散步，顺路吃一顿麦。');
+    await page.locator('#collection-share').click();await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
+    await page.locator('#copy-share').click();const cityText=await page.evaluate(()=>window.collectionCopy);
+    assert.match(cityText,/选了 1 页 · 这座城共有 2 页回忆/);assert.match(cityText,/咖啡/);assert.ok(!cityText.includes('薯条'));
+    await page.locator('#share-cities').uncheck();await page.locator('#share-note').uncheck();await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
+    await page.locator('#copy-share').click();const hiddenCityText=await page.evaluate(()=>window.collectionCopy);assert.ok(!hiddenCityText.includes('上海'));assert.ok(!hiddenCityText.includes('功能演示：'));
+    await page.locator('#share-cities').check();await page.locator('#share-note').check();await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
+    const cityDownload=page.waitForEvent('download');await page.locator('#save-share').click();const cityFile=await cityDownload;
+    const cityPng=fs.readFileSync(await cityFile.path());assert.equal(cityPng.readUInt32BE(16),1080);assert.equal(cityPng.readUInt32BE(20),1046);
+    if(process.env.CAPTURE_COLLECTIONS)fs.writeFileSync('docs/city-album-card-preview.png',cityPng);
+    await page.locator('#share-collection-back').click();assert.equal(await page.locator('.collection-pick input:checked').count(),1);
     await page.locator('#collection-switch').selectOption({label:'杭州 · 浙江省'});assert.equal(await page.locator('#collection-grid .collection-page').count(),1);
     await page.locator('[data-close=collection-dialog]').click();
     await page.locator('.month-chip').filter({hasText:seed.month}).click();
     assert.match(await page.locator('#collection-summary').innerText(),/3 页回忆 · 2 座城市 · 2 家麦当劳/);
     assert.match(await page.locator('#collection-tastes').innerText(),/薯条 × 2/);
     await page.locator('#collection-cover').selectOption('collection-sh-1');
+    await page.locator('#collection-photo-1').selectOption('collection-hz');await page.locator('#collection-photo-2').selectOption('collection-sh-2');
+    await page.locator('#collection-photo-0').selectOption('collection-hz');
+    assert.equal(await page.locator('#collection-photo-1').inputValue(),'collection-sh-1','selecting an already chosen photo swaps its slot');
+    await page.locator('#collection-layout').selectOption('feature');await page.locator('#collection-caption').fill('演示：这个月，吃麦的理由是和朋友见面。');
     await page.locator('#collection-share').click();await page.locator('#save-share').waitFor();
     await page.waitForFunction(()=>!document.getElementById('save-share').disabled);await page.locator('#share-image').evaluate(image=>image.decode());
     await page.locator('#copy-share').click();const copy=await page.evaluate(()=>window.collectionCopy);
     assert.match(copy,/3 页回忆 \/ 2 座城市 \/ 2 家麦当劳/);assert.match(copy,/上海/);assert.ok(!copy.includes(seed.stores[0].address));
+    assert.match(copy,/和朋友见面/);
     await page.locator('#share-cities').uncheck();await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
     await page.locator('#copy-share').click();assert.ok(!(await page.evaluate(()=>window.collectionCopy)).includes('上海'));
     await page.locator('#share-cities').check();await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
@@ -62,13 +84,40 @@ async function main(){
     await page.locator('#native-share').click();const share=await page.evaluate(()=>window.collectionShare);
     assert.equal(share.files[0].type,'image/png');assert.match(share.files[0].name,/麦麦月度小报/);
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    await page.locator('#share-collection-back').click();assert.equal(await page.locator('#collection-cover').inputValue(),'collection-sh-1');await page.locator('[data-close=collection-dialog]').click();
+    await page.locator('#share-collection-back').click();assert.equal(await page.locator('#collection-cover').inputValue(),'collection-hz');await page.locator('[data-close=collection-dialog]').click();
     await page.locator('.month-chip').filter({hasText:seed.prior}).click();assert.match(await page.locator('#collection-summary').innerText(),/1 页回忆 · 1 座城市 · 1 家麦当劳/);
     await page.locator('[data-close=collection-dialog]').click();await page.locator('#year-filter').selectOption(seed.month.slice(0,4));
     await page.locator('#country-filter').selectOption('310000');assert.equal(await page.locator('.city-album').count(),1);
     await page.locator('#tab-wishlist').click();await page.locator('.wishlist-directions summary').click();assert.equal(await page.locator('#wishlist-grid .store-navigation a').count(),1);
     await page.reload();await page.locator('#tab-journal').click();assert.equal(await page.locator('.city-album').count(),3);assert.equal(await page.locator('#count-visits').innerText(),'4');
-    assert.deepEqual(errors,[]);console.log('PASS: mobile city albums/detail/back, monthly grouping/cover/PNG/image share, location visibility, address navigation/copy, filtering and refresh.');
+    await page.locator('.city-album').filter({hasText:'上海'}).click();assert.equal(await page.locator('#collection-cover').inputValue(),'collection-sh-2');assert.equal(await page.locator('.collection-pick input:checked').count(),1);
+    assert.match(await page.locator('#collection-caption').inputValue(),/沿街散步/);await page.locator('[data-close=collection-dialog]').click();
+    await page.locator('.month-chip').filter({hasText:seed.month}).click();assert.equal(await page.locator('#collection-layout').inputValue(),'feature');assert.equal(await page.locator('#collection-photo-0').inputValue(),'collection-hz');
+    assert.match(await page.locator('#collection-caption').inputValue(),/和朋友见面/);
+    await page.locator('[data-close=collection-dialog]').click();
+    const [archiveFile]=await Promise.all([page.waitForEvent('download'),page.locator('#export').click()]);
+    const exported=JSON.parse(fs.readFileSync(await archiveFile.path(),'utf8'));assert.equal(exported.collection_preferences.length,2);
+    const restored=await context.newPage();await restored.goto(base);await restored.evaluate(()=>localStorage.removeItem('mcd-china-map-personal-v1'));await restored.reload();
+    await restored.locator('#import-file').setInputFiles({name:'album-backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(exported))});await restored.locator('#toast').filter({hasText:'导入完成'}).waitFor();
+    await restored.locator('.month-chip').filter({hasText:seed.month}).click();assert.equal(await restored.locator('#collection-layout').inputValue(),'feature');assert.equal(await restored.locator('#collection-photo-0').inputValue(),'collection-hz');
+    await restored.close();
+    const canvasCases=await page.evaluate(async()=>{
+      const archive=JSON.parse(localStorage.getItem('mcd-china-map-personal-v1'));
+      const base=archive.entries.find(entry=>entry.city==='上海');
+      const rows=Array.from({length:12},(_,index)=>({...base,id:'canvas-case-'+index,note:'长句随记。'.repeat(18)}));
+      const city=JournalCollections.build(rows).cities[0];const result=[];
+      for(const count of [1,3,12]){
+        const canvas=await JournalCollections.renderCity(city,{selectedIds:rows.slice(0,count).map(row=>row.id),title:'一座城里的十二页麦麦回忆',caption:'字'.repeat(140),includeCities:true,includeNote:true});
+        result.push({count,width:canvas.width,height:canvas.height});
+      }
+      return result;
+    });
+    assert.deepEqual(canvasCases.map(item=>item.height),[1046,1526,3446]);assert.ok(canvasCases.every(item=>item.width===1080 && item.width*item.height<5000000));
+    assert.deepEqual(errors,[]);console.log('PASS: mobile city albums/detail/back/selected-page PNG, monthly photo order swaps/layout/caption, sharing controls, settings refresh/backup restore, 1/3/12-page geometry, address navigation and filters.');
+  }catch(error){
+    fs.mkdirSync('test-results',{recursive:true});const failed=context.pages()[0];
+    if(failed){await failed.screenshot({path:'test-results/collections-failure.png'}).catch(()=>{});console.error('Collection browser failure state:',await failed.locator('#toast').textContent().catch(()=>''));}
+    throw error;
   }finally{await context.close();await browser.close();}
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

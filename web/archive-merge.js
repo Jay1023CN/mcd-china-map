@@ -122,6 +122,9 @@
         Object.prototype.hasOwnProperty.call(remote, 'wishlist')) {
       output.wishlist = mergeList(base.wishlist, local.wishlist, remote.wishlist);
     }
+    if ([base,local,remote].some(function(value){return Object.prototype.hasOwnProperty.call(value,'collection_preferences');})) {
+      output.collection_preferences = mergeList(base.collection_preferences,local.collection_preferences,remote.collection_preferences);
+    }
     return output;
   }
 

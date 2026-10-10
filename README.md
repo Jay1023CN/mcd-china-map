@@ -52,12 +52,12 @@
 <p><picture><source media="(max-width: 600px)" srcset="docs/readme-assets/collections-heading-mobile.svg"><img src="docs/readme-assets/collections-heading.svg" alt="04 把这一城、这一月，好好收藏：城市回忆册与月度麦麦小报" width="960"></picture></p>
 
 <p align="center">
-  <a href="docs/city-album-preview.png"><img src="docs/city-album-preview.png" alt="城市回忆册实际手机页面：上海公开门店照片与演示手账，点击可翻开详情" width="260"></a>
+  <a href="docs/city-album-card-preview.png"><img src="docs/city-album-card-preview.png" alt="城市回忆册分享图：挑选一页上海公开门店的演示手账，选择封面并写一句随记" width="340"></a>
   &nbsp;&nbsp;
   <a href="docs/monthly-newspaper-preview.png"><img src="docs/monthly-newspaper-preview.png" alt="月度麦麦小报：按月份整理照片、城市与常吃的餐品。数据为演示记录" width="310"></a>
 </p>
 
-<p align="center"><sub>手账自动按城市装订 · 点击月份翻小报 · 自动选照片或自己挑一张 · 改标题、保存与分享<br>v0.13 新增 · 以上为公开门店照片与演示记录 · 门店详情和下一站清单均可打开高德地图</sub></p>
+<p align="center"><sub>城市回忆册选页、换封面，装订成分享长图 · 小报指定三张照片、交换顺序、选版式、写一句随记<br>v0.14 更新 · 选择随手账备份保存 · 以上为公开门店照片与演示记录 · 门店详情与下一站清单可打开高德地图</sub></p>
 
 <br>
 

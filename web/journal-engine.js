@@ -8,6 +8,8 @@
   'use strict';
 
   var wishlistEngine = root && root.WishlistEngine;
+  var collectionPreferences = root && root.CollectionPreferences;
+  if (!collectionPreferences && typeof module === 'object' && module.exports && typeof require === 'function') collectionPreferences = require('./collection-preferences.js');
   if (!wishlistEngine && typeof module === 'object' && module.exports && typeof require === 'function') {
     wishlistEngine = require('./wishlist-engine.js');
   }
@@ -183,6 +185,10 @@
     if (Object.prototype.hasOwnProperty.call(input, 'wishlist')) {
       if (!wishlistEngine || typeof wishlistEngine.normalize !== 'function') fail('wishlist support is unavailable');
       archive.wishlist = wishlistEngine.normalize(input.wishlist);
+    }
+    if (Object.prototype.hasOwnProperty.call(input, 'collection_preferences')) {
+      if (!collectionPreferences) fail('collection preferences support is unavailable');
+      archive.collection_preferences = collectionPreferences.normalize(input.collection_preferences);
     }
     if (utf8Bytes(JSON.stringify(archive)) > MAX_ARCHIVE_BYTES) fail('archive exceeds 8 MiB');
     return archive;

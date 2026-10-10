@@ -20,6 +20,40 @@ def project_archive(raw):
     if raw.get('version') != 1 or not isinstance(raw.get('entries'), list) or len(raw['entries']) > 1000:
         raise ValueError('unsupported archive')
     projected = {'version': 1, 'data_kind': raw.get('data_kind', 'manual'), 'entries': []}
+    if 'collection_preferences' in raw:
+        import re
+        values = raw['collection_preferences']
+        if not isinstance(values, list) or len(values) > 1000 or any(not isinstance(value, dict) for value in values):
+            raise ValueError('invalid collection preferences')
+        choices = []
+        seen = set()
+        def choice_text(value, maximum):
+            return isinstance(value, str) and len(value) <= maximum and not re.search(r'[\x00-\x1f\x7f]', value)
+        for value in values:
+            identifier = value.get('id')
+            if (not choice_text(identifier, 200) or not re.fullmatch(r'(city:.+|month:\d{4}-(0[1-9]|1[0-2]))', identifier)
+                    or identifier in seen):
+                raise ValueError('invalid collection choice id')
+            seen.add(identifier)
+            choice = {'id': identifier}
+            for field, maximum in (('selected_ids', 12), ('photo_ids', 3)):
+                if field in value:
+                    items = value[field]
+                    if not isinstance(items, list) or len(items) > maximum or any(not choice_text(item, 100) or not item.strip() for item in items):
+                        raise ValueError('invalid collection choice list')
+                    choice[field] = list(dict.fromkeys(item.strip() for item in items))
+            for field, maximum in (('cover_id', 100), ('caption', 100 if identifier.startswith('month:') else 140)):
+                if field in value:
+                    if not choice_text(value[field], maximum):
+                        raise ValueError('invalid collection choice text')
+                    if value[field].strip():
+                        choice[field] = value[field].strip()
+            if 'layout' in value:
+                if value['layout'] not in ('strip', 'feature'):
+                    raise ValueError('invalid collection layout')
+                choice['layout'] = value['layout']
+            choices.append(choice)
+        projected['collection_preferences'] = choices
     if isinstance(raw.get('source'), str):
         if len(raw['source']) > 1000:
             raise ValueError('archive source exceeds 1000 characters')
@@ -108,6 +142,7 @@ def render(archive):
         insights_js=(ROOT/'web/journey-insights.js').read_text(encoding='utf-8'),
         orders_js=(ROOT/'web/order-journal.js').read_text(encoding='utf-8'),
         collections_js=(ROOT/'web/journal-collections.js').read_text(encoding='utf-8'),
+        preferences_js=(ROOT/'web/collection-preferences.js').read_text(encoding='utf-8'),
         navigation_js=(ROOT/'web/store-navigation.js').read_text(encoding='utf-8'),
         app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
 
