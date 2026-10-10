@@ -173,8 +173,7 @@
   });
   const storeLayer=node('label',undefined,'check map-store-toggle');
   const storeToggle=node('input');storeToggle.type='checkbox';storeToggle.id='show-store-layer';storeToggle.checked=true;
-  storeLayer.append(storeToggle,node('span','先看看有哪些门店（不计入足迹）'));
-  $('map-points').before(storeLayer);
+  storeLayer.append(storeToggle,node('span','在地图上显示门店'));
   const storePointList=node('div',undefined,'map-points');storePointList.id='store-map-points';$('map-points').after(storePointList);
   const storeMarkers=node('div',undefined,'map-store-markers');storeMarkers.id='map-store-markers';
   storeMarkers.setAttribute('aria-label','地图上的门店，点击查看照片和介绍');$('world-map').after(storeMarkers);
@@ -227,12 +226,18 @@
     clear.addEventListener('click',()=>{storeCity='';storeQuery='';storeProvince='';directoryPage=0;updateCatalog();input.focus();});
     controls.append(provinceLabel,cityLabel,queryLabel,clear);return controls;
   }
-  $('world-map').parentElement.before(catalogControls('store'));
+  const storeFinder=node('section',undefined,'store-finder');storeFinder.id='store-finder';
+  storeFinder.setAttribute('aria-label','搜索和筛选门店');
+  const finderHeading=node('div',undefined,'store-finder-heading');
+  finderHeading.append(node('h2','找下一家麦'),storeLayer);
+  const storeControls=catalogControls('store');storeControls.prepend(storeControls.querySelector('#store-query').parentElement);
+  storeFinder.append(finderHeading,storeControls);$('pane-map').prepend(storeFinder);
   $('inspiration-grid').before(catalogControls('inspiration'));
   const catalog=node('section',undefined,'store-catalog');const catalogHeader=node('div',undefined,'store-catalog-heading');
   const catalogStatus=node('p',undefined,'store-catalog-status');catalogStatus.id='store-catalog-status';catalogStatus.setAttribute('role','status');
   const seeAll=node('button','查看全部门店 →','quiet');seeAll.id='open-national-catalog';seeAll.type='button';seeAll.addEventListener('click',openDirectory);
-  catalogHeader.append(catalogStatus,seeAll);const catalogGrid=node('div',undefined,'store-catalog-grid');catalogGrid.id='store-catalog-grid';catalog.append(catalogHeader,catalogGrid);storePointList.after(catalog);
+  catalogHeader.append(catalogStatus,seeAll);const catalogGrid=node('div',undefined,'store-catalog-grid');catalogGrid.id='store-catalog-grid';catalog.append(catalogHeader,catalogGrid);$('pane-map').append(catalog);
+  $('passport-grid').parentElement.append($('recent-list').previousElementSibling,$('recent-list'));
   const inspirationStatus=node('p',undefined,'store-catalog-status');inspirationStatus.id='inspiration-status';inspirationStatus.setAttribute('role','status');$('inspiration-grid').before(inspirationStatus);
   const directory=node('dialog',undefined,'national-directory');directory.id='national-catalog-dialog';directory.setAttribute('aria-labelledby','national-heading');
   const directoryTop=node('div',undefined,'dialog-top'),directoryTitle=node('h2','翻翻全国的麦');directoryTitle.id='national-heading';
@@ -295,8 +300,8 @@
   function syncCatalogControls() {
     const cities=[...new Set(knownStores().filter(s=>!storeProvince || s.province_code===storeProvince).map(s=>s.city).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-CN'));
     for(const prefix of ['store','inspiration','directory']) {
-      const provinceSelect=$(prefix+'-province-filter');provinceSelect.replaceChildren(new Option('全国各地',''),...provinces.map(f=>new Option(f.properties.name,String(f.properties.adcode))));provinceSelect.value=storeProvince;
-      const select=$(prefix+'-city-filter');select.replaceChildren(new Option('全国各地', ''),...cities.map(city=>new Option(city,city)));select.value=storeCity;
+      const provinceSelect=$(prefix+'-province-filter');provinceSelect.replaceChildren(new Option('全部地区',''),...provinces.map(f=>new Option(f.properties.name,String(f.properties.adcode))));provinceSelect.value=storeProvince;
+      const select=$(prefix+'-city-filter');select.replaceChildren(new Option('全部城市', ''),...cities.map(city=>new Option(city,city)));select.value=storeCity;
       $(prefix+'-query').value=storeQuery;$(prefix+'-clear').hidden=!(storeCity || storeQuery || storeProvince);
     }
   }
@@ -305,11 +310,11 @@
   }
   function renderStoreCatalog() {
     const stores=filterStores(knownStores());catalogGrid.replaceChildren();
-    catalogStatus.textContent=storeCity || storeQuery || storeProvince?`找到 ${stores.length} 条门店资料`:`${new Set(catalogStores.map(s=>s.city)).size} 座城市 · 大陆 ${data.national_catalog?.coverage.mainland_unique_stores || catalogStores.length} 条门店 · 香港 ${data.national_catalog?.coverage.hong_kong_stores || 0} 条`;
+    catalogStatus.textContent=storeCity || storeQuery || storeProvince?`${storeCity || '当前筛选'} · 找到 ${stores.length} 家门店`:`${new Set(stores.map(s=>s.city)).size} 座城市 · 共 ${stores.length} 家门店`;
     for(const store of stores.slice(0,6)) {
       const button=node('button',undefined,'store-catalog-card');button.type='button';
       if(store.default_photo){const image=node('img');image.src=data.store_images?.[store.default_photo.url] || store.default_photo.url;image.alt=store.name;image.loading='lazy';image.referrerPolicy='no-referrer';button.append(image);}
-      const text=node('span');text.append(node('small',store.city),node('strong',store.name),node('span',store.short_description || store.address,'store-catalog-excerpt'));button.append(text,node('span','↗','store-catalog-arrow'));
+      const text=node('span');text.append(node('small',store.city),node('strong',store.name),node('span',store.short_description || store.address,'store-catalog-excerpt'));button.append(text,node('span','看看这家 →','store-catalog-arrow'));
       button.addEventListener('click',()=>openStoreDiscovery([store]));catalogGrid.append(button);
     }
     seeAll.textContent=stores.length>6?`查看全部 ${stores.length} 条门店 →`:'查看门店目录 →';
@@ -390,17 +395,30 @@
     return name.replace(/(?:餐厅|旗舰店)$/, '') || store.name;
   }
 
-  function drawStoreLabels(points,ctx,width,height) {
-    const compact=width<500, cityLabels=points.length>6 && !storeCity;
-    if(cityLabels){
-      // Group close city anchors rather than moving labels to another region of the country.
-      const groups=[];
-      for(const point of points){
-        const group=groups.find(other=>Math.hypot(other.x-point.x,other.y-point.y)<(compact?42:55));
-        if(group){group.stores.push(...point.stores);group.cities.push(point.city);}
-        else groups.push({...point,stores:[...point.stores],cities:[point.city]});
+  function cityStoreGroups(stores,project) {
+    const groups=new Map();
+    for(const store of stores){
+      if(!store.city)continue;
+      const key=store.province_code+'/'+store.city;
+      if(!groups.has(key))groups.set(key,{key,city:store.city,province:store.province_code,stores:[],anchors:[]});
+      const group=groups.get(key);group.stores.push(store);
+      if(store.location?.precision==='store'){
+        const [x,y]=project(store.location.lon,store.location.lat);group.anchors.push({x,y});
       }
-      points=groups;
+    }
+    for(const group of groups.values()){
+      if(!group.anchors.length)continue;
+      const mean=group.anchors.reduce((sum,p)=>({x:sum.x+p.x/group.anchors.length,y:sum.y+p.y/group.anchors.length}),{x:0,y:0});
+      // Use an actual store point for the city label, never a made-up city location.
+      Object.assign(group,group.anchors.reduce((best,p)=>Math.hypot(p.x-mean.x,p.y-mean.y)<Math.hypot(best.x-mean.x,best.y-mean.y)?p:best));
+    }
+    return [...groups.values()].sort((a,b)=>b.stores.length-a.stores.length || a.city.localeCompare(b.city,'zh-CN'));
+  }
+  function selectStoreCity(group){storeCity=group.city;storeProvince=group.province;directoryPage=0;updateCatalog();}
+
+  function drawStoreLabels(points,ctx,width,height) {
+    const compact=width<500, cityLabels=points.some(point=>point.stores.length>1);
+    if(cityLabels){
       const selected=[];
       for(const point of [...points].sort((a,b)=>b.stores.length-a.stores.length)){
         if(selected.every(other=>Math.hypot(other.x-point.x,other.y-point.y)>(compact?70:90)))selected.push(point);
@@ -427,19 +445,18 @@
       ctx.beginPath();ctx.moveTo(point.x,point.y);ctx.lineTo(edgeX,edgeY);ctx.strokeStyle='#b29a72';ctx.lineWidth=1;ctx.stroke();
       const first=point.stores[0],button=node('button',undefined,'map-store-marker'+(cityLabels?' city-marker':''));button.type='button';
       button.style.left=best.x+'px';button.style.top=best.y+'px';button.style.width=labelWidth+'px';button.style.height=labelHeight+'px';
-      button.dataset.city=point.city;button.dataset.anchorX=point.x;button.dataset.anchorY=point.y;
-      const cityCounts=new Map();for(const store of point.stores)cityCounts.set(store.city,(cityCounts.get(store.city)||0)+1);
-      const prominent=[...cityCounts].sort((a,b)=>b[1]-a[1])[0][0],groupLabel=prominent+(cityCounts.size>1?'周边':'');
+      button.dataset.city=point.city;button.dataset.cityKey=point.key;button.dataset.storeCount=point.stores.length;button.dataset.anchorX=point.x;button.dataset.anchorY=point.y;
+      const groupLabel=point.city;
       button.setAttribute('aria-label',groupLabel+' · '+point.stores.length+'条门店资料，查看门店');
       button.title=point.stores.slice(0,3).map(s=>s.name).join('\n')+(point.stores.length>3?'\n共'+point.stores.length+'条门店资料':'');
       if(!cityLabels && first.default_photo){const thumbnail=node('img');thumbnail.src=data.store_images?.[first.default_photo.url] || first.default_photo.url;thumbnail.alt='';thumbnail.referrerPolicy='no-referrer';button.append(thumbnail);}
       else if(cityLabels){}
       else button.append(node('span','店','map-store-icon'));
       const label=node('span',undefined,'map-store-marker-text');
-      if(cityLabels)label.append(node('strong',groupLabel),node('small',point.stores.length+' 条门店资料'));
+      if(cityLabels)label.append(node('strong',groupLabel),node('small',point.stores.length+' 家门店'));
       else label.append(node('small',point.city+(point.stores.length>1?' · '+point.stores.length+' 家':'')),node('strong',storeMarkerLabel(first)));
       button.append(label);
-      button.addEventListener('click',()=>openStoreDiscovery(point.stores));storeMarkers.append(button);
+      button.addEventListener('click',()=>cityLabels?selectStoreCity(point):openStoreDiscovery(point.stores));storeMarkers.append(button);
     }
   }
 
@@ -842,9 +859,16 @@
     for (const feature of data.provinces.features) { const path = outline(feature, sea); ctx.fillStyle = '#e8dfc5'; ctx.strokeStyle = '#b5a786'; ctx.lineWidth = .6; ctx.fill(path, 'evenodd'); ctx.stroke(path); }
     ctx.restore(); ctx.strokeStyle = '#cbbb9c'; ctx.strokeRect(inset.x, inset.y, inset.w, inset.h); ctx.fillStyle = '#7a6e5b'; ctx.font = '10px sans-serif'; ctx.textAlign = 'left'; ctx.fillText('南海诸岛', inset.x + 6, inset.y + inset.h - 8);
     mapPoints = [];storeMapPoints=[];storePointList.replaceChildren();storeMarkers.replaceChildren();
+    const filteredStores=filterStores(knownStores()),cityGroups=cityStoreGroups(filteredStores,xy);
+    for(const group of cityGroups.slice(0,12)){
+      const button=node('button',group.city+' · '+group.stores.length+' 家','map-point');button.type='button';
+      button.dataset.cityKey=group.key;button.dataset.storeCount=group.stores.length;
+      button.setAttribute('aria-pressed',String(storeCity===group.city && storeProvince===group.province));
+      button.addEventListener('click',()=>selectStoreCity(group));storePointList.append(button);
+    }
     if(storeToggle.checked){
       const storeGroups=new Map();
-      for(const store of filterStores(knownStores())) {
+      for(const store of filteredStores) {
         if(!store.location || store.location.precision!=='store')continue;
         const [x,y]=xy(store.location.lon,store.location.lat);if(x<0 || x>width || y<0 || y>height)continue;
         const cell=width<500?18:24,key=Math.floor(x/cell)+'/'+Math.floor(y/cell);
@@ -854,10 +878,8 @@
       }
       for(const point of storeGroups.values()) {
         ctx.beginPath();ctx.arc(point.x,point.y,5,0,Math.PI*2);ctx.fillStyle='#fff9eb';ctx.fill();ctx.strokeStyle='#9e7950';ctx.lineWidth=2;ctx.stroke();storeMapPoints.push(point);
-        const button=node('button',point.stores[0].city+(point.city==='这一带'?'周边':'')+' · '+point.stores.length+' 条门店资料','map-point');button.type='button';
-        button.addEventListener('click',()=>openStoreDiscovery(point.stores));if(storePointList.children.length<14)storePointList.append(button);
       }
-      drawStoreLabels(storeMapPoints,ctx,width,height);
+      drawStoreLabels(cityGroups.filter(group=>group.anchors.length && group.x>=0 && group.x<=width && group.y>=0 && group.y<=height),ctx,width,height);
     }
     const groups = new Map();
     for (const entry of currentSummary.entries.filter(e => e.location)) {
@@ -873,7 +895,7 @@
     }
     const pointList = $('map-points'); pointList.replaceChildren();
     for (const point of mapPoints) { const button = node('button', placeName(point.entry) + ' · ' + point.count + ' 页', 'map-point'); button.type = 'button'; button.addEventListener('click', () => openDetail(point.entry)); pointList.append(button); }
-    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录，门店标签可以点开看店。` : '地图显示已核实点位的门店；选一座城，或打开目录找下一家麦。';
+    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录。城市数字按当前筛选统计，地图只显示已定位门店。` : '点城市标签筛选门店。城市数字按当前筛选统计，地图只显示已定位门店。';
   }
   $('world-map').addEventListener('click', event => {
     const rect = event.currentTarget.getBoundingClientRect();

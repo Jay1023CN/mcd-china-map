@@ -7,6 +7,7 @@ from project_version import VERSION
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_ROOT = "麦麦中国地图"
 FILES = (
+    'tests/browser-map-layout.cjs',
     '打开在线地图.cmd', 'docs/ARCHITECTURE.md', 'scripts/regional_store_sources.py', 'tests/test_regional_store_sources.py', 'tests/browser-regional-sources.cjs',
     'docs/growth-assets/national-store-research/hong-kong-official-dessert-station-snapshot.json',
     'docs/growth-assets/national-store-research/collect-hong-kong-dessert-stations.py',

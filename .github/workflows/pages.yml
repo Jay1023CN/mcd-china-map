@@ -51,6 +51,7 @@ jobs:
           node tests/browser-directory-saved.cjs
           node tests/browser-featured-photos.cjs
           node tests/browser-regional-sources.cjs
+          node tests/browser-map-layout.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

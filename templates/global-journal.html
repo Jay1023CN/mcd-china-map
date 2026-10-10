@@ -419,6 +419,27 @@ header.top{padding-top:16px;padding-bottom:13px;border-color:#dddcd3}
 <style>.collection-editor{padding:14px 0 18px;margin-bottom:12px;border-bottom:1px solid #dfd2bb;display:grid;gap:13px}.collection-editor>.field{margin:0}.collection-editor input,.collection-editor select{width:100%;min-width:0;box-sizing:border-box;min-height:44px;font-size:15px}.collection-photo-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}.collection-photo-tools,.collection-pick-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.collection-photo-tools p{flex:1;min-width:160px}.collection-photo-tools button,.collection-pick-actions button{font-size:12px;min-height:44px}.collection-pick-actions>span{font:16px 'LXGW WenKai',var(--sans);color:#846b51;margin-right:auto}.collection-sheet{min-width:0;border:1px solid #e1d4bf;background:#fffcf7;border-radius:3px;overflow:hidden}.collection-sheet .collection-page{width:100%;height:calc(100% - 46px);border:0;border-radius:0}.collection-pick{display:flex;align-items:center;gap:9px;padding:10px 15px;font:15px 'LXGW WenKai',var(--sans);color:#8d4637;border-bottom:1px solid #ebdfcb;cursor:pointer;min-height:44px;box-sizing:border-box}.collection-pick input{width:18px;height:18px;accent-color:#b34c38}.collection-sheet:has(.collection-pick input:checked){border-color:#bd7252;background:#fff5e2}.collection-page:active{transform:translateY(1px)}.collection-editor input:focus-visible,.collection-editor select:focus-visible,.collection-pick input:focus-visible{outline:2px solid #b94935;outline-offset:2px}@media(max-width:680px){.collection-photo-choices{grid-template-columns:1fr}.collection-editor input,.collection-editor select{font-size:16px}.collection-photo-tools{gap:0}.collection-photo-tools p{flex-basis:100%;margin-bottom:0}.collection-pick-actions{gap:4px}.collection-pick-actions>span{flex-basis:100%;margin-bottom:5px}.collection-sheet .collection-page{height:auto}}</style>
 <style>
 .store-catalog-controls{grid-template-columns:minmax(110px,1fr) minmax(120px,1fr) minmax(160px,1.7fr) auto}
+.store-finder{margin:0 0 24px;padding:18px 22px;background:#faf5e9;border:1px solid #e2d8c8;border-radius:8px}
+.store-finder-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.store-finder-heading h2{margin:0;font:400 25px/1.5 'LXGW WenKai',var(--sans)}
+.store-finder-heading .map-store-toggle{margin:0;font-size:13px}
+.passport-grid>.empty{grid-column:1/-1}
+.map-layout>div:last-child .preview-title{margin-top:24px}
+.store-finder .store-catalog-controls{grid-template-columns:minmax(230px,2fr) minmax(130px,1fr) minmax(160px,1fr) auto;margin:14px 0 0}
+#pane-map>.store-catalog{margin:24px 0 32px;padding-top:20px;border-top:1px solid #e2d8c8}
+#pane-map>.store-catalog .store-catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+#pane-map>.store-catalog .store-catalog-card{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0 0 14px;border-bottom:1px solid #e2d8c8;border-radius:3px}
+#pane-map>.store-catalog .store-catalog-card img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border:0;border-radius:3px;box-shadow:none;margin-bottom:13px}
+#pane-map>.store-catalog .store-catalog-card>span:first-of-type{flex:1;padding:0 6px}
+#pane-map>.store-catalog .store-catalog-card strong{font-size:17px;line-height:1.5}
+#pane-map>.store-catalog .store-catalog-card small{font-size:12px}
+#pane-map>.store-catalog .store-catalog-excerpt{font-size:13px;margin-top:7px}
+#pane-map>.store-catalog .store-catalog-arrow{font-size:13px;margin:11px 6px 0;color:#a13d2c}
+#store-map-points{margin:12px 0 16px;gap:8px}
+#store-map-points .map-point{min-height:36px;font-size:12px;padding:5px 10px}
+#store-map-points .map-point[aria-pressed=true]{border-color:#b74632;background:#f8e7dc;color:#9c3728}
+@media(max-width:1000px){#pane-map>.store-catalog .store-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.store-finder .store-catalog-controls{grid-template-columns:minmax(160px,1.6fr) minmax(100px,1fr) minmax(120px,1fr)}.store-finder .store-catalog-controls button{grid-column:1/-1;justify-self:end}}
+@media(max-width:680px){.store-finder{padding:14px;margin-bottom:18px}.store-finder-heading{align-items:start;flex-direction:column;gap:8px}.store-finder-heading h2{font-size:23px}.store-finder .store-catalog-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.store-finder .store-catalog-controls>label:first-child{grid-column:1/-1}.store-finder .store-catalog-controls>label:nth-child(3){grid-column:auto}#pane-map>.store-catalog .store-catalog-grid{grid-template-columns:1fr;gap:24px}#pane-map>.store-catalog .store-catalog-card strong{font-size:19px}#pane-map>.store-catalog .store-catalog-excerpt{font-size:14px}#pane-map>.store-catalog .store-catalog-heading{flex-wrap:wrap}#pane-map>.store-catalog .store-catalog-heading button{max-width:none;min-height:44px}#store-map-points .map-point{min-height:44px}}
 .national-directory{width:min(820px,calc(100% - 24px));max-width:820px;max-height:88dvh;padding:0;border:1px solid #cfbfa4;border-radius:10px;background:#fffaf0;color:#3e3529;box-sizing:border-box}
 .national-directory .dialog-top{position:sticky;top:0;background:#fffaf0;z-index:1;border-bottom:1px solid #e4d8c4;padding:18px 22px}
 .national-directory h2{font:26px 'LXGW WenKai',var(--sans);margin:0}.national-directory .form-body{padding:0 22px 24px}.national-directory .close{font-size:24px;min-width:44px}
