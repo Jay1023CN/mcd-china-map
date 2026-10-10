@@ -1,19 +1,19 @@
 <p align="center">
-  <img src="docs/readme-assets/cover-v1.png" alt="麦麦中国地图｜把麦当劳吃成一张中国地图" width="960">
+  <img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/cover-v1.png" alt="麦麦中国地图｜把麦当劳吃成一张中国地图" width="960">
 </p>
 
 <p align="center">
-  <a href="https://jay1023cn.github.io/mcd-china-map/"><img src="docs/readme-assets/open-web.svg" alt="打开麦麦中国地图网页版" width="220"></a>
+  <a href="https://jay1023cn.github.io/mcd-china-map/"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-web.svg" alt="打开麦麦中国地图网页版" width="220"></a>
   &nbsp;&nbsp;
-  <a href="https://github.com/Jay1023CN/mcd-china-map/releases/latest"><img src="docs/readme-assets/download-local.svg" alt="下载 Windows 本地完整版" width="220"></a>
+  <a href="https://github.com/Jay1023CN/mcd-china-map/releases/latest"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/download-local.svg" alt="下载 Windows 本地完整版" width="220"></a>
 </p>
 
 <p align="center">
   <strong>吃一顿麦，留一页手账，点亮一座城。</strong><br>
   <sub>网页版无需安装、无需 MCP Token · 记录保存在当前浏览器</sub><br>
   <a href="https://github.com/Jay1023CN/mcd-china-map"><strong>喜欢这个创意？在本仓库点 ☆ Star 支持</strong></a><br>
-  <sub>登录 GitHub 后，点击仓库顶部的 Star；显示 Starred 就已收藏。<a href="docs/TRY-AND-SUPPORT.md">体验与 Star 指引</a></sub><br>
-  <sub>电脑和手机浏览器都能用 · <a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a> · <a href="docs/ROADMAP.md">接下来做什么</a></sub>
+  <sub>登录 GitHub 后，点击仓库顶部的 Star；显示 Starred 就已收藏。<a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/TRY-AND-SUPPORT.md">体验与 Star 指引</a></sub><br>
+  <sub>电脑和手机浏览器都能用 · <a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/ROADMAP.md">接下来做什么</a></sub>
 </p>
 
 <p align="center">
@@ -23,57 +23,57 @@
   <sub>得到一份自己的想去清单；到店后再把照片和随手记写成探店卡。</sub><br>
   <sub>适合找特色店的麦门朋友、旅行顺路探店的人，也适合想留住日常一餐的人。</sub><br>
   <sub>收藏不算到访；去过的店再点「我去过，记一餐」。需要同步官方订单时使用本机版。</sub><br>
-  <a href="https://jay1023cn.github.io/mcd-china-map/">现在试试</a> · <a href="docs/TRY-AND-SUPPORT.md">怎样记一餐、分享和备份</a>
+  <a href="https://jay1023cn.github.io/mcd-china-map/">现在试试</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/TRY-AND-SUPPORT.md">怎样记一餐、分享和备份</a>
 </p>
 
 <br>
 
-<p><picture><source media="(max-width: 600px)" srcset="docs/readme-assets/share-heading-mobile.svg"><img src="docs/readme-assets/share-heading.svg" alt="01 把你的麦麦足迹，晒给朋友看：足迹卡、探店卡与下一站邀约卡" width="960"></picture></p>
+<p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/share-heading-mobile.svg"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/share-heading.svg" alt="01 把你的麦麦足迹，晒给朋友看：足迹卡、探店卡与下一站邀约卡" width="960"></picture></p>
 
 <p align="center">
-  <a href="docs/share-card-paper.png"><img src="docs/share-card-paper.png" alt="中国足迹分享卡：完整底图、省份与城市足迹，公开示例" width="260"></a>
+  <a href="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/share-card-paper.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/share-card-paper.png" alt="中国足迹分享卡：完整底图、省份与城市足迹，公开示例" width="260"></a>
   &nbsp;
-  <a href="docs/memory-card-preview.png"><img src="docs/memory-card-preview.png" alt="探店分享卡：北京首钢园公开照片与示例手账" width="260"></a>
+  <a href="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/memory-card-preview.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/memory-card-preview.png" alt="探店分享卡：北京首钢园公开照片与示例手账" width="260"></a>
   &nbsp;
-  <a href="docs/plan-card-preview.png"><img src="docs/plan-card-preview.png" alt="下一站计划卡：杭州千岛湖公开门店照片与想去理由" width="260"></a>
+  <a href="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/plan-card-preview.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/plan-card-preview.png" alt="下一站计划卡：杭州千岛湖公开门店照片与想去理由" width="260"></a>
 </p>
 
 <p align="center"><sub>点图看完整卡片 · 支持修改标题、上传照片、系统分享、复制图片与保存<br>卡片为公开示例，门店照片附来源。</sub></p>
 
 <br>
 
-<p><picture><source media="(max-width: 600px)" srcset="docs/readme-assets/stores-heading-mobile.svg"><img src="docs/readme-assets/stores-heading.svg" alt="02 找一家特别的麦：19 座城市，28 家特色门店，按城市找照片与介绍" width="960"></picture></p>
+<p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/stores-heading-mobile.svg"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/stores-heading.svg" alt="02 找一家特别的麦：19 座城市，28 家特色门店，按城市找照片与介绍" width="960"></picture></p>
 
 <p align="center">
-  <img src="docs/mobile-map-preview.png" alt="手机地图：按城市找特色门店，点击地图标签展开照片与介绍" width="290">
+  <img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/mobile-map-preview.png" alt="手机地图：按城市找特色门店，点击地图标签展开照片与介绍" width="290">
   &nbsp;&nbsp;
-  <img src="docs/store-detail-preview.png" alt="杭州千岛湖门店详情：公开照片、地址、介绍与收藏入口" width="290">
+  <img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/store-detail-preview.png" alt="杭州千岛湖门店详情：公开照片、地址、介绍与收藏入口" width="290">
 </p>
 
 <p align="center"><strong>v0.15 · 不只找特色店，也能找家门口的麦。</strong><br><sub>大陆官方公示 8,448 条 · 香港官方目录 269 条 · 按省份、城市、店名或路名查找，收藏后可直接记一餐。</sub></p>
 
-<p align="center"><img src="docs/national-store-search-preview.png" alt="全国门店手机目录：搜索石河子，查看普通门店；没有核实坐标时保留文字资料" width="290"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/national-store-search-preview.png" alt="全国门店手机目录：搜索石河子，查看普通门店；没有核实坐标时保留文字资料" width="290"></p>
 
-<p align="center"><sub>另含澳门 38 条公开资料、台湾 508 条餐饮登记，其中 211 条已有官方分店名。登记与目录不代表当前营业状态；<a href="docs/NATIONAL-STORES.md">查看来源、覆盖与点位说明</a>。</sub></p>
+<p align="center"><sub>另含澳门 38 条公开资料、台湾 508 条餐饮登记，其中 211 条已有官方分店名。登记与目录不代表当前营业状态；<a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/NATIONAL-STORES.md">查看来源、覆盖与点位说明</a>。</sub></p>
 
-<p align="center"><a href="assets/data/STORE-SOURCES.md">看看收录了哪些特色门店</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose">推荐你喜欢的那家</a></p>
+<p align="center"><a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/assets/data/STORE-SOURCES.md">看看收录了哪些特色门店</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose">推荐你喜欢的那家</a></p>
 
 <br>
 
-<p><picture><source media="(max-width: 600px)" srcset="docs/readme-assets/plans-heading-mobile.svg"><img src="docs/readme-assets/plans-heading.svg" alt="03 下一站，去吃哪家麦：收藏、选日期、约朋友，到店后把计划写成手账" width="960"></picture></p>
+<p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/plans-heading-mobile.svg"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/plans-heading.svg" alt="03 下一站，去吃哪家麦：收藏、选日期、约朋友，到店后把计划写成手账" width="960"></picture></p>
 
-<p align="center"><img src="docs/wishlist-planner-preview.png" alt="下一站计划实际页面：按城市与日期筛选、优先想去、帮我挑一家、复制给朋友。公开门店与计划示例" width="960"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/wishlist-planner-preview.png" alt="下一站计划实际页面：按城市与日期筛选、优先想去、帮我挑一家、复制给朋友。公开门店与计划示例" width="960"></p>
 
 <p align="center"><sub>今天 / 未来 7 天 / 还没定日期 · 城市与理由搜索 · 连续挑店会换一家 · 排期随备份恢复</sub></p>
 
 <br>
 
-<p><picture><source media="(max-width: 600px)" srcset="docs/readme-assets/collections-heading-mobile.svg"><img src="docs/readme-assets/collections-heading.svg" alt="04 把这一城、这一月，好好收藏：城市回忆册与月度麦麦小报" width="960"></picture></p>
+<p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/collections-heading-mobile.svg"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/collections-heading.svg" alt="04 把这一城、这一月，好好收藏：城市回忆册与月度麦麦小报" width="960"></picture></p>
 
 <p align="center">
-  <a href="docs/city-album-card-preview.png"><img src="docs/city-album-card-preview.png" alt="城市回忆册分享图：挑选一页上海公开门店的演示手账，选择封面并写一句随记" width="340"></a>
+  <a href="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/city-album-card-preview.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/city-album-card-preview.png" alt="城市回忆册分享图：挑选一页上海公开门店的演示手账，选择封面并写一句随记" width="340"></a>
   &nbsp;&nbsp;
-  <a href="docs/monthly-newspaper-preview.png"><img src="docs/monthly-newspaper-preview.png" alt="月度麦麦小报：按月份整理照片、城市与常吃的餐品。数据为演示记录" width="310"></a>
+  <a href="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/monthly-newspaper-preview.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/monthly-newspaper-preview.png" alt="月度麦麦小报：按月份整理照片、城市与常吃的餐品。数据为演示记录" width="310"></a>
 </p>
 
 <p align="center"><sub>城市回忆册选页、换封面，装订成分享长图 · 小报指定三张照片、交换顺序、选版式、写一句随记<br>v0.14 更新 · 选择随手账备份保存 · 以上为公开门店照片与演示记录 · 门店详情与下一站清单可打开高德地图</sub></p>
@@ -83,7 +83,7 @@
 <details>
 <summary><strong>看一段操作演示：打开地图，翻一页手账</strong></summary>
 
-<p align="center"><img src="docs/product-preview.gif" alt="地图与手账操作演示动图，记录为公开示例" width="850"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/product-preview.gif" alt="地图与手账操作演示动图，记录为公开示例" width="850"></p>
 
 </details>
 
@@ -94,7 +94,7 @@
 
 **想同步自己的麦当劳订单：** [下载 Windows 完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击 `启动.cmd`。普通手账无需 Python；安装 Python 3.10+ 后，可连接自己的 [麦当劳中国 MCP Token](https://open.mcd.cn/mcp)，自动整理完成订单、查询官方附近门店。门店资料与默认照片自动带入，仍可编辑随记、换照片或删除记录。
 
-当前 GitHub Pages 提供地图与手账，MCP 连接通过本机版使用。更多入口和步骤见 [Windows 使用说明](docs/LOCAL_WINDOWS.md)、[网页版与部署](docs/WEB.md)。
+当前 GitHub Pages 提供地图与手账，MCP 连接通过本机版使用。更多入口和步骤见 [Windows 使用说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/LOCAL_WINDOWS.md)、[网页版与部署](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/WEB.md)。
 
 </details>
 
@@ -119,7 +119,7 @@ py -m unittest discover -s tests -p 'test_*.py' -v
 py scripts/package_skill.py
 ```
 
-[开发与文件管理](docs/DEVELOPMENT.md) · [运行验证](docs/VALIDATION.md) · [MCP 接入](MCP_INTEGRATION.md) · [Skill](SKILL.md) · [素材来源](docs/SOURCES.md) · [宣传素材](docs/GROWTH.md)
+[开发与文件管理](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/DEVELOPMENT.md) · [运行验证](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/VALIDATION.md) · [MCP 接入](https://github.com/Jay1023CN/mcd-china-map/blob/main/MCP_INTEGRATION.md) · [Skill](https://github.com/Jay1023CN/mcd-china-map/blob/main/SKILL.md) · [素材来源](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/SOURCES.md) · [宣传素材](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/GROWTH.md)
 
 页面模板位于 `templates/`，交互和归档位于 `web/`，构建与服务入口位于 `scripts/`。GitHub Actions 自动检查并发布网页版；预览图、字标和宣传图按目录分别管理。
 
@@ -134,4 +134,4 @@ py scripts/package_skill.py
   <sub>登录后点仓库顶部的 Star，显示 Starred 即已收藏。也欢迎反馈体验。</sub>
 </p>
 
-<p align="center"><sub>社区独立作品，非麦当劳官方产品 · 原创代码 <a href="LICENSE">MIT</a> · 第三方素材按来源与许可使用 · <a href="CONTEST_DECLARATION.md">参赛声明</a></sub></p>
+<p align="center"><sub>社区独立作品，非麦当劳官方产品 · 原创代码 <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/LICENSE">MIT</a> · 第三方素材按来源与许可使用 · <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/CONTEST_DECLARATION.md">参赛声明</a></sub></p>
