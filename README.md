@@ -10,7 +10,17 @@
 
 <p align="center">
   <strong>吃一顿麦，留一页手账，点亮一座城。</strong><br>
+  <sub>网页版无需安装、无需 MCP Token · 记录保存在当前浏览器</sub><br>
+  <a href="https://github.com/Jay1023CN/mcd-china-map"><strong>喜欢这个创意？在本仓库点 ☆ Star 支持</strong></a><br>
+  <sub>登录 GitHub 后，点击仓库顶部的 Star；显示 Starred 就已收藏。<a href="docs/TRY-AND-SUPPORT.md">体验与 Star 指引</a></sub><br>
   <sub>电脑和手机浏览器都能用 · <a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a> · <a href="docs/ROADMAP.md">接下来做什么</a></sub>
+</p>
+
+<p align="center">
+  <strong>先花一分钟，收藏你的下一站</strong><br>
+  打开网页版 → 选一座城或点门店标签 → 看照片和介绍 → 点「想去这家」。<br>
+  <sub>收藏不算到访；去过的店再点「我去过，记一餐」。需要同步官方订单时使用本机版。</sub><br>
+  <a href="https://jay1023cn.github.io/mcd-china-map/">现在试试</a> · <a href="docs/TRY-AND-SUPPORT.md">怎样记一餐、分享和备份</a>
 </p>
 
 <br>
@@ -111,7 +121,8 @@ py scripts/package_skill.py
 <p align="center">
   <strong>下一座城，你想去吃哪家麦？</strong><br><br>
   <a href="https://jay1023cn.github.io/mcd-china-map/">打开地图，收藏下一站</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose">反馈体验 / 推荐门店</a><br>
-  <sub>喜欢这个创意，可以点颗 Star，让更多麦门爱好者发现它。</sub>
+  <a href="https://github.com/Jay1023CN/mcd-china-map"><strong>回到仓库，点 ☆ Star 收藏作品</strong></a><br>
+  <sub>登录后点仓库顶部的 Star，显示 Starred 即已收藏。也欢迎反馈体验。</sub>
 </p>
 
 <p align="center"><sub>社区独立作品，非麦当劳官方产品 · 原创代码 <a href="LICENSE">MIT</a> · 第三方素材按来源与许可使用 · <a href="CONTEST_DECLARATION.md">参赛声明</a></sub></p>
