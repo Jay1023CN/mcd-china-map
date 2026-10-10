@@ -30,6 +30,7 @@ FILES = (
     "docs/LOCAL_WINDOWS.md", "docs/REGISTRATION.md", "docs/DEVELOPMENT.md", "docs/PRODUCT-REVIEW.md",
     "docs/china-demo.html", "docs/china-preview.png", "docs/share-card-paper.png", "docs/share-card-red.png", "docs/memory-card-preview.png",
     "docs/discovery-preview.png",
+    "docs/wishlist-planner-preview.png", "docs/wishlist-planner-mobile.png", "docs/ROADMAP.md",
     "docs/plan-card-preview.png",
     "assets/global-title.png", "assets/global-passport.png", "assets/paper.png",
     "assets/notebook-food-sketch.png",

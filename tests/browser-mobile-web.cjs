@@ -288,6 +288,27 @@ async function runChromium() {
     assert.equal(await page.locator('#count-visits').innerText(),'1','collecting a public store must not add a visit');
     const plan=page.locator('#wishlist-grid .entry-card').first();
     assert.equal(await page.locator('#wishlist-count').innerText(),'1');
+    const plannedDate=await page.evaluate(()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;});
+    await plan.locator('input[type=date]').fill(plannedDate);
+    await plan.locator('.wishlist-priority').tap();
+    assert.equal(await plan.locator('.wishlist-priority').getAttribute('aria-pressed'),'true');
+    await page.locator('#wishlist-city-filter').selectOption(store.city.replace(/市$/, ''));
+    await page.locator('#wishlist-when-filter').selectOption('today');
+    assert.equal(await page.locator('#wishlist-grid .entry-card').count(),1,'scheduled city plan appears in today view');
+    await page.locator('#wishlist-when-filter').selectOption('unplanned');
+    assert.equal(await page.locator('#wishlist-grid .entry-card').count(),0,'dated plans do not appear in undated view');
+    assert.equal(await page.locator('#wishlist-pick').isDisabled(),true,'empty plan filters cannot pick a store');
+    await page.locator('#wishlist-clear').tap();
+    await page.locator('#wishlist-query').fill('不存在的计划关键词');
+    assert.equal(await page.locator('#wishlist-grid .entry-card').count(),0,'saved plans support search independently from discovery');
+    await page.locator('#wishlist-clear').tap();
+    await page.locator('#wishlist-pick').tap();
+    assert.equal(await plan.evaluate(card=>card===document.activeElement),true,'the chosen plan receives focus');
+    assert.ok((await page.locator('#wishlist-pick-status').innerText()).includes(store.name));
+    await page.locator('#wishlist-copy').tap();
+    const itinerary=await page.evaluate(()=>window.mobileClipboardText);
+    assert.ok(itinerary.includes(store.name) && itinerary.includes('计划 '+plannedDate),'copied itinerary carries the chosen date and store');
+    await assertMobileGeometry(page);
     const storeRecord=catalog.stores.find(item=>item.name===store.name);
     assert.ok(storeRecord?.default_photo,'the collected public store should retain its catalog photo');
     const mirroredPhoto=catalog.store_images?.[storeRecord.default_photo.url];
@@ -323,6 +344,7 @@ async function runChromium() {
     await page.locator('#copy-share').tap();
     const caption=await page.evaluate(()=>window.mobileClipboardText);
     assert.ok(caption.includes('下一站计划 · 尚未打卡'));
+    assert.ok(caption.includes('计划 '+plannedDate),'plan share caption includes the scheduled date');
     await page.locator('#native-share').tap();
     const payload=await page.evaluate(()=>window.mobileShare);
     assert.ok(payload.text.includes('下一站计划 · 尚未打卡'));
@@ -344,6 +366,8 @@ async function runChromium() {
     const archive=JSON.parse(fs.readFileSync(await exportFile.path(),'utf8'));
     assert.equal(archive.entries.length,1);
     assert.equal(archive.wishlist.length,1);
+    assert.equal(archive.wishlist[0].planned_date,plannedDate,'backup preserves the plan date');
+    assert.equal(archive.wishlist[0].priority,true,'backup preserves priority');
 
     const restoredInfo=await newMobileContext(browser);
     const restored=await restoredInfo.context.newPage();
@@ -353,6 +377,9 @@ async function runChromium() {
     await restored.locator('#toast').filter({hasText:'导入完成'}).waitFor();
     assert.equal(await restored.locator('#count-visits').innerText(),'1');
     assert.equal(await restored.locator('#wishlist-count').innerText(),'1');
+    await restored.locator('#tab-wishlist').tap();
+    assert.equal(await restored.locator('#wishlist-grid input[type=date]').inputValue(),plannedDate,'restoring a backup restores the plan date');
+    assert.equal(await restored.locator('#wishlist-grid .wishlist-priority').getAttribute('aria-pressed'),'true');
     await clickJournalTab(restored);
     const restoredCard=restored.locator('#journal-grid .entry-card').filter({hasText:'成都移动端体验门店'});
     await restoredCard.waitFor();

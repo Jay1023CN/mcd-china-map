@@ -89,14 +89,15 @@ class ProjectTests(unittest.TestCase):
         archive = {**legacy, 'wishlist': [{
             'id': 'store-mcp_nearby-code', 'source': 'mcp_nearby', 'code': 'code',
             'name': '收藏门店', 'city': '上海', 'address': '某路', 'note': '下次来试试',
-            'province_code': '310000', 'token': 'private-token', 'orderId': 'private-order',
+            'province_code': '310000', 'planned_date': '2026-10-18', 'priority': True,
+            'token': 'private-token', 'orderId': 'private-order',
             'payment_url': 'https://private.test', 'business_status': True
         }]}
         projected = project_archive(archive)
         self.assertEqual(projected['wishlist'], [{
             'id': 'store-mcp_nearby-code', 'source': 'mcp_nearby', 'code': 'code',
             'name': '收藏门店', 'city': '上海', 'address': '某路', 'note': '下次来试试',
-            'province_code': '310000'
+            'province_code': '310000', 'planned_date': '2026-10-18', 'priority': True
         }])
         self.assertNotIn('wishlist', project_archive(legacy))
         self.assertRaises(ValueError, project_archive, {**legacy, 'wishlist': [{}] * 101})

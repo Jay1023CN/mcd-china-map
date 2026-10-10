@@ -13,7 +13,7 @@ from project_version import VERSION
 
 
 ENTRY_FIELDS = ('id', 'date', 'country_code', 'province_code', 'city', 'store', 'foods', 'note', 'source', 'confirmed', 'origin', 'collaboration')
-WISHLIST_FIELDS = ('source', 'code', 'id', 'name', 'city', 'address', 'note', 'province_code')
+WISHLIST_FIELDS = ('source', 'code', 'id', 'name', 'city', 'address', 'note', 'province_code', 'planned_date', 'priority')
 
 
 def project_archive(raw):

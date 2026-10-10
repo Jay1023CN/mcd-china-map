@@ -30,6 +30,15 @@
     }
   }
 
+  function dateValue(value) {
+    if (typeof value !== 'string' || !/^[1-9]\d{3}-\d{2}-\d{2}$/.test(value)) fail('planned_date is invalid');
+    var parsed = new Date(value + 'T00:00:00Z');
+    if (!Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) fail('planned_date is invalid');
+    return value;
+  }
+
+  function cityKey(value) { return (value || '').normalize('NFKC').trim().replace(/市$/, ''); }
+
   function normalizeItem(input) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) fail('wishlist item must be an object');
     var source = cleanText(input.source, 'source', 32, true);
@@ -49,6 +58,9 @@
       if (!/^\d{6}$/.test(province)) fail('province_code is invalid');
       item.province_code = province;
     }
+    if (input.planned_date != null && input.planned_date !== '') item.planned_date = dateValue(input.planned_date);
+    if (input.priority != null && typeof input.priority !== 'boolean') fail('priority must be boolean');
+    if (input.priority === true) item.priority = true;
     return item;
   }
 
@@ -80,7 +92,9 @@
       city: store.city,
       address: store.address,
       note: store.note,
-      province_code: store.province_code
+      province_code: store.province_code,
+      planned_date: store.planned_date,
+      priority: store.priority
     });
     var key = identity(item);
     var existingIndex = result.findIndex(function (saved) { return identity(saved) === key; });
@@ -88,6 +102,8 @@
       // Official nearby results refresh display details without erasing the
       // note the user added to this saved store.
       item.note = result[existingIndex].note;
+      if (result[existingIndex].planned_date) item.planned_date = result[existingIndex].planned_date;
+      if (result[existingIndex].priority) item.priority = true;
       result[existingIndex] = item;
       return result;
     }
@@ -101,10 +117,34 @@
     return normalize(items).filter(function (item) { return item.id !== id; });
   }
 
+  function select(items, options) {
+    options = options || {};
+    var normalized = normalize(items);
+    var terms = (options.query || '').normalize('NFKC').toLowerCase().trim().split(/\s+/).filter(Boolean);
+    var start, end;
+    if (options.when === 'today' || options.when === 'week') {
+      start = dateValue(options.today);
+      var last = new Date(start + 'T00:00:00Z');
+      last.setUTCDate(last.getUTCDate() + (options.when === 'week' ? 6 : 0));
+      end = last.toISOString().slice(0, 10);
+    }
+    return normalized.filter(function (item) {
+      if (options.city && cityKey(item.city) !== cityKey(options.city)) return false;
+      if (start && (!item.planned_date || item.planned_date < start || item.planned_date > end)) return false;
+      if (options.when === 'unplanned' && item.planned_date) return false;
+      var haystack = [item.city, item.name, item.address, item.note].join(' ').normalize('NFKC').toLowerCase();
+      return terms.every(function (term) { return haystack.includes(term); });
+    }).sort(function (a, b) {
+      return Number(!!b.priority) - Number(!!a.priority) ||
+        (a.planned_date || '9999-99-99').localeCompare(b.planned_date || '9999-99-99');
+    });
+  }
+
   return Object.freeze({
     normalize: normalize,
     add: add,
     remove: remove,
+    select: select,
     limits: Object.freeze({stores: MAX_STORES})
   });
 });

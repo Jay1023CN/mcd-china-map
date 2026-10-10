@@ -76,3 +76,39 @@ test('inputs are validated without accepting arbitrary source or prototype-shape
   assert.equal(safe[0].id, 'store-mcp_nearby-__proto__');
   assert.equal(Object.prototype.polluted, undefined);
 });
+
+test('plan dates and priority survive normalization and official store refresh', () => {
+  const saved = Wishlist.add([], store({planned_date: '2028-02-29', priority: true, note: '周末和朋友一起去'}));
+  assert.equal(saved[0].planned_date, '2028-02-29');
+  assert.equal(saved[0].priority, true);
+  const refreshed = Wishlist.add(saved, store({name: '新的门店名称'}));
+  assert.equal(refreshed[0].planned_date, '2028-02-29');
+  assert.equal(refreshed[0].priority, true);
+  assert.equal(refreshed[0].note, '周末和朋友一起去');
+  const cleared = Wishlist.normalize([{...saved[0], planned_date: '', priority: false}])[0];
+  assert.equal(Object.hasOwn(cleared, 'planned_date'), false);
+  assert.equal(Object.hasOwn(cleared, 'priority'), false);
+  for (const date of ['2026-02-29', '2026-04-31', '2026-13-01', '26-01-01', '2026-10-10T00:00:00Z', 123]) {
+    assert.throws(() => Wishlist.add([], store({planned_date: date})), /planned_date/);
+  }
+  assert.throws(() => Wishlist.add([], store({priority: 'yes'})), /priority/);
+});
+
+test('city and multi-word plan searches sort priority first and preserve input order for ties', () => {
+  const items = ['早餐湖畔', '早餐老街', '亲子门店', '优先门店'].map((name, i) => ({
+    source: 'manual', code: String(i), name, city: i === 2 ? '北京' : '上海市', note: i === 3 ? '早餐' : '',
+    ...(i === 3 ? {priority: true} : {})
+  }));
+  assert.deepEqual(Wishlist.select(items, {city: '上海', query: '早餐'}).map(item => item.name), ['优先门店', '早餐湖畔', '早餐老街']);
+  assert.deepEqual(Wishlist.select(items, {query: '上海 湖畔'}).map(item => item.name), ['早餐湖畔']);
+  assert.equal(Object.hasOwn(items[0], 'id'), false);
+});
+
+test('seven-day plans cross month boundaries without counting past or undated stores', () => {
+  const dates = ['2026-12-30', '2026-12-31', '2027-01-01', '2027-01-06', '2027-01-07', ''];
+  const items = dates.map((planned_date, i) => ({source: 'manual', code: String(i), name: String(i), planned_date}));
+  assert.deepEqual(Wishlist.select(items, {when: 'week', today: '2026-12-31'}).map(item => item.code), ['1', '2', '3']);
+  assert.deepEqual(Wishlist.select(items, {when: 'today', today: '2026-12-31'}).map(item => item.code), ['1']);
+  assert.deepEqual(Wishlist.select(items, {when: 'unplanned'}).map(item => item.code), ['5']);
+  assert.equal(Wishlist.select(items, {when: 'today', today: '2027-02-01'}).length, 0);
+});
