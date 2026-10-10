@@ -251,7 +251,7 @@
     for(const store of stores.slice(directoryPage*size,(directoryPage+1)*size)){
       const row=node('button',undefined,'national-store-row');row.type='button';row.dataset.storeCode=store.code;
       const text=node('span');text.append(node('small',[provinceName(store.province_code),store.city].filter(Boolean).join(' · ')),node('strong',store.name),node('span',store.address || '地址资料正在补齐，可先收藏或记一餐。','national-address'));
-      row.append(text,node('span',store.record_kind==='government_registration'?'餐饮登记 ↗':store.featured?'精选 ↗':'↗','national-store-arrow'));row.addEventListener('click',()=>openStoreDiscovery([store]));directoryGrid.append(row);
+      row.append(text,node('span',store.tax_status==='listed_as_operating'?'税籍营业 ↗':store.record_kind==='government_registration'?'餐饮登记 ↗':store.featured?'精选 ↗':'↗','national-store-arrow'));row.addEventListener('click',()=>openStoreDiscovery([store]));directoryGrid.append(row);
     }
     if(!stores.length)directoryGrid.append(empty('没找到这一家','换个店名、路名或城市试试。'));
     directoryPageLabel.textContent=`${directoryPage+1} / ${pages}`;directoryPrevious.disabled=directoryPage===0;directoryNext.disabled=directoryPage>=pages-1;
@@ -308,6 +308,15 @@
       if(store.short_description)info.append(node('p',store.short_description,'note'));
       if(store.source_url){const source=node('a','查看门店资料 ↗','store-source');source.href=store.source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);}
       if(store.brand_name_source_url){const source=node('a','分店名来源：官方招聘目录 ↗','store-source');source.href=store.brand_name_source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);}
+      if(store.tax_source_url){
+        info.append(node('p','税籍名称：'+store.tax_registered_name,'note'));
+        const source=node('a','查看营业税籍来源 ↗','store-source');source.href=store.tax_source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);
+      }
+      if(store.venue_source_url){
+        info.append(node('p','场地页面营业时间：'+store.venue_hours+'；出发前请再确认。','note'));
+        const source=node('a','访客地址来源：官方场地页面 ↗','store-source');source.href=store.venue_source_url;source.target='_blank';source.rel='noopener noreferrer';info.append(source);
+        if(store.license_address && store.license_address!==store.address)info.append(node('p','许可登记地址：'+store.license_address,'map-note'));
+      }
       const actions=node('div',undefined,'wishlist-actions');
       const collected=(archive.wishlist || []).some(item=>item.source===store.source && item.code===store.code);
       const collect=node('button',collected?'已收藏想去':'想去这家','primary');collect.type='button';collect.disabled=collected;collect.addEventListener('click',()=>{

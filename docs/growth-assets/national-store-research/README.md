@@ -28,6 +28,8 @@
 
 已取得 269 条、269 个唯一 rid，与页面 269 张门店卡片的 ID 集合一致。有地址、经纬度、电话、设施与营业时间。坐标原样保存，页面使用 Google Maps，未独立确认坐标系。原 city 中有机场禁区说明，规范化时不要丢失该信息。
 
+官网[甜品站地址 FAQ](https://www.mcdonalds.com.hk/faqs/about-dessert-kiosk/dessert-kiosk-address)另链接 `https://mcds.hk/dkaddresslist`，正常跳转到官方活动页面；该页的 `dk.js` 明确读取 [甜品站地址 JSON](https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630)。`collect-hong-kong-dessert-stations.py` 已完整收集 101 条、101 个不同地址（香港岛 10／九龙 35／新界 54／离岛 2），保存于 `hong-kong-official-dessert-station-snapshot.json`。仅做 NFKC 和空白规范的完整地址唯一匹配，41 条对应已有餐厅 rid，60 条父餐厅身份待核对；楼层、门牌或表述差异不能当作新增独立门店证据。现有餐厅目录中只有 50 条 `dessertkiosks` 设施标记，此单独的品牌来源可用于补充服务点信息，但不能把 101 条直接加到餐厅总数。全量目标包含核对这些公开服务地址，不以排除它们代替完成覆盖。
+
 ## 台湾与澳门
 
 台湾[官方找餐厅](https://www.mcdonalds.com/tw/zh-tw/restaurant-locator.html)及官方客服站直连返回 403，未取得品牌全店名册。但已取得食药署[食品业者登记资料集](https://data.gov.tw/dataset/8938)原始公开 CSV ZIP，完整读取 828,316 行，筛选统一编号 12411160：1,004 条中有餐饮场所 508 条、销售场所 495 条、公司登记 1 条。纯餐饮场所保存在 `taiwan-food-restaurant-registration.json`：508 个不同登记号，504 个不同地址；4 组重复地址保留供导入时核对。公司办公室与销售场所不进入餐厅表。可复现脚本为 `collect-taiwan-food-registration.py`，原始 ZIP SHA256 `9d096491c8891e66dffb8f37ba5dc89a488213f4f09e4d5928b16f9d1524012b`。
@@ -38,7 +40,9 @@
 
 澳门旅游局许可名录已取得 6 条酒店内门店，白名单记录在 `macau-tourism-license-partial.json`，`coverage_complete=false`。旅游局[光影节公开参与商户 JSON](https://lum.macaotourism.gov.mo/data/stores.json)共 211 条，筛出海景、金融中心、建兴龙 3 家，保存在 `macau-government-event-stores.json`；这是 2025 活动资料，不能保证当前营业或全部门店。旅游局许可来源也不代表全部市政许可餐厅。
 
-澳门[黄页公司介绍分店表](https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html)已实际解析 38 个分店名、地址和 38 个不同电话，保存在 `macau-directory-cross-check.json`。其中 6 个电话与旅游局许可一对一吻合，附带官方 ID 与新地址；银河 G017／伦敦人旧址与政府地址有变化，以政府新记录为准。该公开商户目录可以补充基础查询，但不冒充品牌官方全量名单或已核实营业状态；公司办公室不算分店。
+澳门[黄页公司介绍分店表](https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html)已实际解析 38 个分店名、地址和 38 个不同电话，保存在 `macau-directory-cross-check.json`。其中 6 个电话与旅游局许可一对一吻合，附带官方 ID 与许可登记地址。许可网站的更新时间不证明地址刚更新：银河许可地址 G35 在历史资料中已存在，而[银河度假城当前访客页面](https://www.galaxymacau.com/zh-hant/dining/restaurants/mcdonald/)仍列时尚大道东 G017、同一电话 28827110。登记地址和访客位置须分别保留，不能凭差异判为迁店或第二家店；找店优先采用场地运营方的访客位置并展示来源。伦敦人目录的 1029 与许可 L2 也需按场地访客来源继续核对。该公开商户目录可以补充基础查询，但不冒充品牌官方全量名单或已核实营业状态；公司办公室不算分店。
+
+`collect-macau-venues.py` 完整跑通 6 个场地运营方公开访客页面，结果为 `macau-official-venue-cross-check.json`。银河、新濠影汇、新濠天地的页面公开电话与既有目录唯一对应；机场、澳门大学、金沙通过既有唯一场地分店和官网具名条目核对，页面未展示门店电话，不伪称电话交叉验证。每条保留来源、抓取日期、响应 SHA256、访客位置、已公布营业时间及原目录／许可地址（若有）。澳门大学当前商户时间表更新于 2026-09-25。6 条补充事实不新增门店；网站列有营业时间也不等于实地确认正在营业。
 
 `collect-macau-directory.py` 可复现黄页分店表和旅游局活动 JSON 的采集，按已保存的旅游局许可电话精确交叉核对。地图社区点位不混入此脚本输出。
 

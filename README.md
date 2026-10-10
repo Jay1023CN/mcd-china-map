@@ -54,7 +54,7 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/national-store-search-preview.png" alt="全国门店手机目录：搜索石河子，查看普通门店；没有核实坐标时保留文字资料" width="290"></p>
 
-<p align="center"><sub>另含澳门 38 条公开资料、台湾 508 条餐饮登记，其中 211 条已有官方分店名。登记与目录不代表当前营业状态；<a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/NATIONAL-STORES.md">查看来源、覆盖与点位说明</a>。</sub></p>
+<p align="center"><sub>另含澳门 38 条公开资料、台湾 508 条餐饮登记，其中 249 条已有分店名称、143 条对应营业税籍资料。出发前请确认营业时间；<a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/NATIONAL-STORES.md">查看来源、覆盖与点位说明</a>。</sub></p>
 
 <p align="center"><a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/assets/data/STORE-SOURCES.md">看看收录了哪些特色门店</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose">推荐你喜欢的那家</a></p>
 

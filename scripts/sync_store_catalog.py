@@ -17,6 +17,7 @@ import threading
 import unicodedata
 import urllib.parse
 import urllib.request
+from sync_taiwan_tax import match_food_registration
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLICITY = 'https://www.mcdonalds.com.cn/index/quality/deliveryinfo'
@@ -601,7 +602,8 @@ def import_macau(path):
             continue
         stores.append({'id': 'mo:mgto:' + identity, 'code': 'mo:mgto:' + identity, 'country_code': 'CN',
                        'province_code': '820000', 'city': '澳门', 'name': row['comNameCn'],
-                       'aliases': [row['comNameTw']], 'address': row['comAdsCn'],
+                       'aliases': [row['comNameTw']], 'address': row['comAdsCn'], 'license_address': row['comAdsCn'],
+                       'directory_phone': row.get('comTel',''),
                        'source': 'macau_government_tourism_license', 'source_url': snapshot['source'],
                        'featured': False, 'region_coverage_complete': False})
     directory_path = path.parent / 'macau-directory-cross-check.json'
@@ -619,20 +621,39 @@ def import_macau(path):
             if store:
                 store['official_name'] = store['name']
                 store['name'] = row['name']
+                store['directory_phone'] = row['phone']
+                store['directory_address'] = row['address']
                 store['directory_source_url'] = directory['source_url']
-                # Government license address remains authoritative over old directory listings.
+                # Registered premises and visitor locations are separate evidence.
             else:
                 code = 'mo:directory:' + hashlib.sha256(row['phone'].encode()).hexdigest()[:20]
                 stores.append({'id': code, 'code': code, 'country_code': 'CN', 'province_code': '820000',
-                               'city': '澳门', 'name': row['name'], 'address': row['address'], 'featured': False,
+                               'city': '澳门', 'name': row['name'], 'address': row['address'], 'directory_phone':row['phone'], 'featured': False,
                                'source': 'macau_public_business_directory', 'source_url': directory['source_url'],
                                'record_kind': 'public_directory', 'current_open_status_verified': False,
                                'short_description': '公开商户目录中的分店地址，营业状态请再确认。'})
         directory_source = {'url': directory['source_url'], 'collected_at': directory['fetched_at'],
                             'rows': directory['row_count'], 'government_license_matches': directory['government_license_phone_matches']}
+    venue_path = path.parent / 'macau-official-venue-cross-check.json'
+    venue_source = None
+    if venue_path.exists():
+        venue = read(venue_path)
+        for row in venue['rows']:
+            candidates = [s for s in stores if s.get('directory_phone') == row['directory_phone'] and s['name'] == row['directory_name']]
+            if len(candidates) != 1 or not row.get('live_page_facts_verified'):
+                raise ValueError('Macau visitor listing identity not uniquely verified')
+            store = candidates[0]
+            store.update({'venue_address':row['visitor_address'], 'venue_location':row['visitor_location'],
+                          'venue_source_url':row['source_url'], 'venue_checked_at':row['fetched_at'],
+                          'venue_hours':row['opening_hours_as_published'], 'venue_match_method':row['match_method']})
+            # The university source identifies S1 but the directory retains its
+            # fuller G016/G017/G018 units. Do not remove useful address detail.
+            if 'university' not in row['match_method']:
+                store['address'] = row['visitor_address']
+        venue_source = {'rows':len(venue['rows']), 'collected_at':venue['fetched_at'], 'coverage_complete':False}
     return stores, {'url': snapshot['source'], 'collected_at': snapshot['collected_at'],
                     'rows': len(stores), 'government_license_rows': len(snapshot['stores']),
-                    'directory': directory_source, 'coverage_complete': False}
+                    'directory': directory_source, 'official_venue_visitor_pages':venue_source, 'coverage_complete': False}
 
 
 def import_taiwan_registrations(path):
@@ -642,6 +663,9 @@ def import_taiwan_registrations(path):
     stores, seen = [], set()
     match_path = path.with_name('taiwan-recruitment-address-matches.json')
     brand_matches = {row['registration_id']: row for row in read(match_path)['rows']} if match_path.exists() else {}
+    tax_path = ROOT / 'assets/data/taiwan-operating-tax-registration.json'
+    tax_snapshot = read(tax_path) if tax_path.exists() else None
+    tax_matches = match_food_registration(snapshot['rows'], tax_snapshot['rows']) if tax_snapshot else {}
     for row in snapshot['rows']:
         if row.get('登錄項目') != '餐飲場所' or row.get('公司統一編號') != '12411160':
             continue
@@ -653,21 +677,33 @@ def import_taiwan_registrations(path):
         match = re.match(r'^(?:\d{3,6})?([^縣市]{2,4}[縣市])', address)
         city = match[1].replace('臺', '台') if match else '台湾'
         brand = brand_matches.get(identity)
+        tax = tax_matches.get(identity)
         if brand and brand['government_address'] != address:
             raise ValueError('Taiwan brand address no longer matches registration')
-        name = '麥當勞' + brand['brand_store_name'] if brand else row['公司或商業登記名稱'] + ' · ' + address
+        original_name = row['公司或商業登記名稱'] + ' · ' + address
+        tax_branch = tax['營業人名稱'].removeprefix('和德昌股份有限公司') if tax else None
+        name = '麥當勞' + brand['brand_store_name'] if brand else '麥當勞' + tax_branch if tax else original_name
         stores.append({'id': 'tw:fda:' + identity, 'code': 'tw:fda:' + identity, 'country_code': 'CN',
                        'province_code': '710000', 'city': city, 'name': name,
                        'operator_name': row['公司或商業登記名稱'], 'address': address,
                        'source': 'taiwan_food_restaurant_registration', 'source_url': snapshot['dataset_page'],
-                       'aliases': ['麦当劳','麥當勞'] + ([brand['brand_store_name']] if brand else []),
+                       'aliases': ['麦当劳','麥當勞',original_name] + ([brand['brand_store_name']] if brand else []) +
+                                  ([tax['營業人名稱'], tax_branch, re.sub(r'(分公司|門市部)$', '', tax_branch)] if tax else []),
                        **({'brand_name_source_url': brand['brand_name_source_url']} if brand else {}),
+                       **({'tax_registration_id': tax['統一編號'], 'tax_registered_name': tax['營業人名稱'],
+                           'tax_status': 'listed_as_operating', 'tax_source_url': tax_snapshot['dataset_page'],
+                           'tax_checked_at': tax_snapshot['fetched_at']} if tax else {}),
                        'featured': False, 'record_kind': 'government_registration',
-                       'short_description': '政府餐饮场所登记地址，未提供营业状态；出发前请再确认。'})
+                       'short_description': '本次财政部税籍资料列为营业中；当天营业时间请出发前再确认。' if tax else
+                                            '政府餐饮场所登记地址，未提供营业状态；出发前请再确认。'})
     return stores, {'url': snapshot['dataset_page'], 'download_url': snapshot['source_url'],
                     'collected_at': snapshot['fetched_at'], 'rows': len(stores), 'coverage_complete': False,
                     'record_kind': 'government_registration', 'brand_directory_verified': False,
-                    'official_branch_name_matches': sum(s['name'].startswith('麥當勞') for s in stores),
+                    'official_branch_name_matches': sum(bool(s.get('brand_name_source_url')) for s in stores),
+                    'tax_branch_names_added': sum(bool(s.get('tax_registration_id')) and not s.get('brand_name_source_url') for s in stores),
+                    'named_registration_records': sum(s['name'].startswith('麥當勞') for s in stores),
+                    'operating_tax_matched_records': len(tax_matches),
+                    'operating_tax_source': {key:tax_snapshot[key] for key in ('dataset_page','source_url','fetched_at','source_zip_sha256')} if tax_snapshot else None,
                     'unique_addresses': len({s['address'] for s in stores})}
 
 

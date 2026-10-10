@@ -72,5 +72,6 @@ jobs:
           node tests/browser-mobile-web.cjs
           node tests/browser-collections.cjs
           node tests/browser-national-stores.cjs
+          node tests/browser-taiwan-names.cjs
       - name: Verify distribution whitelist
         run: python scripts/package_skill.py

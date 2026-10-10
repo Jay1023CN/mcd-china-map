@@ -64,7 +64,7 @@ async function main(){
     assert.match(await page.locator('#national-status').innerText(),/269/);
     await page.locator('#directory-province-filter').selectOption('710000');await page.locator('#directory-query').fill('');
     assert.match(await page.locator('#national-status').innerText(),/508/);
-    assert.match(await page.locator('.national-store-row').first().innerText(),/餐饮登记/);
+    assert.match(await page.locator('.national-store-row').first().innerText(),/餐饮登记|税籍营业/);
     await page.locator('#directory-province-filter').selectOption('820000');assert.ok(await page.locator('.national-store-row').count()>=6);
     await page.locator('#directory-query').fill('澳门科学馆');assert.equal(await page.locator('.national-store-row').count(),1);assert.match(await page.locator('.national-store-row').innerText(),/科學館/);
     await page.locator('#directory-province-filter').selectOption('710000');await page.locator('#directory-query').fill('台中学士');assert.equal(await page.locator('.national-store-row').count(),1);assert.match(await page.locator('.national-store-row').innerText(),/台中學士/);

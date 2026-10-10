@@ -127,7 +127,9 @@ def render(archive):
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     national = json.loads((ROOT/'assets/data/national-store-directory.json').read_text(encoding='utf-8'))
     fields = ('id','code','name','city','province_code','address','source','source_url','featured','featured_name',
-              'locator_name','location','aliases','tags','short_description','search_keyword','default_photo','district','locality_note','record_kind','operator_name','brand_name_source_url')
+              'locator_name','location','aliases','tags','short_description','search_keyword','default_photo','district','locality_note','record_kind','operator_name','brand_name_source_url',
+              'tax_registration_id','tax_registered_name','tax_status','tax_source_url','tax_checked_at',
+              'venue_address','venue_location','venue_source_url','venue_checked_at','venue_hours','venue_match_method','license_address')
     data['national_catalog'] = {'schema_version':1,'generated_at':national['generated_at'],
                                'coverage':national['coverage'],'sources':national['sources'],
                                'stores':[{key:store[key] for key in fields if key in store} for store in national['stores']]}

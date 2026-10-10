@@ -1,0 +1,956 @@
+{
+  "source_type": "official_brand_dessert_station_list",
+  "faq_url": "https://www.mcdonalds.com.hk/faqs/about-dessert-kiosk/dessert-kiosk-address",
+  "short_url": "https://mcds.hk/dkaddresslist",
+  "resolved_page_url": "https://campaign.mcdonalds.com.hk/dk-uji-matcha/?utm_campaign=shorteredURLforFAQ&utm_source=FAQ&utm_medium=website",
+  "script_url": "https://campaign.mcdonalds.com.hk/common/revamp/js/dk.js",
+  "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+  "fetched_at": "2026-10-10T11:10:40.959777+00:00",
+  "response_sha256": "ad5dacaf986baf33bf5e1ff74e2f4289e0f05405e46dcd7572c84ca442915c5e",
+  "published_area_counts": {
+    "hk": 10,
+    "kowloon": 35,
+    "nt": 54,
+    "island": 2
+  },
+  "row_count": 101,
+  "unique_addresses": 101,
+  "unique_exact_restaurant_address_matches": 41,
+  "unresolved_parent_restaurant_addresses": 60,
+  "full_published_json_collected": true,
+  "added_store_count": 0,
+  "scope_note": "All published station-address rows collected. An address spelling or floor difference is not proof of a new independent restaurant. No station is automatically counted as a new branch. Preserve complete unit and floor numbers; do not fuzzy-match for identity.",
+  "rows": [
+    {
+      "region": "hk",
+      "address": "北角英皇道355-361號益新大廈地下A-C舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "hk",
+      "address": "香港仔中心第四期6A-6B地下",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900016",
+      "restaurant_name": "香港仔中心",
+      "restaurant_address": "香港仔中心第四期6A-6B地下"
+    },
+    {
+      "region": "hk",
+      "address": "銅鑼灣怡和街46-54號地下(部分), 1樓及2樓",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "hk",
+      "address": "皇后大道西484-496號地下及閣樓",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "hk",
+      "address": "鰂魚涌英皇道1060號柏蕙苑地下C舖舆前舖部分",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "hk",
+      "address": "堅尼地城士美菲路12F-G文光閣地下",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900066",
+      "restaurant_name": "士美菲",
+      "restaurant_address": "堅尼地城士美菲路12F-G文光閣地下"
+    },
+    {
+      "region": "hk",
+      "address": "北角英皇道238號康澤花園地下 B2及 B3號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900279",
+      "restaurant_name": "康澤花園",
+      "restaurant_address": "北角英皇道238號康澤花園地下B2及B3號舖"
+    },
+    {
+      "region": "hk",
+      "address": "柴灣盛泰道100號杏花邨杏花新城地下G46舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900297",
+      "restaurant_name": "杏花邨",
+      "restaurant_address": "柴灣盛泰道100號杏花邨杏花新城地下G46舖"
+    },
+    {
+      "region": "hk",
+      "address": "山頂道118號山頂廣場2樓209-210號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "hk",
+      "address": "柴灣環翠道11號興華(一)邨興華廣場1樓109A號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "旺角荔枝角道1號嘉業大廈地下(部分)及1樓",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "佐敦道31-37號地庫及地下(部分)",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "深水埗元州街213號美居中心9-19號舖舆23-26(部分)地舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "深水埗欽州街78-86號地下及閣樓",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900044",
+      "restaurant_name": "欽州街",
+      "restaurant_address": "深水埗欽州街78-86號地下及閣樓"
+    },
+    {
+      "region": "kowloon",
+      "address": "美孚新邨萬事達廣場地下N60A號店",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900049",
+      "restaurant_name": "美孚新邨",
+      "restaurant_address": "美孚新邨萬事達廣場地下N60A號店"
+    },
+    {
+      "region": "kowloon",
+      "address": "竹園南邨竹園商場S219A號舖平台部分",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "尖沙咀梳士巴利道3號星光行地庫A舖及地下部分1-2號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "大角咀道97-105大同新邨大方樓地下J1，J2號舖舆一樓J1號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "黃埔花園第11期聚寶坊地下G7A舖及地庫1樓1B12至14舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "茶果嶺東NKIL6046匯景花園26號1號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "尖沙咀柯士甸道22號九龍公園",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900095",
+      "restaurant_name": "九龍公園",
+      "restaurant_address": "尖沙咀柯士甸道22號九龍公園"
+    },
+    {
+      "region": "kowloon",
+      "address": "鑽石山鳳德邨鳳德商場202A號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900099",
+      "restaurant_name": "鳳德邨",
+      "restaurant_address": "鑽石山鳳德邨鳳德商場202A號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "馬頭圍道家維邨家興樓上層地下5-6號舖, 家廉樓上層地下19至20號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "鑽石山荷李活廣場二樓216號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "慈雲山毓華街23號慈雲山中心333號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900149",
+      "restaurant_name": "慈雲山中心",
+      "restaurant_address": "慈雲山毓華街23號慈雲山中心333號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "黃大仙下邨黃大仙中心南館一樓123號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "油塘鯉魚門廣場二樓201號舖位",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "觀塘秀茂坪邨秀茂坪商場地下1號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900231",
+      "restaurant_name": "秀茂坪邨",
+      "restaurant_address": "觀塘秀茂坪邨秀茂坪商場地下1號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "牛頭角道77號淘大花園商場第二期地下G246-253號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900238",
+      "restaurant_name": "淘大商場",
+      "restaurant_address": "牛頭角道77號淘大花園商場第二期地下G246-253號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "荔枝角深盛路9號宇晴匯2樓13A，15及16號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900247",
+      "restaurant_name": "宇晴匯",
+      "restaurant_address": "荔枝角深盛路9號宇晴匯2樓13A,15及16號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "旺角道30-36號，通菜街124A及124B號，寶安大廈一樓全層及地下F舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "油塘茶果嶺道油麗邨油麗商場地下5及6號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "九龍灣德福廣場 1期F21號商舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "長沙灣道833號長沙灣廣場二樓286B-289, 291 & 293及三樓325-328號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900278",
+      "restaurant_name": "長沙灣廣場",
+      "restaurant_address": "長沙灣道833號長沙灣廣場二樓286B-289, 291 & 293及三樓325-328號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "石硤尾窩仔街1-13號仁寶大廈B2及B3地舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "九龍城賈炳達道128號九龍城廣場地下上層UG02B, UG03 & UG05號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900285",
+      "restaurant_name": "九龍城廣埸",
+      "restaurant_address": "九龍城賈炳達道128號九龍城廣場地下上層UG02B, UG03 & UG05號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "油麻地彌敦道518-520號彌敦行地下A及C舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900286",
+      "restaurant_name": "彌敦行",
+      "restaurant_address": "油麻地彌敦道518-520號彌敦行地下A及C舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "牛池灣清水灣道45號彩雲邨彩雲商場第二期地下上層A104及A115號店",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "牛池灣坪石村停車場 G1號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900307",
+      "restaurant_name": "坪石邨",
+      "restaurant_address": "牛池灣坪石村停車場G1號舖"
+    },
+    {
+      "region": "kowloon",
+      "address": "尖沙咀科學館道14號新文華中心地下G27號舖部份，G28 & G29號舖 及1樓127-138號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "聯合道198號 樂富廣場3樓3112, 3113及3114號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "新蒲崗大有街3號萬廸廣場地下F及 G舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "觀塘利安道15號順利邨利業樓及順利商場F2樓201A號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "何文田忠孝街60號愛民邨愛民廣場G38A號地下及G38B號A部份地庫",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "kowloon",
+      "address": "長沙灣幸祥街8號幸福邨幸福商場1樓111舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "荃灣市地段81川龍街22號地下及1樓及街市街10-16號地下及閣樓",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "荃灣德士古道富麗商場地舖1-9號",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900033",
+      "restaurant_name": "德士古道",
+      "restaurant_address": "荃灣德士古道富麗商場地舖1-9號"
+    },
+    {
+      "region": "nt",
+      "address": "元朗青山道99-109號元朗貿易中心地下五號舖及一樓二樓",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900042",
+      "restaurant_name": "元朗貿易中心",
+      "restaurant_address": "元朗青山道99-109號元朗貿易中心地下五號舖及一樓二樓"
+    },
+    {
+      "region": "nt",
+      "address": "大埔安慈路4號昌運中心57-66號地下",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900047",
+      "restaurant_name": "昌運中心",
+      "restaurant_address": "大埔安慈路4號昌運中心57-66號地下"
+    },
+    {
+      "region": "nt",
+      "address": "大埔太和邨太和商場102號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900054",
+      "restaurant_name": "太和邨",
+      "restaurant_address": "大埔太和邨太和商場102號舖"
+    },
+    {
+      "region": "nt",
+      "address": "青衣長發商場407A and 407B號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "屯門市地段280號河傍街,屯門鄉事會路康麗花園地下14號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "大埔墟廣福道70號寶康大廈地庫",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900061",
+      "restaurant_name": "廣福道",
+      "restaurant_address": "大埔墟廣福道70號寶康大廈地庫"
+    },
+    {
+      "region": "nt",
+      "address": "元朗教育路9-13號興發大廈地下1&11舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900064",
+      "restaurant_name": "教育路",
+      "restaurant_address": "元朗教育路9-13號興發大廈地下1&11舖"
+    },
+    {
+      "region": "nt",
+      "address": "西貢親民街西貢花園地下1-3號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900070",
+      "restaurant_name": "西貢花園",
+      "restaurant_address": "西貢親民街西貢花園地下1-3號舖"
+    },
+    {
+      "region": "nt",
+      "address": "屯門湖翠路1號蝴蝶邨蝶心樓地下 R131-136 號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "荃灣沙咀道270-276號廣發大廈一樓及地下",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900073",
+      "restaurant_name": "沙咀道",
+      "restaurant_address": "荃灣沙咀道270-276號廣發大廈一樓及地下"
+    },
+    {
+      "region": "nt",
+      "address": "元朗天水圍天瑞邨(I&II)天瑞商場地下G1B號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "粉嶺上水市地段71號名都商場二樓22號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "粉嶺百和路88號花都廣場地下91A, 93-95號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "上水石湖墟新豐路106-110號金城大廈地下",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900125",
+      "restaurant_name": "新豐路",
+      "restaurant_address": "上水石湖墟新豐路106-110號金城大廈地下"
+    },
+    {
+      "region": "nt",
+      "address": "屯門市地段152號,青山坊2號華樂大廈地下16, 17, 21A(部份)及21B號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "馬鞍山頌安邨頌安商場6號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900136",
+      "restaurant_name": "頌安邨",
+      "restaurant_address": "馬鞍山頌安邨頌安商場6號舖"
+    },
+    {
+      "region": "nt",
+      "address": "粉嶺聯和墟和睦路9號海聯廣場地下2A及2B",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900142",
+      "restaurant_name": "海聯廣場",
+      "restaurant_address": "粉嶺聯和墟和睦路9號海聯廣場地下2A及2B"
+    },
+    {
+      "region": "nt",
+      "address": "馬鞍山恆安邨恆安商場二樓201至202A",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900154",
+      "restaurant_name": "恆安邨",
+      "restaurant_address": "馬鞍山恆安邨恆安商場二樓201至202A"
+    },
+    {
+      "region": "nt",
+      "address": "大圍新翠邨新翠商場地下1B舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900155",
+      "restaurant_name": "新翠邨",
+      "restaurant_address": "大圍新翠邨新翠商場地下1B舖"
+    },
+    {
+      "region": "nt",
+      "address": "將軍澳尚德邨TKO Spot2樓216號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900161",
+      "restaurant_name": "TKO Spot",
+      "restaurant_address": "將軍澳尚德邨TKO Spot 2樓216號舖"
+    },
+    {
+      "region": "nt",
+      "address": "將軍澳寶林邨寶林商場地下103號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900170",
+      "restaurant_name": "寶林邨",
+      "restaurant_address": "將軍澳寶林邨寶林商場地下103號舖"
+    },
+    {
+      "region": "nt",
+      "address": "將軍澳欣景路八號新都城中心二期商場一樓1017號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900192",
+      "restaurant_name": "新都城中心二期商場",
+      "restaurant_address": "將軍澳欣景路八號新都城中心二期商場一樓1017號舖"
+    },
+    {
+      "region": "nt",
+      "address": "屯門山景邨山景商場124號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900217",
+      "restaurant_name": "山景邨",
+      "restaurant_address": "屯門山景邨山景商場124號舖"
+    },
+    {
+      "region": "nt",
+      "address": "大埔富善邨富善商場地下G25號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900228",
+      "restaurant_name": "富善邨",
+      "restaurant_address": "大埔富善邨富善商場地下G25號舖"
+    },
+    {
+      "region": "nt",
+      "address": "將軍澳彩明苑彩明商場271 及272 號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "沙田鞍祿街18號新港城中心二樓2138號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "上水彩園商場三樓R36及R37號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900249",
+      "restaurant_name": "彩園邨",
+      "restaurant_address": "上水彩園商場三樓R36及R37號舖"
+    },
+    {
+      "region": "nt",
+      "address": "葵涌石蔭邨石蔭商場LG二樓LG213及214號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900250",
+      "restaurant_name": "石蔭邨",
+      "restaurant_address": "葵涌石蔭邨石蔭商場LG二樓LG213及214號舖"
+    },
+    {
+      "region": "nt",
+      "address": "馬鞍山利安邨利安商場地庫三樓304號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900254",
+      "restaurant_name": "利安邨",
+      "restaurant_address": "馬鞍山利安邨利安商場地庫三樓304號舖"
+    },
+    {
+      "region": "nt",
+      "address": "屯門屯合街2號時代廣場南翼第三層13及14號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "沙田第一城銀城街1號置富第一城地下G78-G81 & G82C號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900274",
+      "restaurant_name": "置富第一城",
+      "restaurant_address": "沙田第一城銀城街1號置富第一城地下G78-G81 & G82C號舖"
+    },
+    {
+      "region": "nt",
+      "address": "元朗天水圍天華路30號天頌苑T Town South 2 樓 S206號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "沙田沙角村沙角商場二樓239號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "元朗天水圍天湖路天耀邨天耀商場地下L011號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "荃灣青山公路398號愉景新城購物商場第二層2022-2023號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900311",
+      "restaurant_name": "愉景新城",
+      "restaurant_address": "荃灣青山公路398號愉景新城購物商場第二層2022-2023號舖"
+    },
+    {
+      "region": "nt",
+      "address": "元朗朗屏路1號朗屏邨朗屏商場1樓L116號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "西貢將軍澳常寧路2號TKO Gateway西翼一樓W102號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "元朗洪水橋田心路洪福邨洪福商場地下1號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "粉嶺一鳴路15號碧湖花園商場UG樓層34B號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "屯門大興街1號大興商場地下L101號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900321",
+      "restaurant_name": "大興邨",
+      "restaurant_address": "屯門大興街1號大興商場地下L101號舖"
+    },
+    {
+      "region": "nt",
+      "address": "元朗天水圍天秀路8號天一商城1樓1018-1019號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "沙田盛田街1號秦石邨秦石商場地下8+9號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "荃灣大壩街4-30號荃灣廣場第五層511-512及511-512A號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "沙田水泉澳邨水泉澳廣場G12號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unique_exact_complete_address_match",
+      "restaurant_rid": "900329",
+      "restaurant_name": "水泉澳邨",
+      "restaurant_address": "沙田水泉澳邨水泉澳廣場G12號舖"
+    },
+    {
+      "region": "nt",
+      "address": "將軍澳唐德街1號將軍澳廣場商業部份二樓2-018-020號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "青衣青敬路31號青衣城地下G36-37號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "天水圍天恩路12-18號嘉湖(一期)地下G57B &G57C號舖及外座區G57A",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "大圍道37-47號耀寶大廈地下1號鋪及1樓全層",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "青衣楓樹窩路10號青衣邨青衣商場地下S1-S2號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "西貢將軍澳康城路1號The LOHAS 康城4樓431號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "沙田正街新城市廣場一期2樓222-223號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "nt",
+      "address": "屯門鄉事會路2A號安定邨愛定商場A區A-128 號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "island",
+      "address": "大嶼山東涌逸東邨逸東商場1樓104號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    },
+    {
+      "region": "island",
+      "address": "大嶼山東涌達東路20號東薈城一樓112號舖",
+      "source_type": "official_dessert_station_address",
+      "source_url": "https://campaign.mcdonalds.com.hk/dk-store/dk-store-list.json?v=20260630",
+      "physical_current_operation_verified": false,
+      "identity_status": "unresolved_parent_restaurant"
+    }
+  ]
+}
