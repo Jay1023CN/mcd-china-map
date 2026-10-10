@@ -1,0 +1,68 @@
+name: Product film Mandarin neural voice
+
+on:
+  push:
+    branches: ['video/mandarin-voice-20261010']
+    paths: ['tools/video_voiceover/**', '.github/workflows/video-mandarin-voice.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      HF_HUB_DISABLE_XET: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install audio utilities
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg libsndfile1
+          python -m pip install --quiet --upgrade pip
+          python -m pip install --quiet edge-tts numpy soundfile
+      - name: Synthesize natural Mandarin voice
+        id: edge
+        run: |
+          python tools/video_voiceover/synthesize.py edge
+          if test -f voiceover-output/EDGE_OK; then
+            echo 'ok=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ok=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install open neural Chinese model if cloud service is unavailable
+        if: steps.edge.outputs.ok != 'true'
+        run: |
+          python -m pip install --quiet torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --quiet 'kokoro>=0.9.4' 'misaki[zh]>=0.9.4' soundfile
+      - name: Synthesize Mandarin with neural Chinese model
+        if: steps.edge.outputs.ok != 'true'
+        run: python tools/video_voiceover/synthesize.py kokoro
+      - name: Save speech before verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: maimai-mandarin-neural-voice
+          path: voiceover-output/
+          retention-days: 7
+          if-no-files-found: error
+      - name: Verify narration with independent Chinese speech recognition
+        continue-on-error: true
+        run: |
+          python -m pip install --quiet faster-whisper opencc-python-reimplemented
+          python tools/video_voiceover/synthesize.py check
+      - name: Save verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maimai-mandarin-voice-check
+          path: voiceover-output/
+          retention-days: 7
+          if-no-files-found: warn
