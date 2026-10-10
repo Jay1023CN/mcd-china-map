@@ -1,0 +1,2563 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-10T05:54:10.896434+00:00",
+  "sources": [
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json",
+      "fetched_at": "2026-10-10T05:54:01.921560+00:00",
+      "response_sha256": "7a333e5737d1e69a7e90400874ec908d5cb5c6a8d8efead24c0f137345054d95"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json",
+      "fetched_at": "2026-10-10T05:54:01.781656+00:00",
+      "response_sha256": "9626c700abca708da272e03879ad98db4f1385fad11b8877481b13a0c2ef86db"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json",
+      "fetched_at": "2026-10-10T05:54:01.764637+00:00",
+      "response_sha256": "c7e8f6d81bf815b309e081b17325f73134bfa6929332e1c135398e82216f70f7"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json",
+      "fetched_at": "2026-10-10T05:54:01.762671+00:00",
+      "response_sha256": "5da8144cc2d3a6ab6be40a63fd2ed099a33f1deae8e727214542e73f410ff607"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json",
+      "fetched_at": "2026-10-10T05:54:02.853554+00:00",
+      "response_sha256": "9a4a3b95d903b064c8e815b78d4f80f391b4bdafd3b52dabd854755457385660"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json",
+      "fetched_at": "2026-10-10T05:54:03.051729+00:00",
+      "response_sha256": "679ec739045413f4de0898a9d6a7957f6ffc551809f3f52c786a30d6242b02c5"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json",
+      "fetched_at": "2026-10-10T05:54:03.135375+00:00",
+      "response_sha256": "828be8771e676322a81f560611821230d66e1e1dca87308efd7865b27423e605"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json",
+      "fetched_at": "2026-10-10T05:54:03.382874+00:00",
+      "response_sha256": "f8d3bdbee4068811237efd23fe349a4c6e3bc99334079f9746f19e7df5ea4854"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json",
+      "fetched_at": "2026-10-10T05:54:03.956522+00:00",
+      "response_sha256": "f699513d5eb63d56350018d90db92345aeefc88c9e4f76197ea405178b6c31ae"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json",
+      "fetched_at": "2026-10-10T05:54:04.288533+00:00",
+      "response_sha256": "6af17f07a3c83bad7d4d552efdd7f59ba8f7574363d1a686f59bc1d0f91733e7"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json",
+      "fetched_at": "2026-10-10T05:54:04.292993+00:00",
+      "response_sha256": "f87241d47687264861aa619b8dc37ffeb61a2be5d6018a8c01ec0ce0acb5cb38"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json",
+      "fetched_at": "2026-10-10T05:54:04.633881+00:00",
+      "response_sha256": "7ca3290e0458f34086df4d61fa9804e2c624d55dfe5f8f6a841844b5dcd43207"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json",
+      "fetched_at": "2026-10-10T05:54:05.095562+00:00",
+      "response_sha256": "0c749acd0048a5042a5ee701ddd5a87c17ff91afb9b728d23b7253799135b58f"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json",
+      "fetched_at": "2026-10-10T05:54:05.593471+00:00",
+      "response_sha256": "ee9696faaca6e644fb0f1aebfc0bd800beb938dd2eb1737fcb8b244072405d9e"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json",
+      "fetched_at": "2026-10-10T05:54:05.545890+00:00",
+      "response_sha256": "04d600e257db17869aa7fabcfcd6a87a7236791a7f02dd891636f5f58da0133f"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json",
+      "fetched_at": "2026-10-10T05:54:06.037069+00:00",
+      "response_sha256": "34119256db754324763c8484122d71524818c9cec974207bd27a9aafe2d8ad63"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json",
+      "fetched_at": "2026-10-10T05:54:06.453502+00:00",
+      "response_sha256": "0acb559fcfe2ab2c5d2707c2477e60facdf4328ad89b8ab7d9126c5166675502"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json",
+      "fetched_at": "2026-10-10T05:54:06.874397+00:00",
+      "response_sha256": "091cb4e77e2bc73fb37c8a9b3b174db9b2008db5f544a7156f5a8ad34e77dd66"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json",
+      "fetched_at": "2026-10-10T05:54:06.915031+00:00",
+      "response_sha256": "209ad617a296b154c4fd0828180b2a9ab2b270044990ab34e72a344ce913c8c7"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json",
+      "fetched_at": "2026-10-10T05:54:07.316157+00:00",
+      "response_sha256": "5bdcaa8808d78065be4a496718b449c5b97d1ef27900bbfcd2407f69c5f6c041"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json",
+      "fetched_at": "2026-10-10T05:54:07.374075+00:00",
+      "response_sha256": "ae44b392cf32ff7f7df5466ca16fa7f1b70b9fb9c36f00f54d6f142d011c65e4"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json",
+      "fetched_at": "2026-10-10T05:54:08.191986+00:00",
+      "response_sha256": "ab7c6769ee2c8941054b71d82261eae5385e237354aea1887e00c416872c457d"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json",
+      "fetched_at": "2026-10-10T05:54:08.428422+00:00",
+      "response_sha256": "e8e3a3820d97ca3453c18c6335703f4e4f93df95ba394a1259eebab59e7072b1"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json",
+      "fetched_at": "2026-10-10T05:54:08.601524+00:00",
+      "response_sha256": "3336ddee76a8d33a5841f928c764ec4e4bb33988ec59d08efc75000251af1cf6"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json",
+      "fetched_at": "2026-10-10T05:54:08.665072+00:00",
+      "response_sha256": "c11c7adf7581fc53e965bf0fd2b3217213f118c59ebddf4cab929c51ee00aa6e"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json",
+      "fetched_at": "2026-10-10T05:54:09.437742+00:00",
+      "response_sha256": "ba95ab3f6b9183942c183d66d1258ac710dcdf9cb49c51f79915532379747c81"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json",
+      "fetched_at": "2026-10-10T05:54:09.632906+00:00",
+      "response_sha256": "969ca94cc865bf3a37c22e30d7c0125196fd22175f7c212953185f7c67921682"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json",
+      "fetched_at": "2026-10-10T05:54:09.685296+00:00",
+      "response_sha256": "5252d2ce49a7b6f721d5ca9404a2960b428fab09b6f62256fe62db0218d1123e"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json",
+      "fetched_at": "2026-10-10T05:54:09.652864+00:00",
+      "response_sha256": "42caf689c3c37630aa725bac2351153bac00fb626a01fbe5f141c3a279706936"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/640000_full.json",
+      "fetched_at": "2026-10-10T05:54:10.525458+00:00",
+      "response_sha256": "99e03114c3f7dff3fad5b87a88ddf2fb08687d117c62bf999236191ca29d78f9"
+    },
+    {
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json",
+      "fetched_at": "2026-10-10T05:54:10.895143+00:00",
+      "response_sha256": "587b5069eddcad4b5a2f784380351f756f0ba955211721091b85a6528ae74745"
+    }
+  ],
+  "localities": [
+    {
+      "city": "北京市",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "天津市",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "河北省",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "山西省",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "内蒙古自治区",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "辽宁省",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "吉林省",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "黑龙江省",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "上海市",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "江苏省",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "浙江省",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "安徽省",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "福建省",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "江西省",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "山东省",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "河南省",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "湖北省",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "湖南省",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "广东省",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "广西壮族自治区",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "海南省",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "重庆市",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "四川省",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "贵州省",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "云南省",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "西藏自治区",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "陕西省",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "甘肃省",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "青海省",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "宁夏回族自治区",
+      "province_code": "640000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "新疆维吾尔自治区",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "city": "东城区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "西城区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "朝阳区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "丰台区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "石景山区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "海淀区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "门头沟区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "房山区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "通州区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "顺义区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "昌平区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "大兴区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "怀柔区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "平谷区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "密云区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "延庆区",
+      "province_code": "110000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json"
+    },
+    {
+      "city": "和平区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "河东区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "河西区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "南开区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "河北区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "红桥区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "东丽区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "西青区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "津南区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "北辰区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "武清区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "宝坻区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "滨海新区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "宁河区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "静海区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "蓟州区",
+      "province_code": "120000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/120000_full.json"
+    },
+    {
+      "city": "石家庄市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "唐山市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "秦皇岛市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "邯郸市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "邢台市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "保定市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "张家口市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "承德市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "沧州市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "廊坊市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "衡水市",
+      "province_code": "130000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/130000_full.json"
+    },
+    {
+      "city": "太原市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "大同市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "阳泉市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "长治市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "晋城市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "朔州市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "晋中市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "运城市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "忻州市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "临汾市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "吕梁市",
+      "province_code": "140000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/140000_full.json"
+    },
+    {
+      "city": "呼和浩特市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "包头市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "乌海市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "赤峰市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "通辽市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "鄂尔多斯市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "呼伦贝尔市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "巴彦淖尔市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "乌兰察布市",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "兴安盟",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "锡林郭勒盟",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "阿拉善盟",
+      "province_code": "150000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/150000_full.json"
+    },
+    {
+      "city": "沈阳市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "大连市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "鞍山市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "抚顺市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "本溪市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "丹东市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "锦州市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "营口市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "阜新市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "辽阳市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "盘锦市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "铁岭市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "朝阳市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "葫芦岛市",
+      "province_code": "210000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json"
+    },
+    {
+      "city": "长春市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "吉林市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "四平市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "辽源市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "通化市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "白山市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "松原市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "白城市",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "延边朝鲜族自治州",
+      "province_code": "220000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
+    },
+    {
+      "city": "哈尔滨市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "齐齐哈尔市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "鸡西市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "鹤岗市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "双鸭山市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "大庆市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "伊春市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "佳木斯市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "七台河市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "牡丹江市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "黑河市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "绥化市",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "大兴安岭地区",
+      "province_code": "230000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json"
+    },
+    {
+      "city": "黄浦区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "徐汇区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "长宁区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "静安区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "普陀区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "虹口区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "杨浦区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "闵行区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "宝山区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "嘉定区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "浦东新区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "金山区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "松江区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "青浦区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "奉贤区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "崇明区",
+      "province_code": "310000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json"
+    },
+    {
+      "city": "南京市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "无锡市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "徐州市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "常州市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "苏州市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "南通市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "连云港市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "淮安市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "盐城市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "扬州市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "镇江市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "泰州市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "宿迁市",
+      "province_code": "320000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
+    },
+    {
+      "city": "杭州市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "宁波市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "温州市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "嘉兴市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "湖州市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "绍兴市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "金华市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "衢州市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "舟山市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "台州市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "丽水市",
+      "province_code": "330000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "city": "合肥市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "芜湖市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "蚌埠市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "淮南市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "马鞍山市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "淮北市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "铜陵市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "安庆市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "黄山市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "滁州市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "阜阳市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "宿州市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "六安市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "亳州市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "池州市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "宣城市",
+      "province_code": "340000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
+    },
+    {
+      "city": "福州市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "厦门市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "莆田市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "三明市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "泉州市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "漳州市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "南平市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "龙岩市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "宁德市",
+      "province_code": "350000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
+    },
+    {
+      "city": "南昌市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "景德镇市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "萍乡市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "九江市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "新余市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "鹰潭市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "赣州市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "吉安市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "宜春市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "抚州市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "上饶市",
+      "province_code": "360000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/360000_full.json"
+    },
+    {
+      "city": "济南市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "青岛市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "淄博市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "枣庄市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "东营市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "烟台市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "潍坊市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "济宁市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "泰安市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "威海市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "日照市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "临沂市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "德州市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "聊城市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "滨州市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "菏泽市",
+      "province_code": "370000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "city": "郑州市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "开封市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "洛阳市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "平顶山市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "安阳市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "鹤壁市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "新乡市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "焦作市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "濮阳市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "许昌市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "漯河市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "三门峡市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "南阳市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "商丘市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "信阳市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "周口市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "驻马店市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "济源市",
+      "province_code": "410000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json"
+    },
+    {
+      "city": "武汉市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "黄石市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "十堰市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "宜昌市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "襄阳市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "鄂州市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "荆门市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "孝感市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "荆州市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "黄冈市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "咸宁市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "随州市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "恩施土家族苗族自治州",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "仙桃市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "潜江市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "天门市",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "神农架林区",
+      "province_code": "420000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/420000_full.json"
+    },
+    {
+      "city": "长沙市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "株洲市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "湘潭市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "衡阳市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "邵阳市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "岳阳市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "常德市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "张家界市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "益阳市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "郴州市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "永州市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "怀化市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "娄底市",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "湘西土家族苗族自治州",
+      "province_code": "430000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
+      "city": "广州市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "韶关市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "深圳市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "珠海市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "汕头市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "佛山市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "江门市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "湛江市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "茂名市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "肇庆市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "惠州市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "梅州市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "汕尾市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "河源市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "阳江市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "清远市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "东莞市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "中山市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "潮州市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "揭阳市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "云浮市",
+      "province_code": "440000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "city": "南宁市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "柳州市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "桂林市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "梧州市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "北海市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "防城港市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "钦州市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "贵港市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "玉林市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "百色市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "贺州市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "河池市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "来宾市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "崇左市",
+      "province_code": "450000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/450000_full.json"
+    },
+    {
+      "city": "海口市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "三亚市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "三沙市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "儋州市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "五指山市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "琼海市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "文昌市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "万宁市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "东方市",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "定安县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "屯昌县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "澄迈县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "临高县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "白沙黎族自治县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "昌江黎族自治县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "乐东黎族自治县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "陵水黎族自治县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "保亭黎族苗族自治县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "琼中黎族苗族自治县",
+      "province_code": "460000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/460000_full.json"
+    },
+    {
+      "city": "万州区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "涪陵区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "渝中区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "大渡口区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "江北区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "沙坪坝区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "九龙坡区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "南岸区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "北碚区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "綦江区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "大足区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "渝北区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "巴南区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "黔江区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "长寿区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "江津区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "合川区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "永川区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "南川区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "璧山区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "铜梁区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "潼南区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "荣昌区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "开州区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "梁平区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "武隆区",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "城口县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "丰都县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "垫江县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "忠县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "云阳县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "奉节县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "巫山县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "巫溪县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "石柱土家族自治县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "秀山土家族苗族自治县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "酉阳土家族苗族自治县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "彭水苗族土家族自治县",
+      "province_code": "500000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/500000_full.json"
+    },
+    {
+      "city": "成都市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "自贡市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "攀枝花市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "泸州市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "德阳市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "绵阳市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "广元市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "遂宁市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "内江市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "乐山市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "南充市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "眉山市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "宜宾市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "广安市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "达州市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "雅安市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "巴中市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "资阳市",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "阿坝藏族羌族自治州",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "甘孜藏族自治州",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "凉山彝族自治州",
+      "province_code": "510000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+    },
+    {
+      "city": "贵阳市",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "六盘水市",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "遵义市",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "安顺市",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "毕节市",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "铜仁市",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "黔西南布依族苗族自治州",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "黔东南苗族侗族自治州",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "黔南布依族苗族自治州",
+      "province_code": "520000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/520000_full.json"
+    },
+    {
+      "city": "昆明市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "曲靖市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "玉溪市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "保山市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "昭通市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "丽江市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "普洱市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "临沧市",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "楚雄彝族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "红河哈尼族彝族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "文山壮族苗族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "西双版纳傣族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "大理白族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "德宏傣族景颇族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "怒江傈僳族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "迪庆藏族自治州",
+      "province_code": "530000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "city": "拉萨市",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json"
+    },
+    {
+      "city": "日喀则市",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json"
+    },
+    {
+      "city": "昌都市",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json"
+    },
+    {
+      "city": "林芝市",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json"
+    },
+    {
+      "city": "山南市",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json"
+    },
+    {
+      "city": "那曲市",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json"
+    },
+    {
+      "city": "阿里地区",
+      "province_code": "540000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/540000_full.json"
+    },
+    {
+      "city": "西安市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "铜川市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "宝鸡市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "咸阳市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "渭南市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "延安市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "汉中市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "榆林市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "安康市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "商洛市",
+      "province_code": "610000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/610000_full.json"
+    },
+    {
+      "city": "兰州市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "嘉峪关市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "金昌市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "白银市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "天水市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "武威市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "张掖市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "平凉市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "酒泉市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "庆阳市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "定西市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "陇南市",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "临夏回族自治州",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "甘南藏族自治州",
+      "province_code": "620000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/620000_full.json"
+    },
+    {
+      "city": "西宁市",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "海东市",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "海北藏族自治州",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "黄南藏族自治州",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "海南藏族自治州",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "果洛藏族自治州",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "玉树藏族自治州",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "海西蒙古族藏族自治州",
+      "province_code": "630000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/630000_full.json"
+    },
+    {
+      "city": "银川市",
+      "province_code": "640000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/640000_full.json"
+    },
+    {
+      "city": "石嘴山市",
+      "province_code": "640000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/640000_full.json"
+    },
+    {
+      "city": "吴忠市",
+      "province_code": "640000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/640000_full.json"
+    },
+    {
+      "city": "固原市",
+      "province_code": "640000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/640000_full.json"
+    },
+    {
+      "city": "中卫市",
+      "province_code": "640000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/640000_full.json"
+    },
+    {
+      "city": "乌鲁木齐市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "克拉玛依市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "吐鲁番市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "哈密市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "昌吉回族自治州",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "博尔塔拉蒙古自治州",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "巴音郭楞蒙古自治州",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "阿克苏地区",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "克孜勒苏柯尔克孜自治州",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "喀什地区",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "和田地区",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "伊犁哈萨克自治州",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "塔城地区",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "阿勒泰地区",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "石河子市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "阿拉尔市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "图木舒克市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "五家渠市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "北屯市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "铁门关市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "双河市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "可克达拉市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "昆玉市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    },
+    {
+      "city": "胡杨河市",
+      "province_code": "650000",
+      "source_url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
+    }
+  ]
+}

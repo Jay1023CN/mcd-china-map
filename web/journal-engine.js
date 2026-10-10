@@ -103,8 +103,13 @@
     }
     if (input.store_reference != null) {
       var reference = object(input.store_reference, 'store_reference');
-      if (reference.source !== 'mcp_nearby') fail('invalid store reference source');
-      output.store_reference = {source: 'mcp_nearby', code: text(reference.code, 'store code', 100, true), address: text(reference.address || '', 'store address', 300, false)};
+      if (!['mcp_nearby','official_catalog'].includes(reference.source)) fail('invalid store reference source');
+      output.store_reference = {source: reference.source, code: text(reference.code, 'store code', 100, true), address: text(reference.address || '', 'store address', 500, false)};
+      if(reference.source_url!=null){
+        var referenceUrl=text(reference.source_url,'store reference URL',2048,false);
+        if(referenceUrl && !/^https:\/\//.test(referenceUrl))fail('store reference URL must use HTTPS');
+        if(referenceUrl)output.store_reference.source_url=referenceUrl;
+      }
     }
     if (input.origin != null) {
       if (input.origin !== 'mcp' || input.source !== 'manual' || !input.confirmed) fail('origin mcp is only valid for a confirmed manual entry');
@@ -114,8 +119,12 @@
     if (input.location != null) {
       var location = object(input.location, 'location');
       if (typeof location.lat !== 'number' || !Number.isFinite(location.lat) || location.lat < -90 || location.lat > 90 || typeof location.lon !== 'number' || !Number.isFinite(location.lon) || location.lon < -180 || location.lon > 180) fail('location coordinates are invalid');
-      if (location.precision !== 'city' && location.precision !== 'user') fail('location precision must be city or user');
+      if (!['city','user','store'].includes(location.precision)) fail('location precision must be city, user or store');
       output.location = { lat: location.lat, lon: location.lon, precision: location.precision };
+      if(location.precision==='store'){
+        if(!['GCJ-02','WGS84','official_google_maps_unverified'].includes(location.coordinate_system))fail('store coordinates require a known source coordinate system');
+        output.location.coordinate_system=location.coordinate_system;
+      }
     }
     if (input.photo != null) {
       var photo = object(input.photo, 'photo');
@@ -229,7 +238,7 @@
     entries.forEach(function (entry) {
       if (entry.province_code) count(provinces, entry.province_code, function () { return {province_code: entry.province_code, count: 0}; });
       var cityKey = entry.country_code + '\u0000' + (entry.province_code || '') + '\u0000' + identity(entry.city);
-      var storeKey = cityKey + '\u0000' + identity(entry.store);
+      var storeKey = cityKey + '\u0000' + (entry.store_reference?.source === 'official_catalog' ? entry.store_reference.code : identity(entry.store));
       var country = count(countries, entry.country_code, function () { return { country_code: entry.country_code, count: 0, cityKeys: new Set(), storeKeys: new Set() }; });
       if (entry.city) {
         country.cityKeys.add(cityKey);

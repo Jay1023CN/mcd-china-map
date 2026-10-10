@@ -75,7 +75,7 @@ def project_archive(raw):
             projected['wishlist'].append({key: item[key] for key in WISHLIST_FIELDS if key in item})
     for item in raw['entries']:
         entry = {key: item[key] for key in ENTRY_FIELDS if key in item}
-        for key, fields in [('location', ('lat', 'lon', 'precision')), ('photo', ('data_url',)), ('default_photo', ('url', 'source_url', 'attribution', 'caption')), ('store_reference', ('source', 'code', 'address'))]:
+        for key, fields in [('location', ('lat', 'lon', 'precision', 'coordinate_system')), ('photo', ('data_url',)), ('default_photo', ('url', 'source_url', 'attribution', 'caption')), ('store_reference', ('source', 'code', 'address', 'source_url'))]:
             if isinstance(item.get(key), dict):
                 entry[key] = {field: item[key][field] for field in fields if field in item[key]}
         projected['entries'].append(entry)
@@ -125,6 +125,12 @@ def render(archive):
             'stores': stores, 'store_images': store_images,
             'card_sketch': asset_uri('notebook-food-sketch.png'),
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
+    national = json.loads((ROOT/'assets/data/national-store-directory.json').read_text(encoding='utf-8'))
+    fields = ('id','code','name','city','province_code','address','source','source_url','featured','featured_name',
+              'locator_name','location','aliases','tags','short_description','search_keyword','default_photo','district','locality_note','record_kind','operator_name','brand_name_source_url')
+    data['national_catalog'] = {'schema_version':1,'generated_at':national['generated_at'],
+                               'coverage':national['coverage'],'sources':national['sources'],
+                               'stores':[{key:store[key] for key in fields if key in store} for store in national['stores']]}
     if archive.get('data_kind') == 'synthetic':
         data['runtime'] = {'local_api': False}
     encoded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
@@ -144,6 +150,7 @@ def render(archive):
         collections_js=(ROOT/'web/journal-collections.js').read_text(encoding='utf-8'),
         preferences_js=(ROOT/'web/collection-preferences.js').read_text(encoding='utf-8'),
         navigation_js=(ROOT/'web/store-navigation.js').read_text(encoding='utf-8'),
+        national_js='\n'.join((ROOT/path).read_text(encoding='utf-8') for path in ['web/chinese-search-normalization.js','web/national-store-search.js']),
         app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
 
 

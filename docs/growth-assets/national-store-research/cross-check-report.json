@@ -1,0 +1,550 @@
+{
+  "primary_source": "official-city-publicity-snapshot.json",
+  "all_city_source": "official-publicity-snapshot.json",
+  "observed_cities_with_records": 312,
+  "city_selector_options": 312,
+  "city_only_count": 43,
+  "all_city_only_count": 0,
+  "duplicate_city_names": [
+    {
+      "city": "哈尔滨市",
+      "name": "麦当劳哈尔滨金太阳餐厅",
+      "records": [
+        {
+          "city": "哈尔滨市",
+          "name": "麦当劳哈尔滨金太阳餐厅",
+          "official_id": "3230027",
+          "official_publicity_ids": [
+            "3230027"
+          ],
+          "source_page": 1,
+          "source_row": 4,
+          "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%93%88%E5%B0%94%E6%BB%A8%E5%B8%82&page=1"
+        },
+        {
+          "city": "哈尔滨市",
+          "name": "麦当劳哈尔滨金太阳餐厅",
+          "official_id": "3230027001",
+          "official_publicity_ids": [
+            "3230027001"
+          ],
+          "source_page": 1,
+          "source_row": 5,
+          "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%93%88%E5%B0%94%E6%BB%A8%E5%B8%82&page=1"
+        }
+      ]
+    },
+    {
+      "city": "柳州市",
+      "name": "麦当劳柳州地王餐厅",
+      "records": [
+        {
+          "city": "柳州市",
+          "name": "麦当劳柳州地王餐厅",
+          "official_id": "3570059",
+          "official_publicity_ids": [
+            "3570059"
+          ],
+          "source_page": 1,
+          "source_row": 3,
+          "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%9F%B3%E5%B7%9E%E5%B8%82&page=1"
+        },
+        {
+          "city": "柳州市",
+          "name": "麦当劳柳州地王餐厅",
+          "official_id": "3570272",
+          "official_publicity_ids": [
+            "3570272"
+          ],
+          "source_page": 2,
+          "source_row": 2,
+          "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%9F%B3%E5%B7%9E%E5%B8%82&page=2"
+        }
+      ]
+    }
+  ],
+  "city_only_records": [
+    {
+      "city": "伊春市",
+      "name": "麦当劳伊春新兴大街伊青商厦餐厅",
+      "official_id": "3230480",
+      "official_publicity_ids": [
+        "3230480"
+      ],
+      "source_page": 1,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E4%BC%8A%E6%98%A5%E5%B8%82&page=1"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州临海杜桥府前街餐厅",
+      "official_id": "3330468",
+      "official_publicity_ids": [
+        "3330468"
+      ],
+      "source_page": 2,
+      "source_row": 10,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州天台天禧中心得来速餐厅",
+      "official_id": "3330577",
+      "official_publicity_ids": [
+        "3330577"
+      ],
+      "source_page": 3,
+      "source_row": 2,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州椒江天璟誉府餐厅",
+      "official_id": "3330383",
+      "official_publicity_ids": [
+        "3330383"
+      ],
+      "source_page": 2,
+      "source_row": 8,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州椒江巨鼎大厦餐厅",
+      "official_id": null,
+      "official_publicity_ids": [
+        "238593",
+        "3330600"
+      ],
+      "source_page": 3,
+      "source_row": 4,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州椒江永宁餐厅",
+      "official_id": "3330379",
+      "official_publicity_ids": [
+        "3330379"
+      ],
+      "source_page": 2,
+      "source_row": 7,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州温岭万泉东路餐厅",
+      "official_id": null,
+      "official_publicity_ids": [
+        "236446",
+        "3330581"
+      ],
+      "source_page": 3,
+      "source_row": 3,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州温岭创业大厦餐厅",
+      "official_id": "3330640",
+      "official_publicity_ids": [
+        "3330640"
+      ],
+      "source_page": 3,
+      "source_row": 5,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州麻车苑餐厅",
+      "official_id": "3330339",
+      "official_publicity_ids": [
+        "3330339"
+      ],
+      "source_page": 2,
+      "source_row": 6,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州黄岩区南官水街得来速餐厅",
+      "official_id": "3330447",
+      "official_publicity_ids": [
+        "3330447"
+      ],
+      "source_page": 2,
+      "source_row": 9,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "台州市",
+      "name": "麦当劳台州黄岩时代广场餐厅",
+      "official_id": "3330475",
+      "official_publicity_ids": [
+        "3330475"
+      ],
+      "source_page": 3,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8F%B0%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "抚州市",
+      "name": "麦当劳抚州中环广场餐厅",
+      "official_id": "1410205",
+      "official_publicity_ids": [
+        "1410205"
+      ],
+      "source_page": 1,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%8A%9A%E5%B7%9E%E5%B8%82&page=1"
+    },
+    {
+      "city": "抚州市",
+      "name": "麦当劳抚州学府中央购物广场餐厅",
+      "official_id": "1410227",
+      "official_publicity_ids": [
+        "1410227"
+      ],
+      "source_page": 1,
+      "source_row": 2,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%8A%9A%E5%B7%9E%E5%B8%82&page=1"
+    },
+    {
+      "city": "抚州市",
+      "name": "麦当劳抚州硕果时代广场餐厅",
+      "official_id": "1410527",
+      "official_publicity_ids": [
+        "1410527"
+      ],
+      "source_page": 1,
+      "source_row": 3,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%8A%9A%E5%B7%9E%E5%B8%82&page=1"
+    },
+    {
+      "city": "榆林市",
+      "name": "麦当劳榆林万达广场餐厅",
+      "official_id": "1960653",
+      "official_publicity_ids": [
+        "1960653"
+      ],
+      "source_page": 1,
+      "source_row": 2,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%A6%86%E6%9E%97%E5%B8%82&page=1"
+    },
+    {
+      "city": "榆林市",
+      "name": "麦当劳榆林国贸2餐厅",
+      "official_id": "1960644",
+      "official_publicity_ids": [
+        "1960644"
+      ],
+      "source_page": 1,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%A6%86%E6%9E%97%E5%B8%82&page=1"
+    },
+    {
+      "city": "榆林市",
+      "name": "麦当劳榆林悦乐新天地餐厅",
+      "official_id": "1960687",
+      "official_publicity_ids": [
+        "1960687"
+      ],
+      "source_page": 1,
+      "source_row": 3,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%A6%86%E6%9E%97%E5%B8%82&page=1"
+    },
+    {
+      "city": "泰州市",
+      "name": "麦当劳泰兴吾悦广场餐厅",
+      "official_id": "1990548",
+      "official_publicity_ids": [
+        "1990548"
+      ],
+      "source_page": 2,
+      "source_row": 4,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%B3%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "泰州市",
+      "name": "麦当劳泰州中骏餐厅",
+      "official_id": "1990495",
+      "official_publicity_ids": [
+        "1990495"
+      ],
+      "source_page": 2,
+      "source_row": 3,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%B3%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "泰州市",
+      "name": "麦当劳泰州泰兴鼓楼新天地餐厅",
+      "official_id": "1990364",
+      "official_publicity_ids": [
+        "1990364"
+      ],
+      "source_page": 2,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%B3%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "泰州市",
+      "name": "麦当劳靖江万科印象城餐厅",
+      "official_id": "1990393",
+      "official_publicity_ids": [
+        "1990393"
+      ],
+      "source_page": 2,
+      "source_row": 2,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%B3%B0%E5%B7%9E%E5%B8%82&page=2"
+    },
+    {
+      "city": "福州市",
+      "name": "麦当劳福州上藤路餐厅",
+      "official_id": "1410183",
+      "official_publicity_ids": [
+        "1410183"
+      ],
+      "source_page": 4,
+      "source_row": 9,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%A6%8F%E5%B7%9E%E5%B8%82&page=4"
+    },
+    {
+      "city": "福州市",
+      "name": "麦当劳福州塔头街餐厅",
+      "official_id": "1410186",
+      "official_publicity_ids": [
+        "1410186"
+      ],
+      "source_page": 4,
+      "source_row": 10,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%A6%8F%E5%B7%9E%E5%B8%82&page=4"
+    },
+    {
+      "city": "福州市",
+      "name": "麦当劳福州大学紫荆园餐厅",
+      "official_id": "1410393",
+      "official_publicity_ids": [
+        "1410393"
+      ],
+      "source_page": 9,
+      "source_row": 10,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%A6%8F%E5%B7%9E%E5%B8%82&page=9"
+    },
+    {
+      "city": "福州市",
+      "name": "麦当劳福州晋连路餐厅",
+      "official_id": "1410182",
+      "official_publicity_ids": [
+        "1410182"
+      ],
+      "source_page": 4,
+      "source_row": 8,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%A6%8F%E5%B7%9E%E5%B8%82&page=4"
+    },
+    {
+      "city": "福州市",
+      "name": "麦当劳福州福峡路得来速餐厅",
+      "official_id": "1410386",
+      "official_publicity_ids": [
+        "1410386"
+      ],
+      "source_page": 9,
+      "source_row": 9,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%A6%8F%E5%B7%9E%E5%B8%82&page=9"
+    },
+    {
+      "city": "福州市",
+      "name": "麦当劳福清福业路餐厅",
+      "official_id": "1410383",
+      "official_publicity_ids": [
+        "1410383"
+      ],
+      "source_page": 9,
+      "source_row": 8,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%A6%8F%E5%B7%9E%E5%B8%82&page=9"
+    },
+    {
+      "city": "苏州市",
+      "name": "苏州越来溪商业广场快捷小站",
+      "official_id": "1990197001",
+      "official_publicity_ids": [
+        "1990197001"
+      ],
+      "source_page": 3,
+      "source_row": 10,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳常熟琴湖小镇餐厅",
+      "official_id": "1990464",
+      "official_publicity_ids": [
+        "1990464"
+      ],
+      "source_page": 9,
+      "source_row": 9,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=9"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳张家港购物公园金融街餐厅",
+      "official_id": "1990454",
+      "official_publicity_ids": [
+        "1990454"
+      ],
+      "source_page": 9,
+      "source_row": 7,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=9"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州东方大道得来速餐厅",
+      "official_id": "1990193",
+      "official_publicity_ids": [
+        "1990193"
+      ],
+      "source_page": 3,
+      "source_row": 8,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州南京大学苏州校区餐厅",
+      "official_id": "1990714",
+      "official_publicity_ids": [
+        "1990714"
+      ],
+      "source_page": 15,
+      "source_row": 8,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=15"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州吴中大道餐厅",
+      "official_id": "1990197",
+      "official_publicity_ids": [
+        "1990197"
+      ],
+      "source_page": 3,
+      "source_row": 9,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州吴江长安路餐厅",
+      "official_id": "1990198",
+      "official_publicity_ids": [
+        "1990198"
+      ],
+      "source_page": 4,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=4"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州尹山湖水街餐厅",
+      "official_id": "1990469",
+      "official_publicity_ids": [
+        "1990469"
+      ],
+      "source_page": 9,
+      "source_row": 10,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=9"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州常熟招商西路得来速餐厅",
+      "official_id": "1990712",
+      "official_publicity_ids": [
+        "1990712"
+      ],
+      "source_page": 15,
+      "source_row": 7,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=15"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州常熟新世纪大道得来速餐厅",
+      "official_id": "1990731",
+      "official_publicity_ids": [
+        "1990731"
+      ],
+      "source_page": 15,
+      "source_row": 10,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=15"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州广济北路得来速餐厅",
+      "official_id": "1990186",
+      "official_publicity_ids": [
+        "1990186"
+      ],
+      "source_page": 3,
+      "source_row": 7,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=3"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州新光天地得来速餐厅",
+      "official_id": "1990476",
+      "official_publicity_ids": [
+        "1990476"
+      ],
+      "source_page": 10,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=10"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州昆山洞庭湖路得来速餐厅",
+      "official_id": "1990726",
+      "official_publicity_ids": [
+        "1990726"
+      ],
+      "source_page": 15,
+      "source_row": 9,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=15"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州科技城星悦里餐厅",
+      "official_id": "1990462",
+      "official_publicity_ids": [
+        "1990462"
+      ],
+      "source_page": 9,
+      "source_row": 8,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=9"
+    },
+    {
+      "city": "苏州市",
+      "name": "麦当劳苏州采莲广场得来速餐厅",
+      "official_id": null,
+      "official_publicity_ids": [
+        "1990736",
+        "238360"
+      ],
+      "source_page": 16,
+      "source_row": 1,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=16"
+    },
+    {
+      "city": "长春市",
+      "name": "长春龙嘉机场T2安检外快捷小站",
+      "official_id": "3230484001",
+      "official_publicity_ids": [
+        "3230484001"
+      ],
+      "source_page": 6,
+      "source_row": 9,
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E9%95%BF%E6%98%A5%E5%B8%82&page=6"
+    }
+  ],
+  "all_city_only_records": [],
+  "sha256": {
+    "official-city-publicity-snapshot.json": "d0c1a5a1b4833663810b8a1c05db1537078cfb24de9ef2a28b8f2291f2e066b4",
+    "official-publicity-snapshot.json": "9f6d3d629aae1a59ce1ca46ecff3cb41c794b1282793d0a72765c8e241ca9fd6",
+    "hong-kong-official-snapshot.json": "b36aee9fb06c08e17ceef7b047360a53c74635a5ee4397cd89c8211ad9cd74f1"
+  }
+}

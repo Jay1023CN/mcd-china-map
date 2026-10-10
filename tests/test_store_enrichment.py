@@ -162,6 +162,21 @@ class StoreEnrichmentTests(unittest.TestCase):
         self.assertEqual(result['entries'][0]['city'], '上海')
         self.assertEqual(result['entries'][0]['default_photo']['url'], 'https://example.test/explicit.jpg')
 
+    def test_national_directory_keeps_same_name_ambiguity_and_prefers_real_store_location(self):
+        point = {'lat': 31.22, 'lon': 121.48, 'precision': 'store', 'coordinate_system': 'GCJ-02'}
+        directory = [
+            {'name': '同名店', 'city': '上海', 'province_code': '310000', 'location': point},
+            {'name': '同名店', 'city': '杭州', 'province_code': '330000', 'location': dict(point, lat=30.2)},
+        ]
+        result = enrich_archive({'entries': [self.entry('同名店'), self.entry('同名店', city='上海')]},
+                                directory={'stores': directory}, cities=self.cities)
+        self.assertNotIn('city', result['entries'][0])
+        self.assertNotIn('location', result['entries'][0])
+        self.assertEqual(result['entries'][1]['location'], point)
+        directory.append(dict(directory[0], code='second-same-city'))
+        ambiguous = enrich_archive({'entries': [self.entry('同名店', city='上海')]}, directory=directory, cities=[])
+        self.assertNotIn('location', ambiguous['entries'][0])
+
     def test_non_mainland_entries_are_untouched(self):
         archive = {'entries': [{'country_code': 'HK', 'store': '麦当劳上海店'}]}
         result = enrich_archive(archive, directory=[], cities=self.cities)

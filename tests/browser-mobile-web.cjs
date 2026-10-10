@@ -96,6 +96,13 @@ function storeSearchTerm(store) {
   return store.aliases?.[0] || store.name;
 }
 
+function locatedFeatured(data) {
+  const store=data.stores.find(item=>data.national_catalog.stores.some(record=>record.location &&
+    (record.featured_name===item.name || record.name===item.name)));
+  assert.ok(store,'a sourced featured store with a real point is required for map/photo acceptance');
+  return store;
+}
+
 async function waitMapFrame(page) {
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
 }
@@ -137,7 +144,7 @@ async function checkDesktopStores(browser) {
     await waitMapFrame(page);
     assert.equal(await markers.count(),0,'hiding the store layer removes the labels');
     await page.locator('#show-store-layer').check();
-    const store=data.stores.find(item=>item.city==='上海') || data.stores[0];
+    const store=locatedFeatured(data);
     const term=storeSearchTerm(store);
     await page.locator('#store-city-filter').selectOption(store.city);
     await page.locator('#store-query').fill(`${store.city} ${term}`);
@@ -237,7 +244,7 @@ async function runChromium() {
     assert.equal(await page.locator('#count-visits').innerText(),'0','the empty static archive should start with no visits');
     assert.equal(await page.locator('#show-store-layer').isChecked(),true,'public store discovery should be enabled by default');
     const catalog=await publicCatalog(page);
-    const store=catalog.stores.find(item=>item.city==='上海') || catalog.stores[0];
+    const store=locatedFeatured(catalog);
     const searchTerm=storeSearchTerm(store);
     await page.locator('#store-city-filter').selectOption(store.city);
     await page.locator('#store-query').fill(`${store.city} ${searchTerm}`);

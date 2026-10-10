@@ -40,6 +40,8 @@ async function main() {
     await page.locator('[name=province_code]').selectOption('310000');
     await page.locator('[name=city]').fill('上海');
     await page.locator('[name=store]').fill('测试上海门店（虚构）');
+    await page.locator('[name=location_mode]').selectOption('city');
+    assert.match(await page.locator('#location-help').innerText(),/城市参考位置/);
     await page.locator('[name=foods]').fill('咖啡，薯条');
     await page.locator('[name=note]').fill('仅用于自动化验收。');
     const photoFixture = await page.evaluate(() => {

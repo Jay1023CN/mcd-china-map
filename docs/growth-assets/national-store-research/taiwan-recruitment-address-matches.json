@@ -1,0 +1,1697 @@
+{
+  "coverage_complete": false,
+  "source_url": "https://hiring.mcdrecruitment.com.tw/list.php",
+  "recruitment_row_count": 385,
+  "government_row_count": 508,
+  "match_count": 211,
+  "rows": [
+    {
+      "registration_id": "B-112411160-00844-1",
+      "government_address": "台中市北區館前路1號2樓",
+      "brand_store_name": "台中館前",
+      "recruitment_address": "台中市北區館前路１號２樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-00850-8",
+      "government_address": "台中市北區學士路83號",
+      "brand_store_name": "台中學士",
+      "recruitment_address": "台中市北區學士路８３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-00864-3",
+      "government_address": "台中市西屯區台灣大道四段620號",
+      "brand_store_name": "台中中港二",
+      "recruitment_address": "台中市西屯區台灣大道四段６２０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-00866-5",
+      "government_address": "台中市北區崇德路1段298號",
+      "brand_store_name": "台中崇德",
+      "recruitment_address": "台中市北區崇德路１段２９８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-00915-0",
+      "government_address": "台中市北屯區中清路二段896號",
+      "brand_store_name": "台中中清",
+      "recruitment_address": "台中市北屯區中清路二段８９６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-00998-1",
+      "government_address": "台中市北屯區軍功路一段611號",
+      "brand_store_name": "台中軍功",
+      "recruitment_address": "台中市北屯區軍功路一段６１１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-00999-2",
+      "government_address": "台中市南屯區五權西路2段250號1樓",
+      "brand_store_name": "台中五權西",
+      "recruitment_address": "台中市南屯區五權西路２段２５０號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01003-9",
+      "government_address": "台中市沙鹿區光華路338號B1",
+      "brand_store_name": "沙鹿光華",
+      "recruitment_address": "台中市沙鹿區光華路３３８號Ｂ１",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01006-2",
+      "government_address": "台中市西屯區河南路2段466號1樓",
+      "brand_store_name": "台中河南",
+      "recruitment_address": "台中市西屯區河南路２段４６６號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01011-8",
+      "government_address": "台中市太平區中興路43號1樓",
+      "brand_store_name": "太平中興",
+      "recruitment_address": "台中市太平區中興路４３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01038-7",
+      "government_address": "台中市東勢區東關路七段508號",
+      "brand_store_name": "東勢中正",
+      "recruitment_address": "台中市東勢區東關路七段５０８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01039-8",
+      "government_address": "台中市豐原區田心路2段201號",
+      "brand_store_name": "豐原田心",
+      "recruitment_address": "台中市豐原區田心路２段２０１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01056-7",
+      "government_address": "台中市沙鹿區沙田路107號1樓",
+      "brand_store_name": "沙鹿沙田",
+      "recruitment_address": "台中市沙鹿區沙田路１０７號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01061-3",
+      "government_address": "台中市大里區中興路1段175號1樓",
+      "brand_store_name": "大里中興",
+      "recruitment_address": "台中市大里區中興路一段１７５號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01066-8",
+      "government_address": "台中市北屯區崇德路3段191號1樓",
+      "brand_store_name": "台中崇德二",
+      "recruitment_address": "台中市北屯區崇德路三段１９１號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01068-0",
+      "government_address": "台中市西屯區文心路2段57號1樓",
+      "brand_store_name": "台中文心二",
+      "recruitment_address": "台中市西屯區文心路二段５７號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01127-6",
+      "government_address": "台中市烏日區站區二路8號2樓",
+      "brand_store_name": "台中高鐵",
+      "recruitment_address": "台中市烏日區站區二路８號２樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01135-5",
+      "government_address": "台中市南屯區文心南路61號",
+      "brand_store_name": "台中文心南",
+      "recruitment_address": "台中市南屯區文心南路６１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01142-3",
+      "government_address": "台中市北區中清路一段786號",
+      "brand_store_name": "台中新大雅",
+      "recruitment_address": "台中市北區中清路一段７８６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01154-6",
+      "government_address": "台中市西屯區台灣大道四段1058號",
+      "brand_store_name": "台中中港六",
+      "recruitment_address": "台中市西屯區台灣大道四段１０５８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01156-8",
+      "government_address": "台中市豐原區水源路420號1樓",
+      "brand_store_name": "豐原愛買",
+      "recruitment_address": "台中市豐原區水源路４２０號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01169-2",
+      "government_address": "台中市西屯區台灣大道三段251號12樓",
+      "brand_store_name": "台中大遠百",
+      "recruitment_address": "台中市西屯區台灣大道三段２５１號１２樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01172-6",
+      "government_address": "台中市西屯區台灣大道三段301號12樓",
+      "brand_store_name": "台中新三越",
+      "recruitment_address": "台中市西屯區台灣大道三段３０１號１２樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01202-0",
+      "government_address": "台中市西屯區文心路三段119號",
+      "brand_store_name": "台中文心六",
+      "recruitment_address": "台中市西屯區文心路三段１１９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01208-6",
+      "government_address": "台中市太平區中山路三段45號",
+      "brand_store_name": "太平中山",
+      "recruitment_address": "台中市太平區中山路三段４５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01222-2",
+      "government_address": "台中市南區復興路三段41號",
+      "brand_store_name": "台中復興三",
+      "recruitment_address": "台中市南區復興路三段41號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01232-3",
+      "government_address": "台中市神岡區中山路501號",
+      "brand_store_name": "神岡中山",
+      "recruitment_address": "台中市神岡區中山路５０１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01691-2",
+      "government_address": "台中市南屯區黎明路二段386號",
+      "brand_store_name": "台中黎明二",
+      "recruitment_address": "台中市南屯區黎明路二段３８６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01709-2",
+      "government_address": "台中市烏日區新興路253號",
+      "brand_store_name": "烏日新興",
+      "recruitment_address": "台中市烏日區新興路２５３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01717-1",
+      "government_address": "台中市南屯區公益路二段128號",
+      "brand_store_name": "台中公益二",
+      "recruitment_address": "台中市南屯區公益路二段１２８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01719-3",
+      "government_address": "台中市沙鹿區台灣大道七段333號",
+      "brand_store_name": "沙鹿中棲",
+      "recruitment_address": "台中市沙鹿區臺灣大道七段333號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01727-2",
+      "government_address": "台中市西屯區河南路二段186號",
+      "brand_store_name": "台中河南二",
+      "recruitment_address": "台中市西屯區河南路二段186號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01735-1",
+      "government_address": "台中市后里區甲后路一段959號",
+      "brand_store_name": "后里甲后",
+      "recruitment_address": "台中市后里區甲后路一段959號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01770-0",
+      "government_address": "台中市東區台中路89號",
+      "brand_store_name": "台中台中",
+      "recruitment_address": "台中市東區台中路89號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01780-1",
+      "government_address": "台中市北屯區崇德路三段800號",
+      "brand_store_name": "台中崇德三",
+      "recruitment_address": "台中市北屯區崇德路三段800號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01794-6",
+      "government_address": "台中市北屯區松竹路三段250號",
+      "brand_store_name": "台中松竹",
+      "recruitment_address": "台中市北屯區松竹路三段250號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01800-4",
+      "government_address": "台中市大里區中興路二段327號",
+      "brand_store_name": "大里中興三",
+      "recruitment_address": "台中市大里區中興路二段327號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01825-1",
+      "government_address": "台中市西屯區福星北路70號",
+      "brand_store_name": "台中福星北",
+      "recruitment_address": "台中市西屯區福星北路70號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "B-112411160-01833-0",
+      "government_address": "台中市南區建國北路一段157號",
+      "brand_store_name": "台中建國北",
+      "recruitment_address": "台中市南區建國北路一段157號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "M-112411160-00955-5",
+      "government_address": "南投縣南投市南崗二路313號1樓",
+      "brand_store_name": "南投南崗",
+      "recruitment_address": "南投縣南投市南崗二路３１３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "M-112411160-01031-1",
+      "government_address": "南投縣竹山鎮大明路630號",
+      "brand_store_name": "竹山大明",
+      "recruitment_address": "南投縣竹山鎮大明路６３０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "M-112411160-01044-5",
+      "government_address": "南投縣名間鄉濁水村彰南路1-7號",
+      "brand_store_name": "名間彰南",
+      "recruitment_address": "南投縣名間鄉濁水村彰南路１－７號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "M-112411160-01798-1",
+      "government_address": "南投縣草屯鎮中興路68號",
+      "brand_store_name": "草屯中興",
+      "recruitment_address": "南投縣草屯鎮中興路68號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "V-112411160-00903-7",
+      "government_address": "台東縣臺東市新生路191號",
+      "brand_store_name": "台東農會",
+      "recruitment_address": "台東縣台東市新生路１９１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "V-112411160-01042-2",
+      "government_address": "台東縣臺東市中華路2段201號1樓",
+      "brand_store_name": "台東中華",
+      "recruitment_address": "台東縣台東市中華路二段２０１號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01019-8",
+      "government_address": "台南市麻豆區中山路84號1樓",
+      "brand_store_name": "台南麻豆",
+      "recruitment_address": "台南市麻豆區中山路８４號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01037-8",
+      "government_address": "台南市新營區健康路251號",
+      "brand_store_name": "新營家樂福",
+      "recruitment_address": "台南市新營區健康路２５１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01093-0",
+      "government_address": "台南市永康區大灣路796號1樓",
+      "brand_store_name": "永康大灣",
+      "recruitment_address": "台南市永康區大灣路７９６號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01131-3",
+      "government_address": "台南市東區中華東路三段260號",
+      "brand_store_name": "台南文化",
+      "recruitment_address": "台南市東區中華東路３段２６０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01197-5",
+      "government_address": "台南市善化區光復路55號",
+      "brand_store_name": "善化光復",
+      "recruitment_address": "台南市善化區光復路５５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01229-1",
+      "government_address": "台南市新市區中山路213號",
+      "brand_store_name": "新市中山",
+      "recruitment_address": "台南市新市區中山路２１３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01230-3",
+      "government_address": "台南市安南區北安路三段132號",
+      "brand_store_name": "台南北安",
+      "recruitment_address": "台南市安南區北安路三段１３２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01236-9",
+      "government_address": "台南市中西區西門路一段658號6樓",
+      "brand_store_name": "台南三越二",
+      "recruitment_address": "台南市中西區西門路一段６５８號６樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01241-5",
+      "government_address": "台南市仁德區二仁路一段120號",
+      "brand_store_name": "仁德二仁",
+      "recruitment_address": "台南市仁德區二仁路一段１２０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01267-3",
+      "government_address": "台南市中西區西門路一段658號6樓",
+      "brand_store_name": "台南三越二",
+      "recruitment_address": "台南市中西區西門路一段６５８號６樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01792-6",
+      "government_address": "台南市永康區永大路二段916號",
+      "brand_store_name": "永康永大",
+      "recruitment_address": "台南市永康區永大路二段916號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01797-1",
+      "government_address": "台南市安南區安吉路一段409號",
+      "brand_store_name": "台南安吉",
+      "recruitment_address": "台南市安南區安吉路一段409號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01859-0",
+      "government_address": "台南市北區和緯路三段288號",
+      "brand_store_name": "台南和緯",
+      "recruitment_address": "台南市北區和緯路三段288號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "D-112411160-01861-3",
+      "government_address": "台南市新營區民治路136號",
+      "brand_store_name": "新營民治",
+      "recruitment_address": "台南市新營區民治路136號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-00845-5",
+      "government_address": "高雄市新興區五福二路258號",
+      "brand_store_name": "高雄五福一",
+      "recruitment_address": "高雄市新興區五福二路２５８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-00848-8",
+      "government_address": "高雄市左營區左營大路81號",
+      "brand_store_name": "高雄左營",
+      "recruitment_address": "高雄市左營區左營大路８１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-00860-2",
+      "government_address": "高雄市鳳山區中山路179號",
+      "brand_store_name": "鳳山中山",
+      "recruitment_address": "高雄市鳳山區中山路１７９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-00978-2",
+      "government_address": "高雄市前鎮區一心一路374號1樓",
+      "brand_store_name": "高雄一心",
+      "recruitment_address": "高雄市前鎮區一心一路３７４號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01014-4",
+      "government_address": "高雄市林園區沿海路2段300號",
+      "brand_store_name": "高雄林園",
+      "recruitment_address": "高雄市林園區沿海路二段３００號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01023-4",
+      "government_address": "高雄市楠梓區後昌路109號1樓",
+      "brand_store_name": "高雄後勁",
+      "recruitment_address": "高雄市楠梓區後昌路１０９號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01067-2",
+      "government_address": "高雄市岡山區中山北路89號",
+      "brand_store_name": "岡山中山",
+      "recruitment_address": "高雄市岡山區中山北路８９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01079-5",
+      "government_address": "高雄市三民區天祥一路150號",
+      "brand_store_name": "高雄天祥",
+      "recruitment_address": "高雄市三民區天祥一路１５０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01090-8",
+      "government_address": "高雄市三民區明誠二路50號",
+      "brand_store_name": "高雄明誠",
+      "recruitment_address": "高雄市三民區明誠二路５０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01099-7",
+      "government_address": "高雄市苓雅區三多四路21號B1",
+      "brand_store_name": "高雄大遠百",
+      "recruitment_address": "高雄市苓雅區三多四路２１號Ｂ１",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01102-2",
+      "government_address": "高雄市鼓山區博愛二路363號",
+      "brand_store_name": "高雄博愛",
+      "recruitment_address": "高雄市鼓山區博愛二路３６３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01128-0",
+      "government_address": "高雄市左營區博愛三路225號",
+      "brand_store_name": "高雄博愛二",
+      "recruitment_address": "高雄市左營區博愛三路２２５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01150-5",
+      "government_address": "高雄市大樹區學城路一段12號C棟3樓",
+      "brand_store_name": "高雄義大",
+      "recruitment_address": "高雄市大樹區學城路一段１２號C棟３樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01155-0",
+      "government_address": "高雄市左營區高鐵路115號3樓",
+      "brand_store_name": "左營三越",
+      "recruitment_address": "高雄市左營區高鐵路１１５號３樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01192-1",
+      "government_address": "高雄市左營區民族一路1026號",
+      "brand_store_name": "高雄民族",
+      "recruitment_address": "高雄市左營區民族一路１０２６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01729-7",
+      "government_address": "高雄市楠梓區後昌新路111號",
+      "brand_store_name": "高雄後昌新",
+      "recruitment_address": "高雄市楠梓區後昌新路111號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01745-5",
+      "government_address": "高雄市鳳山區澄清路128號",
+      "brand_store_name": "高雄澄清二",
+      "recruitment_address": "高雄市鳳山區澄清路128號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01766-8",
+      "government_address": "高雄市鼓山區中華一路539號",
+      "brand_store_name": "高雄中華二",
+      "recruitment_address": "高雄市鼓山區中華一路539號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01851-3",
+      "government_address": "高雄市左營區博愛三路536號",
+      "brand_store_name": "高雄博愛三",
+      "recruitment_address": "高雄市左營區博愛三路536號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "E-112411160-01857-9",
+      "government_address": "高雄市苓雅區五福一路40號",
+      "brand_store_name": "高雄文化二",
+      "recruitment_address": "高雄市苓雅區五福一路40號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01242-8",
+      "government_address": "新北市新店區中正路331號1~3樓",
+      "brand_store_name": "新店中正三",
+      "recruitment_address": "新北市新店區中正路３３１號１～３樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01244-0",
+      "government_address": "新北市金山區中山路88號",
+      "brand_store_name": "金山中山",
+      "recruitment_address": "新北市金山區中山路８８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01687-1",
+      "government_address": "新北市三重區重陽路一段5號",
+      "brand_store_name": "三重重陽",
+      "recruitment_address": "新北市三重區重陽路一段５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01688-2",
+      "government_address": "新北市鶯歌區鶯桃路411號",
+      "brand_store_name": "鶯歌鶯桃",
+      "recruitment_address": "新北市鶯歌區鶯桃路４１１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01713-1",
+      "government_address": "新北市板橋區縣民大道二段7號B1",
+      "brand_store_name": "板車環球",
+      "recruitment_address": "新北市板橋區縣民大道二段７號Ｂ１",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01747-8",
+      "government_address": "新北市土城區金城路一段189號",
+      "brand_store_name": "土城金城二",
+      "recruitment_address": "新北市土城區金城路一段189號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01802-0",
+      "government_address": "新北市新莊區思源路330號",
+      "brand_store_name": "新莊思源",
+      "recruitment_address": "新北市新莊區思源路330號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01809-7",
+      "government_address": "新北市林口區文化三路一段605號",
+      "brand_store_name": "林口文化三",
+      "recruitment_address": "新北市林口區文化三路一段605號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01847-9",
+      "government_address": "新北市新店區北新路一段329號1樓",
+      "brand_store_name": "新店北新三",
+      "recruitment_address": "新北市新店區北新路一段329號1樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01870-5",
+      "government_address": "新北市板橋區南雅南路二段122-23號",
+      "brand_store_name": "板橋南雅",
+      "recruitment_address": "新北市板橋區南雅南路二段122-23號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00842-3",
+      "government_address": "新北市新店區北新路2段102號",
+      "brand_store_name": "新店北新一",
+      "recruitment_address": "新北市新店區北新路２段１０２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00859-1",
+      "government_address": "新北市新莊區中正路232號",
+      "brand_store_name": "新莊中正",
+      "recruitment_address": "新北市新莊區中正路２３２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00861-4",
+      "government_address": "新北市淡水區中正東路37號",
+      "brand_store_name": "淡水中正",
+      "recruitment_address": "新北市淡水區中正東路３７號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00863-6",
+      "government_address": "新北市三重區正義北路15號",
+      "brand_store_name": "三重正義",
+      "recruitment_address": "新北市三重區正義北路１５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00892-8",
+      "government_address": "新北市新莊區中港路306號",
+      "brand_store_name": "新莊二",
+      "recruitment_address": "新北市新莊區中港路３０６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00893-9",
+      "government_address": "新北市中和區中和路38號",
+      "brand_store_name": "中和",
+      "recruitment_address": "新北市中和區中和路３８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00922-2",
+      "government_address": "新北市土城區中央路2段159號1樓",
+      "brand_store_name": "土城中央",
+      "recruitment_address": "新北市土城區中央路２段１５９號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00926-6",
+      "government_address": "新北市林口區中山路250之1號",
+      "brand_store_name": "林口中山",
+      "recruitment_address": "新北市林口區中山路２５０之１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00938-9",
+      "government_address": "新北市土城區金城路3段54號",
+      "brand_store_name": "土城金城",
+      "recruitment_address": "新北市土城區金城路３段５４號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00954-7",
+      "government_address": "新北市鶯歌區文化路363號1樓",
+      "brand_store_name": "鶯歌文化",
+      "recruitment_address": "新北市鶯歌區文化路３６３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00959-2",
+      "government_address": "新北市板橋區中山路2段257號1樓",
+      "brand_store_name": "板橋中山",
+      "recruitment_address": "新北市板橋區中山路２段２５７號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00962-6",
+      "government_address": "新北市新店區安德街1號1樓",
+      "brand_store_name": "新店安康",
+      "recruitment_address": "新北市新店區安德街1號1樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00973-8",
+      "government_address": "新北市中和區興南路1段83號1樓",
+      "brand_store_name": "中和興南",
+      "recruitment_address": "新北市中和區興南路一段８３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00980-6",
+      "government_address": "新北市泰山區泰林路2段194號1樓",
+      "brand_store_name": "泰山泰林",
+      "recruitment_address": "新北市泰山區泰林路２段１９４號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-00982-8",
+      "government_address": "新北市汐止區大同路2段242號1樓",
+      "brand_store_name": "汐止大同",
+      "recruitment_address": "新北市汐止區大同路２段２４２號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01013-4",
+      "government_address": "新北市三峽區文化路72號1樓",
+      "brand_store_name": "三峽文化",
+      "recruitment_address": "新北市三峽區文化路７２號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01049-3",
+      "government_address": "新北市板橋區文化路2段173號",
+      "brand_store_name": "板橋文化",
+      "recruitment_address": "新北市板橋區文化路二段１７３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01051-6",
+      "government_address": "新北市土城區裕民路180號",
+      "brand_store_name": "土城裕民",
+      "recruitment_address": "新北市土城區裕民路１８０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01073-0",
+      "government_address": "新北市瑞芳區中山路168號",
+      "brand_store_name": "瑞芳中山",
+      "recruitment_address": "新北市瑞芳區中山路１６８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01081-9",
+      "government_address": "新北市汐止區新台五路1段162號",
+      "brand_store_name": "汐止新台五",
+      "recruitment_address": "新北市汐止區新台五路一段１６２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01083-1",
+      "government_address": "新北市板橋區中山路1段152號12樓",
+      "brand_store_name": "板橋遠百",
+      "recruitment_address": "新北市板橋區中山路一段１５２號１２樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01087-5",
+      "government_address": "新北市新莊區新北大道七段792號",
+      "brand_store_name": "新莊中山",
+      "recruitment_address": "新北市新莊區新北大道七段７９２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01107-8",
+      "government_address": "新北市三重區三和路四段392-1號",
+      "brand_store_name": "三重三和",
+      "recruitment_address": "新北市三重區三和路四段３９２－１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01157-3",
+      "government_address": "新北市新莊區中正路617、619號",
+      "brand_store_name": "新莊中正二",
+      "recruitment_address": "新北市新莊區中正路６１７、６１９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01170-8",
+      "government_address": "新北市三峽區學成路258號",
+      "brand_store_name": "三峽學成",
+      "recruitment_address": "新北市三峽區學成路２５８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01173-1",
+      "government_address": "新北市板橋區新站路28號9樓",
+      "brand_store_name": "板橋遠百二",
+      "recruitment_address": "新北市板橋區新站路２８號９樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "F-112411160-01181-0",
+      "government_address": "新北市淡水區新市一路三段151號",
+      "brand_store_name": "淡水新市",
+      "recruitment_address": "新北市淡水區新市一路三段１５１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "G-112411160-01074-2",
+      "government_address": "宜蘭縣五結鄉二結村中正路3段45號",
+      "brand_store_name": "宜蘭五結",
+      "recruitment_address": "宜蘭縣五結鄉二結村中正路三段４５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "G-112411160-01132-7",
+      "government_address": "宜蘭縣礁溪鄉礁溪路四段158號",
+      "brand_store_name": "宜蘭礁溪",
+      "recruitment_address": "宜蘭縣礁溪鄉礁溪路四段１５８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "G-112411160-01243-0",
+      "government_address": "宜蘭縣頭城鎮青雲路三段300號",
+      "brand_store_name": "頭城青雲",
+      "recruitment_address": "宜蘭縣頭城鎮青雲路三段３００號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "G-112411160-01786-2",
+      "government_address": "宜蘭縣宜蘭市神農路一段１號",
+      "brand_store_name": "宜蘭神農",
+      "recruitment_address": "宜蘭縣宜蘭市神農路一段1號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "O-112411160-00880-4",
+      "government_address": "新竹市東區光復路1段526號",
+      "brand_store_name": "新竹光復",
+      "recruitment_address": "新竹市東區光復路一段５２６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "O-112411160-00946-7",
+      "government_address": "新竹市東區中正路34號",
+      "brand_store_name": "新竹中正",
+      "recruitment_address": "新竹市東區中正路３４號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "O-112411160-00983-8",
+      "government_address": "新竹市東區南大路337號1樓",
+      "brand_store_name": "新竹南大",
+      "recruitment_address": "新竹市東區南大路３３７號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "O-112411160-01221-4",
+      "government_address": "新竹市東區食品路228號",
+      "brand_store_name": "新竹食品",
+      "recruitment_address": "新竹市東區食品路２２８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "O-112411160-01225-8",
+      "government_address": "新竹市東區關新路26號",
+      "brand_store_name": "新竹關新",
+      "recruitment_address": "新竹市東區關新路２６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "O-112411160-01227-0",
+      "government_address": "新竹市香山區經國路三段11號",
+      "brand_store_name": "新竹經國二",
+      "recruitment_address": "新竹市香山區經國路三段１１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "O-112411160-01862-5",
+      "government_address": "新竹市東區篤行一路1號",
+      "brand_store_name": "新竹聯發科",
+      "recruitment_address": "新竹市東區篤行一路1號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-00839-1",
+      "government_address": "桃園市桃園區中正路50號",
+      "brand_store_name": "桃園中正",
+      "recruitment_address": "桃園市桃園區中正路５０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-00884-1",
+      "government_address": "桃園市桃園區三民路3段313號1樓",
+      "brand_store_name": "桃園三民",
+      "recruitment_address": "桃園市桃園區三民路三段３１３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-00905-5",
+      "government_address": "桃園市龍潭區北龍路301號",
+      "brand_store_name": "桃園龍潭",
+      "recruitment_address": "桃園市龍潭區北龍路３０１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-00936-9",
+      "government_address": "桃園市平鎮區民族路2段175號",
+      "brand_store_name": "中壢民族",
+      "recruitment_address": "桃園市平鎮區民族路二段１７５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01004-6",
+      "government_address": "桃園市大園區中正東路162號1樓",
+      "brand_store_name": "大園中正",
+      "recruitment_address": "桃園市大園區中正東路１６２號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01026-0",
+      "government_address": "桃園市桃園區經國路495號1樓",
+      "brand_store_name": "桃園經國",
+      "recruitment_address": "桃園市桃園區經國路４９５號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01041-7",
+      "government_address": "桃園市中壢區元化路357號B1",
+      "brand_store_name": "中壢崇光",
+      "recruitment_address": "桃園市中壢區元化路３５７號Ｂ１",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01046-2",
+      "government_address": "桃園市龍潭區中豐路412號",
+      "brand_store_name": "龍潭中豐",
+      "recruitment_address": "桃園市龍潭區中豐路４１２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01065-3",
+      "government_address": "桃園市中壢區中華路2段358號1樓",
+      "brand_store_name": "中壢中華",
+      "recruitment_address": "桃園市中壢區中華路二段３５８號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01080-0",
+      "government_address": "桃園市桃園區中山路939號",
+      "brand_store_name": "桃園愛買",
+      "recruitment_address": "桃園市桃園區中山路９３９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01084-4",
+      "government_address": "桃園市中壢區環中東路2段176號",
+      "brand_store_name": "中壢環中東",
+      "recruitment_address": "桃園市中壢區環中東路二段１７６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01091-2",
+      "government_address": "桃園市龜山區復興一路148號",
+      "brand_store_name": "林口復興",
+      "recruitment_address": "桃園市龜山區復興一路１４８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01118-2",
+      "government_address": "桃園市中壢區中華路一段450號1樓",
+      "brand_store_name": "內壢家樂福",
+      "recruitment_address": "桃園市中壢區中華路一段４５０號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01139-5",
+      "government_address": "桃園市大溪區員林路一段268號",
+      "brand_store_name": "大溪員林",
+      "recruitment_address": "桃園市大溪區員林路１段２６８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01140-7",
+      "government_address": "桃園市桃園區大興西路一段212號",
+      "brand_store_name": "桃園大興西",
+      "recruitment_address": "桃園市桃園區大興西路一段２１２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01176-6",
+      "government_address": "桃園市桃園區桃鶯路66號",
+      "brand_store_name": "桃園桃鶯",
+      "recruitment_address": "桃園市桃園區桃鶯路６６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01231-8",
+      "government_address": "桃園市楊梅區中山北路一段218號",
+      "brand_store_name": "楊梅中山北",
+      "recruitment_address": "桃園市楊梅區中山北路一段２１８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01237-4",
+      "government_address": "桃園市桃園區大興西路二段177號",
+      "brand_store_name": "桃園大興西二",
+      "recruitment_address": "桃園市桃園區大興西路二段１７７號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01238-5",
+      "government_address": "桃園市蘆竹區大竹路432號",
+      "brand_store_name": "蘆竹大竹",
+      "recruitment_address": "桃園市蘆竹區大竹路４３２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01737-9",
+      "government_address": "桃園市桃園區春日路402號",
+      "brand_store_name": "桃園春日",
+      "recruitment_address": "桃園市桃園區春日路402號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01751-5",
+      "government_address": "桃園市桃園區文中路168號",
+      "brand_store_name": "桃園文中",
+      "recruitment_address": "桃園市桃園區文中路168號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01829-1",
+      "government_address": "桃園市龜山區南祥路91號",
+      "brand_store_name": "龜山南祥",
+      "recruitment_address": "桃園市龜山區南祥路91號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01831-4",
+      "government_address": "桃園市觀音區大觀路一段360號",
+      "brand_store_name": "觀音大觀",
+      "recruitment_address": "桃園市觀音區大觀路一段360號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01839-2",
+      "government_address": "桃園市中壢區環西路2段318號",
+      "brand_store_name": "中壢環西",
+      "recruitment_address": "桃園市中壢區環西路二段318號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "H-112411160-01863-9",
+      "government_address": "桃園市中壢區中華路一段262號",
+      "brand_store_name": "中壢中華二",
+      "recruitment_address": "桃園市中壢區中華路一段262號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "N-112411160-00996-1",
+      "government_address": "彰化縣田中鎮中正路376號",
+      "brand_store_name": "田中中正",
+      "recruitment_address": "彰化縣田中鎮中正路３７６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "N-112411160-01000-8",
+      "government_address": "彰化縣員林市三民東街329號",
+      "brand_store_name": "員林三民",
+      "recruitment_address": "彰化縣員林市三民東街３２９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "N-112411160-01092-9",
+      "government_address": "彰化縣二林鎮斗苑路4段376號",
+      "brand_store_name": "二林斗苑",
+      "recruitment_address": "彰化縣二林鎮斗苑路四段３７６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "N-112411160-01201-1",
+      "government_address": "彰化縣北斗鎮中山路二段102號",
+      "brand_store_name": "北斗中山",
+      "recruitment_address": "彰化縣北斗鎮中山路二段１０２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "N-112411160-01693-6",
+      "government_address": "彰化縣員林市中山路一段330號",
+      "brand_store_name": "員林中山二",
+      "recruitment_address": "彰化縣員林市中山路一段３３０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "J-112411160-00924-8",
+      "government_address": "新竹縣竹北市三民路559號1樓",
+      "brand_store_name": "竹北中華",
+      "recruitment_address": "新竹縣竹北市三民路５５９號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "J-112411160-00934-9",
+      "government_address": "新竹縣竹東鎮長春路3段191號",
+      "brand_store_name": "竹東長春",
+      "recruitment_address": "新竹縣竹東鎮長春路三段１９１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "J-112411160-00987-7",
+      "government_address": "新竹縣竹北市光明六路89號1樓",
+      "brand_store_name": "竹北光明",
+      "recruitment_address": "新竹縣竹北市光明六路８９號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "J-112411160-01143-2",
+      "government_address": "新竹縣竹北市自強南路19號",
+      "brand_store_name": "竹北自強南",
+      "recruitment_address": "新竹縣竹北市自強南路１９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "J-112411160-01685-3",
+      "government_address": "新竹縣竹北市文興路一段350號",
+      "brand_store_name": "竹北文興",
+      "recruitment_address": "新竹縣竹北市文興路一段３５０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "J-112411160-01764-1",
+      "government_address": "新竹縣湖口鄉中山路一段770號",
+      "brand_store_name": "湖口中山",
+      "recruitment_address": "新竹縣湖口鄉中山路一段770號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "J-112411160-01782-1",
+      "government_address": "新竹縣寶山鄉科環路168號",
+      "brand_store_name": "新竹台積電",
+      "recruitment_address": "新竹縣寶山鄉科環路168 號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00831-6",
+      "government_address": "台北市松山區民生東路3段135號",
+      "brand_store_name": "台北民生",
+      "recruitment_address": "台北市松山區民生東路３段１３５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00835-0",
+      "government_address": "台北市大安區光復南路286號",
+      "brand_store_name": "台北光復",
+      "recruitment_address": "台北市大安區光復南路２８６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00836-1",
+      "government_address": "台北市中正區館前路8號",
+      "brand_store_name": "台北館前",
+      "recruitment_address": "台北市中正區館前路８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00856-3",
+      "government_address": "台北市中山區長春路172號",
+      "brand_store_name": "台北長春",
+      "recruitment_address": "台北市中山區長春路１７２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00857-4",
+      "government_address": "台北市文山區景中街30巷12號",
+      "brand_store_name": "台北景美",
+      "recruitment_address": "台北市文山區景中街３０巷１２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00862-0",
+      "government_address": "台北市士林區重慶北路4段123號",
+      "brand_store_name": "台北重北一",
+      "recruitment_address": "台北市士林區重慶北路４段１２３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00865-3",
+      "government_address": "台北市士林區格致路62號",
+      "brand_store_name": "台北陽明山",
+      "recruitment_address": "台北市士林區格致路６２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00867-5",
+      "government_address": "台北市中正區林森南路1號",
+      "brand_store_name": "台北林森二",
+      "recruitment_address": "台北市中正區林森南路１號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00882-2",
+      "government_address": "台北市中山區林森北路413號1樓",
+      "brand_store_name": "林森三",
+      "recruitment_address": "台北市中山區林森北路４１３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00920-5",
+      "government_address": "台北市文山區興隆路3段54號",
+      "brand_store_name": "台北興隆",
+      "recruitment_address": "台北市文山區興隆路３段５４號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00927-2",
+      "government_address": "台北市松山區民生東路5段234號1樓",
+      "brand_store_name": "台北民生二",
+      "recruitment_address": "台北市松山區民生東路五段２３４號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00931-7",
+      "government_address": "台北市中正區濟南路2段66號1樓",
+      "brand_store_name": "台北濟南",
+      "recruitment_address": "台北市中正區濟南路２段６６號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00942-9",
+      "government_address": "台北市中正區南昌路1段149號1樓",
+      "brand_store_name": "台北南昌",
+      "recruitment_address": "台北市中正區南昌路一段１４９號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00952-0",
+      "government_address": "台北市文山區木柵路3段57號1樓",
+      "brand_store_name": "台北木柵",
+      "recruitment_address": "台北市文山區木柵路３段５７號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00970-0",
+      "government_address": "台北市大同區民生西路55號",
+      "brand_store_name": "台北民生三",
+      "recruitment_address": "台北市大同區民生西路５５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00990-2",
+      "government_address": "台北市文山區指南路2段67號1樓",
+      "brand_store_name": "台北指南",
+      "recruitment_address": "台北市文山區指南路２段６７號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-00994-6",
+      "government_address": "台北市萬華區西園路2段240號",
+      "brand_store_name": "台北西園二",
+      "recruitment_address": "台北市萬華區西園路二段２４０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01007-2",
+      "government_address": "台北市文山區木新路3段174號1樓",
+      "brand_store_name": "台北木新",
+      "recruitment_address": "台北市文山區木新路３段１７４號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01034-2",
+      "government_address": "台北市南港區南港路2段16號1樓",
+      "brand_store_name": "台北南港",
+      "recruitment_address": "台北市南港區南港路２段１６號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01047-6",
+      "government_address": "台北市北投區承德路7段262號1樓",
+      "brand_store_name": "台北承德二",
+      "recruitment_address": "台北市北投區承德路七段２６２號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01053-3",
+      "government_address": "台北市南港區研究院路1段99號",
+      "brand_store_name": "台北研究院",
+      "recruitment_address": "台北市南港區研究院路一段９９號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01086-9",
+      "government_address": "台北市信義區莊敬路475號1樓",
+      "brand_store_name": "台北莊敬",
+      "recruitment_address": "台北市信義區莊敬路４７５號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01105-1",
+      "government_address": "台北市信義區松高路12號B2",
+      "brand_store_name": "新光信義",
+      "recruitment_address": "台北市信義區松高路１２號Ｂ２",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01111-8",
+      "government_address": "台北市內湖區內湖路一段283號1樓",
+      "brand_store_name": "台北西湖",
+      "recruitment_address": "台北市內湖區內湖路一段２８３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01145-5",
+      "government_address": "台北市內湖區瑞光路517號1樓",
+      "brand_store_name": "台北瑞光",
+      "recruitment_address": "台北市內湖區瑞光路５１７號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01168-0",
+      "government_address": "台北市中正區北平西路3號1樓",
+      "brand_store_name": "台北車站微風",
+      "recruitment_address": "台北市中正區北平西路３號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01184-8",
+      "government_address": "台北市內湖區舊宗路一段135號",
+      "brand_store_name": "台北舊宗",
+      "recruitment_address": "台北市內湖區舊宗路一段１３５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01190-5",
+      "government_address": "台北市大安區羅斯福路四段1號1樓",
+      "brand_store_name": "台北台大",
+      "recruitment_address": "台北市大安區羅斯福路四段１號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01207-4",
+      "government_address": "台北市中山區南京東路三段210號1樓",
+      "brand_store_name": "台北南京五",
+      "recruitment_address": "台北市中山區南京東路三段２１０號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01240-1",
+      "government_address": "台北市萬華區萬大路215號",
+      "brand_store_name": "台北萬大二",
+      "recruitment_address": "台北市萬華區萬大路２１５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01263-6",
+      "government_address": "台北市中正區館前路8號",
+      "brand_store_name": "台北館前",
+      "recruitment_address": "台北市中正區館前路８號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "A-112411160-01790-1",
+      "government_address": "台北市內湖區舊宗路一段275號",
+      "brand_store_name": "台北舊宗二",
+      "recruitment_address": "台北市內湖區舊宗路一段275號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "T-112411160-00974-3",
+      "government_address": "屏東縣潮州鎮新生路58號1樓",
+      "brand_store_name": "屏東潮州",
+      "recruitment_address": "屏東縣潮州鎮新生路５８號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "T-112411160-00977-6",
+      "government_address": "屏東縣屏東市中正路72號",
+      "brand_store_name": "屏東太平洋",
+      "recruitment_address": "屏東縣屏東市中正路７２號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "T-112411160-01062-2",
+      "government_address": "屏東縣屏東市民生路3之10號",
+      "brand_store_name": "屏東民生",
+      "recruitment_address": "屏東縣屏東市民生路３之１０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "T-112411160-01097-0",
+      "government_address": "屏東縣屏東市自由路498之3號",
+      "brand_store_name": "屏東自由",
+      "recruitment_address": "屏東縣屏東市自由路４９８之３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "T-112411160-01206-2",
+      "government_address": "屏東縣屏東市仁愛路90號5樓",
+      "brand_store_name": "屏東環球",
+      "recruitment_address": "屏東縣屏東市仁愛路90號5樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "T-112411160-01212-9",
+      "government_address": "屏東縣屏東市復興路220號",
+      "brand_store_name": "屏東復興",
+      "recruitment_address": "屏東縣屏東市復興路２２０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "I-112411160-00986-5",
+      "government_address": "嘉義市東區忠孝路491號1樓",
+      "brand_store_name": "嘉義忠孝",
+      "recruitment_address": "嘉義市東區忠孝路４９１號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "I-112411160-01064-3",
+      "government_address": "嘉義市西區北港路253號",
+      "brand_store_name": "嘉義北港",
+      "recruitment_address": "嘉義市西區北港路２５３號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "I-112411160-01144-2",
+      "government_address": "嘉義市東區吳鳳南路310、312號",
+      "brand_store_name": "嘉義吳鳳南",
+      "recruitment_address": "嘉義市東區吳鳳南路310、312號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "K-112411160-01072-4",
+      "government_address": "苗栗縣苗栗市中山路600號1樓",
+      "brand_store_name": "苗栗中山",
+      "recruitment_address": "苗栗縣苗栗市中山路６００號１樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "Q-112411160-01075-3",
+      "government_address": "嘉義縣朴子市文化南路45號",
+      "brand_store_name": "朴子文化",
+      "recruitment_address": "嘉義縣朴子市文化南路４５號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "Q-112411160-01171-0",
+      "government_address": "嘉義縣太保市嘉朴東路一段18號1、2樓",
+      "brand_store_name": "嘉義太保",
+      "recruitment_address": "嘉義縣太保市嘉朴東路一段１８號１、２樓",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "P-112411160-01085-3",
+      "government_address": "雲林縣北港鎮華南路60號",
+      "brand_store_name": "北港華勝",
+      "recruitment_address": "雲林縣北港鎮華南路６０號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "P-112411160-01869-3",
+      "government_address": "雲林縣麥寮鄉泰順路451號",
+      "brand_store_name": "麥寮泰順",
+      "recruitment_address": "雲林縣麥寮鄉泰順路451號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    },
+    {
+      "registration_id": "U-112411160-01179-2",
+      "government_address": "花蓮縣花蓮市中山路549之6號",
+      "brand_store_name": "花蓮中山二",
+      "recruitment_address": "花蓮縣花蓮市中山路５４９之６號",
+      "match_method": "exact address after NFKC, whitespace, 台臺 and numbered road-segment normalization",
+      "brand_name_source_url": "https://hiring.mcdrecruitment.com.tw/list.php"
+    }
+  ]
+}

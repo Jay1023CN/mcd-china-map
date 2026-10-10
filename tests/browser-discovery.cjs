@@ -85,8 +85,11 @@ async function main() {
       await waitMapFrame(page);
       assert.equal(await filteredCatalog.count(),1,'selected Shanghai and keyword filters should isolate one real catalog store');
       const mapMarker=page.locator('#map-store-markers .map-store-marker');
-      assert.ok(await mapMarker.count()>0,'a selected Shanghai search should leave its map marker visible');
-      assert.ok(await mapMarker.evaluateAll(items=>items.some(item=>item.querySelector('img'))),'filtered Shanghai markers should show photo labels');
+      const nationalShanghai=catalog.national_catalog.stores.find(item=>item.featured_name===shanghaiStore.name || item.name===shanghaiStore.name);
+      if(nationalShanghai?.location){
+        assert.ok(await mapMarker.count()>0,'a verified Shanghai store point should leave its map marker visible');
+        assert.ok(await mapMarker.evaluateAll(items=>items.some(item=>item.querySelector('img'))),'verified filtered Shanghai markers should show photo labels');
+      }else assert.equal(await mapMarker.count(),0,'an unlocated Shanghai store must not be replaced by a city-center point');
       for(let i=0;i<await mapMarker.count();i++) await mapMarker.nth(i).locator('img').evaluate(image=>image.decode());
       await filteredCatalog.locator('img').evaluate(image=>image.decode());
       assert.ok((await filteredCatalog.innerText()).includes(shanghaiStore.name),'Shanghai catalog card should show its real name');

@@ -50,6 +50,12 @@
   <img src="docs/store-detail-preview.png" alt="杭州千岛湖门店详情：公开照片、地址、介绍与收藏入口" width="290">
 </p>
 
+<p align="center"><strong>v0.15 · 不只找特色店，也能找家门口的麦。</strong><br><sub>大陆官方公示 8,448 条 · 香港官方目录 269 条 · 按省份、城市、店名或路名查找，收藏后可直接记一餐。</sub></p>
+
+<p align="center"><img src="docs/national-store-search-preview.png" alt="全国门店手机目录：搜索石河子，查看普通门店；没有核实坐标时保留文字资料" width="290"></p>
+
+<p align="center"><sub>另含澳门 38 条公开资料、台湾 508 条餐饮登记，其中 211 条已有官方分店名。登记与目录不代表当前营业状态；<a href="docs/NATIONAL-STORES.md">查看来源、覆盖与点位说明</a>。</sub></p>
+
 <p align="center"><a href="assets/data/STORE-SOURCES.md">看看收录了哪些特色门店</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose">推荐你喜欢的那家</a></p>
 
 <br>
@@ -99,7 +105,7 @@
 
 目前没有云同步，换浏览器、清理网站数据或换地址前请导出备份。最多保存 1000 页手账、100 家想去门店，处理后的单张照片不超过 1.5 MiB，完整归档不超过 8 MiB。旧版中国记录可恢复。
 
-地图提供 34 个省份 / 地区选项，位置采用城市参考点或本人填写的坐标。麦当劳中国 MCP 服务范围为中国大陆。公开截图使用独立公开门店或示例记录，个人 Token、订单、地址和照片不进入 GitHub。
+地图提供 34 个省份 / 地区选项。公开门店只标已匹配点位；尚未核实坐标的店仍可搜索、收藏、打卡。手账可以选择门店位置、城市参考位置或本人填写的坐标。麦当劳中国 MCP 服务范围为中国大陆。公开截图使用独立公开门店或示例记录，个人 Token、订单、地址和照片不进入 GitHub。
 
 </details>
 

@@ -161,3 +161,12 @@ test('archive wishlist is limited to 100 items', () => {
   input.wishlist = Array.from({length: 101}, (_, i) => ({source: 'mcp_nearby', code: String(i), name: `门店${i}`}));
   assert.throws(() => E.normalizeArchive(input, options), /100 stores/);
 });
+
+
+test('same-name official stores remain separate and retain public location metadata in backups',()=>{
+  const make=(id,code)=>entry({id,store:'同城同名',store_reference:{source:'official_catalog',code,address:'公开地址',source_url:'https://example.test/store'},location:{lat:31.231,lon:121.471,precision:'store',coordinate_system:'GCJ-02'}});
+  const clean=E.normalizeArchive(archive([make('first','cn:1'),make('second','cn:2')]),options);
+  assert.equal(E.summarize(clean,options).distinctStores,2);
+  assert.equal(clean.entries[0].location.coordinate_system,'GCJ-02');
+  assert.equal(clean.entries[0].store_reference.source_url,'https://example.test/store');
+});

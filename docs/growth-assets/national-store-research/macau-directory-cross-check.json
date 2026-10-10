@@ -1,0 +1,363 @@
+{
+  "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+  "source_type": "public_business_directory",
+  "fetched_at": "2026-10-10T06:13:13.284852+00:00",
+  "response_sha256": "178e3fea051fc47ffc08f50138be86c92bd52f75f71b1d16981c431a4e95afc8",
+  "row_count": 38,
+  "coverage_complete": false,
+  "government_license_phone_matches": 6,
+  "osm_phone_matches": 2,
+  "scope_note": "分店列表公开目录快照，38不是已核实当前营业全量保证。6条政府许可地址以官方最新为准；OSM坐标是独立社区来源须保留出处和许可。",
+  "rows": [
+    {
+      "name": "麥當勞（水坑尾街店）",
+      "address": "水坑尾街135-147號地下",
+      "phone": "28339221",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（高士德店）",
+      "address": "高士德大馬路46-48號地下",
+      "phone": "28525708",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（白鴿巢店）",
+      "address": "白鴿巢前地麗豪花園地下",
+      "phone": "28950355",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（新城市店）",
+      "address": "李寶樁街新城市商業中心第2座地下A-I",
+      "phone": "28238758",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（龍園店）",
+      "address": "慕拉士大馬路124-130號地下A",
+      "phone": "28521996",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（僑光店）",
+      "address": "馬場海邊馬路僑光大厦地下L",
+      "phone": "28473327",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（鵝眉街店）",
+      "address": "鵝眉街3號地下A",
+      "phone": "28976018",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（寶龍花園店）",
+      "address": "南京街寶龍花園地下F",
+      "phone": "28830221",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（金沙店）",
+      "address": "友誼大馬路金沙娛樂場1樓",
+      "phone": "28725306",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "government_license_match": {
+        "official_id": "4542",
+        "address": "澳門友誼大馬路\"金沙\"娛樂場1樓1號商舖",
+        "source_url": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1"
+      }
+    },
+    {
+      "name": "麥當勞（信達廣場店）",
+      "address": "馬場大馬路信達廣場第2座104室",
+      "phone": "28436055",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（泉福店）",
+      "address": "地堡街泉福新邨偉鴻閣地下A",
+      "phone": "28827473",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "osm_phone_match": {
+        "type": "node",
+        "id": 3290014375,
+        "coordinate": {
+          "lat": 22.1526483,
+          "lon": 113.5549302
+        }
+      }
+    },
+    {
+      "name": "麥當勞（信和廣場）",
+      "address": "沙梨頭南街199 - 209號信和廣場地面層AC - AD舖",
+      "phone": "28261802",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（威尼斯人店）",
+      "address": "澳門威尼斯人®-度假村-酒店 威尼斯人購物中心3038舖",
+      "phone": "28259153",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "government_license_match": {
+        "official_id": "14066",
+        "address": "路氹填海區，路氹連貫公路以西，望德聖母灣大馬路以南，\"澳門威尼斯人酒店\"第5層（L05），3038號舖",
+        "source_url": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1"
+      }
+    },
+    {
+      "name": "麥當勞（海景花園店）",
+      "address": "城市日大馬路利景閣海景花園地下S-U舖",
+      "phone": "28757282",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（科學館店）",
+      "address": "澳門孫逸仙大馬路澳門科學館",
+      "phone": "28757123",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（凱泉灣店）",
+      "address": "河邊新街94-120號地下F-H",
+      "phone": "28939226",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（澳門銀河店）",
+      "address": "路氹城澳門銀河™綜合渡假城地下G017號舖",
+      "phone": "28827110",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "government_license_match": {
+        "official_id": "11551",
+        "address": "路氹填海區，蓮花海濱大馬路東面及望德聖母灣大馬路南面，\"銀河\"酒店地面層（G/F）店舖G35",
+        "source_url": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1"
+      }
+    },
+    {
+      "name": "麥當勞（御景灣店）",
+      "address": "黑沙環新街御景灣第1座地下E",
+      "phone": "28761738",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（澳門倫敦人店）",
+      "address": "路氹城路氹連貫公路金沙城中心1樓1029鋪",
+      "phone": "28225665",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "government_license_match": {
+        "official_id": "14121",
+        "address": "路氹城，路氹連貫公路第5及6部分，\"澳門倫敦人酒店\"，第2層（L2）",
+        "source_url": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1"
+      }
+    },
+    {
+      "name": "麥當勞（澳門國際機場店）",
+      "address": "澳門國際機場客運大樓閣樓層非禁區C舖",
+      "phone": "28861550",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "osm_phone_match": {
+        "type": "node",
+        "id": 2992379587,
+        "coordinate": {
+          "lat": 22.1582119,
+          "lon": 113.5747611
+        }
+      }
+    },
+    {
+      "name": "麥當勞（外港碼頭店）",
+      "address": "澳門外港客運碼頭3樓3006號舖",
+      "phone": "28703031",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（柏威店）",
+      "address": "澳門賈伯樂提督街150-152號,栢威大廈地下A座",
+      "phone": "28357861",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（湖景店）",
+      "address": "澳門南灣湖景大馬路776號湖景豪庭(第一座)地下",
+      "phone": "28716521",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（泉福翡翠店）",
+      "address": "澳門林茂海邊大馬路泉福翡翠地下",
+      "phone": "28253182",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（新濠影匯店）",
+      "address": "澳門路氹連貫公路新濠影滙2樓2088 及2095號舖",
+      "phone": "28852665",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "government_license_match": {
+        "official_id": "13131",
+        "address": "路氹城填海區G300、G310及G400地段，新濠影滙，二樓（2/F），舖位2088號（電影製作業區）",
+        "source_url": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1"
+      }
+    },
+    {
+      "name": "麥當勞（信達店）",
+      "address": "澳門板樟堂街19號信達堡地下",
+      "phone": "28920160",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（花城店）",
+      "address": "氹仔奧林匹克大馬路487號花城(利盈大廈)地下M座",
+      "phone": "28855105",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（業興店）",
+      "address": "路環業興二街77號業興大廈(第V座)地下",
+      "phone": "28503357",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（濠景店）",
+      "address": "澳門氹仔基馬拉斯大馬路127-153號濠景花園第三座地下A座",
+      "phone": "28781185",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（澳門科技大學店）",
+      "address": "澳門氹仔偉龍馬路科技大學 P棟P102鋪",
+      "phone": "28451098",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（寰宇天下店）",
+      "address": "澳門黑沙環中街158號寰宇天下地下AB座",
+      "phone": "28768198",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（賈梅士商業中心）",
+      "address": "澳門罅些喇提督大馬路162-166號賈梅士商業中心地下B至G座及一樓I至J座",
+      "phone": "28920004",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（金融中心）",
+      "address": "澳門北京街230-246號金融中心地下J座及1樓H,I,J,K座",
+      "phone": "28232208",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（新濠天地店）",
+      "address": "澳門路氹連貫公路新濠天地頤居酒店2樓(L02)10號舖及2號舖",
+      "phone": "28319533",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false,
+      "government_license_match": {
+        "official_id": "13195",
+        "address": "路氹填海區，霍英東博士大馬路48，112，172，182，238，266，296，322，362及472號，\"頤居\"酒店2樓（L02）2號舖及10號舖",
+        "source_url": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1"
+      }
+    },
+    {
+      "name": "麥當勞（葡京人店）",
+      "address": "澳門路氹填海區溜冰路128號葡京人酒店L01樓F07號舖",
+      "phone": "28870082",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（樂駿盈軒店）",
+      "address": "澳門氹仔柯維納馬路 212 號 樂駿盈軒第一座地下 AY 座",
+      "phone": "28316002",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（建興龍店）",
+      "address": "澳門布魯塞爾街28、32、36及42號建興龍廣場 (興海閣,建富閣) 地下Q、R、S座及T座的閣樓",
+      "phone": "28300160",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    },
+    {
+      "name": "麥當勞（澳門大學店）",
+      "address": "氹仔大學大馬路澳門大學S1研究生宿舍地面層G016, G017及G018商舖",
+      "phone": "28840788",
+      "source_url": "https://www.yp.mo/business/%E6%BE%B3%E9%96%80%E9%BA%A5%E7%95%B6%E5%8B%9E%E9%A4%90%E5%BB%B3.html",
+      "source_type": "public_business_directory",
+      "current_open_status_verified": false
+    }
+  ]
+}

@@ -16,7 +16,9 @@
     archive.entries = archive.entries.filter(entry => !(deleted.has(entry.id) &&
       (entry.source === 'mcp_candidate' || entry.origin === 'mcp'))).map(entry => {
       if (entry.source !== 'mcp_candidate' && entry.origin !== 'mcp') return entry;
-      const store = stores.find(store => [store.name, ...(store.aliases || [])].some(name => clean(name) === clean(entry.store)));
+      const matches=stores.filter(store => [store.name,store.featured_name,store.locator_name,...(store.aliases || [])].filter(Boolean).some(name => clean(name) === clean(entry.store)) &&
+        (!clean(entry.city) || cityName(store.city)===cityName(entry.city)) && (!entry.province_code || store.province_code===entry.province_code));
+      const store=matches.length===1?matches[0]:null;
       let city = cities.find(city => cityName(city.city) === cityName(entry.city) &&
         (!entry.province_code || entry.province_code === city.province_code));
       if (!clean(entry.city)) {
@@ -29,7 +31,8 @@
         city = cities.find(city => cityName(city.city) === cityName(entry.city));
       }
       if (!entry.province_code) entry.province_code = city?.province_code || store?.province_code || '';
-      if (!entry.location && city) entry.location = {lat: city.lat, lon: city.lon, precision: 'city'};
+      if(!entry.location && store?.location)entry.location={...store.location};
+      else if (!entry.location && city) entry.location = {lat: city.lat, lon: city.lon, precision: 'city'};
       if (!entry.default_photo && store?.default_photo && cityName(entry.city) === cityName(store.city))
         entry.default_photo = {...store.default_photo};
       if (entry.source === 'mcp_candidate') {

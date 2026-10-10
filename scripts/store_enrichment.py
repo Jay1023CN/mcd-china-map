@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DIRECTORY = ROOT / 'assets' / 'data' / 'store-directory.json'
+DEFAULT_DIRECTORY = ROOT / 'assets' / 'data' / 'national-store-directory.json'
 DEFAULT_PRIVATE_DIRECTORY = ROOT / 'private' / 'store-directory.json'
 DEFAULT_CITIES = ROOT / 'assets' / 'data' / 'china-cities.json'
 SPECIAL_REGION_CODES = {'710000', '810000', '820000'}
@@ -19,12 +19,12 @@ def _records(value, default_path):
     elif isinstance(value, (str, Path)):
         path = Path(value)
     else:
-        return value if isinstance(value, list) else []
+        return value if isinstance(value, list) else value.get('stores', []) if isinstance(value, dict) else []
     try:
         data = json.loads(path.read_text(encoding='utf-8'))
     except FileNotFoundError:
         return []
-    return data if isinstance(data, list) else []
+    return data if isinstance(data, list) else data.get('stores', []) if isinstance(data, dict) else []
 
 
 def _default_store_directory():
@@ -33,7 +33,7 @@ def _default_store_directory():
     public_records = _records(DEFAULT_DIRECTORY, DEFAULT_DIRECTORY)
     combined = []
     names = set()
-    for record in private_records + public_records:
+    for record in private_records:
         if not isinstance(record, dict) or not isinstance(record.get('name'), str):
             continue
         name = record['name']
@@ -41,6 +41,7 @@ def _default_store_directory():
             continue
         names.add(name)
         combined.append(record)
+    combined.extend(record for record in public_records if isinstance(record, dict) and record.get('name') not in names)
     return combined
 
 
@@ -57,17 +58,19 @@ def _city_index(cities):
     return result
 
 
-def _directory_match(store_name, directory):
+def _directory_match(store_name, directory, city=None, province=None):
+    matches = []
     for record in directory:
         if not isinstance(record, dict) or not isinstance(record.get('name'), str):
             continue
-        names = [record['name']]
+        names = [record['name'], record.get('featured_name'), record.get('locator_name')]
         aliases = record.get('aliases', [])
         if isinstance(aliases, list):
             names.extend(alias for alias in aliases if isinstance(alias, str))
-        if store_name in names:
-            return record
-    return None
+        if (store_name in names and (not city or city.removesuffix('市') == record.get('city', '').removesuffix('市'))
+                and (not province or not record.get('province_code') or province == record['province_code'])):
+            matches.append(record)
+    return matches[0] if len(matches) == 1 else None
 
 
 def _resolve_city(label, index):
@@ -131,8 +134,8 @@ def enrich_archive(archive, *, directory=None, cities=None):
     """Return a copied archive with store directory/city metadata filled in.
 
     ``directory`` and ``cities`` may be JSON file paths or in-memory lists.
-    Only CN entries are enriched. Coordinates come from city-level reference
-    points and are added only when the entry has no location already.
+    Only CN entries are enriched. Prefer uniquely matched public store points;
+    city-level fallback points remain explicitly labelled as city references.
     """
     result = deepcopy(archive)
     if not isinstance(result, dict) or not isinstance(result.get('entries'), list):
@@ -145,7 +148,7 @@ def enrich_archive(archive, *, directory=None, cities=None):
         if not isinstance(entry, dict) or entry.get('country_code') != 'CN':
             continue
         store_name = entry.get('store')
-        exact = _directory_match(store_name, store_directory)
+        exact = _directory_match(store_name, store_directory, entry.get('city'), entry.get('province_code'))
 
         reference = entry.get('store_reference')
         address = exact.get('address') if exact else None
@@ -178,6 +181,12 @@ def enrich_archive(archive, *, directory=None, cities=None):
                 entry['city_source'] = 'store_directory_exact'
             if not entry.get('default_photo') and isinstance(exact.get('default_photo'), dict):
                 entry['default_photo'] = deepcopy(exact['default_photo'])
+            location = exact.get('location')
+            if (not entry.get('location') and not directory_province_conflict and isinstance(location, dict)
+                    and location.get('precision') == 'store' and location.get('coordinate_system') in {'GCJ-02','WGS84','official_google_maps_unverified'}
+                    and isinstance(location.get('lat'), (int, float)) and -90 <= location['lat'] <= 90
+                    and isinstance(location.get('lon'), (int, float)) and -180 <= location['lon'] <= 180):
+                entry['location'] = {key: location[key] for key in ('lat','lon','precision','coordinate_system')}
 
         if city_record is None:
             city_record = _resolve_city(entry.get('city'), city_index)

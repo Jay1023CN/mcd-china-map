@@ -1,0 +1,93 @@
+{
+  "source": "https://www.dst.gov.mo/en/public-services/licensed-entities.html?searchKey=McDonald&ps=100&isAll=1",
+  "collected_at": "2026-10-10T05:47:30.501525+00:00",
+  "rows": 6,
+  "coverage_complete": false,
+  "scope": "Only MGTO-licensed entities matching McDonald; municipal-licensed restaurants not established as covered",
+  "stores": [
+    {
+      "comKey": "4542",
+      "comNameCn": "麦当劳",
+      "comNameTw": "麥當勞",
+      "comNameEn": "McDonald's",
+      "comAdsCn": "澳门友谊大马路\"金沙\"娱乐场1楼1号商舖",
+      "comAdsTw": "澳門友誼大馬路\"金沙\"娛樂場1樓1號商舖",
+      "comAdsEn": "Avenida da Amizade, loja nº 1 do 1º andar do Casino \"SANDS\", Macau",
+      "comType": "6",
+      "comTel": "28725306",
+      "updateDate": 1791572404000,
+      "statusCode": "0100",
+      "closeDate": null
+    },
+    {
+      "comKey": "11551",
+      "comNameCn": "麦当劳",
+      "comNameTw": "麥當勞",
+      "comNameEn": "MCDONALD'S",
+      "comAdsCn": "路氹填海区，莲花海滨大马路东面及望德圣母湾大马路南面，\"银河\"酒店地面层（G/F）店舖G35",
+      "comAdsTw": "路氹填海區，蓮花海濱大馬路東面及望德聖母灣大馬路南面，\"銀河\"酒店地面層（G/F）店舖G35",
+      "comAdsEn": "Cotai, Nascente da Avenida Marginal Flor de Lótus e a Sul da Estrada da Baía de Nossa Senhora da Esperança, loja G35 do r/c (G/F) do Hotel \"GALÁXIA\"",
+      "comType": "6",
+      "comTel": "28827110",
+      "updateDate": 1791572405000,
+      "statusCode": "0100",
+      "closeDate": null
+    },
+    {
+      "comKey": "13131",
+      "comNameCn": "麦当劳",
+      "comNameTw": "麥當勞",
+      "comNameEn": "MCDONALD'S",
+      "comAdsCn": "路氹城填海区G300、G310及G400地段，新濠影汇，二楼（2/F），舖位2088号（电影制作业区）",
+      "comAdsTw": "路氹城填海區G300、G310及G400地段，新濠影滙，二樓（2/F），舖位2088號（電影製作業區）",
+      "comAdsEn": "COTAI, Zona G300, G310 e G400, loja 2088 do piso 2 (2/F) do \"Studio City\" (Zona de indústria cinematográfica)",
+      "comType": "21",
+      "comTel": "28852665",
+      "updateDate": 1791572405000,
+      "statusCode": "0100",
+      "closeDate": null
+    },
+    {
+      "comKey": "13195",
+      "comNameCn": "麦当劳",
+      "comNameTw": "麥當勞",
+      "comNameEn": "MCDONALD'S",
+      "comAdsCn": "路氹填海区，霍英东博士大马路48，112，172，182，238，266，296，322，362及472号，\"颐居\"酒店2楼（L02）2号舖及10号舖",
+      "comAdsTw": "路氹填海區，霍英東博士大馬路48，112，172，182，238，266，296，322，362及472號，\"頤居\"酒店2樓（L02）2號舖及10號舖",
+      "comAdsEn": "Avenida Doutor Henry Fok, n.ºs 48, 112, 172, 182, 238, 266, 296, 322, 362 e 472, lojas 2 e 10 do 2º andar (piso L02) do Hotel \"NÜWA\", COTAI",
+      "comType": "6",
+      "comTel": "28319533",
+      "updateDate": 1791572405000,
+      "statusCode": "0100",
+      "closeDate": null
+    },
+    {
+      "comKey": "14066",
+      "comNameCn": "麦当劳",
+      "comNameTw": "麥當勞",
+      "comNameEn": "MCDONALD'S",
+      "comAdsCn": "路氹填海区，路氹连贯公路以西，望德圣母湾大马路以南，\"澳门威尼斯人酒店\"第5层（L05），3038号舖",
+      "comAdsTw": "路氹填海區，路氹連貫公路以西，望德聖母灣大馬路以南，\"澳門威尼斯人酒店\"第5層（L05），3038號舖",
+      "comAdsEn": "COTAI, a Poente do Istmo Taipa-Coloane e a Sul da Baía da Nossa Senhora de Esperança, loja 3038 do piso 5 (L05) do Hotel \"THE VENETIAN MACAO\"",
+      "comType": "6",
+      "comTel": "28259153",
+      "updateDate": 1791572405000,
+      "statusCode": "0100",
+      "closeDate": null
+    },
+    {
+      "comKey": "14121",
+      "comNameCn": "麦当劳",
+      "comNameTw": "麥當勞",
+      "comNameEn": "MCDONALD'S",
+      "comAdsCn": "路氹城，路氹连贯公路第5及6部分，\"澳门伦敦人酒店\"，第2层（L2）",
+      "comAdsTw": "路氹城，路氹連貫公路第5及6部分，\"澳門倫敦人酒店\"，第2層（L2）",
+      "comAdsEn": "COTAI, a Poente do Istmo Taipa-Coloane, parcelas 5 e 6, piso 2 (L2) do Hotel \"O HOTEL LONDRINO MACAU\"",
+      "comType": "6",
+      "comTel": "28225665",
+      "updateDate": 1791572405000,
+      "statusCode": "0100",
+      "closeDate": null
+    }
+  ]
+}
