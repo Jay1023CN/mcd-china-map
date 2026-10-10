@@ -69,6 +69,7 @@ test('render draws an original no-photo travel illustration and returns 1080x144
   assert.equal(ctx.draws.length, 0);
   assert.ok(ctx.texts.includes('在地图上，记下一站喜欢'));
   assert.ok(ctx.texts.includes('用麦当劳，画出自己的中国足迹。'));
+  assert.ok(ctx.texts.includes('探店记录'));
 });
 
 test('render accepts an embedded photo, center-crops to fit and never fetches', async t => {
@@ -119,6 +120,7 @@ test('plan cards keep the plan label and subtitle despite an entry date and cust
     kind: 'plan', title: '自定义标题'
   });
   assert.ok(ctx.texts.includes('下一站计划 · 尚未打卡'));
+  assert.ok(ctx.texts.includes('计划中'));
   assert.ok(ctx.texts.includes('把想去的那家，先放进旅程。'));
   assert.ok(ctx.texts.includes('自定义标题'));
   assert.ok(ctx.texts.includes('在地图上，记下一站喜欢'));

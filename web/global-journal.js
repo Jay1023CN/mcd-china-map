@@ -172,6 +172,50 @@
   const storeMarkers=node('div',undefined,'map-store-markers');storeMarkers.id='map-store-markers';
   storeMarkers.setAttribute('aria-label','地图上的门店，点击查看照片和介绍');$('world-map').after(storeMarkers);
   storeToggle.addEventListener('change',drawMap);
+  let storeCity='',storeQuery='';
+  function catalogControls(prefix) {
+    const controls=node('div',undefined,'store-catalog-controls');
+    const cityLabel=node('label','在哪座城？');const select=node('select');select.id=prefix+'-city-filter';select.setAttribute('aria-label','按城市找特色门店');cityLabel.append(select);
+    const queryLabel=node('label','找一家特别的麦');const input=node('input');input.id=prefix+'-query';input.type='search';input.maxLength=120;input.placeholder='城市、店名、亲子、湖畔…';queryLabel.append(input);
+    const clear=node('button','清除筛选','quiet');clear.id=prefix+'-clear';clear.type='button';clear.hidden=true;
+    select.addEventListener('change',()=>{storeCity=select.value;updateCatalog();});input.addEventListener('input',()=>{storeQuery=input.value;updateCatalog();});
+    clear.addEventListener('click',()=>{storeCity='';storeQuery='';updateCatalog();input.focus();});
+    controls.append(cityLabel,queryLabel,clear);return controls;
+  }
+  $('world-map').parentElement.before(catalogControls('store'));
+  $('inspiration-grid').before(catalogControls('inspiration'));
+  const catalog=node('section',undefined,'store-catalog');const catalogHeader=node('div',undefined,'store-catalog-heading');
+  const catalogStatus=node('p',undefined,'store-catalog-status');catalogStatus.id='store-catalog-status';catalogStatus.setAttribute('role','status');
+  const seeAll=node('button','展开特色门店手账 →','quiet');seeAll.type='button';seeAll.addEventListener('click',()=>{setView('wishlist');document.querySelector('.inspiration-heading').scrollIntoView({behavior:'smooth',block:'start'});});
+  catalogHeader.append(catalogStatus,seeAll);const catalogGrid=node('div',undefined,'store-catalog-grid');catalogGrid.id='store-catalog-grid';catalog.append(catalogHeader,catalogGrid);storePointList.after(catalog);
+  const inspirationStatus=node('p',undefined,'store-catalog-status');inspirationStatus.id='inspiration-status';inspirationStatus.setAttribute('role','status');$('inspiration-grid').before(inspirationStatus);
+
+  function filterStores(stores) {
+    const terms=storeQuery.normalize('NFKC').toLowerCase().trim().split(/\s+/).filter(Boolean);
+    return stores.filter(store=>(!storeCity || store.city===storeCity) && terms.every(term=>[store.city,store.name,store.search_keyword,store.address,store.short_description,...(store.aliases || []),...(store.tags || [])].filter(Boolean).join(' ').normalize('NFKC').toLowerCase().includes(term)));
+  }
+  function syncCatalogControls() {
+    const cities=[...new Set(knownStores().map(s=>s.city).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-CN'));
+    for(const prefix of ['store','inspiration']) {
+      const select=$(prefix+'-city-filter');select.replaceChildren(new Option('全国各地', ''),...cities.map(city=>new Option(city,city)));select.value=storeCity;
+      $(prefix+'-query').value=storeQuery;$(prefix+'-clear').hidden=!(storeCity || storeQuery);
+    }
+  }
+  function updateCatalog() {
+    syncCatalogControls();renderInspiration();renderStoreCatalog();if(view==='map')drawMap();
+  }
+  function renderStoreCatalog() {
+    const stores=filterStores(knownStores());catalogGrid.replaceChildren();
+    catalogStatus.textContent=storeCity || storeQuery?`找到 ${stores.length} 家特色门店`:`${new Set(data.stores.map(s=>s.city)).size} 座城市 · ${data.stores.length} 家特色门店`;
+    for(const store of stores.slice(0,6)) {
+      const button=node('button',undefined,'store-catalog-card');button.type='button';
+      if(store.default_photo){const image=node('img');image.src=data.store_images?.[store.default_photo.url] || store.default_photo.url;image.alt=store.name;image.loading='lazy';image.referrerPolicy='no-referrer';button.append(image);}
+      const text=node('span');text.append(node('small',store.city),node('strong',store.name),node('span',store.short_description || store.address,'store-catalog-excerpt'));button.append(text,node('span','↗','store-catalog-arrow'));
+      button.addEventListener('click',()=>openStoreDiscovery([store]));catalogGrid.append(button);
+    }
+    seeAll.textContent=stores.length>6?`还有 ${stores.length-6} 家，展开门店手账 →`:'展开特色门店手账 →';
+    if(!stores.length){const message=empty('暂时没找到这家麦','试试换个城市或关键词，或清除筛选看看其他门店。');const clear=node('button','清除筛选','secondary');clear.type='button';clear.addEventListener('click',()=>{storeCity='';storeQuery='';updateCatalog();});message.append(clear);catalogGrid.append(message);}
+  }
 
   function knownStores() {
     const items=[...data.stores.map(s=>({...s,source:'manual',code:'catalog:'+s.name})),
@@ -181,7 +225,8 @@
   }
   function openStoreDiscovery(stores) {
     const body=$('store-discovery-body');body.replaceChildren();
-    $('store-discovery-heading').textContent=stores.length===1?'看看这家麦当劳':stores[0].city+' · '+stores.length+' 家门店';
+    const cities=[...new Set(stores.map(store=>store.city))];
+    $('store-discovery-heading').textContent=stores.length===1?'看看这家麦当劳':(cities.length>1?'这一带':cities[0])+' · '+stores.length+' 家门店';
     for(const store of stores) {
       const card=node('article',undefined,'store-discovery-card');
       if(store.default_photo)card.append(photoNode({city:store.city,store:store.name,default_photo:store.default_photo}));
@@ -211,7 +256,18 @@
   }
 
   function drawStoreLabels(points,ctx,width,height) {
-    const compact=width<500, labelWidth=compact?116:164,labelHeight=compact?46:50,gap=6;
+    const compact=width<500, cityLabels=points.length>6 && !storeCity;
+    if(cityLabels){
+      // Group close city anchors rather than moving labels to another region of the country.
+      const groups=[];
+      for(const point of points){
+        const group=groups.find(other=>Math.hypot(other.x-point.x,other.y-point.y)<(compact?42:55));
+        if(group){group.stores.push(...point.stores);group.cities.push(point.city);}
+        else groups.push({...point,stores:[...point.stores],cities:[point.city]});
+      }
+      points=groups;
+    }
+    const labelWidth=cityLabels?(compact?82:98):(compact?116:164),labelHeight=cityLabels?44:(compact?46:50),gap=5;
     const placed=[];
     for(const point of [...points].sort((a,b)=>a.y-b.y)) {
       const offsets=[[14,-labelHeight/2],[-labelWidth-24,-labelHeight/2],[14,-labelHeight-12],[-labelWidth-24,-labelHeight-12],[14,12],[-labelWidth-24,12]];
@@ -224,19 +280,22 @@
         const distance=Math.hypot(box.x+box.w/2-point.x,box.y+box.h/2-point.y);
         const score=overlap*100+distance;
         if(!best || score<best.score)best={...box,score};
-        if(!overlap)break;
       }
       placed.push(best);
       const edgeX=Math.max(best.x,Math.min(best.x+best.w,point.x)),edgeY=Math.max(best.y,Math.min(best.y+best.h,point.y));
       ctx.beginPath();ctx.moveTo(point.x,point.y);ctx.lineTo(edgeX,edgeY);ctx.strokeStyle='#b29a72';ctx.lineWidth=1;ctx.stroke();
-      const first=point.stores[0],button=node('button',undefined,'map-store-marker');button.type='button';
+      const first=point.stores[0],button=node('button',undefined,'map-store-marker'+(cityLabels?' city-marker':''));button.type='button';
       button.style.left=best.x+'px';button.style.top=best.y+'px';button.style.width=labelWidth+'px';button.style.height=labelHeight+'px';
       button.dataset.city=point.city;button.dataset.anchorX=point.x;button.dataset.anchorY=point.y;
       button.setAttribute('aria-label',point.city+' · '+point.stores.map(s=>s.name).join('、')+'，查看门店照片和介绍');
       button.title=point.stores.map(s=>s.name).join('\n');
-      if(first.default_photo){const thumbnail=node('img');thumbnail.src=data.store_images?.[first.default_photo.url] || first.default_photo.url;thumbnail.alt='';thumbnail.referrerPolicy='no-referrer';button.append(thumbnail);}
+      if(!cityLabels && first.default_photo){const thumbnail=node('img');thumbnail.src=data.store_images?.[first.default_photo.url] || first.default_photo.url;thumbnail.alt='';thumbnail.referrerPolicy='no-referrer';button.append(thumbnail);}
+      else if(cityLabels){}
       else button.append(node('span','店','map-store-icon'));
-      const label=node('span',undefined,'map-store-marker-text');label.append(node('small',point.city+(point.stores.length>1?' · '+point.stores.length+' 家':'')),node('strong',storeMarkerLabel(first)));button.append(label);
+      const label=node('span',undefined,'map-store-marker-text');
+      if(cityLabels)label.append(node('strong',point.city+(point.cities.length>1?'等'+point.cities.length+'城':'')),node('small',point.stores.length+' 家特色店'));
+      else label.append(node('small',point.city+(point.stores.length>1?' · '+point.stores.length+' 家':'')),node('strong',storeMarkerLabel(first)));
+      button.append(label);
       button.addEventListener('click',()=>openStoreDiscovery(point.stores));storeMarkers.append(button);
     }
   }
@@ -271,6 +330,7 @@
     renderEntries(s);
     renderCandidates(s);
     renderWishlist();
+    syncCatalogControls();renderStoreCatalog();
     $('month-list').replaceChildren(...s.months.map(m => {
       const chip = node('span', m.month, 'month-chip'); chip.append(node('b', m.count + ' 页')); return chip;
     }));
@@ -379,7 +439,8 @@
   }
   function renderInspiration() {
     const grid=$('inspiration-grid');grid.replaceChildren();
-    for(const store of data.stores) {
+    const filtered=filterStores(data.stores);inspirationStatus.textContent=`${storeCity || '全国各地'} · ${filtered.length} 家特色门店`;
+    for(const store of filtered) {
       const candidate={source:'manual',code:'catalog:'+store.name,name:store.name,city:store.city,province_code:store.province_code,address:store.address,note:''};
       const id=W.normalize([candidate])[0].id;
       const card=node('article',undefined,'entry-card inspiration-card');
@@ -392,8 +453,12 @@
       collect.addEventListener('click',()=>{try{archive=E.normalizeArchive({...archive,wishlist:W.add(archive.wishlist || [],candidate)},opts());save();renderWishlist();toast('已收藏，下一次打开还在想去清单。');}catch(error){toast('想去清单最多保存 100 家店。');}});
       const check=node('button','查询这家店','quiet');check.type='button';check.addEventListener('click',()=>{
         const search=$('store-search');search.open=true;document.querySelector('[name=search_city]').value=store.city;document.querySelector('[name=search_keyword]').value=store.search_keyword || store.name;search.scrollIntoView({behavior:'smooth',block:'start'});$('search-stores').focus();
-      });check.hidden=!localApi;actions.append(collect,check);card.append(actions);grid.append(card);
+      });check.hidden=!localApi;
+      const open=node('button','看看这家店','quiet');open.type='button';open.addEventListener('click',()=>openStoreDiscovery([{...store,source:'manual',code:'catalog:'+store.name}]));
+      const image=card.querySelector('img.photo');if(image){const photoButton=node('button',undefined,'store-photo-open');photoButton.type='button';photoButton.setAttribute('aria-label','看看'+store.name);image.replaceWith(photoButton);photoButton.append(image);photoButton.addEventListener('click',()=>open.click());}
+      actions.append(collect,open,check);card.append(actions);grid.append(card);
     }
+    if(!filtered.length)grid.append(empty('这一站还没找到','换个城市或关键词，或者清除筛选看看其他特色门店。'));
   }
   function openStoreForm(store,wishlistId=null) {
     openForm();if(!$('entry-dialog').open)return;
@@ -486,9 +551,9 @@
     mapPoints = [];storeMapPoints=[];storePointList.replaceChildren();storeMarkers.replaceChildren();
     if(storeToggle.checked){
       const storeGroups=new Map();
-      for(const store of knownStores()) {
+      for(const store of filterStores(knownStores())) {
         const city=data.cities.find(c=>[c.city,c.city+'市',c.city_en].includes(store.city));
-        if(!city || ($('country-filter').value && $('country-filter').value!==(store.province_code || city.province_code)))continue;
+        if(!city)continue;
         const [x,y]=xy(city.lon,city.lat);const key=city.province_code+'/'+city.city;
         if(!storeGroups.has(key))storeGroups.set(key,{x,y,city:city.city,stores:[]});
         storeGroups.get(key).stores.push({...store,province_code:store.province_code || city.province_code});
@@ -514,7 +579,7 @@
     }
     const pointList = $('map-points'); pointList.replaceChildren();
     for (const point of mapPoints) { const button = node('button', placeName(point.entry) + ' · ' + point.count + ' 页', 'map-point'); button.type = 'button'; button.addEventListener('click', () => openDetail(point.entry)); pointList.append(button); }
-    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录，照片标签可以点开看店。` : '点地图上的照片标签，看看店名、照片和地址，喜欢就收藏到下一站。';
+    $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录，城市标签可以点开看店。` : '点城市标签看照片和介绍；选一座城，找到下一家想去的麦。';
   }
   $('world-map').addEventListener('click', event => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -803,7 +868,7 @@
       if (!response.ok) { const payload = await response.json().catch(() => null); throw new Error(payload?.error || '请使用“启动门店查询.cmd”连接官方门店查询。'); }
       const result = await response.json();
       if (!Array.isArray(result.stores)) throw new Error('门店响应无法读取，请稍后重试。');
-      nearbyStores=result.stores;if(view==='map')drawMap();
+      nearbyStores=result.stores;updateCatalog();
       $('store-search-status').textContent = result.stores.length ? `找到 ${result.stores.length} 家附近门店。` : '本次没有查到门店，试试换一个城市或地标。';
       for (const store of result.stores) {
         const card = node('article',undefined,'entry-card'); card.append(node('h3',store.name),node('p',store.address || '地址暂未提供'));
@@ -846,8 +911,16 @@
   async function sharePhoto(entry) {
     if(entry.photo?.data_url)return entry.photo.data_url;
     const url=entry.default_photo?.url;if(!url)return null;
-    if(data.store_images?.[url])return data.store_images[url];
+    const mirror=data.store_images?.[url];if(mirror?.startsWith('data:image/'))return mirror;
     if(sharePhotoCache.has(url))return sharePhotoCache.get(url);
+    if(mirror && /^assets\/[a-f0-9]{64}\.(jpg|png|webp)$/.test(mirror)) {
+      try {
+        const response=await fetch(new URL(mirror,location.href));if(!response.ok)return null;
+        const blob=await response.blob();if(!blob.type.startsWith('image/') || blob.size>1024*1024)return null;
+        const value=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});
+        if(sharePhotoCache.size>=8)sharePhotoCache.delete(sharePhotoCache.keys().next().value);sharePhotoCache.set(url,value);return value;
+      }catch(error){return null;}
+    }
     if(!localApi)return null;
     try {
       const response=await fetch('/api/photo-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});

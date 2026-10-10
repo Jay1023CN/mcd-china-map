@@ -12,6 +12,7 @@
   var MAX_PROVINCE_TAGS = 8;
   var MAX_CITY_TAGS = 10;
   var FONT = '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif';
+  var TITLE_FONT = '"Ma Shan Zheng", ' + FONT;
 
   function count(value) {
     return Number.isFinite(value) && value > 0 ? Math.floor(value) : 0;
@@ -119,19 +120,49 @@
     ctx.closePath();
   }
 
+  function handLine(ctx, x1, y1, x2, y2, color, width) {
+    var bend = (x2 - x1) * .34;
+    ctx.strokeStyle = color; ctx.lineWidth = width || 2;
+    ctx.beginPath(); ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 + bend, y1 + 2); ctx.lineTo(x1 + bend * 2, y2 - 1); ctx.lineTo(x2, y2); ctx.stroke();
+  }
+
+  function drawStamp(ctx, x, y, text, color) {
+    ctx.save(); ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(x + 3, y + 2); ctx.lineTo(x + 156, y); ctx.lineTo(x + 153, y + 47); ctx.lineTo(x, y + 45); ctx.closePath(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x + 9, y + 8); ctx.lineTo(x + 149, y + 7); ctx.lineTo(x + 146, y + 40); ctx.lineTo(x + 7, y + 39); ctx.closePath(); ctx.stroke();
+    ctx.font = '400 24px ' + TITLE_FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, x + 77, y + 24, 132);
+    ctx.restore();
+  }
+
+  function drawFries(ctx, x, y, color, yellow) {
+    ctx.save(); ctx.strokeStyle = color; ctx.fillStyle = yellow; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(x + 4, y + 25); ctx.lineTo(x + 8, y + 2); ctx.moveTo(x + 17, y + 25); ctx.lineTo(x + 19, y - 3); ctx.moveTo(x + 30, y + 25); ctx.lineTo(x + 35, y + 3); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, y + 27); ctx.lineTo(x + 38, y + 28); ctx.lineTo(x + 33, y + 67); ctx.lineTo(x + 7, y + 65); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawPaper(ctx, paper) {
+    ctx.fillStyle = paper; ctx.fillRect(48, 48, WIDTH - 96, HEIGHT - 96);
+    ctx.fillStyle = 'rgba(116, 91, 54, .035)';
+    for (var i = 0; i < 24; i++) ctx.fillRect(74 + (i * 173) % 914, 76 + (i * 223) % 1268, 2, 2);
+  }
+
   function drawFittedTitle(ctx, text, x, y, maxWidth, baseSize, minSize) {
     var size = baseSize;
-    ctx.font = '900 ' + size + 'px ' + FONT;
+    ctx.font = '400 ' + size + 'px ' + TITLE_FONT;
     while (size > minSize && ctx.measureText(text).width > maxWidth) {
       size -= 1;
-      ctx.font = '900 ' + size + 'px ' + FONT;
+      ctx.font = '400 ' + size + 'px ' + TITLE_FONT;
     }
     ctx.fillText(text, x, y);
   }
 
   function waitForFonts() {
     if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
-      return document.fonts.ready.catch(function () {});
+      return Promise.resolve(document.fonts.ready).then(function () {
+        if (typeof document.fonts.load === 'function') return document.fonts.load('32px "Ma Shan Zheng"');
+      }).catch(function () {});
     }
     return Promise.resolve();
   }
@@ -152,33 +183,20 @@
 
     var isRed = facts.theme === 'red';
     var palette = isRed ? {
-      base: '#b93427', baseDark: '#98271f', paper: '#fff8e9', ink: '#fff8e9', muted: '#f1c5a7',
-      line: '#e9a47d', visited: '#f2c849', idle: '#d98168', map: '#c44735', tag: '#a72f25', tagInk: '#fff8e9',
-      gold: '#f2c849'
+      base: '#fff8e9', baseDark: '#d44632', paper: '#fff8e9', ink: '#29231b', muted: '#806f58',
+      line: '#cdbb9a', visited: '#d44632', idle: '#e8dfc5', map: '#f8f0df', tag: '#f0e5cc', tagInk: '#6d5840',
+      gold: '#ecc74c'
     } : {
       base: '#f3eddb', baseDark: '#e9dfc8', paper: '#fff9eb', ink: '#29231b', muted: '#806f58',
       line: '#d8c9ad', visited: '#dc442e', idle: '#e8dfc5', map: '#f8f0df', tag: '#f0e5cc', tagInk: '#6d5840',
       gold: '#ecc74c'
     };
-    ctx.fillStyle = palette.base;
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-    ctx.fillStyle = palette.baseDark;
-    ctx.fillRect(38, 38, WIDTH - 76, HEIGHT - 76);
-    ctx.fillStyle = isRed ? palette.base : palette.paper;
-    ctx.fillRect(54, 54, WIDTH - 108, HEIGHT - 108);
+    ctx.fillStyle = palette.baseDark; ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    drawPaper(ctx, palette.paper);
 
-    ctx.fillStyle = palette.gold;
-    roundedRect(ctx, 94, 92, 255, 44, 5);
-    ctx.fill();
-    ctx.fillStyle = isRed ? palette.baseDark : '#4b3e2b';
-    ctx.font = '700 18px ' + FONT;
-    ctx.textBaseline = 'middle';
-    ctx.fillText('MY CHINA JOURNEY', 112, 114);
-    ctx.fillStyle = palette.muted;
-    ctx.font = '600 16px ' + FONT;
-    ctx.textAlign = 'right';
-    ctx.fillText('CHINA · PERSONAL CHECK-INS', 986, 114);
-    ctx.textAlign = 'left';
+    ctx.fillStyle = palette.ink; ctx.font = '700 19px ' + FONT; ctx.textBaseline = 'middle';
+    ctx.fillText('麦麦中国地图 · 旅行足迹', 96, 112);
+    drawStamp(ctx, 806, 88, '足迹册', '#d44632');
 
     ctx.fillStyle = palette.ink;
     ctx.font = '900 60px ' + FONT;
@@ -187,12 +205,7 @@
     ctx.fillStyle = palette.muted;
     ctx.font = '400 24px ' + FONT;
     ctx.fillText('每一站，都是喜欢的味道。', 96, 270);
-    ctx.strokeStyle = palette.line;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(96, 304);
-    ctx.lineTo(984, 304);
-    ctx.stroke();
+    handLine(ctx, 96, 304, 984, 302, palette.line, 2);
 
     var metrics = [
       {value: facts.confirmedCount, label: '确认足迹'},
@@ -204,26 +217,23 @@
     var metricW = 207;
     metrics.forEach(function (metric, index) {
       var x = 96 + index * 222;
-      ctx.fillStyle = isRed ? '#c34934' : '#f3e7ce';
-      roundedRect(ctx, x, metricY, metricW, 139, 9);
-      ctx.fill();
-      ctx.fillStyle = isRed ? palette.gold : '#c43c2b';
+      ctx.fillStyle = isRed ? '#d44632' : '#c43c2b';
       ctx.font = '700 52px ' + FONT;
       ctx.textAlign = 'center';
-      ctx.fillText(String(metric.value), x + metricW / 2, metricY + 76);
-      ctx.fillStyle = isRed ? palette.paper : palette.muted;
+      ctx.fillText(String(metric.value), x + metricW / 2, metricY + 62);
+      ctx.fillStyle = palette.muted;
       ctx.font = '600 20px ' + FONT;
-      ctx.fillText(metric.label, x + metricW / 2, metricY + 116);
+      ctx.fillText(metric.label, x + metricW / 2, metricY + 101);
+      handLine(ctx, x + 34, metricY + 123, x + metricW - 34, metricY + 121, palette.gold, 4);
     });
     ctx.textAlign = 'left';
 
     var mapBox = {x: 96, y: 520, w: 888, h: 555};
-    ctx.fillStyle = isRed ? '#fff7e8' : '#f8f2e4';
-    roundedRect(ctx, mapBox.x, mapBox.y, mapBox.w, mapBox.h, 12);
-    ctx.fill();
-    ctx.strokeStyle = palette.line;
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    ctx.fillStyle = isRed ? '#fffaf0' : '#f8f2e4';
+    ctx.fillRect(mapBox.x, mapBox.y, mapBox.w, mapBox.h);
+    ctx.strokeStyle = palette.ink; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(mapBox.x, mapBox.y + 2); ctx.lineTo(mapBox.x + mapBox.w - 2, mapBox.y);
+    ctx.lineTo(mapBox.x + mapBox.w, mapBox.y + mapBox.h - 3); ctx.lineTo(mapBox.x + 2, mapBox.y + mapBox.h); ctx.closePath(); ctx.stroke();
     var visited = new Set(facts.provinces.map(function (province) { return province.code; }));
     var main = {x: mapBox.x + 32, y: mapBox.y + 35, w: mapBox.w - 68, h: mapBox.h - 78};
     var mainProject = function (lon, lat) {
@@ -249,7 +259,7 @@
     // islands in a separate inset, as on the journal's main China map.
     var inset = {x: mapBox.x + mapBox.w - 184, y: mapBox.y + mapBox.h - 205, w: 146, h: 166};
     ctx.fillStyle = isRed ? '#fff9eb' : '#f4ead4';
-    roundedRect(ctx, inset.x, inset.y, inset.w, inset.h, 5);
+    ctx.beginPath(); ctx.rect(inset.x, inset.y, inset.w, inset.h);
     ctx.fill();
     ctx.save();
     ctx.beginPath();
@@ -299,13 +309,11 @@
       ctx.font = '600 17px ' + FONT;
       var tagW = Math.ceil(ctx.measureText(tag).width) + 30;
       if (tagX + tagW > 980) { tagX = 96; rowY += 47; }
-      ctx.fillStyle = palette.tag;
-      roundedRect(ctx, tagX, rowY, tagW, 36, 18);
-      ctx.fill();
-      ctx.fillStyle = palette.tagInk;
+      ctx.fillStyle = palette.ink;
       ctx.textBaseline = 'middle';
-      ctx.fillText(tag, tagX + 15, rowY + 18);
-      tagX += tagW + 10;
+      ctx.fillText(tag, tagX + 3, rowY + 18);
+      handLine(ctx, tagX + 2, rowY + 32, tagX + tagW - 5, rowY + 31, palette.gold, 3);
+      tagX += tagW + 14;
     });
     ctx.textBaseline = 'alphabetic';
     if (omitted > 0) {
@@ -334,6 +342,7 @@
     ctx.textAlign = 'right';
     ctx.fillText('用麦当劳，画出中国足迹。', 984, 1390);
     ctx.textAlign = 'left';
+    drawFries(ctx, 904, 1274, palette.ink, palette.gold);
     return canvas;
   }
 

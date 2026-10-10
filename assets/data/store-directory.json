@@ -18,7 +18,12 @@
       "source_url": "https://www.jfdaily.com/sgh/detail?id=1699951",
       "attribution": "上观新闻",
       "caption": "人民广场附近 · 华旭国际大厦餐厅内景"
-    }
+    },
+    "tags": [
+      "CUBE",
+      "城市旗舰",
+      "人民广场"
+    ]
   },
   {
     "name": "麦当劳成都锦江区东大街旗舰店餐厅",
@@ -38,7 +43,12 @@
       "source_url": "https://www.mcdonalds.com.cn/news/20201218-M3-Flagship-Stores",
       "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
       "caption": "东大街晶融汇旗舰餐厅内的半透明旋转黄色楼梯"
-    }
+    },
+    "tags": [
+      "M³",
+      "设计",
+      "旋转楼梯"
+    ]
   },
   {
     "name": "麦当劳北京首钢园得来速餐厅",
@@ -58,7 +68,12 @@
       "source_url": "https://www.mcdonalds.com.cn/news/20220920-LEED-Net-Zero-Restaurant-Grand-Opening",
       "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
       "caption": "麦当劳中国首家“零碳餐厅”- 北京麦当劳首钢园得来速餐厅外观"
-    }
+    },
+    "tags": [
+      "绿色餐厅",
+      "得来速",
+      "湖畔"
+    ]
   },
   {
     "name": "麦当劳广州天字码头餐厅",
@@ -79,7 +94,11 @@
       "source_url": "https://www.mcdonalds.com.cn/news/20260104-900-Restaurants-in-Guangzhou",
       "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
       "caption": "麦当劳天字码头餐厅，打卡珠江畔的彩色美味"
-    }
+    },
+    "tags": [
+      "江景",
+      "设计"
+    ]
   },
   {
     "name": "麦当劳深圳光华餐厅",
@@ -100,6 +119,582 @@
       "source_url": "https://www.mcdonalds.com.cn/news/30-anniversary",
       "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
       "caption": "深圳光华麦当劳餐厅复刻三十年前风貌"
+    },
+    "tags": [
+      "历史首店",
+      "老街"
+    ]
+  },
+  {
+    "name": "麦当劳天津赤峰道餐厅",
+    "aliases": [
+      "天津赤峰道餐厅",
+      "天津第5000家LEED绿色餐厅"
+    ],
+    "city": "天津",
+    "search_keyword": "赤峰道",
+    "province_code": "120000",
+    "address": "天津市和平区新华路116号102、103、111、112、201、204号商铺",
+    "short_description": "位于天津历史文化街区腹地，红砖立面、复古回廊与格纹门窗融入天津历史风貌元素；麦当劳中国第5000家LEED认证绿色餐厅。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20260514-McD-LEED-5000",
+    "tags": [
+      "历史风貌",
+      "绿色餐厅",
+      "城市地标"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2026/05/14/202605140006421208/202605140006421208_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/tianjin-chifeng.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20260514-McD-LEED-5000",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "天津赤峰道餐厅外观与室内空间"
     }
+  },
+  {
+    "name": "麦当劳天津津王路得来速餐厅",
+    "aliases": [
+      "津王路得来速餐厅",
+      "团泊湖麦当劳迷宫亲子餐厅"
+    ],
+    "city": "天津",
+    "search_keyword": "团泊湖",
+    "province_code": "120000",
+    "address": "天津市静海区团泊湖区域（津王路得来速餐厅）",
+    "short_description": "麦当劳中国首家园林迷宫亲子餐厅；餐厅前的绿色迷宫以金色拱门和开心乐园餐盒微笑为灵感。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20230630-LEED-2200-Tianjin/",
+    "tags": [
+      "亲子",
+      "户外迷宫",
+      "得来速"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2023/07/04/202307041932567945/202307041932567945_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/tianjin-tuanbo.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20230630-LEED-2200-Tianjin/",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "天津山东市场第300家餐厅——津王路得来速餐厅"
+    }
+  },
+  {
+    "name": "麦当劳天津元力场（吉利大厦）城市旗舰餐厅",
+    "aliases": [
+      "天津首家CUBE风格城市旗舰餐厅",
+      "天津吉利大厦麦当劳"
+    ],
+    "city": "天津",
+    "search_keyword": "吉利大厦",
+    "province_code": "120000",
+    "address": "天津市和平区南京路吉利大厦-元力场",
+    "short_description": "天津首家CUBE风格城市旗舰餐厅，以开心乐园餐红色餐盒为设计灵感，设有开心魔力盒互动装置和3D裸眼大屏。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20251124-TianJin-CUBE-Restaurant",
+    "tags": [
+      "城市旗舰",
+      "CUBE风格",
+      "互动体验"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/11/24/202511241418062891/202511241418062891_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/tianjin-jili-cube.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20251124-TianJin-CUBE-Restaurant",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "天津首家麦当劳CUBE风格城市旗舰餐厅亮相吉利大厦-元力场"
+    }
+  },
+  {
+    "name": "麦当劳哈尔滨索菲亚餐厅",
+    "aliases": [
+      "哈尔滨索菲亚餐厅",
+      "索菲春天麦当劳"
+    ],
+    "city": "哈尔滨",
+    "search_keyword": "索菲亚",
+    "province_code": "230000",
+    "address": "哈尔滨市道里区石头街96号索菲春天B一层1号商铺",
+    "short_description": "麦当劳官方2015年特色门店报道收录的哈尔滨索菲亚餐厅，配图呈现俄式风格的门店与圣·索菲亚教堂周边街景。",
+    "source_url": "https://www.mcdonalds.com.cn/news/cool-mcdonalds-restaurant",
+    "tags": [
+      "东北特色",
+      "俄式风格",
+      "历史照片"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2015/11/10/201511102114428669/201511102114428669_640_426.jpg?&rand=0827",
+      "local_asset": "store-photos/harbin-sophia.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/cool-mcdonalds-restaurant",
+      "attribution": "麦当劳中国官网2015年特色门店报道配图，未标注单独摄影署名",
+      "caption": "官方图集第7家：哈尔滨索菲亚餐厅（俄式风格）"
+    }
+  },
+  {
+    "name": "麦当劳银川阅彩城旗舰餐厅",
+    "aliases": [
+      "银川阅彩城麦当劳",
+      "宁夏首家LEED认证麦当劳餐厅"
+    ],
+    "city": "银川",
+    "search_keyword": "阅彩城",
+    "province_code": "640000",
+    "address": "宁夏银川市金凤区阅彩城中街阅彩城一楼",
+    "short_description": "宁夏首家LEED认证麦当劳餐厅，近700平方米，采用Ray风格，并设有“大开心屋互动空间”和儿童游乐区。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20251220-Ningxia-Open",
+    "tags": [
+      "宁夏首店",
+      "城市旗舰",
+      "亲子",
+      "绿色餐厅"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/12/20/202512202202104172/202512202202104172_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/yinchuan-yuecaicheng.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20251220-Ningxia-Open",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "麦当劳银川阅彩城旗舰餐厅外景"
+    }
+  },
+  {
+    "name": "麦当劳银川金凤万达餐厅",
+    "aliases": [
+      "银川金凤万达麦当劳",
+      "金凤万达麦当劳"
+    ],
+    "city": "银川",
+    "search_keyword": "金凤万达",
+    "province_code": "640000",
+    "address": "宁夏银川市金凤区正源北街22号万达广场一层",
+    "short_description": "麦当劳2025年首次进驻宁夏时同步开业的三家餐厅之一，采用Geometry设计，以大地色与木色营造轻松的用餐空间。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20251220-Ningxia-Open",
+    "tags": [
+      "宁夏首店",
+      "城市新店",
+      "Geometry风格"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/12/20/202512202202213801/202512202202213801_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/yinchuan-jinfeng-wanda.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20251220-Ningxia-Open",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "麦当劳银川金凤万达餐厅外景"
+    }
+  },
+  {
+    "name": "麦当劳银川新百中心餐厅",
+    "aliases": [
+      "银川新百中心麦当劳",
+      "新百中心麦当劳"
+    ],
+    "city": "银川",
+    "search_keyword": "新百中心",
+    "province_code": "640000",
+    "address": "宁夏银川市兴庆区鼓楼南街新百中心C馆1层",
+    "short_description": "银川首批三家麦当劳餐厅之一，采用Geometry设计，以大地色与木色呈现舒适用餐环境。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20251220-Ningxia-Open",
+    "tags": [
+      "宁夏首店",
+      "城市新店",
+      "Geometry风格"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/12/20/202512202202452396/202512202202452396_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/yinchuan-xinbai-center.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20251220-Ningxia-Open",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "麦当劳银川新百中心餐厅外景"
+    }
+  },
+  {
+    "name": "麦当劳西宁海湖广场得来速旗舰餐厅",
+    "aliases": [
+      "青海首家麦当劳",
+      "西宁海湖广场麦当劳",
+      "海湖广场得来速餐厅"
+    ],
+    "city": "西宁",
+    "search_keyword": "海湖广场",
+    "province_code": "630000",
+    "address": "青海省西宁市海湖广场片区，毗邻五四西路",
+    "short_description": "麦当劳青海首店，也是得来速汽车餐厅；官方介绍配有Ray风格空间和黄色旋转楼梯。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20251221-Qinghai-Shoudian",
+    "tags": [
+      "青海首店",
+      "得来速",
+      "城市旗舰"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/12/22/202512221108452729/202512221108452729_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/xining-haihu-dt.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20251221-Qinghai-Shoudian",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "青海首家麦当劳——西宁海湖广场得来速旗舰餐厅外景"
+    }
+  },
+  {
+    "name": "麦当劳西安兵马俑餐厅",
+    "aliases": [
+      "西安兵马俑景区麦当劳",
+      "兵马俑国际旅游广场麦当劳"
+    ],
+    "city": "西安",
+    "search_keyword": "兵马俑",
+    "province_code": "610000",
+    "address": "陕西省西安市临潼区秦陵北路兵马俑国际旅游广场S1B-01商铺",
+    "short_description": "位于兵马俑国际旅游广场的特色餐厅，麦当劳官方特色门店图集以红墙绿树形容其毗邻景区的环境。",
+    "source_url": "https://www.mcdonalds.com.cn/news/cool-mcdonalds-restaurant",
+    "tags": [
+      "景区门店",
+      "兵马俑",
+      "历史照片"
+    ],
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2015/11/10/201511102113462996/201511102113462996_640_426.jpg?&rand=0827",
+      "local_asset": "store-photos/xian-terracotta.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/cool-mcdonalds-restaurant",
+      "attribution": "麦当劳中国官网2015年特色门店报道配图，未标注单独摄影署名",
+      "caption": "官方图集第5家：毗邻兵马俑景区的麦当劳西安兵马俑餐厅"
+    }
+  },
+  {
+    "name": "麦当劳南京兴隆大街餐厅",
+    "aliases": [
+      "兴隆大街餐厅"
+    ],
+    "city": "南京",
+    "province_code": "320000",
+    "search_keyword": "兴隆大街",
+    "address": "南京地铁2号线兴隆大街站2号出口",
+    "short_description": "升级为 Vista 设计风格，明亮的色块、开放空间与城市通勤节奏相遇。",
+    "tags": [
+      "Vista",
+      "设计",
+      "城市漫步"
+    ],
+    "source_url": "https://www.mcdonalds.com.cn/news/20260331-Vista-in-Nanjing",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2026/04/03/202604031636419467/202604031636419467_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/nanjing-xinglong-vista.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20260331-Vista-in-Nanjing",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "兴隆大街餐厅 · 官网新闻照片"
+    }
+  },
+  {
+    "name": "麦当劳无锡百乐广场餐厅",
+    "aliases": [
+      "百乐广场餐厅"
+    ],
+    "city": "无锡",
+    "province_code": "320000",
+    "search_keyword": "百乐广场",
+    "address": "无锡市盛岸西路与百乐路交汇处百乐广场一楼",
+    "short_description": "无锡首家 Vista 餐厅，以活力配色和通透空间为日常相聚添一点趣味。",
+    "tags": [
+      "Vista",
+      "设计",
+      "城市旗舰"
+    ],
+    "source_url": "https://www.mcdonalds.com.cn/news/20260331-Vista-in-Wuxi",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2026/04/01/202604011054188200/202604011054188200_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/wuxi-baile-vista.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20260331-Vista-in-Wuxi",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "百乐广场餐厅 Vista 风格用餐区内景"
+    }
+  },
+  {
+    "name": "麦当劳杭州千岛湖秀水广场餐厅",
+    "aliases": [
+      "千岛湖秀水广场餐厅"
+    ],
+    "city": "杭州",
+    "province_code": "330000",
+    "search_keyword": "千岛湖秀水广场",
+    "address": "杭州市淳安县千岛湖风景区秀水广场",
+    "short_description": "华东首家绿色童趣旗舰餐厅，湖畔独立建筑与下沉广场相连，滑梯和亲子空间让湖边的一餐更有趣。",
+    "tags": [
+      "千岛湖",
+      "湖畔",
+      "亲子",
+      "绿色餐厅"
+    ],
+    "source_url": "https://www.mcdonalds.com.cn/news/20250904-restaurant-in-hangzhou",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/09/04/202509041412311852/202509041412311852_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/hangzhou-qiandao-lake.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20250904-restaurant-in-hangzhou",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "千岛湖秀水广场餐厅 · 官网新闻照片"
+    }
+  },
+  {
+    "name": "麦当劳宁波城隍庙甬安里餐厅",
+    "aliases": [
+      "城隍庙甬安里餐厅"
+    ],
+    "city": "宁波",
+    "province_code": "330000",
+    "search_keyword": "城隍庙甬安里",
+    "address": "宁波市海曙区城隍庙甬安里商业综合体",
+    "short_description": "宁波首家 CUBE 旗舰餐厅，把鲜明色彩与模块化空间放进老城商业街，逛城隍庙时可以顺路停一站。",
+    "tags": [
+      "CUBE",
+      "老城",
+      "城市漫步"
+    ],
+    "source_url": "https://www.mcdonalds.com.cn/news/20241011-Ningbo-500th-restaurant-CUBE",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/10/12/202410121509147443/202410121509147443_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/ningbo-yonganli-cube.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20241011-Ningbo-500th-restaurant-CUBE",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "城隍庙甬安里餐厅 · 官网新闻照片"
+    }
+  },
+  {
+    "name": "麦当劳宁波塔餐厅",
+    "aliases": [
+      "宁波塔餐厅"
+    ],
+    "city": "宁波",
+    "province_code": "330000",
+    "search_keyword": "宁波塔",
+    "address": "宁波三江口宁波塔一楼",
+    "short_description": "位于三江口地标宁波塔一楼，以 Geometry 几何设计呈现现代空间，适合把江边散步和一餐连起来。",
+    "tags": [
+      "Geometry",
+      "江景",
+      "城市地标"
+    ],
+    "source_url": "https://www.mcdonalds.com.cn/news/20241011-Ningbo-500th-restaurant-CUBE",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/10/12/202410121511095370/202410121511095370_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/ningbo-tower.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20241011-Ningbo-500th-restaurant-CUBE",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "宁波塔餐厅 · 官网新闻照片"
+    }
+  },
+  {
+    "name": "麦当劳南京云龙山路餐厅",
+    "aliases": [
+      "云龙山路餐厅"
+    ],
+    "city": "南京",
+    "province_code": "320000",
+    "search_keyword": "云龙山路",
+    "address": "南京市建邺区河西大街与云龙山路交叉口西城夜未央街区",
+    "short_description": "Ray 风格的绿色餐厅设有两层露台、绿植墙与六台充电单车，把一餐和户外小歇放在一起。",
+    "tags": [
+      "露台",
+      "绿植",
+      "充电单车",
+      "绿色餐厅"
+    ],
+    "source_url": "https://www.mcdonalds.com.cn/news/20230628-Jiangsu-400-Restaurant/",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2023/06/29/202306291224485105/202306291224485105_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/nanjing-yunlongshan.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20230628-Jiangsu-400-Restaurant/",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "云龙山路餐厅 · 官网新闻照片"
+    }
+  },
+  {
+    "name": "麦当劳苏州相城仁恒餐厅",
+    "aliases": [
+      "相城仁恒餐厅"
+    ],
+    "city": "苏州",
+    "province_code": "320000",
+    "search_keyword": "相城仁恒",
+    "address": "苏州市相城区元和街道四季和鸣商业广场",
+    "short_description": "邻里型绿色餐厅设有童趣空间，再生玩具制成的小象与宝宝椅，把环保和亲子的一餐放在同一页。",
+    "tags": [
+      "亲子",
+      "绿色餐厅",
+      "社区"
+    ],
+    "source_url": "https://www.mcdonalds.com.cn/news/20240713-Jiangsu-the-500th-restaurant",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/07/12/202407121453074453/202407121453074453_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/suzhou-xiangcheng-renheng.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20240713-Jiangsu-the-500th-restaurant",
+      "attribution": "麦当劳中国官网新闻配图，未标注单独摄影署名",
+      "caption": "相城仁恒餐厅 · 官网新闻照片"
+    }
+  },
+  {
+    "name": "麦当劳长沙金茂大厦餐厅",
+    "aliases": [
+      "长沙金茂大厦餐厅",
+      "麦当劳长沙金茂餐厅"
+    ],
+    "city": "长沙",
+    "search_keyword": "金茂大厦",
+    "province_code": "430000",
+    "address": "长沙市岳麓区梅溪湖路与雪松路交叉口东南约120米，长沙金茂大厦一楼",
+    "short_description": "全国首家麦当劳绿色童趣旗舰店，设有“四小福”主题雕像和儿童互动空间。",
+    "source_url": "https://www.mcdonalds.com.cn/index/Quality/deliveryinfo?from=70&page=97",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/12/02/202412021712417772/202412021712417772_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/changsha-jinmao.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20241130-LEED-family-restaurant-Changsha",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "长沙金茂大厦餐厅外观及“四小福”主题布置"
+    },
+    "tags": [
+      "绿色童趣旗舰店",
+      "亲子空间",
+      "四小福"
+    ]
+  },
+  {
+    "name": "麦当劳武汉当代国际城得来速餐厅",
+    "aliases": [
+      "武汉当代国际城餐厅",
+      "当代国际城得来速店"
+    ],
+    "city": "武汉",
+    "search_keyword": "当代国际城",
+    "province_code": "420000",
+    "address": "武汉市东湖高新区高新六路当代国际城三期",
+    "short_description": "2020年开业报道介绍其“我爱武汉”主题设计，店内墙画描绘武汉地标，并设有得来速车道。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20201217-100th-restaurant-at-Wuhan",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2020/12/17/202012171827445493/202012171827445493_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/wuhan-dangdai-international-city.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20201217-100th-restaurant-at-Wuhan",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "当代国际城得来速餐厅内景，墙面绘有武汉地标主题画"
+    },
+    "tags": [
+      "武汉第100家餐厅",
+      "我爱武汉主题",
+      "得来速"
+    ]
+  },
+  {
+    "name": "麦当劳重庆金鹰财富中心餐厅",
+    "aliases": [
+      "重庆金鹰旗舰店",
+      "麦当劳金鹰财富中心店"
+    ],
+    "city": "重庆",
+    "search_keyword": "金鹰财富中心",
+    "province_code": "500000",
+    "address": "重庆市渝中区邹容路82号金鹰财富中心B1层",
+    "short_description": "2019年开业报道记录其为西南地区首家全新风格旗舰店，采用工业风设计并设有DIY甜品吧。",
+    "source_url": "https://www.mcdonalds.com.cn/index/Quality/publicinfo/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E9%87%8D%E5%BA%86%E5%B8%82&page=3",
+    "default_photo": {
+      "url": "https://5b0988e595225.cdn.sohucs.com/images/20190507/d4e3179a03494a799a7be4b34e0f0a50.jpeg",
+      "local_asset": "store-photos/chongqing-jinying-flagship.jpg",
+      "source_url": "https://www.sohu.com/a/312368860_99966084",
+      "attribution": "搜狐新闻配图（页面未标注单独摄影署名）",
+      "caption": "重庆解放碑金鹰财富中心麦当劳旗舰店外观"
+    },
+    "tags": [
+      "西南地区旗舰店",
+      "工业风",
+      "DIY甜品吧"
+    ]
+  },
+  {
+    "name": "麦当劳福州新华都大厦（五四路）餐厅",
+    "aliases": [
+      "福州新华都大厦餐厅",
+      "福州五四路新华都餐厅"
+    ],
+    "city": "福州",
+    "search_keyword": "新华都大厦",
+    "province_code": "350000",
+    "address": "福州市鼓楼区五四路162号新华都大厦一楼",
+    "short_description": "麦当劳中国第4400家LEED认证绿色餐厅，首次设置全国统一推广的“开心书屋”。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20251231-LEED-4400-in-Fuzhou",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2026/01/12/202601121352088976/202601121352088976_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/fuzhou-xinhua-wusi-road.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20251231-LEED-4400-in-Fuzhou",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "福州新华都大厦（五四路）旗舰餐厅外观"
+    },
+    "tags": [
+      "CUBE旗舰店",
+      "LEED绿色餐厅",
+      "开心书屋"
+    ]
+  },
+  {
+    "name": "麦当劳福州福新中路餐厅",
+    "aliases": [
+      "福州福新中路岳峰大厦餐厅",
+      "福州低碳亲子旗舰餐厅"
+    ],
+    "city": "福州",
+    "search_keyword": "福新中路126号",
+    "province_code": "350000",
+    "address": "福州市晋安区福新中路126号岳峰大厦一层",
+    "short_description": "福建首家CUBE风格低碳亲子旗舰店，采用光伏发电，并以开心乐园餐盒为设计灵感。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20241130-CUBE-LEED-family-restaurant-Fuzhou",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/12/02/202412021654189740/202412021654189740_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/fuzhou-fuxin-middle-road.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20241130-CUBE-LEED-family-restaurant-Fuzhou",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "福州福新中路餐厅外观"
+    },
+    "tags": [
+      "CUBE旗舰店",
+      "低碳亲子主题",
+      "光伏发电"
+    ]
+  },
+  {
+    "name": "麦当劳福州仓前路餐厅",
+    "aliases": [
+      "福州烟台山仓前路餐厅",
+      "福建麦当劳第300家餐厅"
+    ],
+    "city": "福州",
+    "search_keyword": "仓前路7号",
+    "province_code": "350000",
+    "address": "福州市仓山区仓前路7号",
+    "short_description": "坐落于烟台山历史文化街区，报道记录其融合街区历史风貌与现代工业风，并曾率先使用麦麦绿色餐盘。",
+    "source_url": "https://www.sohu.com/a/589290687_100093971",
+    "default_photo": {
+      "url": "https://p1.itc.cn/q_70/images03/20220930/2ed96d8f8c934af4b8d7be52342c0d9f.png",
+      "local_asset": "store-photos/fuzhou-cangqian-road.png",
+      "source_url": "https://www.sohu.com/a/589290687_100093971",
+      "attribution": "说商道市（搜狐转载），页面未标注单独摄影署名",
+      "caption": "福州仓前路餐厅开业现场及门头"
+    },
+    "tags": [
+      "烟台山",
+      "街区风貌融合",
+      "麦麦绿色餐盘"
+    ]
+  },
+  {
+    "name": "麦当劳广州白云山云山天地餐厅",
+    "aliases": [
+      "广州云山天地餐厅",
+      "麦当劳云山天地零碳餐厅"
+    ],
+    "city": "广州",
+    "search_keyword": "云山天地",
+    "province_code": "440000",
+    "address": "广州市越秀区云泉路163号云山天地首层107、二层208及209号商铺",
+    "short_description": "报道宣布其为国内首家光伏发电与电储能一体的“零碳餐厅”，位于白云山公园南出口。",
+    "source_url": "https://www.mcdonalds.com.cn/news/20240320-Guangzhou-LEED-Net-Zero-Restaurant/",
+    "default_photo": {
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2024/03/20/202403200034598252/202403200034598252_640_0.jpg?&rand=0827",
+      "local_asset": "store-photos/guangzhou-yunshan-world.jpg",
+      "source_url": "https://www.mcdonalds.com.cn/news/20240320-Guangzhou-LEED-Net-Zero-Restaurant/",
+      "attribution": "麦当劳官网新闻配图（页面未标注单独摄影署名）",
+      "caption": "白云山脚下云山天地麦当劳餐厅外观"
+    },
+    "tags": [
+      "光储一体零碳餐厅",
+      "白云山南出口",
+      "LEED"
+    ]
   }
 ]

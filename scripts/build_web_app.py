@@ -23,6 +23,8 @@ EXTERNAL_MIME_TYPES = {
     'font/ttf': '.ttf',
     'font/woff2': '.woff2',
     'image/png': '.png',
+    'image/jpeg': '.jpg',
+    'image/webp': '.webp',
     'image/svg+xml': '.svg',
 }
 

@@ -27,6 +27,27 @@ async function addEntry(page, {city, store, province='310000', foods, note='', d
   await page.locator('#entry-dialog').waitFor({state:'hidden'});
 }
 
+async function publicCatalog(page) {
+  const data=await page.locator('#journal-data').evaluate(script=>JSON.parse(script.textContent));
+  assert.ok(Array.isArray(data.stores) && data.stores.length>0,'public store catalog should be present');
+  assert.ok(data.stores.length>=18,'expanded public directory should contain at least 18 real store records');
+  assert.ok(new Set(data.stores.map(store=>store.city).filter(Boolean)).size>=12,'expanded public directory should cover at least 12 cities');
+  assert.ok(data.stores.every(store=>store.default_photo?.local_asset),'each public store should identify its checked-in photo mirror');
+  return data;
+}
+
+async function waitMapFrame(page) {
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+}
+
+async function assertCatalogSearch(page, city, value, storeName, label) {
+  await page.locator('#store-city-filter').selectOption(city);
+  await page.locator('#store-query').fill(`${city} ${value}`);
+  await waitMapFrame(page);
+  const names=await page.locator('#store-catalog-grid .store-catalog-card strong').allTextContents();
+  assert.ok(names.includes(storeName),`${label} and city terms should find the matching directory store`);
+}
+
 async function main() {
   const browser = await chromium.launch({headless:true, ...(process.env.BROWSER_CHANNEL ? {channel:process.env.BROWSER_CHANNEL} : {})});
   const errors=[];
@@ -36,19 +57,85 @@ async function main() {
     page.on('pageerror',error=>errors.push(error.message));
     await stubHealth(page);
     await page.goto(base);
+    const catalog=await publicCatalog(page);
     await page.getByRole('tab',{name:/想去清单/}).click();
     const inspiration=page.locator('#inspiration-grid .inspiration-card');
-    assert.equal(await inspiration.count(),5,'public inspiration catalog should show five stores without a token');
-    const photos=await inspiration.evaluateAll(cards=>cards.map(card=>({city:card.querySelector('.date').textContent.split(' · ')[0],src:card.querySelector('img.photo')?.src,complete:card.querySelector('img.photo')?.complete,width:card.querySelector('img.photo')?.naturalWidth,height:card.querySelector('img.photo')?.naturalHeight})));
-    for(const city of ['上海','成都','北京','广州','深圳']) {
-      const photo=photos.find(item=>item.city===city);
-      assert.ok(photo,'expected public inspiration for '+city);
-      assert.ok(photo.src.startsWith('data:image/') && photo.complete && photo.width>0 && photo.height>0,city+' default photo should be embedded and decoded locally');
+    assert.equal(await inspiration.count(),catalog.stores.length,'wishlist discovery should show the current public directory, not a hard-coded sample count');
+    const photos=await inspiration.locator('img.photo').evaluateAll(images=>Promise.all(images.map(async image=>{image.loading='eager';await image.decode();return {src:image.currentSrc,complete:image.complete,width:image.naturalWidth,height:image.naturalHeight};})));
+    assert.equal(photos.length,catalog.stores.length,'every public directory store should have a photo card');
+    for(const photo of photos) assert.ok(photo.complete && photo.width>0 && photo.height>0,'checked-in public mirror should decode in the browser: '+photo.src);
+
+    const storeRecord=catalog.stores.find(item=>item.city==='成都') || catalog.stores[0];
+    const store=storeRecord.name;
+    const city=storeRecord.city;
+    const province=storeRecord.province_code;
+    const otherProvince=catalog.stores.find(item=>item.province_code && item.province_code!==province)?.province_code;
+    assert.ok(otherProvince,'public directory should provide another real province code for filter-change coverage');
+    const target=page.locator('#inspiration-grid .inspiration-card').filter({has:page.getByRole('heading',{name:store,exact:true})});
+
+    await page.getByRole('tab',{name:'中国地图',exact:true}).click();
+    const cityFilter=page.locator('#store-city-filter');
+    const query=page.locator('#store-query');
+    const term=storeRecord.aliases?.[0] || storeRecord.name;
+    const filteredCatalog=page.locator('#store-catalog-grid .store-catalog-card');
+    const shanghaiStore=catalog.stores.find(item=>item.city==='上海');
+    if(shanghaiStore) {
+      await cityFilter.selectOption(shanghaiStore.city);
+      await query.fill(shanghaiStore.aliases?.[0] || shanghaiStore.name);
+      await waitMapFrame(page);
+      assert.equal(await filteredCatalog.count(),1,'selected Shanghai and keyword filters should isolate one real catalog store');
+      const mapMarker=page.locator('#map-store-markers .map-store-marker');
+      assert.ok(await mapMarker.count()>0,'a selected Shanghai search should leave its map marker visible');
+      assert.ok(await mapMarker.evaluateAll(items=>items.some(item=>item.querySelector('img'))),'filtered Shanghai markers should show photo labels');
+      for(let i=0;i<await mapMarker.count();i++) await mapMarker.nth(i).locator('img').evaluate(image=>image.decode());
+      await filteredCatalog.locator('img').evaluate(image=>image.decode());
+      assert.ok((await filteredCatalog.innerText()).includes(shanghaiStore.name),'Shanghai catalog card should show its real name');
+      await filteredCatalog.click();
+      const detail=page.locator('#store-discovery-dialog .store-discovery-card');
+      await detail.waitFor();
+      assert.equal(await detail.count(),1,'a catalog photo opens only the selected store detail');
+      assert.equal(await detail.locator('h3').innerText(),shanghaiStore.name);
+      await detail.locator('img.photo').evaluate(image=>image.decode());
+      await page.locator('[data-close="store-discovery-dialog"]').click();
+    }
+    for(const nearbyCity of ['广州','深圳']) {
+      const nearby=catalog.stores.find(item=>item.city===nearbyCity);
+      if(!nearby) continue;
+      await cityFilter.selectOption(nearby.city);
+      await query.fill(nearby.name);
+      await waitMapFrame(page);
+      const nearbyCard=page.locator('#store-catalog-grid .store-catalog-card');
+      assert.equal(await nearbyCard.count(),1,nearbyCity+' city filter should remain operable');
+      await nearbyCard.click();
+      assert.equal(await page.locator('#store-discovery-dialog .store-discovery-card').count(),1,nearbyCity+' card should open its own detail');
+      await page.locator('[data-close="store-discovery-dialog"]').click();
+    }
+    const searchFields=[
+      ['name',storeRecord.name],
+      ['alias',storeRecord.aliases?.[0]],
+      ['introduction',storeRecord.short_description],
+      ['tag',storeRecord.tags?.[0]]
+    ].filter(([,value])=>typeof value==='string'&&value.trim());
+    for(const [label,value] of searchFields) await assertCatalogSearch(page,city,value.trim().slice(0,24),store,label);
+    const asciiField=searchFields.map(([,value])=>value).find(value=>/[A-Za-z]{2}/.test(value));
+    if(asciiField) {
+      const token=asciiField.match(/[A-Za-z]{2,}/)[0];
+      const fullWidth=token.toUpperCase().replace(/[!-~]/g,char=>String.fromCharCode(char.charCodeAt(0)+0xFEE0));
+      await assertCatalogSearch(page,city,fullWidth,store,'NFKC case-insensitive ASCII');
     }
 
-    const first=inspiration.filter({hasText:'成都'});
-    const store=await first.locator('h3').innerText();
-    const city=await first.locator('.date').innerText().then(value=>value.split(' · ')[0]);
+    await page.getByRole('tab',{name:/想去清单/}).click();
+    await page.locator('#inspiration-city-filter').selectOption(city);
+    assert.equal(await page.locator('#inspiration-city-filter').inputValue(),await page.locator('#store-city-filter').inputValue(),'map and wishlist share city filtering');
+    await page.locator('#inspiration-query').fill(`${city} ${term}`);
+    assert.equal(await page.locator('#store-query').inputValue(),`${city} ${term}`,'map and wishlist share multi-term keyword filtering');
+    assert.equal(await page.locator('#inspiration-grid .inspiration-card').count(),1,'shared filters should apply to the inspiration directory');
+    await page.locator('#inspiration-query').fill('没有这家门店 discovery-no-result');
+    assert.equal(await page.locator('#inspiration-grid .inspiration-card').count(),0,'unmatched keywords should show no stores');
+    await page.locator('#inspiration-clear').click();
+    assert.equal(await page.locator('#inspiration-grid .inspiration-card').count(),catalog.stores.length,'clear restores the full public directory');
+    assert.equal(await page.locator('#inspiration-city-filter').inputValue(),'','clearing filters resets the shared city selection');
+    const first=page.locator('#inspiration-grid .inspiration-card').filter({has:page.getByRole('heading',{name:store,exact:true})});
     const yesterday=dateAtShanghai(new Date(Date.now()-24*60*60*1000));
     const wishlistButton=first.getByRole('button',{name:'想去这家',exact:true});
     await wishlistButton.click();
@@ -68,7 +155,7 @@ async function main() {
     await page.locator('[name=date]').fill(yesterday);
     await page.locator('[name=foods]').fill('灵感测试餐品，城市咖啡');
     await page.locator('[name=note]').fill('灵感搜索随记');
-    await page.locator('[name=province_code]').selectOption('510000');
+    await page.locator('[name=province_code]').selectOption(otherProvince);
     await page.locator('[name=province_code]').dispatchEvent('change');
     assert.equal(await page.locator('[name=complete_wishlist]').isChecked(),true);
     await page.locator('#save-entry').click();
@@ -199,7 +286,7 @@ async function main() {
     assert.deepEqual(finalArchive.entries.map(entry=>entry.store),['双页同步第一条']);
     assert.deepEqual(errors,[],'no browser runtime errors expected');
     await syncContext.close();
-    console.log('PASS: five embedded public inspiration cards, wishlist persistence/deduplication, automatic visit confirmation/default photo/no fake MCP reference, multi-term journal search and reset-on-save, taste shortcuts excluding unconfirmed manual drafts, repeat-visit and automatic order import flows, mobile wishlist/search sizing, and two-tab add/delete/merge synchronization. No token or external API calls used.');
+    console.log(`PASS: ${catalog.stores.length} real public-directory inspiration cards and decoded photos, shared city/keyword searches, wishlist persistence/deduplication, automatic visit confirmation/default photo/no fake MCP reference, multi-term journal search and reset-on-save, taste shortcuts excluding unconfirmed manual drafts, repeat-visit and automatic order import flows, mobile wishlist/search sizing, and two-tab add/delete/merge synchronization. No token or external API calls used.`);
   } finally {
     await browser.close();
   }

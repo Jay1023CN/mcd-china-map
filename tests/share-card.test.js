@@ -79,6 +79,8 @@ test('render returns a full-size canvas and draws an invitation for an empty sum
     assert.equal(canvas.width, 1080);
     assert.equal(canvas.height, 1440);
     assert.ok(drawnText.some(text => text.includes('第一家麦当劳')));
+    assert.ok(drawnText.includes('麦麦中国地图 · 旅行足迹'));
+    assert.ok(drawnText.includes('足迹册'));
     const title = textCalls.find(call => call.text === '旅行中的长标题'.repeat(5));
     assert.ok(title);
     assert.equal(title.args.length, 3);

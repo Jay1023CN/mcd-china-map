@@ -83,25 +83,45 @@ async function assertMobileGeometry(page) {
   }
 }
 
-async function assertStoreMarkers(page) {
+async function publicCatalog(page) {
+  const data=await page.locator('#journal-data').evaluate(script=>JSON.parse(script.textContent));
+  assert.ok(Array.isArray(data.stores) && data.stores.length>0,'the public store catalog should be present');
+  assert.ok(data.stores.length>=18,'the expanded public directory should contain at least 18 real store records');
+  assert.ok(new Set(data.stores.map(store=>store.city).filter(Boolean)).size>=12,'the expanded public directory should cover at least 12 cities');
+  assert.ok(data.stores.every(store=>store.default_photo?.local_asset),'every public store should identify a checked-in photo mirror');
+  return data;
+}
+
+function storeSearchTerm(store) {
+  return store.aliases?.[0] || store.name;
+}
+
+async function waitMapFrame(page) {
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+}
+
+async function assertStoreMarkers(page, data, requirePhoto=false) {
+  await waitMapFrame(page);
   const markers=page.locator('#map-store-markers .map-store-marker');
   await markers.first().waitFor({state:'visible'});
-  assert.equal(await markers.count(),5,'the five public stores should have named photo markers');
+  assert.ok(await markers.count()>0,'public catalog should produce map store markers');
+  assert.ok(await markers.count()<=data.stores.length,'map markers cannot exceed the matching public store catalog');
   const geometry=await page.locator('#world-map').boundingBox();
-  const boxes=await markers.evaluateAll(items=>items.map(item=>{const r=item.getBoundingClientRect();return {city:item.dataset.city,x:r.x,y:r.y,w:r.width,h:r.height,anchorY:Number(item.dataset.anchorY)};}));
+  const boxes=await markers.evaluateAll(items=>items.map(item=>{const r=item.getBoundingClientRect();return {city:item.dataset.city,x:r.x,y:r.y,w:r.width,h:r.height};}));
   for(const box of boxes){
     assert.ok(box.x>=geometry.x && box.x+box.w<=geometry.x+geometry.width+1,'marker stays inside the map: '+box.city);
     assert.ok(box.y>=geometry.y && box.y+box.h<=geometry.y+geometry.height+1,'marker stays above the map footer: '+box.city);
-    assert.ok(Math.abs(box.y+box.h/2-geometry.y-box.anchorY)<geometry.height/3,'label stays near its city rather than moving across China: '+box.city);
   }
-  for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){
-    const a=boxes[i],b=boxes[j];
-    assert.ok(a.x+a.w<=b.x || b.x+b.w<=a.x || a.y+a.h<=b.y || b.y+b.h<=a.y,'nearby cities must not have overlapping labels: '+a.city+'/'+b.city);
-  }
+  let photoCount=0;
   for(let i=0;i<await markers.count();i++){
-    await markers.nth(i).locator('img').evaluate(image=>image.decode());
-    assert.ok((await markers.nth(i).locator('strong').innerText()).length>1,'store name is visible on the map');
+    const marker=markers.nth(i);
+    assert.ok((await marker.innerText()).trim().length>0,'compact city or photo marker has a visible label');
+    if(await marker.locator('img').count()){
+      photoCount++;
+      await marker.locator('img').evaluate(image=>image.decode());
+    }
   }
+  if(requirePhoto) assert.ok(photoCount>0,'a city/search-filtered map should use at least one photo marker');
   return markers;
 }
 
@@ -110,24 +130,59 @@ async function checkDesktopStores(browser) {
   try {
     const page=await context.newPage();await page.setViewportSize({width:1440,height:1000});
     await page.goto(staticUrl,{waitUntil:'load'});
-    const markers=await assertStoreMarkers(page);
-    const beijing=markers.filter({has:page.locator('small',{hasText:'北京'})});
-    await beijing.click();
-    assert.match(await page.locator('#store-discovery-body h3').innerText(),/首钢园/);
-    await page.locator('[data-close="store-discovery-dialog"]').click();
-    // Click the canvas anchor itself, not a text-list surrogate; CSS ratios used to displace this hit target.
-    const anchor=await beijing.evaluate(button=>({x:Number(button.dataset.anchorX),y:Number(button.dataset.anchorY)}));
-    const canvas=await page.locator('#world-map').boundingBox();
-    await page.mouse.click(canvas.x+anchor.x,canvas.y+anchor.y);
-    await page.locator('#store-discovery-dialog').waitFor({state:'visible'});
-    assert.match(await page.locator('#store-discovery-body h3').innerText(),/首钢园/,'the visible map anchor opens its own store');
-    await page.keyboard.press('Escape');
+    const data=await publicCatalog(page);
+    const markers=await assertStoreMarkers(page,data);
+    assert.equal(await page.locator('#show-store-layer').isChecked(),true,'the public map store layer starts enabled');
     await page.locator('#show-store-layer').uncheck();
+    await waitMapFrame(page);
     assert.equal(await markers.count(),0,'hiding the store layer removes the labels');
-    await page.locator('#show-store-layer').check();await assertStoreMarkers(page);
-    await page.locator('#country-filter').selectOption('440000');await page.locator('#country-filter').dispatchEvent('change');
-    await page.waitForFunction(()=>document.querySelectorAll('#map-store-markers .map-store-marker').length===2);
-    assert.equal(await markers.count(),2,'province filter limits the store markers');
+    await page.locator('#show-store-layer').check();
+    const store=data.stores.find(item=>item.city==='上海') || data.stores[0];
+    const term=storeSearchTerm(store);
+    await page.locator('#store-city-filter').selectOption(store.city);
+    await page.locator('#store-query').fill(`${store.city} ${term}`);
+    await waitMapFrame(page);
+    await assertStoreMarkers(page,data,true);
+    const mapResults=page.locator('#store-catalog-grid .store-catalog-card');
+    assert.equal(await mapResults.count(),1,'city and multi-word keyword filters narrow the map catalog to one store');
+    await mapResults.click();
+    await page.locator('#store-discovery-dialog').waitFor({state:'visible'});
+    const detail=page.locator('#store-discovery-dialog .store-discovery-card');
+    assert.equal(await detail.count(),1,'the store card opens a single-store detail view');
+    assert.equal(await detail.locator('h3').innerText(),store.name);
+    await detail.locator('img.photo').evaluate(image=>image.decode());
+    await page.locator('[data-close="store-discovery-dialog"]').click();
+    for(const nearbyCity of ['广州','深圳']) {
+      const nearby=data.stores.find(item=>item.city===nearbyCity);
+      if(!nearby) continue;
+      await page.locator('#store-city-filter').selectOption(nearby.city);
+      await page.locator('#store-query').fill(nearby.name);
+      await waitMapFrame(page);
+      const nearbyCard=page.locator('#store-catalog-grid .store-catalog-card');
+      assert.equal(await nearbyCard.count(),1,nearbyCity+' remains selectable in the nationwide catalog');
+      await nearbyCard.click();
+      const nearbyDetail=page.locator('#store-discovery-dialog .store-discovery-card');
+      assert.equal(await nearbyDetail.count(),1,nearbyCity+' opens an individual store detail');
+      assert.equal(await nearbyDetail.locator('h3').innerText(),nearby.name);
+      await page.locator('[data-close="store-discovery-dialog"]').click();
+    }
+    await page.locator('#store-city-filter').selectOption(store.city);
+    await page.locator('#store-query').fill(`${store.city} ${term}`);
+    await waitMapFrame(page);
+    await page.getByRole('tab',{name:/想去清单/}).click();
+    assert.equal(await page.locator('#inspiration-city-filter').inputValue(),store.city,'map and wishlist city filters share state');
+    assert.equal(await page.locator('#inspiration-query').inputValue(),`${store.city} ${term}`,'map and wishlist keyword filters share state');
+    const alias=store.aliases?.[0] || store.name;
+    await page.locator('#inspiration-query').fill(alias);
+    assert.equal(await page.locator('#store-query').inputValue(),alias,'keyword edits in the wishlist stay shared with the map');
+    await page.locator('#inspiration-query').fill('无此公开门店关键词 fixture-no-store');
+    const clearSearch=page.locator('#inspiration-clear');
+    await clearSearch.click();
+    assert.equal(await page.locator('#inspiration-query').inputValue(),'');
+    assert.equal(await page.locator('#store-query').inputValue(),'');
+    assert.ok(await page.locator('#inspiration-grid').getByRole('button',{name:'看看这家店',exact:true}).count()>0,'clearing a no-result search restores catalog results');
+    assert.equal(await page.locator('#count-visits').innerText(),'0');
+    assert.equal(await page.locator('#wishlist-count').innerText(),'0');
     assert.deepEqual(apiRequests,[]);
   } finally {await context.close();}
 }
@@ -181,16 +236,27 @@ async function runChromium() {
     await assertMobileGeometry(page);
     assert.equal(await page.locator('#count-visits').innerText(),'0','the empty static archive should start with no visits');
     assert.equal(await page.locator('#show-store-layer').isChecked(),true,'public store discovery should be enabled by default');
-    const mapStores=await assertStoreMarkers(page);
-    await mapStores.first().tap();
+    const catalog=await publicCatalog(page);
+    const store=catalog.stores.find(item=>item.city==='上海') || catalog.stores[0];
+    const searchTerm=storeSearchTerm(store);
+    await page.locator('#store-city-filter').selectOption(store.city);
+    await page.locator('#store-query').fill(`${store.city} ${searchTerm}`);
+    const mapStores=await assertStoreMarkers(page,catalog,true);
+    const resultButton=page.locator('#store-catalog-grid .store-catalog-card');
+    assert.equal(await resultButton.count(),1,'the mobile map catalog supports shared city and multi-word search');
+    await assertMobileGeometry(page);
+    const catalogGrid=await page.locator('#store-catalog-grid').evaluate(grid=>({scroll:grid.scrollWidth,client:grid.clientWidth}));
+    assert.ok(catalogGrid.scroll<=catalogGrid.client+1,'mobile catalog cards must not overflow their container');
+    await resultButton.tap();
     const storeDialog=page.locator('#store-discovery-dialog');
     await storeDialog.waitFor({state:'visible'});
     await storeDialog.evaluate(dialog=>Promise.all(dialog.getAnimations().map(animation=>animation.finished)));
     const sheet=await storeDialog.boundingBox();
     assert.ok(Math.abs(sheet.y+sheet.height-844)<=1,'mobile store detail opens as a bottom sheet: '+JSON.stringify(sheet));
-    const discoveryCard=page.locator('#store-discovery-body .store-discovery-card').first();
+    const discoveryCard=page.locator('#store-discovery-dialog .store-discovery-card');
+    assert.equal(await discoveryCard.count(),1,'opening one catalog card should show only that store');
     await discoveryCard.waitFor();
-    assert.match(await discoveryCard.locator('h3').innerText(),/麦当劳/);
+    assert.equal(await discoveryCard.locator('h3').innerText(),store.name);
     assert.ok((await discoveryCard.locator('.place').innerText()).length>3,'store address is shown');
     await discoveryCard.locator('img.photo').evaluate(image=>image.decode());
     await discoveryCard.getByRole('button',{name:'想去这家',exact:true}).tap();
@@ -198,11 +264,13 @@ async function runChromium() {
     assert.equal(await page.locator('#wishlist-count').innerText(),'1','collecting a public map store should add one plan');
     assert.equal(await discoveryCard.getByRole('button',{name:'已收藏想去',exact:true}).isDisabled(),true,'collection gives persistent button feedback');
     await page.locator('[data-close="store-discovery-dialog"]').tap();
-    await mapStores.first().tap();
-    assert.equal(await page.locator('#store-discovery-body').getByRole('button',{name:'已收藏想去',exact:true}).isDisabled(),true,'reopening retains collection state');
-    await page.locator('#store-discovery-body').getByRole('button',{name:'我去过，记一餐',exact:true}).tap();
-    assert.match(await page.locator('[name=store]').inputValue(),/麦当劳/,'store detail carries the selected store into a journal');
+    await resultButton.tap();
+    const reopened=page.locator('#store-discovery-dialog .store-discovery-card');
+    assert.equal(await reopened.getByRole('button',{name:'已收藏想去',exact:true}).isDisabled(),true,'reopening retains collection state');
+    await reopened.getByRole('button',{name:'我去过，记一餐',exact:true}).tap();
+    assert.equal(await page.locator('[name=store]').inputValue(),store.name,'store detail carries the selected store into a journal');
     assert.equal(await page.locator('#photo-preview').isVisible(),true,'store detail carries its photo into a journal');
+    await page.locator('#photo-preview').evaluate(image=>image.decode());
     await page.locator('[data-close="entry-dialog"]').first().tap();
     await addMobileEntry(page);
     await assertNoConnectionMisleadingUi(page);
@@ -220,9 +288,37 @@ async function runChromium() {
     assert.equal(await page.locator('#count-visits').innerText(),'1','collecting a public store must not add a visit');
     const plan=page.locator('#wishlist-grid .entry-card').first();
     assert.equal(await page.locator('#wishlist-count').innerText(),'1');
+    const storeRecord=catalog.stores.find(item=>item.name===store.name);
+    assert.ok(storeRecord?.default_photo,'the collected public store should retain its catalog photo');
+    const mirroredPhoto=catalog.store_images?.[storeRecord.default_photo.url];
+    assert.match(mirroredPhoto || '',/^assets\/[a-f0-9]{64}\.(?:jpg|png|webp)$/,'static share should use the same-origin hashed photo mirror');
+    await page.evaluate(()=>{
+      window.__shareAssetFetches=[];window.__sharePhotoInputs=[];window.__shareRenderCases=[];
+      const originalFetch=window.fetch.bind(window);
+      window.fetch=(input,...args)=>{const raw=input instanceof Request?input.url:input;const url=new URL(raw,location.href);if(/\/assets\/[a-f0-9]{64}\.(?:jpg|png|webp)$/.test(url.pathname))window.__shareAssetFetches.push(url.href);return originalFetch(input,...args);};
+      const originalRender=window.MemoryCard.render.bind(window.MemoryCard);
+      window.MemoryCard.render=(entry,options)=>{window.__sharePhotoInputs.push({kind:entry.kind,hasDataUrl:typeof options.photoDataUrl==='string'&&/^data:image\/(?:jpeg|png|webp);base64,/.test(options.photoDataUrl),length:options.photoDataUrl?.length||0});window.__shareRenderCases.push({entry:JSON.parse(JSON.stringify(entry)),options:{...options,photoDataUrl:null}});return originalRender(entry,options);};
+    });
     await plan.getByRole('button',{name:'分享下一站',exact:true}).tap();
     await page.locator('#share-preview img').waitFor();
     await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
+    const photoFlow=await page.evaluate(()=>({fetches:window.__shareAssetFetches,inputs:window.__sharePhotoInputs}));
+    assert.ok(photoFlow.fetches.includes(new URL(mirroredPhoto,staticUrl).href),'share generation must fetch the same-origin hashed photo mirror');
+    assert.ok(photoFlow.inputs.some(item=>item.kind==='plan'&&item.hasDataUrl&&item.length>100),'the plan renderer should receive converted image bytes from the externalized photo mirror');
+    const cardTexture=await page.locator('#share-preview img').evaluate(async image=>{
+      await image.decode();const actual=document.createElement('canvas');actual.width=1080;actual.height=1440;
+      const actualContext=actual.getContext('2d');actualContext.drawImage(image,0,0);
+      const cases=window.__shareRenderCases;const latest=cases[cases.length-1];
+      const fallback=await window.MemoryCard.render(latest.entry,latest.options);
+      const fallbackContext=fallback.getContext('2d');let compared=0,different=0;
+      for(let y=420;y<830;y+=12)for(let x=180;x<900;x+=12){
+        const a=actualContext.getImageData(x,y,1,1).data,b=fallbackContext.getImageData(x,y,1,1).data;compared++;
+        if(Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1])+Math.abs(a[2]-b[2])>24)different++;
+      }
+      return {width:image.naturalWidth,height:image.naturalHeight,compared,different};
+    });
+    assert.deepEqual([cardTexture.width,cardTexture.height],[1080,1440],'plan share preview should be a full PNG card');
+    assert.ok(cardTexture.different>100,`generated plan PNG photo area must differ from the no-photo fallback (${cardTexture.different}/${cardTexture.compared} sampled pixels)`);
     assert.ok(await page.locator('#share-dialog').evaluate(dialog=>dialog.scrollWidth<=dialog.clientWidth+1),'share dialog must fit mobile width');
     await page.locator('#copy-share').tap();
     const caption=await page.evaluate(()=>window.mobileClipboardText);

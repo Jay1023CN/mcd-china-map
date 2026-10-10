@@ -26,4 +26,5 @@ def font_faces() -> str:
                 raise ValueError("font asset is missing or ambiguous")
             css = css.replace(url, asset_uri("fonts/" + candidates[0].name))
         blocks.append(css)
+    blocks.append("@font-face {font-family:'Ma Shan Zheng';font-style:normal;font-weight:400;font-display:swap;src:url(" + asset_uri('fonts/ma-shan-zheng.woff2') + ") format('woff2');}")
     return "\n".join(blocks)

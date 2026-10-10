@@ -170,6 +170,8 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest
 
 当前方向：**钢笔与蜡笔手绘旅行海报**。用户已否定通用餐品拼贴和纯截图排版。图中只保留项目名、地图创意、比赛身份、GitHub 入口，避免细字与缩略图式界面。
 
+2026-10-10 作者进一步要求所有门店卡与分享卡统一成有特色的手绘手账风格，已有两张[设计参考与实施规则](growth-assets/handdrawn-card-direction.md)。主开发已实际修改地图标签／目录／详情及三类 Canvas 分享卡，暖纸、墨线、胶带原照片、城市章与少量餐品涂鸦已进入实际产物；本对话目视审阅七张截图／导出图，未见文字被装饰遮挡。中文手写标题字体与红墨主题差异正在补充，v0.10 尚待打包／发布，不宣传整体新风格已上线。参考设计仍不是实际 UI 图；原手绘主封面继续使用。此处产品图片随当前构建更新，历史更新帖保留当时版本文案，不将当前图当成历史原始截图。
+
 - 主图：[巨无霸手绘海报](growth-assets/handdrawn-bigmac-project-v5.png)，用于 QQ 群、小红书与 GitHub 介绍。
 - 抖音：[巨无霸手绘竖版封面](growth-assets/douyin-bigmac-v5.png)，可作为图文主图或视频封面。
 - 素材与源稿：[growth-assets/README.md](growth-assets/README.md)。
@@ -219,7 +221,7 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest
 
 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.7.0
 
-配图：[五家公开门店灵感预览](discovery-preview.png)。主开发提供，照片与资料出处在画面中保留；可搭配手绘主图作为第二张产品实图。
+配图：[门店灵感公开示例](discovery-preview.png)。主开发提供，照片与资料出处保留；此图随当前构建更新，可搭配手绘主图作为第二张实图，不当作 v0.7 原始界面截图。
 
 相关短回复已放入上方通用 FAQ，下载入口仍用 `/releases/latest`。
 
@@ -242,7 +244,7 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest
 
 #麦当劳 #麦门 #麦麦中国地图 #旅行计划 #特色麦当劳 #开源项目
 
-配图：[成都下一站计划卡示例](plan-card-preview.png)。使用主开发提供的官方公开门店照片与示例想去理由，已目视核对“尚未打卡”标识。它是产品内容配图，主封面继续用巨无霸与薯条手绘海报。上述想去理由为配图示例，不写成作者实际行程或外部用户反馈。
+配图：[下一站计划卡公开示例](plan-card-preview.png)。此图已随本轮构建改为杭州千岛湖公开照片与示例想去理由，保留“尚未打卡”，新版样式尚待 v0.10 发布；不与本帖成都举例混称同一家门店。主封面继续用巨无霸与薯条手绘海报，示例理由不写成作者实际行程或外部用户反馈。
 
 下载：https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.8.0
 
@@ -306,6 +308,8 @@ Windows 下载：https://github.com/Jay1023CN/mcd-china-map/releases/latest
 有人反馈时，先记录具体路径与原话，再按影响人数和是否阻断记录确定优先级。更新宣发文案时优先用真实问题、实际功能和用户自己认可的表达。
 
 ## 内部版本与素材备注
+
+v0.10 发布准备：主开发报告特色店目录扩至 28 家／19 城／15 省，照片均为本仓库公开来源镜像；新增城市与多关键词筛选，并已定向验证静态同源照片进入下一站 PNG、收藏刷新。手绘基础样式已落实到地图／目录／详情与探店／下一站／足迹三类导出卡。本对话已目视审阅本轮七张实际产物，只记录视觉与字段检查，没有重测功能；标题手写字体与足迹红墨主题继续完善。尚未确认公开 v0.10 Release 或新页面部署，当前体验入口继续指向已上线网页，目录数量不提前写进正式渠道文案。
 
 2026-10-10 已独立请求手机公网入口 https://jay1023cn.github.io/mcd-china-map/ ，HTTPS 200，确认页面包含项目名、照片入口、`runtime.local_api=false` 静态模式及空白初始归档 `archive.entries=[]`；已核对 v0.9.0 Release 非草稿及完整 ZIP uploaded。主开发报告 Pages 发布 run `38014276372`、Windows 集成 CI `38014072529` 成功；公开网址的进一步实操由网页开发对话继续，本对话没有把 HTTP／源码检查称为真机完整验收。以下为历史版本记录，保留当时能力与测试范围。
 
