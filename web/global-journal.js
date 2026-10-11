@@ -8,7 +8,7 @@
   const mealMenu=window.MealCatalog.create(data.meal_catalog);
   let mealMenuCategory='burgers';
   const catalogStores=(data.national_catalog?.stores || data.stores).map((store,index)=>({...store,
-    id:store.id || 'curated:'+index,official_name:store.name,name:(store.featured_name || store.name).replace(/EC\d{4,}/gi,''),
+    id:store.id || 'curated:'+index,official_name:store.name,name:(store.featured_name || store.name).replace(/EC(?:O)?\d{4,}/gi,''),
     aliases:[...(store.aliases || []),store.name],
     city:store.city.replace(/市$/,''),code:store.code || 'catalog:'+store.name}));
   const catalogIndex=window.NationalStoreSearch.createIndex(catalogStores);
