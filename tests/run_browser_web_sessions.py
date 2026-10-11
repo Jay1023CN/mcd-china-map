@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from waitress import create_server
 from web_api import create_app
+from cryptography.fernet import Fernet
 
 
 class FixtureClient:
@@ -45,9 +46,19 @@ def main():
         # Reserve an ephemeral loopback listener, then configure its exact Origin.
         server = create_server(lambda environ, start_response: [], host='127.0.0.1', port=0, threads=4)
         origin = f'http://127.0.0.1:{server.effective_port}'
-        server.application = create_app(origin, state_dir=directory / 'state', site_dir=directory / 'site')
-        thread = Thread(target=server.run, daemon=True)
-        with patch('web_api.Client', FixtureClient), patch('web_api.sync_orders', fixture_sync):
+        with patch.dict(os.environ, {'MCD_SESSION_KEY': Fernet.generate_key().decode()}), \
+                patch('web_api.Client', FixtureClient), patch('web_api.sync_orders', fixture_sync):
+            active = [create_app(origin, state_dir=directory / 'state', site_dir=directory / 'site')]
+            def fixture_application(environ, start_response):
+                # Test-only loopback WSGI wrapper, never a production API route.
+                if environ.get('PATH_INFO') == '/__fixture_reset' and environ.get('REQUEST_METHOD') == 'POST':
+                    active[0] = create_app(origin, state_dir=directory / 'empty-state',
+                                          site_dir=directory / 'site', prebuilt=True)
+                    start_response('200 OK', [('Content-Type', 'application/json')])
+                    return [b'{"server_directory_replaced":true}']
+                return active[0](environ, start_response)
+            server.application = fixture_application
+            thread = Thread(target=server.run, daemon=True)
             thread.start()
             try:
                 env = {**os.environ, 'TEST_BASE_URL': origin + '/'}

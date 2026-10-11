@@ -47,6 +47,7 @@ jobs:
           node tests/browser-connection-onboarding.cjs
           node tests/browser-meal-flow.cjs
           MEAL_BROWSER=webkit node tests/browser-meal-flow.cjs
+          python tests/run_browser_web_sessions.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

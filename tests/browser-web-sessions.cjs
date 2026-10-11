@@ -67,6 +67,20 @@ async function main(){
     const again=await resumed.newPage();
     await again.goto(base);await again.locator('#disconnect-mcd').waitFor({state:'visible'});
     assert.equal(await again.locator('#count-visits').innerText(),'2');
+    assert.equal(cookies.find(c=>c.name==='mcd_resume').httpOnly,true);
+    assert.doesNotMatch(visible.cookie,/mcd_resume/);
+    const beforeReset=await page.evaluate(()=>fetch('/api/health').then(r=>r.json()));
+    assert.equal(beforeReset.capabilities.durable_remember_session,true);
+    await page.evaluate(()=>fetch('/__fixture_reset',{method:'POST'}));
+    await page.reload();await page.locator('#disconnect-mcd').waitFor({state:'visible'});
+    const recovered=await page.evaluate(()=>fetch('/api/health').then(r=>r.json()));
+    assert.equal(recovered.account_id,beforeReset.account_id);
+    assert.equal(await page.locator('#count-visits').innerText(),'2');
+    assert.equal(await page.evaluate(()=>fetch('/api/synced-orders').then(r=>r.status)),404,'order cache stays off the recovery cookie');
+    assert.equal(await other.evaluate(()=>fetch('/api/health').then(r=>r.json())).then(r=>r.connected),false);
+    await page.locator('#sync-orders').click();
+    await page.locator('#sync-progress').filter({hasText:/已(?:自动)?整理|本次没有/}).waitFor();
+    assert.equal(await page.locator('#count-visits').innerText(),'2','resync after losing server disk does not duplicate browser journal');
     await other.locator('#open-connect').click();
     await other.locator('#connect-manual').evaluate(details => { details.open = true; });
     await other.locator('#connect-token').fill('fixture-browser-b');
@@ -80,7 +94,7 @@ async function main(){
     await other.reload();await other.locator('#disconnect-mcd').waitFor({state:'visible'});
     assert.equal(await page.evaluate(()=>fetch('/api/synced-orders').then(r=>r.status)),401);
     assert.deepEqual(errors,[]);
-    console.log('PASS: real HTTP Cookie login, HttpOnly/remembered state, refresh and browser restoration, isolated users/orders, Token journal switching and logout. Synthetic upstream only.');
+    console.log('PASS: real HTTP Cookie login, HttpOnly recovery after complete server-directory loss, preserved browser journal, deduplicated resync, refresh/browser restoration, isolated users/orders, account switching and logout. Synthetic upstream only.');
   } finally {await browser.close();}
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});
