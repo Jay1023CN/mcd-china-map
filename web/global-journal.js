@@ -1527,6 +1527,12 @@
         {name:typeof name==='string'?name:name.name,dataUrl:item.image_data_url}:null;
     }).filter(Boolean);
   }
+  function hasFoodNames(entry){
+    return (Array.isArray(entry?.foods)?entry.foods:[]).some(value=>{
+      const name=typeof value==='string'?value:value?.name || value?.title;
+      return typeof name==='string'&&!!name.trim();
+    });
+  }
   function paintShareStickers(){
     for(const button of $('share-stickers').querySelectorAll('[data-sticker]'))button.setAttribute('aria-pressed',String(shareStickers.has(button.dataset.sticker)));
   }
@@ -1547,7 +1553,7 @@
     $('share-note-label').textContent=plan?'带上想去的理由':'带上这一页随记';
     $('share-photo-option').hidden=!entry;
     $('share-note').checked=!!entry?.note && !entry.note.startsWith('中国大陆订单线索');
-    shareStickers=new Set(shareFoodImages(entry).length?['food']:[]);paintShareStickers();$('share-custom-sticker-text').value='';
+    shareStickers=new Set(hasFoodNames(entry)?['food']:[]);paintShareStickers();$('share-custom-sticker-text').value='';
     $('share-copy-text').hidden=true;
     if(monthly){
       $('share-heading').textContent='分享这月麦麦小报';$('share-description').textContent='这个月的照片、城市和常吃的味道，装成一张小报。改个标题，再发给朋友。';

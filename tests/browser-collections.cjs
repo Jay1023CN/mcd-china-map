@@ -62,7 +62,8 @@ async function main(){
     await page.locator('#share-collection-back').click();assert.equal(await page.locator('.collection-pick input:checked').count(),1);
     await page.locator('#collection-switch').selectOption({label:'杭州 · 浙江省'});assert.equal(await page.locator('#collection-grid .collection-page').count(),1);
     await page.locator('[data-close=collection-dialog]').click();
-    await page.locator('.month-chip').filter({hasText:seed.month}).click();
+    const monthLabel=seed.month.replace(/^(\d{4})-(\d{2})$/,'$1年$2月');
+    await page.locator('.month-chip').filter({hasText:monthLabel}).click();
     assert.match(await page.locator('#collection-summary').innerText(),/3 页回忆 · 2 座城市 · 2 家麦当劳/);
     assert.match(await page.locator('#collection-tastes').innerText(),/薯条 × 2/);
     await page.locator('#collection-cover').selectOption('collection-sh-1');
