@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build the public blank journal as a small, subpath-safe static site."""
 
+import argparse
 import base64
 import hashlib
 import json
@@ -99,6 +100,7 @@ def build(output_dir=WEB_ROOT, *, runtime=None):
     manifest = {
         'schema_version': 1,
         'app_version': VERSION,
+        'runtime': runtime if runtime is not None else {'local_api': False},
         'archive': {'version': 1, 'data_kind': 'manual', 'entry_count': 0},
         'entrypoint': 'index.html',
         'files': files,
@@ -108,6 +110,48 @@ def build(output_dir=WEB_ROOT, *, runtime=None):
     return manifest
 
 
+def load_prebuilt(output_dir, *, runtime):
+    """Verify a build with bounded memory before serving its approved files."""
+    output_dir = Path(output_dir).resolve()
+    manifest = json.loads((output_dir / 'manifest.json').read_text(encoding='utf-8'))
+    if (manifest.get('schema_version') != 1 or manifest.get('app_version') != VERSION
+            or manifest.get('runtime') != runtime or manifest.get('entrypoint') != 'index.html'
+            or manifest.get('archive') != {'version': 1, 'data_kind': 'manual', 'entry_count': 0}):
+        raise ValueError('prebuilt site does not match this server')
+    records = manifest.get('files')
+    if not isinstance(records, list) or not records:
+        raise ValueError('prebuilt site file list is missing')
+    seen = set()
+    for record in records:
+        relative = record.get('path')
+        if (not isinstance(relative, str) or relative in seen
+                or (relative != 'index.html' and not re.fullmatch(
+                    r'assets/[0-9a-f]{64}\.(?:ttf|woff2|png|jpg|webp|svg)', relative))):
+            raise ValueError('prebuilt site contains an unapproved path')
+        candidate = output_dir / relative
+        if candidate.is_symlink() or not candidate.resolve().is_relative_to(output_dir):
+            raise ValueError('prebuilt site contains an unapproved file')
+        digest = hashlib.sha256()
+        size = 0
+        with candidate.open('rb') as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                size += len(chunk)
+                digest.update(chunk)
+        if size != record.get('size_bytes') or digest.hexdigest() != record.get('sha256'):
+            raise ValueError('prebuilt site file failed integrity check')
+        if relative.startswith('assets/') and candidate.stem != digest.hexdigest():
+            raise ValueError('prebuilt asset name does not match its content')
+        seen.add(relative)
+    if 'index.html' not in seen:
+        raise ValueError('prebuilt site index is missing')
+    return manifest
+
+
 if __name__ == '__main__':
-    result = build()
-    print(f"Built public static app: {WEB_ROOT / result['entrypoint']}")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir', type=Path, default=WEB_ROOT)
+    parser.add_argument('--connected', action='store_true', help='build for the independent-session web server')
+    args = parser.parse_args()
+    runtime = {'local_api': True, 'web_sessions': True} if args.connected else None
+    result = build(args.output_dir, runtime=runtime)
+    print(f"Built web app: {args.output_dir / result['entrypoint']}")

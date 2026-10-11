@@ -15,7 +15,7 @@ from flask import Flask, g, jsonify, request, send_from_directory
 from werkzeug.exceptions import HTTPException
 
 from build_global_journal import project_archive
-from build_web_app import build
+from build_web_app import build, load_prebuilt
 from local_api import query_stores
 from mcp_readonly import Client, READ_TOOLS
 from project_version import VERSION
@@ -26,7 +26,7 @@ from web_sessions import SessionStore, REMEMBER_SECONDS
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def create_app(origin, *, state_dir=None, site_dir=None):
+def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
     parsed = urlsplit(origin)
     if (parsed.scheme not in ('http', 'https') or not parsed.netloc or parsed.path not in ('', '/')
             or parsed.query or parsed.fragment or parsed.username or parsed.password
@@ -37,7 +37,8 @@ def create_app(origin, *, state_dir=None, site_dir=None):
     cookie_name = '__Host-mcd_session' if secure else 'mcd_session'
     state_dir = Path(state_dir or ROOT / 'private' / 'web')
     site_dir = Path(site_dir or ROOT / 'dist' / 'web-connected')
-    manifest = build(site_dir, runtime={'local_api': True, 'web_sessions': True})
+    runtime = {'local_api': True, 'web_sessions': True}
+    manifest = load_prebuilt(site_dir, runtime=runtime) if prebuilt else build(site_dir, runtime=runtime)
     public_assets = {item['path'][len('assets/'):] for item in manifest['files'] if item['path'].startswith('assets/')}
     sessions = SessionStore(state_dir, os.environ.get('MCD_SESSION_KEY'))
     app = Flask(__name__, static_folder=None)
@@ -224,10 +225,12 @@ def main():
     parser.add_argument('--port', type=int, default=8080)
     parser.add_argument('--origin', help='exact public HTTPS URL, or loopback HTTP URL for local use')
     parser.add_argument('--state-dir', type=Path)
+    parser.add_argument('--site-dir', type=Path)
+    parser.add_argument('--prebuilt', action='store_true', help='serve a verified connected build without rendering at startup')
     parser.add_argument('--open-browser', action='store_true', help='open the loopback website after it is ready')
     args = parser.parse_args()
     origin = args.origin or f'http://127.0.0.1:{args.port}'
-    app = create_app(origin, state_dir=args.state_dir)
+    app = create_app(origin, state_dir=args.state_dir, site_dir=args.site_dir, prebuilt=args.prebuilt)
     if args.open_browser:
         if urlsplit(origin).hostname not in ('localhost', '127.0.0.1', '::1'):
             parser.error('--open-browser requires a loopback origin')

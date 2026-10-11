@@ -1,0 +1,63 @@
+name: Build connected web runtime
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/connected-web.yml'
+      - 'scripts/**'
+      - 'templates/**'
+      - 'web/**'
+      - 'assets/**'
+      - 'tests/test_prebuilt_web.py'
+      - 'requirements-web.txt'
+      - 'render.yaml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: connected-web-builds
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install web dependencies
+        run: pip install -r requirements-web.txt
+      - name: Verify web sessions and artifact loading
+        run: |
+          python -m unittest discover -s tests -p 'test_web_sessions.py' -v
+          python -m unittest discover -s tests -p 'test_prebuilt_web.py' -v
+      - name: Build connected site in GitHub Actions
+        run: python scripts/build_web_app.py --connected --output-dir dist/web-connected
+      - name: Verify and archive the public runtime files
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, sys, tarfile
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          from build_web_app import load_prebuilt
+          root = Path('dist/web-connected')
+          manifest = load_prebuilt(root, runtime={'local_api': True, 'web_sessions': True})
+          commit = os.environ['SOURCE_COMMIT']
+          (root / 'build-info.json').write_text(json.dumps({'commit': commit}) + '\n', encoding='utf-8')
+          package = Path(f'connected-web-{commit}.tar.gz')
+          with tarfile.open(package, 'w:gz') as archive:
+              for name in ['manifest.json', 'build-info.json', *[record['path'] for record in manifest['files']]]:
+                  archive.add(root / name, arcname=name, recursive=False)
+          Path(str(package) + '.sha256').write_text(hashlib.sha256(package.read_bytes()).hexdigest() + '\n', encoding='ascii')
+          PY
+      - name: Publish build artifacts for Render
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          if ! gh release view web-runtime-builds --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create web-runtime-builds --repo "$GITHUB_REPOSITORY" --target "$SOURCE_COMMIT" --title 'Web runtime builds' --notes 'Public connected-site artifacts built by GitHub Actions. Render selects the artifact matching its exact source commit.' --prerelease --latest=false
+          fi
+          gh release upload web-runtime-builds "connected-web-$SOURCE_COMMIT.tar.gz" "connected-web-$SOURCE_COMMIT.tar.gz.sha256" --repo "$GITHUB_REPOSITORY" --clobber

@@ -37,6 +37,8 @@ Render 免费服务闲置 15 分钟后休眠，下次打开约等一分钟。休
 
 `startCommand` 读取 Render 提供的 `PORT` 和 `RENDER_EXTERNAL_URL`。服务通过实际 HTTPS 网址检查 Host 和 Origin，保留独立会话、HttpOnly Cookie 和凭据加密。现有 GitHub Pages 继续提供手动记录版。
 
-更新代码后，Render 等仓库检查通过再自动部署。只维护这一份项目，用户刷新取得网页更新。
+完整页面由 GitHub Actions 在云端生成，运行产物保存在 GitHub 的 `web-runtime-builds` 预发布渠道。Render 构建阶段下载与源码提交完全对应的产物、检查哈希；服务启动时以 `--prebuilt` 校验文件并直接提供页面。电脑只需要保留源码和部署配置。这样不会在免费实例启动时重新生成整份页面，避免超过 512MB 内存限制。使用命令行创建服务时，也需要沿用 `render.yaml` 中的构建和启动命令。
+
+更新代码后，先等运行产物构建和仓库检查通过，再在 Render 部署对应的提交。这里关闭自动部署，避免 Render 在对应产物发布前抢先启动。只维护这一份项目，用户刷新取得网页更新。
 
 平台依据：[免费方案](https://render.com/docs/free)、[部署配置](https://render.com/docs/blueprint-spec)、[环境变量](https://render.com/docs/environment-variables)。核对日期：2026-10-11。

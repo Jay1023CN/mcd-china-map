@@ -5,10 +5,10 @@ services:
     runtime: python
     plan: free
     region: singapore
-    buildCommand: pip install -r requirements-web.txt
-    startCommand: python scripts/web_api.py --host 0.0.0.0 --port "$PORT" --origin "$RENDER_EXTERNAL_URL"
+    buildCommand: pip install -r requirements-web.txt && python scripts/download_web_build.py --commit "$RENDER_GIT_COMMIT"
+    startCommand: python scripts/web_api.py --prebuilt --host 0.0.0.0 --port "$PORT" --origin "$RENDER_EXTERNAL_URL"
     healthCheckPath: /api/health
-    autoDeployTrigger: checksPass
+    autoDeployTrigger: off
     envVars:
       - key: PYTHON_VERSION
         value: "3.13.16"
