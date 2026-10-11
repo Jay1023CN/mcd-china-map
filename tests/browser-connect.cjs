@@ -191,9 +191,13 @@ async function main() {
     assert.equal(syncRequests.length,priorSyncRequests,'store-only connections must not automatically sync orders');
 
     await page.setViewportSize({width: 390, height: 844});
+    await page.locator('#open-connect').click();
+    await page.locator('#connect-manual').evaluate(details => { details.open = true; });
+    await page.locator('#connect-token').fill('fixture-cancelled-connection');
     const modalBounds = await page.locator('#connect-dialog').evaluate(dialog => ({scroll: dialog.scrollWidth, client: dialog.clientWidth}));
     assert.ok(modalBounds.scroll <= modalBounds.client + 1, 'mobile connection modal must not overflow horizontally');
     await page.locator('[data-close="connect-dialog"]').click();
+    await page.waitForFunction(()=>document.getElementById('connect-token').value==='');
     assert.deepEqual(errors, []);
     await context.close();
 

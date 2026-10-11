@@ -22,6 +22,7 @@ async function addEntry(page, {city, store, province='310000', foods, note='', d
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=province_code]').selectOption(province);
   await page.locator('[name=store]').fill(store);
+  await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
   await page.locator('[name=foods]').fill(foods);
   await page.locator('[name=note]').fill(note);
   assert.equal(await page.locator('[name=confirmed]').isChecked(),true,'manual visits are confirmed automatically');
@@ -158,6 +159,7 @@ async function main() {
     assert.equal(await page.locator('[name=confirmed]').isVisible(),false,'the confirmation control is hidden from the user');
     assert.equal(await page.locator('[name=complete_wishlist]').isChecked(),true);
     await page.locator('[name=date]').fill(yesterday);
+    await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
     await page.locator('[name=foods]').fill('灵感测试餐品，城市咖啡');
     await page.locator('[name=note]').fill('灵感搜索随记');
     await page.locator('#meal-city-details').evaluate(el=>el.open=true);

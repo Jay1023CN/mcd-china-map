@@ -45,6 +45,7 @@ async function main() {
     await page.locator('#meal-extra').evaluate(el=>el.open=true);
     await page.locator('[name=location_mode]').selectOption('city');
     assert.match(await page.locator('#location-help').innerText(),/城市参考位置/);
+    await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
     await page.locator('[name=foods]').fill('咖啡，薯条');
     await page.locator('[name=note]').fill('仅用于自动化验收。');
     const photoFixture = await page.evaluate(() => {

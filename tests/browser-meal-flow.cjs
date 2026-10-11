@@ -13,7 +13,7 @@ async function main(){
   try{
     for(let i=0;i<50;i++){try{if((await fetch(url)).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
     browser=await chromium.launch({headless:true});fs.mkdirSync(output,{recursive:true});
-    const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,timezoneId:'Asia/Shanghai',geolocation:{latitude:31.222,longitude:121.44},permissions:['geolocation']});
+    const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,locale:'zh-CN',timezoneId:'Asia/Shanghai',geolocation:{latitude:31.222,longitude:121.44},permissions:['geolocation']});
     await context.route('https://ipwho.is/**',route=>route.fulfill({json:{success:true,country_code:'CN',city:'上海',latitude:31.23,longitude:121.47}}));
     await context.route('**/api/health',route=>route.fulfill({json:{connected:false,capabilities:{connect:true,synced_orders:false}}}));
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -36,20 +36,32 @@ async function main(){
     await page.locator('#meal-store-results button').first().click();
     assert.ok(await page.locator('[name=store]').inputValue());assert.equal(await page.locator('[name=city]').inputValue(),'上海');
     assert.equal(await page.locator('[name=location_mode]').inputValue(),'store');
-    await page.locator('#meal-foods button').filter({hasText:/^薯条$/}).click();await page.locator('#meal-foods button').filter({hasText:/^咖啡$/}).click();
-    assert.equal(await page.locator('[name=foods]').inputValue(),'薯条，咖啡');
+    await page.locator('#meal-foods button').filter({hasText:/^薯条$/}).click();await page.locator('#meal-foods button').filter({hasText:/^鲜萃咖啡$/}).click();
+    assert.equal(await page.locator('[name=foods]').inputValue(),'薯条，鲜萃咖啡');
     await page.locator('#meal-yesterday').click();assert.equal(await page.locator('#meal-yesterday').getAttribute('aria-pressed'),'true');
     await page.locator('#meal-today').click();
     await page.screenshot({path:path.join(output,'meal-mobile.png'),fullPage:false});
+    await page.locator('#meal-menu-open').click();
+    await page.locator('#meal-menu-products button').filter({hasText:'板烧鸡腿堡'}).click();
+    assert.ok((await page.locator('[name=foods]').inputValue()).includes('板烧鸡腿堡'));
+    await page.locator('#meal-menu-products button').filter({hasText:'板烧鸡腿堡'}).click();
+    await page.waitForTimeout(1200);
+    await page.screenshot({path:path.join(output,'menu-mobile.png'),fullPage:false});
+    await page.locator('#meal-menu-categories button').filter({hasText:/^套餐$/}).click();
+    assert.equal(await page.locator('#meal-menu-products button').count(),2);
+    await page.locator('#meal-menu-sort').selectOption('frequency');
+    await page.locator('#meal-menu-done').click();
+
     assert.equal(await page.locator('#entry-dialog').evaluate(el=>el.scrollWidth>el.clientWidth+1),false);
     const chooser=page.waitForEvent('filechooser');await page.locator('#choose-photo').click();await chooser;
     const camera=page.waitForEvent('filechooser');await page.locator('#take-photo').click();assert.equal(await (await camera).element().getAttribute('capture'),'environment');
     await page.locator('#save-entry').click();await page.locator('#entry-dialog').waitFor({state:'hidden'});
     assert.equal(await page.locator('#journal-grid .entry-card').count(),1);
-    const foods=await page.locator('#journal-grid .food-tags span').allTextContents();assert.deepEqual(foods,['薯条','咖啡']);
+    const foods=await page.locator('#journal-grid .food-tags span').allTextContents();assert.deepEqual(foods,['薯条','鲜萃咖啡']);
     await page.reload();assert.equal(await page.locator('#first-meal').isVisible(),false);
-    await page.locator('#add-top').click();await page.locator('[name=foods]').fill('特别餐品，咖啡');
-    await page.locator('#meal-foods button').filter({hasText:/^薯条$/}).click();assert.equal(await page.locator('[name=foods]').inputValue(),'特别餐品，咖啡，薯条');
+    await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
+    await page.locator('#add-top').click();await page.locator('[name=foods]').fill('特别餐品，鲜萃咖啡');
+    await page.locator('#meal-foods button').filter({hasText:/^薯条$/}).click();assert.equal(await page.locator('[name=foods]').inputValue(),'特别餐品，鲜萃咖啡，薯条');
     await page.locator('[data-close=entry-dialog]').first().click();
     await context.close();
     const denied=await browser.newContext({viewport:{width:390,height:844},timezoneId:'Asia/Shanghai'});

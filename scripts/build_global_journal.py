@@ -123,6 +123,7 @@ def render(archive):
             'countries': [{'code': 'CN', 'name': '中国'}],
             'provinces': json.loads((ROOT/'assets/data/china-provinces.json').read_text(encoding='utf-8')),
             'stores': stores, 'store_images': store_images,
+            'meal_catalog': json.loads((ROOT/'assets/data/meal-catalog.json').read_text(encoding='utf-8')),
             'card_sketch': asset_uri('notebook-food-sketch.png'),
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     national = json.loads((ROOT/'assets/data/national-store-directory.json').read_text(encoding='utf-8'))
@@ -156,7 +157,7 @@ def render(archive):
         preferences_js=(ROOT/'web/collection-preferences.js').read_text(encoding='utf-8'),
         navigation_js=(ROOT/'web/store-navigation.js').read_text(encoding='utf-8'),
         national_js='\n'.join((ROOT/path).read_text(encoding='utf-8') for path in ['web/chinese-search-normalization.js','web/national-store-search.js']),
-        app_js=(ROOT/'web/connection-onboarding.js').read_text(encoding='utf-8')+'\n'+(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
+        app_js='\n'.join((ROOT/path).read_text(encoding='utf-8') for path in ['web/meal-catalog.js','web/connection-onboarding.js','web/global-journal.js']))
 
 
 def main():

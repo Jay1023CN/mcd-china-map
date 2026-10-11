@@ -40,6 +40,7 @@ async function main(){
     assert.equal(await page.locator('[name=store]').inputValue(),ordinary.name);
     assert.equal(await page.locator('[name=province_code]').inputValue(),ordinary.province_code);
     assert.equal(await page.locator('[name=location_mode]').inputValue(),'store');
+    await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
     await page.locator('[name=foods]').fill('薯条');await page.locator('[name=note]').fill('功能验收演示：公开门店资料，非本人真实到访。');await page.locator('#save-entry').click();
     await page.locator('#entry-dialog').waitFor({state:'hidden'});
     const archive=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')));

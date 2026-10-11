@@ -204,6 +204,7 @@ async function addMobileEntry(page) {
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=city]').fill('成都');
   await page.locator('[name=store]').fill('成都移动端体验门店');
+  await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
   await page.locator('[name=foods]').fill('移动端测试套餐');
   await page.locator('[name=note]').fill('公开静态页面上的本机记录。');
   await page.locator('[name=photo]').setInputFiles({name:'mobile-fixture.png',mimeType:'image/png',buffer:tinyPng});

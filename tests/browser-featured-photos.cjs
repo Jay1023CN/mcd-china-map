@@ -17,7 +17,7 @@ async function main(){
       });
     }
     const page=await context.newPage(),errors=[],external=[];page.on('pageerror',error=>errors.push(error.message));
-    page.on('request',request=>{if(!request.url().startsWith(new URL(base).origin))external.push(request.url());});
+    page.on('request',request=>{const url=new URL(request.url());if(url.origin!==new URL(base).origin && url.origin!=='https://ipwho.is')external.push(request.url());});
     await page.goto(base);
     const stores=await page.evaluate(()=>{
       const data=JSON.parse(document.getElementById('journal-data').textContent);

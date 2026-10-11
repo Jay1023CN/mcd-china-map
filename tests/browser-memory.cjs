@@ -149,6 +149,7 @@ async function main() {
     assert.match(await journalPage.locator('#photo-caption').innerText(), /麦当劳官网新闻配图/);
     assert.equal(await journalPage.locator('[name=city]').inputValue(), '北京');
     assert.equal(await journalPage.locator('[name=province_code]').inputValue(), '110000');
+    await journalPage.locator('#meal-food-custom').evaluate(el=>el.open=true);
     await journalPage.locator('[name=foods]').fill('咖啡，薯条');
     assert.equal(await journalPage.locator('[name=confirmed]').isChecked(), true, 'saved manual pages are confirmed automatically');
     await journalPage.getByRole('button', {name: '保存这一餐'}).click();
@@ -169,6 +170,7 @@ async function main() {
     await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=city]').fill('上海');
     await journalPage.locator('[name=store]').fill('合成上传照片测试门店');
+    await journalPage.locator('#meal-food-custom').evaluate(el=>el.open=true);
     await journalPage.locator('[name=foods]').fill('咖啡');
     const uploadData = await journalPage.evaluate(() => {
       const canvas = document.createElement('canvas'); canvas.width = 8; canvas.height = 6;

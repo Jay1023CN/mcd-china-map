@@ -5,9 +5,11 @@
   const localApi = webSessions || (data.runtime?.local_api !== false && ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname));
   const E = window.JournalEngine;
   const W = window.WishlistEngine;
+  const mealMenu=window.MealCatalog.create(data.meal_catalog);
+  let mealMenuCategory='burgers';
   const catalogStores=(data.national_catalog?.stores || data.stores).map((store,index)=>({...store,
-    id:store.id || 'curated:'+index,official_name:store.name,name:store.featured_name || store.name,
-    aliases:[...(store.aliases || []),...(store.featured_name && store.featured_name!==store.name?[store.name]:[])],
+    id:store.id || 'curated:'+index,official_name:store.name,name:(store.featured_name || store.name).replace(/EC\d{4,}/gi,''),
+    aliases:[...(store.aliases || []),store.name],
     city:store.city.replace(/市$/,''),code:store.code || 'catalog:'+store.name}));
   const catalogIndex=window.NationalStoreSearch.createIndex(catalogStores);
   const publicStoreCandidates=catalogStores.map(store=>({...store,catalog_source:store.source,source:'manual'}));
@@ -473,6 +475,7 @@
     $('country-filter').value = province;
   }
   function render() {
+    document.body.classList.toggle('first-use',archive.entries.length===0 && archive.data_kind!=='synthetic');
     $('first-meal').hidden=archive.entries.length>0 || archive.data_kind==='synthetic';
     refillFilters();
     currentSummary = E.summarize(archive, {...opts(), year: $('year-filter').value, province_code: $('country-filter').value});
@@ -1002,20 +1005,53 @@
     } else field('location_mode').value='none';
     $('form-error').hidden=true; showPhoto(); updateCitySuggestions();
     if (!defaultPhoto) applyStoreInfo();
-    $('meal-city-details').open=false;$('meal-extra').open=false;
+    $('meal-city-details').open=false;$('meal-extra').open=false;$('meal-food-custom').open=false;
     if(!entry && mealCityHint){field('city').value=mealCityHint.city;field('province_code').value=mealCityHint.province_code;updateCitySuggestions();}
     renderMealFoods();updateMealDate();renderMealStores();showMealSelection();
     $('entry-dialog').showModal();$('meal-locate').focus({preventScroll:true});
   }
-  const mealFoodChoices=['汉堡','薯条','咖啡','麦乐鸡','可乐','冰淇淋','麦辣鸡腿堡','巨无霸'];
+  const mealFoodChoices=['麦辣鸡腿汉堡','巨无霸','薯条','麦乐鸡 (5块)','鲜萃咖啡','可口可乐'];
   function mealFoodValues(){return field('foods').value.split(/[,，、\n]/).map(v=>v.trim()).filter(Boolean);}
+  function toggleMealFood(food){
+    const values=new Set(mealFoodValues());values.has(food)?values.delete(food):values.add(food);
+    field('foods').value=[...values].join('，');renderMealFoods();
+  }
   function renderMealFoods(){
     const selected=new Set(mealFoodValues());
-    $('meal-foods').replaceChildren(...mealFoodChoices.map(food=>{
+    const frequent=mealMenu.personalFrequency(archive).slice(0,6).map(item=>item.name);
+    const choices=frequent.length?frequent:mealFoodChoices;
+    $('meal-foods').replaceChildren(...choices.map(food=>{
       const button=node('button',food,'meal-chip');button.type='button';button.setAttribute('aria-pressed',String(selected.has(food)));
-      button.addEventListener('click',()=>{const values=new Set(mealFoodValues());values.has(food)?values.delete(food):values.add(food);field('foods').value=[...values].join('，');renderMealFoods();});return button;
+      button.addEventListener('click',()=>toggleMealFood(food));return button;
     }));
+    $('meal-chosen-foods').replaceChildren(...[...selected].map(food=>{
+      const button=node('button');button.type='button';button.setAttribute('aria-label','移除'+food);button.append(node('span',food),node('span','×'));button.addEventListener('click',()=>toggleMealFood(food));return button;
+    }));
+    $('meal-menu-count').textContent=selected.size?`已选 ${selected.size} 样`:'点餐品就能选上';
+    for(const button of $('meal-menu-products').querySelectorAll('button[data-food]'))button.setAttribute('aria-pressed',String(selected.has(button.dataset.food)));
   }
+  function renderMealMenu(){
+    const query=$('meal-menu-search').value.normalize('NFKC').trim().toLowerCase();
+    $('meal-menu-categories').replaceChildren(...[{id:'all',label:'全部'},...mealMenu.categories].map(category=>{
+      const button=node('button',category.label);button.type='button';button.setAttribute('aria-pressed',String(mealMenuCategory===category.id));
+      button.addEventListener('click',()=>{mealMenuCategory=category.id;renderMealMenu();});return button;
+    }));
+    const products=mealMenu.filter(mealMenuCategory,{entries:archive,sort:$('meal-menu-sort').value}).filter(item=>!query || [item.name,...(item.aliases || [])].some(name=>name.toLowerCase().includes(query)));
+    const selected=new Set(mealFoodValues());
+    $('meal-menu-products').replaceChildren(...products.map(item=>{
+      const button=node('button',undefined,'meal-product');button.type='button';button.dataset.food=item.name;button.setAttribute('aria-pressed',String(selected.has(item.name)));
+      if(item.image_url){const image=node('img');image.src=item.image_url;image.alt='';image.loading='lazy';image.referrerPolicy='no-referrer';image.addEventListener('error',()=>{image.hidden=true;button.classList.add('no-photo');});button.append(image);}
+      else button.append(node('span','来自你的记录','meal-product-placeholder'));
+      button.append(node('strong',item.name),node('small',item.count?`你吃过 ${item.count} 次`:''));
+      button.addEventListener('click',()=>toggleMealFood(item.name));return button;
+    }));
+    if(!products.length)$('meal-menu-products').append(empty(mealMenuCategory==='frequent'?'还没有常吃记录':'没找到这个餐品',mealMenuCategory==='frequent'?'记下几餐或连接订单后，常吃的会自动排在这里。':'换个关键词或分类，也可以回到打卡页补充。'));
+    $('meal-menu-help').textContent=mealMenuCategory==='frequent' || $('meal-menu-sort').value==='frequency'?'按你自己的每餐记录计次；同一餐点多份也只算一次。':'官网公开餐品，供记录这一餐使用；当日供应以门店为准。';
+    renderMealFoods();
+  }
+  $('meal-menu-open').addEventListener('click',()=>{mealMenuCategory=mealMenu.personalFrequency(archive).length?'frequent':'burgers';$('meal-menu-search').value='';$('meal-menu-sort').value=mealMenuCategory==='frequent'?'frequency':'category';renderMealMenu();$('meal-menu-dialog').showModal();$('meal-menu-categories').querySelector('[aria-pressed=true]')?.focus({preventScroll:true});});
+  $('meal-menu-done').addEventListener('click',()=>{$('meal-menu-dialog').close();$('meal-menu-open').focus({preventScroll:true});});
+  $('meal-menu-search').addEventListener('input',renderMealMenu);$('meal-menu-sort').addEventListener('change',renderMealMenu);
   function mealYesterday(){const d=new Date(today()+'T12:00:00');d.setDate(d.getDate()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
   function updateMealDate(){for(const [id,value] of [['meal-today',today()],['meal-yesterday',mealYesterday()]])$(id).setAttribute('aria-pressed',String(field('date').value===value));}
   $('meal-today').addEventListener('click',()=>{field('date').value=today();updateMealDate();});
@@ -1273,6 +1309,7 @@
     $('connect-submit').disabled=!connectionAvailable;$('connect-dialog').showModal();$('connect-manual').open=false;connectionOnboarding?.focus();
   });
   let connectionPending=false,orderSyncPending=false;
+  $('connect-dialog').addEventListener('close',()=>{$('connect-token').value='';});
   $('connect-form').addEventListener('submit',async event=>{
     event.preventDefault();if(!connectionAvailable || connectionPending || orderSyncPending)return;
     connectionPending=true;$('connect-submit').disabled=true;$('connect-paste').disabled=true;$('connect-status').textContent='正在连接麦当劳，马上帮你整理订单……';
