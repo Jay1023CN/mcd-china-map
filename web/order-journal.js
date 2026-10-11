@@ -19,6 +19,10 @@
       const matches=stores.filter(store => [store.name,store.featured_name,store.locator_name,...(store.aliases || [])].filter(Boolean).some(name => clean(name) === clean(entry.store)) &&
         (!clean(entry.city) || cityName(store.city)===cityName(entry.city)) && (!entry.province_code || store.province_code===entry.province_code));
       const store=matches.length===1?matches[0]:null;
+      if(store?.code && !String(store.code).startsWith('catalog:') && !entry.store_reference){
+        entry.store_reference={source:'official_catalog',code:String(store.code),address:store.address || ''};
+        if(typeof store.source_url==='string' && /^https:\/\//.test(store.source_url))entry.store_reference.source_url=store.source_url;
+      }
       let city = cities.find(city => cityName(city.city) === cityName(entry.city) &&
         (!entry.province_code || entry.province_code === city.province_code));
       if (!clean(entry.city)) {

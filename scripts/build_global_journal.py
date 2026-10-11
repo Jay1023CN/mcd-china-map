@@ -170,7 +170,7 @@ def render(archive):
         preferences_js=(ROOT/'web/collection-preferences.js').read_text(encoding='utf-8'),
         navigation_js=(ROOT/'web/store-navigation.js').read_text(encoding='utf-8'),
         national_js='\n'.join((ROOT/path).read_text(encoding='utf-8') for path in ['web/chinese-search-normalization.js','web/national-store-search.js']),
-        app_js='\n'.join((ROOT/path).read_text(encoding='utf-8') for path in ['web/meal-catalog.js','web/connection-onboarding.js','web/global-journal.js']))
+        app_js='\n'.join((ROOT/path).read_text(encoding='utf-8') for path in ['web/meal-catalog.js','web/connection-onboarding.js','web/meal-calendar.js','web/global-journal.js']))
 
 
 def main():

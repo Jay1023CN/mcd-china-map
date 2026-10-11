@@ -36,3 +36,10 @@ test('category and personal sorting remain separate and deterministic; history i
   assert.equal(engine.groups(engine.filter('frequent',{entries})).at(-1).label,'以前吃过');
   const before=JSON.stringify(catalog);engine.filter('all',{entries,sort:'frequency'});assert.equal(JSON.stringify(catalog),before);
 });
+
+test('menu matching resolves official aliases without rewriting unmatched order names',()=>{
+  const engine=M.create(catalog);
+  assert.equal(engine.match('麦辣鸡腿堡').name,'麦辣鸡腿汉堡');
+  assert.equal(engine.match('无糖可口可乐').name,'无糖可口可乐');
+  assert.equal(engine.match('门店自定义新品'),null);
+});

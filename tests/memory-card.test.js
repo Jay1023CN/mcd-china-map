@@ -9,11 +9,12 @@ function makeMockContext() {
   const draws = [];
   const textCalls = [];
   const transforms = [];
+  const arcs = [];
   return {
-    texts, draws, textCalls, transforms,
+    texts, draws, textCalls, transforms, arcs,
     fillRect() {}, strokeRect() {}, beginPath() {}, moveTo() {}, arcTo() {}, closePath() {}, fill() {}, stroke() {},
     fillText(...args) { texts.push(String(args[0])); textCalls.push({text: String(args[0]), args, font: this.font}); }, save() {}, restore() {}, lineTo() {},
-    bezierCurveTo() {}, arc() {}, ellipse() {}, translate(...args) { transforms.push(['translate', ...args]); },
+    bezierCurveTo() {}, arc(...args) { arcs.push(args); }, ellipse() {}, rect() {}, clip() {}, translate(...args) { transforms.push(['translate', ...args]); },
     rotate(...args) { transforms.push(['rotate', ...args]); }, setLineDash() {}, drawImage(...args) { draws.push(args); },
     measureText(text) {
       const size = Number((this.font || '').match(/(\d+)px/)?.[1] || 12);
@@ -77,9 +78,9 @@ test('render draws an original no-photo travel illustration and returns 1080x144
   assert.equal(canvas.width, 1080);
   assert.equal(canvas.height, 1440);
   assert.equal(ctx.draws.length, 0);
-  assert.ok(ctx.texts.includes('在地图上，记下一站喜欢'));
+  assert.ok(ctx.texts.includes('MY CHINA MAP'));
   assert.ok(ctx.texts.includes('用麦当劳，画出自己的中国足迹。'));
-  assert.ok(ctx.texts.includes('2026-10-10'));
+  assert.ok(ctx.texts.includes('2026年10月10日'));
 });
 
 test('render lays out the title on two hand-drawn lines and rotates the white photo border', async t => {
@@ -91,7 +92,7 @@ test('render lays out the title on two hand-drawn lines and rotates the white ph
   await MemoryCard.render({title: '下一站，去湖边吃麦'}, {kind: 'plan', includePlace: true, includeNote: true});
   assert.ok(ctx.texts.includes('下一站，'));
   assert.ok(ctx.texts.includes('去湖边吃麦'));
-  assert.ok(ctx.transforms.some(call => call[0] === 'translate' && call[1] === 540 && call[2] === 660));
+  assert.ok(ctx.transforms.some(call => call[0] === 'translate' && call[1] === 540 && call[2] === 640));
   assert.ok(ctx.transforms.some(call => call[0] === 'rotate' && Math.abs(call[1] + Math.PI / 180) < 1e-8));
   assert.ok(ctx.texts.includes('想去 · 尚未打卡'));
   assert.ok(!ctx.texts.includes('这一页的随记'));
@@ -120,11 +121,11 @@ test('short content uses larger city, store and note handwriting below the full-
   await MemoryCard.render({city: '杭州', store: '千岛湖麦当劳', note: '想去湖边，顺便吃一顿。'}, {
     kind: 'plan', includePlace: true, includeNote: true
   });
-  assert.equal(ctx.textCalls.find(call => call.text === '杭州').font.match(/(\d+)px/)[1], '34');
+  assert.equal(ctx.textCalls.find(call => call.text === '杭州' && call.args[1] === 122).font.match(/(\d+)px/)[1], '34');
   assert.equal(ctx.textCalls.find(call => call.text === '千岛湖麦当劳').font.match(/(\d+)px/)[1], '30');
   const note = ctx.textCalls.find(call => call.text === '想去湖边，顺便吃一顿。');
   assert.equal(note.font.match(/(\d+)px/)[1], '34');
-  assert.ok(note.args[2] >= 1090 && note.args[2] <= 1160);
+  assert.ok(note.args[2] >= 1040 && note.args[2] <= 1090);
 });
 
 test('short photo annotations stay outside the picture and connect with a small curved arrow', async t => {
@@ -173,21 +174,15 @@ test('contain image fitting keeps the full embedded photo and centers it inside 
   assert.ok(ctx.draws[0][3] < 710);
 });
 
-test('transparent snack image keeps its aspect ratio and sits beside the note', async t => {
+test('a selected keepsake stamp appears when the card decoration is enabled', async t => {
   const {ctx} = withCanvas(t);
   const oldImage = global.Image;
   delete global.Image;
   t.after(() => { if (oldImage === undefined) delete global.Image; else global.Image = oldImage; });
-  const snack = {naturalWidth: 1536, naturalHeight: 1024};
-
-  await MemoryCard.render({note: '把想去的那家，先放进旅程。'}, {includeNote: true, snackImage: snack});
-  const draw = ctx.draws.find(args => args[0] === snack);
-  assert.ok(draw);
-  assert.equal(draw[1], 715);
-  assert.equal(draw[3], 280);
-  assert.equal(draw[4], 280 * 1024 / 1536);
+  await MemoryCard.render({note: '把想去的那家，先放进旅程。'}, {includeNote: true, stickers: ['stamp']});
+  assert.ok(ctx.texts.includes('这一餐记着了'));
   assert.ok(ctx.textCalls.some(call => call.text.includes('把想去的那家')));
-  assert.ok(!ctx.texts.includes('这一页的随记'));
+  assert.equal(ctx.draws.length,0,'a generic food doodle must not be added to every card');
 });
 
 test('maximum place, food, note and photo source text stays above the footer at readable size', async t => {
@@ -210,7 +205,7 @@ test('maximum place, food, note and photo source text stays above the footer at 
   const bodyCalls = ctx.textCalls.filter(call => call.text.includes('城市') || call.text.includes('中央商务') ||
     call.text.includes('超长餐品') || call.text.includes('旅行随记') || call.text.includes('这一页的随记'));
   assert.ok(bodyCalls.length > 0);
-  assert.ok(bodyCalls.every(call => call.args[2] <= 1330));
+  assert.ok(bodyCalls.every(call => call.args[2] <= 1335));
   assert.ok(bodyCalls.every(call => Number(call.font.match(/(\d+)px/)[1]) >= 22));
   const sourceCalls = ctx.textCalls.filter(call => call.text.includes('公开照片来源说明'));
   assert.ok(sourceCalls.length >= 1);
@@ -236,11 +231,11 @@ test('render accepts an embedded photo, center-crops to fit and never fetches', 
   assert.equal(ctx.draws.length, 1);
   assert.equal(ctx.draws[0].length, 9);
   assert.equal(ctx.draws[0][7], 902);
-  assert.equal(ctx.draws[0][8], 562);
+  assert.equal(ctx.draws[0][8], 522);
   assert.equal(fetched, false);
 });
 
-test('invalid external photo and image load failure both use illustration fallback', async t => {
+test('invalid external photo and image load failure both use the map fallback', async t => {
   const {ctx} = withCanvas(t);
   const oldImage = global.Image;
   let imageConstructed = 0;
@@ -255,7 +250,30 @@ test('invalid external photo and image load failure both use illustration fallba
   await MemoryCard.render({}, {photoDataUrl: 'data:image/webp;base64,aGVsbG8='});
   assert.equal(imageConstructed, 1);
   assert.equal(ctx.draws.length, 0);
-  assert.ok(ctx.texts.filter(text => text === '在地图上，记下一站喜欢').length >= 2);
+  assert.ok(ctx.texts.filter(text => text === 'MY CHINA MAP').length >= 2);
+  assert.ok(ctx.texts.filter(text => text === '我的足迹').length >= 2);
+});
+
+test('the China map shows an entry pin only when its place is included', async t => {
+  const {ctx}=withCanvas(t),oldImage=global.Image;
+  delete global.Image;t.after(()=>{if(oldImage===undefined)delete global.Image;else global.Image=oldImage;});
+  const mapFeatures=[{properties:{adcode:310000},geometry:{type:'Polygon',coordinates:[[[116,31],[122,31],[122,32],[116,32],[116,31]]]}}];
+  await MemoryCard.render({city:'上海',province_code:'310000'},{includePlace:true,provinceCode:'310000',mapFeatures,mapLocation:{lat:31.2,lon:121.4}});
+  assert.equal(ctx.arcs.length,4,'the map pin and the city pin are visible');
+  assert.ok(ctx.texts.includes('上海'));
+  const before=ctx.arcs.length;
+  await MemoryCard.render({city:'上海',province_code:'310000'},{includePlace:false,provinceCode:'310000',mapFeatures,mapLocation:{lat:31.2,lon:121.4}});
+  assert.equal(ctx.arcs.length,before,'hidden place details must not leave a location pin on the shared image');
+  assert.ok(ctx.texts.includes('我的足迹'));
+});
+
+test('selected menu photos appear beside the exact food names on the card', async t => {
+  const {ctx}=withCanvas(t),oldImage=global.Image;
+  global.Image=class{constructor(){this.naturalWidth=120;this.naturalHeight=90;}set src(_){queueMicrotask(()=>this.onload());}};
+  t.after(()=>{if(oldImage===undefined)delete global.Image;else global.Image=oldImage;});
+  await MemoryCard.render({foods:['无糖可口可乐']},{foodImages:[{name:'无糖可口可乐',dataUrl:'data:image/webp;base64,aGVsbG8='}],stickers:['food']});
+  assert.ok(ctx.texts.includes('无糖可口可乐'));
+  assert.ok(ctx.draws.some(call=>call.length===9&&call[3]===90&&call[4]===90),'selected product photo is rendered as a square sticker');
 });
 
 test('plan cards keep the plan label and subtitle despite an entry date and custom title', async t => {
@@ -270,7 +288,7 @@ test('plan cards keep the plan label and subtitle despite an entry date and cust
   assert.ok(ctx.texts.includes('想去 · 尚未打卡'));
   assert.ok(ctx.texts.includes('把想去的那家，先放进旅程。'));
   assert.equal(ctx.textCalls.filter(call => call.args[1] === 84 || call.args[1] === 100 && call.args[2] === 285).map(call => call.text).join(''), '自定义标题');
-  assert.ok(ctx.texts.includes('在地图上，记下一站喜欢'));
+  assert.ok(ctx.texts.includes('MY CHINA MAP'));
   assert.ok(!ctx.texts.includes('2026-10-10'));
 });
 
@@ -286,8 +304,8 @@ test('long memory-card titles break naturally and long food labels remain readab
   assert.ok(titleParts.every(call => call.args.length === 3));
   assert.ok(titleParts.every(call => Number(call.font.match(/(\d+)px/)[1]) < 61));
   assert.ok(titleParts.every(call => measuredWidth(ctx, call) <= 810));
-  const food = ctx.textCalls.find(call => call.text.includes('超长餐品名称'.repeat(4)));
-  assert.ok(food);
-  assert.equal(food.args.length, 3);
-  assert.ok(measuredWidth(ctx, food) <= 820);
+  const foodLines = ctx.textCalls.filter(call => call.args.length===4&&call.args[2]>900&&call.args[2]<1380);
+  assert.equal(foodLines.map(call => call.text).join(''), '超长餐品名称'.repeat(4));
+  assert.ok(foodLines.every(call => call.args.length === 4));
+  assert.ok(foodLines.every(call => measuredWidth(ctx, call) <= 820));
 });

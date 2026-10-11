@@ -1,6 +1,7 @@
 'use strict';
 const assert = require('node:assert/strict');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const {selectMealDate}=require('./browser-meal-date.cjs');
 
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
 const dateAtShanghai = value => new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(value);
@@ -16,7 +17,7 @@ async function stubHealth(page) {
 
 async function addEntry(page, {city, store, province='310000', foods, note='', date=today()}) {
   await page.locator('#add-top').click();
-  await page.locator('[name=date]').fill(date);
+  await selectMealDate(page,date);
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=city]').fill(city);
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);
@@ -158,7 +159,7 @@ async function main() {
     assert.equal(await page.locator('[name=confirmed]').isChecked(),true,'a saved arrival is automatically confirmed as a visit');
     assert.equal(await page.locator('[name=confirmed]').isVisible(),false,'the confirmation control is hidden from the user');
     assert.equal(await page.locator('[name=complete_wishlist]').isChecked(),true);
-    await page.locator('[name=date]').fill(yesterday);
+    await selectMealDate(page,yesterday);
     await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
     await page.locator('[name=foods]').fill('灵感测试餐品，城市咖啡');
     await page.locator('[name=note]').fill('灵感搜索随记');

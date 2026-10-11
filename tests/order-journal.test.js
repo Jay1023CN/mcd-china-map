@@ -12,7 +12,7 @@ const defaultPhoto = {
   attribution: '虚构公开资料', caption: '虚构门店照'
 };
 const stores = [{
-  name: '麦当劳上海示例餐厅', aliases: ['上海示例店'], city: '上海', province_code: '310000', default_photo: defaultPhoto
+  code: 'cn:license:shanghai-example', name: '麦当劳上海示例餐厅', aliases: ['上海示例店'], city: '上海', province_code: '310000', default_photo: defaultPhoto
 }];
 const order = (id, changes = {}) => ({
   id, date: '2026-10-08', country_code: 'CN', province_code: '', city: '', store: '上海示例店',
@@ -29,6 +29,7 @@ test('materializes an order with matched city coordinates and public default pho
   assert.equal(entry.origin, 'mcp');
   assert.equal(entry.city, '上海');
   assert.equal(entry.province_code, '310000');
+  assert.deepEqual(entry.store_reference,{source:'official_catalog',code:'cn:license:shanghai-example',address:''});
   assert.deepEqual(entry.location, {lat: 31.23, lon: 121.47, precision: 'city'});
   assert.deepEqual(entry.default_photo, defaultPhoto);
   assert.equal(entry.note, '', 'generated order hint should not become a personal note');
@@ -77,6 +78,18 @@ test('leaves an unmatched city empty instead of inferring one from unrelated dir
   assert.equal(Object.hasOwn(result.entries[0], 'location'), false);
   assert.equal(Object.hasOwn(result.entries[0], 'default_photo'), false);
   assert.equal(result.entries[0].confirmed, true);
+});
+
+test('uses city and province when the same store name appears in multiple cities',()=>{
+  const cityStores=[
+    {code:'cn:license:shanghai',name:'麦当劳中心广场餐厅',city:'上海',province_code:'310000'},
+    {code:'cn:license:beijing',name:'麦当劳中心广场餐厅',city:'北京',province_code:'110000'}
+  ];
+  const result=OrderJournal.materialize(archive([
+    order('mcp-333333333333333333333333',{store:'麦当劳中心广场餐厅',city:'上海',province_code:'310000'}),
+    order('mcp-444444444444444444444444',{store:'麦当劳中心广场餐厅',city:'北京',province_code:'110000'})
+  ]),{cities,stores:cityStores});
+  assert.deepEqual(result.entries.map(entry=>entry.store_reference.code),['cn:license:shanghai','cn:license:beijing']);
 });
 
 test('does not modify synthetic demo archives', () => {

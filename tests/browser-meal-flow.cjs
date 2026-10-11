@@ -66,6 +66,14 @@ async function main(){
     await page.locator('#save-entry').click();await page.locator('#entry-dialog').waitFor({state:'hidden'});
     assert.equal(await page.locator('#journal-grid .entry-card').count(),1);
     const foods=await page.locator('#journal-grid .food-tags span').allTextContents();assert.deepEqual(foods,['薯条','鲜萃咖啡']);
+    await page.locator('#journal-grid .entry-card').getByRole('button',{name:'分享这一页',exact:true}).click();
+    assert.equal(await page.locator('#share-sticker-option').isVisible(),true);
+    assert.equal(await page.locator('#share-stickers [data-sticker="food"]').getAttribute('aria-pressed'),'true','the selected menu foods should appear as matching card stickers');
+    await page.locator('#share-stickers [data-sticker="heart"]').click();
+    await page.locator('#share-custom-sticker-text').fill('第一次来');
+    await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
+    await page.screenshot({path:path.join(output,'share-stickers-mobile.png'),fullPage:false});
+    await page.locator('[data-close="share-dialog"]').click();
     await page.reload();assert.equal(await page.locator('#first-meal').isVisible(),false);
     await page.locator('#add-top').click();
     await page.locator('#meal-food-custom summary').click();await page.locator('[name=foods]').fill('特别餐品，鲜萃咖啡');

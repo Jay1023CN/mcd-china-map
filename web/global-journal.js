@@ -500,7 +500,7 @@
     renderWishlist();
     syncCatalogControls();renderStoreCatalog();
     $('month-list').replaceChildren(...collections.months.map(m => {
-      const chip = node('button', m.month, 'month-chip');chip.type='button';chip.append(node('b', m.count + ' 页'),node('span','翻开小报 ↗'));
+      const chip = node('button', undefined, 'month-chip');chip.type='button';chip.append(node('span',m.month.replace('-', '年')+'月','month-date'),node('b', m.count + ' 页'),node('span','翻开这月的小报 ↗'));
       chip.addEventListener('click',()=>openCollection('month',m.month));return chip;
     }));
     if (!s.months.length) $('month-list').append(node('p', '写下第一条本人打卡，这里就会留下月份记录。', 'map-note'));
@@ -691,7 +691,17 @@
   }
   function foodTags(entry) {
     const tags = node('div', undefined, 'food-tags');
-    for (const food of entry.foods) tags.append(node('span', food));
+    for (const value of entry.foods) {
+      const food=typeof value==='string'?value:value?.name || value?.title || '';
+      const tag=node('div',undefined,'food-tag');
+      const item=mealMenu.match(food);
+      const imageUrl=item?.image_data_url || item?.image_url;
+      if(imageUrl){
+        const image=node('img');image.src=imageUrl;image.alt='';image.loading='lazy';image.referrerPolicy='no-referrer';
+        image.addEventListener('error',()=>{image.hidden=true;});tag.append(image);
+      }
+      tag.append(node('span',food,'food-tag-label'));tags.append(tag);
+    }
     if (entry.collaboration) tags.append(node('span', '联名 · ' + entry.collaboration));
     return tags;
   }
@@ -794,7 +804,7 @@
     const entries=window.JournalSearch.filter(s.entries,query);
     $('clear-journal-query').hidden=!query;
     $('journal-search-status').textContent=query?`找到 ${entries.length} 页 / 当前筛选 ${s.entries.length} 页`:'';
-    for (const entry of entries) {
+    const renderEntryCard=entry=>{
       const card = node('article', undefined, 'entry-card');
       card.append(node('span', entry.date, 'date'));
       if (entry.photo || entry.default_photo) card.append(photoNode(entry));
@@ -806,7 +816,33 @@
       const details = node('button', '翻开'); details.type = 'button'; details.addEventListener('click', () => openDetail(entry));
       const share=node('button','分享这一页');share.type='button';share.addEventListener('click',()=>openShare(entry));
       const remove = node('button', '删除', 'delete'); remove.type = 'button'; remove.addEventListener('click', () => removeEntry(entry));
-      actions.append(edit, details, share, remove); card.append(actions); grid.append(card);
+      actions.append(edit, details, share, remove); card.append(actions); return card;
+    };
+    const manualEntries=entries.filter(entry=>entry.origin!=='mcp');
+    for (const entry of manualEntries) grid.append(renderEntryCard(entry));
+    const identity=value=>String(value||'').normalize('NFKC').trim().replace(/市$/,'').toLocaleLowerCase('zh-CN');
+    const groups=new Map();
+    for(const entry of entries.filter(item=>item.origin==='mcp')){
+      const store=catalogStoreForEntry(entry);
+      const code=entry.store_reference?.source==='official_catalog'?entry.store_reference.code:store?.code;
+      const city=identity(entry.city),storeName=identity(entry.store);
+      const key=code && !code.startsWith('catalog:')?
+        [entry.country_code,entry.province_code,code].join('\u0000'):
+        city?[entry.country_code,entry.province_code,city,storeName].join('\u0000'):
+        'unlocated\u0000'+entry.id;
+      if(!groups.has(key))groups.set(key,{store:entry.store,city:entry.city,entries:[]});
+      groups.get(key).entries.push(entry);
+    }
+    const orderedGroups=[...groups.values()].map(group=>({...group,entries:group.entries.sort((a,b)=>b.date.localeCompare(a.date)||a.id.localeCompare(b.id))}));
+    orderedGroups.sort((a,b)=>b.entries[0].date.localeCompare(a.entries[0].date)||a.store.localeCompare(b.store,'zh-CN'));
+    for(const group of orderedGroups){
+      const section=node('section',undefined,'order-store-group');
+      const heading=node('div',undefined,'order-store-heading');
+      heading.append(node('h3',group.store),node('span',`${group.entries.length} 笔订单`));
+      if(group.city)heading.append(node('small',group.city));
+      const pages=node('div',undefined,'order-store-pages');
+      group.entries.forEach(entry=>pages.append(renderEntryCard(entry)));
+      section.append(heading,pages);grid.append(section);
     }
     if (!entries.length) grid.append(query?empty('暂时没找到这一页','换个餐品、门店或城市关键词，或清除搜索再翻翻。'):empty('这一页还是空白', '点击“新增打卡”记录一餐，或同步麦当劳订单自动生成手账。'));
   }
@@ -1021,7 +1057,12 @@
     const frequent=mealMenu.personalFrequency(archive).slice(0,6).map(item=>item.name);
     const choices=frequent.length?frequent:mealFoodChoices;
     $('meal-foods').replaceChildren(...choices.map(food=>{
-      const button=node('button',food,'meal-chip');button.type='button';button.setAttribute('aria-pressed',String(selected.has(food)));
+      const item=mealMenu.match(food),button=node('button',undefined,'meal-chip meal-food-choice');button.type='button';button.setAttribute('aria-pressed',String(selected.has(food)));
+      if(item?.image_data_url || item?.image_url){
+        const image=node('img');image.src=item.image_data_url || item.image_url;image.alt='';image.loading='lazy';image.referrerPolicy='no-referrer';
+        image.addEventListener('error',()=>{image.hidden=true;button.prepend(node('span','餐品','meal-food-placeholder'));});button.append(image);
+      }else button.append(node('span','我的餐品','meal-food-placeholder'));
+      button.append(node('strong',food));
       button.addEventListener('click',()=>toggleMealFood(food));return button;
     }));
     $('meal-chosen-foods').replaceChildren(...[...selected].map(food=>{
@@ -1053,10 +1094,20 @@
   $('meal-menu-done').addEventListener('click',()=>{$('meal-menu-dialog').close();$('meal-menu-open').focus({preventScroll:true});});
   $('meal-menu-search').addEventListener('input',renderMealMenu);$('meal-menu-sort').addEventListener('change',renderMealMenu);
   function mealYesterday(){const d=new Date(today()+'T12:00:00');d.setDate(d.getDate()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
-  function updateMealDate(){for(const [id,value] of [['meal-today',today()],['meal-yesterday',mealYesterday()]])$(id).setAttribute('aria-pressed',String(field('date').value===value));}
-  $('meal-today').addEventListener('click',()=>{field('date').value=today();updateMealDate();});
-  $('meal-yesterday').addEventListener('click',()=>{field('date').value=mealYesterday();updateMealDate();});
-  field('date').addEventListener('change',updateMealDate);
+  const mealCalendar=window.MealCalendar.create({container:$('meal-calendar'),value:field('date').value || today(),
+    onSelect:value=>{field('date').value=value;updateMealDate();},
+    onClose:()=>field('date').setAttribute('aria-expanded','false')});
+  function updateMealDate(){
+    const value=field('date').value,valid=window.MealCalendar.parseDate(value),notFuture=valid && value<=today();
+    field('date').setCustomValidity(notFuture?'':'请选择不晚于今天的有效日期。');
+    if(notFuture)mealCalendar.setValue(value);
+    for(const [id,day] of [['meal-today',today()],['meal-yesterday',mealYesterday()]])$(id).setAttribute('aria-pressed',String(value===day));
+  }
+  function chooseMealDate(value){field('date').value=value;mealCalendar.setValue(value);updateMealDate();}
+  $('meal-today').addEventListener('click',()=>chooseMealDate(today()));
+  $('meal-yesterday').addEventListener('click',()=>chooseMealDate(mealYesterday()));
+  field('date').addEventListener('click',()=>{mealCalendar.open(field('date').value);field('date').setAttribute('aria-expanded','true');});
+  field('date').addEventListener('keydown',event=>{if(event.key==='Enter' || event.key==='ArrowDown'){event.preventDefault();mealCalendar.open(field('date').value);field('date').setAttribute('aria-expanded','true');}});
   field('foods').addEventListener('input',renderMealFoods);
   function mealDistance(a,b){
     const rad=Math.PI/180,lat=(b.lat-a.lat)*rad,lon=(b.lon-a.lon)*rad;
@@ -1248,7 +1299,7 @@
     $('store-search').open=true;$('store-search').scrollIntoView({behavior:'smooth',block:'start'});$('store-search-form').elements.search_city.focus();
   });
   const connectionOnboarding=window.McdConnectionOnboarding.mount();
-  let connectionAvailable=false;
+  let connectionAvailable=false,durableRememberSession=false;
   function useAccount(account) {
     if(!webSessions || !/^[a-f0-9]{32}$/.test(account || ''))return;
     activeAccount=account;
@@ -1286,10 +1337,13 @@
       if(activeAccount)useAccount(activeAccount);
       $('connection-note').textContent='连接后，订单里的门店和餐品会自动整理，省得一项项填写。';
       $('remember-field').hidden=false;
+      if(state?.capabilities && Object.prototype.hasOwnProperty.call(state.capabilities,'durable_remember_session'))durableRememberSession=state.capabilities.durable_remember_session===true;
+      $('remember-label').textContent=durableRememberSession?'记住连接，下次不用再填（30天）':'记住连接，下次不用再填';
+      $('remember-help').textContent=durableRememberSession?'连接会在此浏览器安全保存30天；你也可以随时断开。':'仅在此浏览器使用；服务更新后可能需要重新连接。';
       $('load-orders').textContent='载入已同步订单';
     }
     const connected=!!(state?.connected || state?.store_lookup);
-    $('connection-state').textContent=connected?(webSessions && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'连接麦当劳，自动整理你吃过的门店和餐品。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
+    $('connection-state').textContent=connected?(webSessions && durableRememberSession && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'连接麦当劳，自动整理你吃过的门店和餐品。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
     document.querySelector('.connection-bar').classList.toggle('connected',connected);
     $('open-connect').textContent=connected?'更换连接':'连接麦当劳';
     $('disconnect-mcd').hidden=!connected || !connectionAvailable;
@@ -1316,7 +1370,7 @@
     try {
       const response=await fetch('/api/connect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:$('connect-token').value,...(webSessions?{remember:$('connect-remember').checked}:{})})});
       const result=await response.json();if(!response.ok)throw new Error((result.error || '连接未完成，请检查连接码。').replace(/Token/gi,'连接码'));
-      showConnection({...result,capabilities:{connect:true,synced_orders:true}});
+      showConnection({...result,capabilities:{connect:true,synced_orders:true,durable_remember_session:durableRememberSession,...(result.capabilities || {})}});
       if(webSessions)try{localStorage.setItem('mcd-china-map-connection-change',String(Date.now()));}catch(error){}
       $('connect-token').value='';$('connect-dialog').close();
       if(result.order_sync===true)await syncConnectedOrders();
@@ -1392,6 +1446,7 @@
   $('export').addEventListener('click',downloadArchive);$('top-export').addEventListener('click',downloadArchive);
   let shareCanvas=null,shareFile=null,sharePreviewUrl=null,shareRevision=0;
   let shareEntry=null;
+  let shareStickers=new Set();
   const shareCollectionBack=node('button','回到小报，换张照片','quiet');shareCollectionBack.type='button';shareCollectionBack.id='share-collection-back';shareCollectionBack.hidden=true;
   $('share-description').after(shareCollectionBack);
   shareCollectionBack.addEventListener('click',()=>{$('share-dialog').close();renderCollection();$('collection-dialog').showModal();});
@@ -1440,21 +1495,40 @@
     }catch(error){}
     return null;
   }
-  let snackImagePromise;
-  function shareSnackImage() {
-    if(snackImagePromise)return snackImagePromise;
-    snackImagePromise=(async()=>{
-      let uri=data.card_sketch;
-      if(typeof uri!=='string')return null;
-      if(/^assets\/[a-f0-9]{64}\.png$/.test(uri)) {
-        const response=await fetch(new URL(uri,location.href));if(!response.ok)return null;
-        const blob=await response.blob();if(blob.type!=='image/png' || blob.size>3*1024*1024)return null;
-        uri=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});
-      }
-      if(!/^data:image\/png;base64,[A-Za-z0-9+/]+=*$/.test(uri))return null;
-      return await new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>resolve(null);image.src=uri;});
-    })().catch(()=>null);
-    return snackImagePromise;
+  function catalogStoreForEntry(entry){
+    if(!entry)return null;
+    const candidates=data.national_catalog?.stores || data.stores;
+    const referenceCode=entry.store_reference?.code;
+    if(referenceCode){const exact=candidates.find(store=>store.code===referenceCode);if(exact)return exact;}
+    const name=entry.store || entry.store_name;if(!name)return null;
+    const normalize=value=>String(value||'').normalize('NFKC').trim().replace(/市$/,'').toLocaleLowerCase('zh-CN');
+    const targetName=normalize(name),targetCity=normalize(entry.city);
+    const matches=candidates.filter(store=>{
+      const names=[store.name,store.featured_name,store.locator_name,...(store.aliases||[])].map(normalize);
+      return names.includes(targetName) && (!targetCity || normalize(store.city)===targetCity);
+    });
+    return matches.length===1?matches[0]:null;
+  }
+  function mapLocationForEntry(entry,includePlace){
+    if(!includePlace)return null;
+    const valid=location=>location&&Number.isFinite(location.lat)&&Number.isFinite(location.lon)&&
+      location.lat>=-90&&location.lat<=90&&location.lon>=-180&&location.lon<=180;
+    if(valid(entry?.location))return {lat:entry.location.lat,lon:entry.location.lon,precision:entry.location.precision || 'user'};
+    const location=catalogStoreForEntry(entry)?.location;
+    if(valid(location))return {lat:location.lat,lon:location.lon,precision:'store'};
+    const normalize=value=>String(value||'').normalize('NFKC').trim().replace(/市$/,'');
+    const city=data.cities.find(item=>normalize(item.city)===normalize(entry?.city) && (!entry?.province_code || item.province_code===entry.province_code));
+    return valid(city)?{lat:city.lat,lon:city.lon,precision:'city'}:null;
+  }
+  function shareFoodImages(entry){
+    return (Array.isArray(entry?.foods)?entry.foods:[]).map(name=>{
+      const item=mealMenu.match(typeof name==='string'?name:name?.name);
+      return item&&typeof item.image_data_url==='string'&&/^data:image\/(?:jpeg|png|webp);base64,/.test(item.image_data_url)?
+        {name:typeof name==='string'?name:name.name,dataUrl:item.image_data_url}:null;
+    }).filter(Boolean);
+  }
+  function paintShareStickers(){
+    for(const button of $('share-stickers').querySelectorAll('[data-sticker]'))button.setAttribute('aria-pressed',String(shareStickers.has(button.dataset.sticker)));
   }
   function openShare(entry=null) {
     if(!shareEntry)footprintTitle=$('share-title').value;
@@ -1469,9 +1543,11 @@
     $('share-place-label').textContent=entry?'显示城市和门店':'显示城市名称';
     $('share-cities').checked=!!entry;
     $('share-note-option').hidden=!entry;
+    $('share-sticker-option').hidden=!entry || monthly || cityAlbum;
     $('share-note-label').textContent=plan?'带上想去的理由':'带上这一页随记';
     $('share-photo-option').hidden=!entry;
     $('share-note').checked=!!entry?.note && !entry.note.startsWith('中国大陆订单线索');
+    shareStickers=new Set(shareFoodImages(entry).length?['food']:[]);paintShareStickers();$('share-custom-sticker-text').value='';
     $('share-copy-text').hidden=true;
     if(monthly){
       $('share-heading').textContent='分享这月麦麦小报';$('share-description').textContent='这个月的照片、城市和常吃的味道，装成一张小报。改个标题，再发给朋友。';
@@ -1503,17 +1579,22 @@
           if(!cityAlbum && monthPhotos.length===3)break;
         }
       }
+      const showCardPlace=$('share-cities').checked;
+      const matchedStore=catalogStoreForEntry(shareEntry);
       const canvas=sharedEntry?.kind==='city'?await window.JournalCollections.renderCity(sharedEntry,{
         title:$('share-title').value,theme:$('share-theme').value,caption:sharedEntry.caption,selectedIds:sharedEntry.selectedIds,coverId:sharedEntry.coverId,
-        includeCities:$('share-cities').checked,includeNote:$('share-note').checked,photos:cityPhotos,photoCredit:monthPhotoCredit,snackImage:await shareSnackImage()}):sharedEntry?.kind==='month'?await window.JournalCollections.renderMonth(sharedEntry,{
+        includeCities:$('share-cities').checked,includeNote:$('share-note').checked,photos:cityPhotos,photoCredit:monthPhotoCredit}):sharedEntry?.kind==='month'?await window.JournalCollections.renderMonth(sharedEntry,{
         title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked,
-        caption:sharedEntry.caption,layout:sharedEntry.layout,photos:monthPhotos,photoCredit:monthPhotoCredit,snackImage:await shareSnackImage()}):shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
-        kind:shareEntry.kind,snackImage:await shareSnackImage(),
-        photoAnnotation:$('share-cities').checked?(data.stores.find(store=>store.name===shareEntry.store)?.tags || []).find(tag=>tag.length<=10):'',
-        includePlace:$('share-cities').checked,includeNote:$('share-note').checked,photoDataUrl:await sharePhoto(shareEntry),
+        caption:sharedEntry.caption,layout:sharedEntry.layout,photos:monthPhotos,photoCredit:monthPhotoCredit}):shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
+        kind:shareEntry.kind,
+        photoAnnotation:showCardPlace?(matchedStore?.tags || []).find(tag=>tag.length<=10):'',
+        mapFeatures:data.provinces.features,mapLocation:mapLocationForEntry(shareEntry,showCardPlace),
+        provinceCode:shareEntry.province_code || matchedStore?.province_code,
+        foodImages:shareFoodImages(shareEntry),stickers:[...shareStickers],customStickerText:$('share-custom-sticker-text').value,
+        includePlace:showCardPlace,includeNote:$('share-note').checked,photoDataUrl:await sharePhoto(shareEntry),
         imageFit:$('share-photo-fit').value,photoCredit:shareEntry.photo?'本人上传照片':shareEntry.default_photo?.attribution}):
         await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
-          title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked,snackImage:await shareSnackImage()});
+          title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked});
       if(revision!==shareRevision || !$('share-dialog').open)return;
       const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('empty image');
       if(revision!==shareRevision || !$('share-dialog').open)return;
@@ -1529,6 +1610,12 @@
   $('share-title').addEventListener('input',updateShareCard);$('share-theme').addEventListener('change',updateShareCard);$('share-cities').addEventListener('change',updateShareCard);
   $('share-note').addEventListener('change',updateShareCard);
   $('share-photo-fit').addEventListener('change',updateShareCard);
+  $('share-stickers').addEventListener('click',event=>{
+    const button=event.target.closest('[data-sticker]');if(!button)return;
+    const sticker=button.dataset.sticker;shareStickers.has(sticker)?shareStickers.delete(sticker):shareStickers.add(sticker);
+    paintShareStickers();updateShareCard();
+  });
+  $('share-custom-sticker-text').addEventListener('input',updateShareCard);
   $('copy-share-image').addEventListener('click',async()=>{
     if(!shareFile)return;
     try {

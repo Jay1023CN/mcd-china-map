@@ -27,7 +27,7 @@ jobs:
       - name: Engine and offline MCP regression tests
         run: |
           $PSNativeCommandUseErrorActionPreference = $true
-          node --test tests/journal-engine.test.js tests/order-journal.test.js tests/share-card.test.js tests/journey-insights.test.js tests/wishlist-engine.test.js tests/memory-card.test.js tests/journal-search.test.js tests/archive-merge.test.js
+          node --test tests/journal-engine.test.js tests/order-journal.test.js tests/share-card.test.js tests/journey-insights.test.js tests/wishlist-engine.test.js tests/memory-card.test.js tests/journal-search.test.js tests/archive-merge.test.js tests/meal-catalog.test.cjs tests/meal-calendar.test.cjs
           node --test tests/journal-collections.test.cjs tests/store-navigation.test.cjs
           node --test tests/collection-preferences.test.cjs
           node --test tests/national-store-search.test.cjs

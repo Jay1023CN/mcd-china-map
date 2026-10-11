@@ -18,6 +18,7 @@
     }
     return index;
   }
+  function match(catalog, name) { return indexOf(catalog).get(key(name)) || null; }
   function personalFrequency(entries, catalog = []) {
     if (entries?.data_kind === 'synthetic') return [];
     entries = Array.isArray(entries) ? entries : (entries?.entries || []);
@@ -73,13 +74,15 @@
   }
   function create(catalog) {
     const categories = catalog?.categories || DEFAULT_CATEGORIES;
+    const catalogIndex=indexOf(catalog);
     return {
       categories:[{id:'frequent',label:'我的常吃'},...categories],
+      match:name=>catalogIndex.get(key(name)) || null,
       personalFrequency:entries=>personalFrequency(entries,catalog),
       filter:(category='all',options={})=>sort(filter(catalog,category,options.entries),options.sort || (category==='frequent'?'frequency':'category'),personalFrequency(options.entries,catalog),categories),
       groups:items=>groups(items,categories),
       sort:(items,mode,entries)=>sort(items,mode,personalFrequency(entries,catalog),categories)
     };
   }
-  return {DEFAULT_CATEGORIES,personalFrequency,sort,filter,groups,create};
+  return {DEFAULT_CATEGORIES,match,personalFrequency,sort,filter,groups,create};
 });

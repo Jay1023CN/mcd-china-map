@@ -127,37 +127,6 @@
     ctx.lineTo(x1 + bend, y1 + 2); ctx.lineTo(x1 + bend * 2, y2 - 1); ctx.lineTo(x2, y2); ctx.stroke();
   }
 
-  function drawFries(ctx, x, y, color, yellow) {
-    ctx.save(); ctx.strokeStyle = color; ctx.fillStyle = yellow; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.moveTo(x + 4, y + 25); ctx.lineTo(x + 8, y + 2); ctx.moveTo(x + 17, y + 25); ctx.lineTo(x + 19, y - 3); ctx.moveTo(x + 30, y + 25); ctx.lineTo(x + 35, y + 3); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x, y + 27); ctx.lineTo(x + 38, y + 28); ctx.lineTo(x + 33, y + 67); ctx.lineTo(x + 7, y + 65); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawBurger(ctx, x, y, color, yellow, red) {
-    ctx.save();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = color;
-    ctx.fillStyle = yellow;
-    ctx.beginPath();
-    ctx.ellipse(x + 55, y + 23, 53, 23, 0, Math.PI, Math.PI * 2);
-    ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x + 5, y + 25); ctx.lineTo(x + 105, y + 25); ctx.stroke();
-    ctx.fillStyle = '#72924b';
-    ctx.beginPath(); ctx.moveTo(x + 7, y + 31); ctx.quadraticCurveTo(x + 55, y + 24, x + 103, y + 33);
-    ctx.lineTo(x + 98, y + 42); ctx.quadraticCurveTo(x + 54, y + 35, x + 11, y + 43); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = red;
-    ctx.beginPath(); ctx.moveTo(x + 12, y + 45); ctx.lineTo(x + 98, y + 45); ctx.lineTo(x + 91, y + 54); ctx.lineTo(x + 18, y + 54); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = yellow;
-    ctx.beginPath(); ctx.moveTo(x + 12, y + 56); ctx.lineTo(x + 99, y + 56); ctx.quadraticCurveTo(x + 55, y + 73, x + 13, y + 58); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(x + 55, y + 72, 43, 10, 0, 0, Math.PI); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = color;
-    [[31, 10], [51, 5], [72, 11], [84, 19]].forEach(function (p) {
-      ctx.beginPath(); ctx.ellipse(x + p[0], y + p[1], 2, 1.4, -.3, 0, Math.PI * 2); ctx.fill();
-    });
-    ctx.restore();
-  }
-
   function drawPaper(ctx, paper) {
     ctx.fillStyle = paper; ctx.fillRect(0, 0, WIDTH, HEIGHT);
     ctx.fillStyle = 'rgba(116, 91, 54, .035)';
@@ -316,12 +285,6 @@
       handLine(ctx, x, 1084, x + 116, 1082, index === 1 ? palette.blue : palette.gold, 3);
     });
 
-    if (options.snackImage && options.snackImage.naturalWidth > 0 && options.snackImage.naturalHeight > 0) {
-      ctx.drawImage(options.snackImage, 790, 1235, 220, 220 * options.snackImage.naturalHeight / options.snackImage.naturalWidth);
-    } else {
-      drawBurger(ctx, 794, 947, palette.ink, palette.gold, palette.visited);
-      drawFries(ctx, 944, 963, palette.ink, palette.gold);
-    }
     var tagY = 1144;
     ctx.fillStyle = palette.ink; ctx.font = '400 27px ' + FONT;
     ctx.fillText(facts.includeCities ? '走过的城市' : '点亮的省份与地区', 76, tagY);

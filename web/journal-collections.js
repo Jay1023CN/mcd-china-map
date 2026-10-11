@@ -183,10 +183,6 @@
       try { if (document.fonts.load) await document.fonts.load('400 32px "LXGW WenKai"'); await document.fonts.ready; } catch (_) {}
     }
   }
-  function drawSnack(ctx, image, x, y, width, height) {
-    var w = image && Number(image.naturalWidth || image.width), h = image && Number(image.naturalHeight || image.height);
-    if (w > 0 && h > 0) { var scale = Math.min(width / w, height / h); ctx.drawImage(image, x, y, w * scale, h * scale); }
-  }
   async function renderCity(collection, options) {
     options = options && typeof options === 'object' ? options : {};
     await waitForFonts();
@@ -247,7 +243,6 @@
     });
     var footerY = height - 125;
     ctx.fillStyle = muted; ctx.font = '400 26px ' + FONT; ctx.fillText('用麦当劳，画出自己的中国足迹。', 70, footerY + 25);
-    drawSnack(ctx, options.snackImage, 836, footerY - 30, 174, 96);
     line(ctx, 68, height - 57, 944, '#ddcdb1');
     ctx.fillStyle = muted; ctx.font = '400 17px ' + FONT;
     ctx.fillText(ellipsis(ctx, clean(options.photoCredit, 160) || '来自我的照片手账 · 麦麦中国地图', 940), 70, height - 22);
@@ -323,10 +318,6 @@
         ctx.fillText(ellipsis(ctx, text + (index === 1 && cityLines.length > 2 ? '…' : ''), 704), 80, 1264 + index * 35);
       });
     } else { ctx.fillText('用麦当劳，画出自己的中国足迹。', 80, 1270); }
-    var snack = options.snackImage, snackW = snack && Number(snack.naturalWidth || snack.width), snackH = snack && Number(snack.naturalHeight || snack.height);
-    if (snackW > 0 && snackH > 0) {
-      var scale = Math.min(176 / snackW, 136 / snackH); ctx.drawImage(snack, 826, 1224, snackW * scale, snackH * scale);
-    }
     line(ctx, 78, 1356, 924, '#ddcdb1');
     ctx.fillStyle = muted; ctx.font = '400 17px ' + FONT;
     var credit = clean(options.photoCredit, 160);

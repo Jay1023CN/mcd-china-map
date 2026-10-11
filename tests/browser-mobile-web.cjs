@@ -198,7 +198,7 @@ async function addMobileEntry(page) {
   await page.locator('#add-top').tap();
   const dialog=page.locator('#entry-dialog');
   await dialog.waitFor({state:'visible'});
-  await page.locator('[name=date]').fill(todayIso());
+  assert.equal(await page.locator('[name=date]').inputValue(),todayIso(),'new check-ins should start on today');
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=province_code]').selectOption('510000');
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);

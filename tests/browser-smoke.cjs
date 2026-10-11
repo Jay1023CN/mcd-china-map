@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const {selectMealDate}=require('./browser-meal-date.cjs');
 const root = path.resolve(__dirname, '..');
 const url = process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
 const output = path.join(root, 'test-results');
@@ -36,7 +37,8 @@ async function main() {
     await page.goto(url);
     assert.equal(await page.locator('#count-visits').innerText(), '0');
     await page.getByRole('button', {name: '记一餐', exact: true}).click();
-    await page.locator('[name=date]').fill('2026-10-08');
+    const today = await page.evaluate(()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()));
+    await selectMealDate(page,today);
     await page.locator('#meal-city-details').evaluate(el=>el.open=true);
     await page.locator('[name=province_code]').selectOption('310000');
     await page.locator('#meal-city-details').evaluate(el=>el.open=true);

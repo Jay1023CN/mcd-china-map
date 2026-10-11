@@ -42,7 +42,7 @@ jobs:
         run: |
           npm install --no-save --package-lock=false playwright@1.62.1
           npx playwright install --with-deps chromium webkit
-          node --test tests/meal-catalog.test.cjs
+          node --test tests/meal-catalog.test.cjs tests/meal-calendar.test.cjs
           node tests/test_connection_onboarding.cjs
           node tests/browser-connection-onboarding.cjs
           node tests/browser-meal-flow.cjs

@@ -75,45 +75,6 @@
     ctx.restore();
   }
 
-  function drawSnackDoodles(ctx, x, y, scale, palette) {
-    var s = scale;
-    ctx.save();
-    ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = 2.5;
-    // Original pen paths: bun, two patties, cheese, lettuce and heel.
-    ctx.fillStyle = '#e8a04f'; ctx.strokeStyle = palette.ink;
-    ctx.beginPath(); ctx.moveTo(x, y + 65*s); ctx.bezierCurveTo(x + 2*s, y + 18*s, x + 68*s, y + 8*s, x + 82*s, y + 62*s); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#f6d58b';
-    for (var seed = 0; seed < 5; seed++) { ctx.beginPath(); ctx.ellipse(x + (18 + seed*11)*s, y + (31 + (seed%2)*5)*s, 1.6*s, 2.3*s, -.4, 0, Math.PI*2); ctx.fill(); }
-    ctx.fillStyle = '#5b3323';
-    ctx.beginPath(); ctx.moveTo(x + 2*s,y + 66*s); ctx.bezierCurveTo(x + 15*s,y + 57*s,x + 67*s,y + 57*s,x + 81*s,y + 67*s); ctx.lineTo(x + 78*s,y + 75*s); ctx.bezierCurveTo(x + 50*s,y + 81*s,x + 20*s,y + 79*s,x + 3*s,y + 74*s); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#f5ca36';
-    ctx.beginPath(); ctx.moveTo(x + 4*s,y + 75*s); ctx.lineTo(x + 78*s,y + 74*s); ctx.lineTo(x + 70*s,y + 87*s); ctx.lineTo(x + 31*s,y + 84*s); ctx.lineTo(x + 19*s,y + 92*s); ctx.lineTo(x + 18*s,y + 82*s); ctx.lineTo(x + 6*s,y + 83*s); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#4f7b3e';
-    ctx.beginPath(); ctx.moveTo(x + 4*s,y + 86*s); ctx.bezierCurveTo(x + 15*s,y + 79*s,x + 18*s,y + 94*s,x + 29*s,y + 86*s); ctx.bezierCurveTo(x + 41*s,y + 79*s,x + 48*s,y + 96*s,x + 57*s,y + 86*s); ctx.bezierCurveTo(x + 65*s,y + 79*s,x + 72*s,y + 91*s,x + 79*s,y + 84*s); ctx.lineTo(x + 77*s,y + 96*s); ctx.lineTo(x + 7*s,y + 98*s); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#5b3323';
-    ctx.beginPath(); ctx.moveTo(x + 7*s,y + 98*s); ctx.bezierCurveTo(x + 21*s,y + 91*s,x + 59*s,y + 91*s,x + 78*s,y + 96*s); ctx.lineTo(x + 74*s,y + 106*s); ctx.lineTo(x + 12*s,y + 106*s); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#e8a04f';
-    ctx.beginPath(); ctx.moveTo(x + 12*s,y + 108*s); ctx.bezierCurveTo(x + 25*s,y + 100*s,x + 59*s,y + 100*s,x + 74*s,y + 107*s); ctx.bezierCurveTo(x + 68*s,y + 125*s,x + 24*s,y + 128*s,x + 12*s,y + 108*s); ctx.closePath(); ctx.fill(); ctx.stroke();
-    // Fries and their packet.
-    ctx.strokeStyle = palette.ink; ctx.fillStyle = '#f4cb3b';
-    ctx.beginPath(); ctx.moveTo(x + 102*s,y + 57*s); ctx.lineTo(x + 101*s,y + 11*s); ctx.moveTo(x + 114*s,y + 58*s); ctx.lineTo(x + 117*s,y + 3*s); ctx.moveTo(x + 126*s,y + 56*s); ctx.lineTo(x + 131*s,y + 15*s); ctx.moveTo(x + 139*s,y + 58*s); ctx.lineTo(x + 144*s,y + 9*s); ctx.stroke();
-    ctx.fillStyle = '#d83c2c';
-    ctx.beginPath(); ctx.moveTo(x + 98*s,y + 52*s); ctx.lineTo(x + 150*s,y + 52*s); ctx.lineTo(x + 140*s,y + 118*s); ctx.lineTo(x + 108*s,y + 118*s); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.strokeStyle = '#f4cb3b'; ctx.lineWidth = 3*s;
-    ctx.beginPath(); ctx.moveTo(x + 119*s,y + 76*s); ctx.bezierCurveTo(x + 110*s,y + 83*s,x + 126*s,y + 91*s,x + 119*s,y + 100*s); ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawSnack(ctx, options, x, y, palette) {
-    var image = options && options.snackImage;
-    var imageW = image && Number(image.naturalWidth || image.width);
-    var imageH = image && Number(image.naturalHeight || image.height);
-    if (image && imageW > 0 && imageH > 0) {
-      var width = 280;
-      ctx.drawImage(image, x, y, width, width * imageH / imageW);
-    } else drawSnackDoodles(ctx, x, y, 1.55, palette);
-  }
-
   function drawPaper(ctx, palette) {
     ctx.fillStyle = palette.paper;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
@@ -191,17 +152,99 @@
     return lines;
   }
 
-  function drawFallback(ctx, x, y, w, h, palette) {
-    ctx.fillStyle = '#f6efdf'; ctx.fillRect(x, y, w, h);
-    ctx.strokeStyle = palette.line; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(x + w*.5, y + h*.29, 13, 0, Math.PI*2); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x + w*.5, y + h*.31); ctx.lineTo(x + w*.5, y + h*.39); ctx.stroke();
-    ctx.fillStyle = palette.ink; ctx.font = '400 28px ' + TITLE_FONT;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('在地图上，记下一站喜欢', x + w * .69, y + h * .43, w * .52);
-    ctx.fillStyle = palette.muted; ctx.font = '400 20px ' + FONT;
-    ctx.fillText('还没有照片 · 留一格给旅程', x + w * .69, y + h * .54, w * .52);
-    ctx.textAlign = 'left';
+  function drawChinaMap(ctx, x, y, w, h, palette, options, facts) {
+    ctx.fillStyle = '#f4efe4'; ctx.fillRect(x, y, w, h);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(151,127,89,.12)'; ctx.lineWidth = 1;
+    for (var gx=0; gx<6; gx++) {
+      ctx.beginPath(); ctx.moveTo(x + gx*w/5, y + 18); ctx.lineTo(x + gx*w/5, y + h - 18); ctx.stroke();
+    }
+    for (var gy=0; gy<4; gy++) {
+      ctx.beginPath(); ctx.moveTo(x + 18, y + gy*(h-1)/3); ctx.lineTo(x + w - 18, y + gy*(h-1)/3); ctx.stroke();
+    }
+    var map = {x:x + w*.12, y:y + h*.12, w:w*.62, h:h*.75};
+    var bounds = {minLon:73,maxLon:135,minLat:17,maxLat:54};
+    var point = function (coordinate) {
+      return [map.x + (coordinate[0]-bounds.minLon)/(bounds.maxLon-bounds.minLon)*map.w,
+        map.y + (bounds.maxLat-coordinate[1])/(bounds.maxLat-bounds.minLat)*map.h];
+    };
+    var features = Array.isArray(options.mapFeatures) ? options.mapFeatures : [];
+    if (features.length) {
+      features.forEach(function (feature) {
+        var geometry = feature && feature.geometry;
+        if (!geometry || !Array.isArray(geometry.coordinates)) return;
+        var polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+        var selected = options.includePlace === true && String(feature.properties && feature.properties.adcode) === String(options.provinceCode || facts.province_code || '');
+        ctx.beginPath();
+        polygons.forEach(function (polygon) {
+          var ring = polygon && polygon[0];
+          if (!Array.isArray(ring) || ring.length < 3) return;
+          var step = Math.max(1, Math.ceil(ring.length/180));
+          for (var i=0; i<ring.length; i+=step) {
+            var xy = point(ring[i]);
+            if (i===0) ctx.moveTo(xy[0],xy[1]); else ctx.lineTo(xy[0],xy[1]);
+          }
+          var last = point(ring[ring.length-1]); ctx.lineTo(last[0],last[1]); ctx.closePath();
+        });
+        ctx.fillStyle = selected ? '#f0d88a' : '#e2d2b5';
+        ctx.strokeStyle = selected ? '#a64e38' : '#91795b';
+        ctx.lineWidth = selected ? 2.6 : 1.35;
+        ctx.fill('evenodd'); ctx.stroke();
+      });
+    } else {
+      // A small offline silhouette keeps the map visible if boundary data is unavailable.
+      var outline = [[.10,.22],[.18,.13],[.31,.16],[.39,.09],[.52,.17],[.66,.15],[.73,.25],[.87,.28],[.83,.39],[.91,.48],[.79,.54],[.77,.68],[.67,.67],[.59,.79],[.48,.74],[.40,.85],[.32,.73],[.22,.76],[.18,.63],[.08,.56],[.14,.44],[.05,.34]];
+      ctx.beginPath();
+      outline.forEach(function (p,index) { var px=map.x+p[0]*map.w,py=map.y+p[1]*map.h;if(index===0)ctx.moveTo(px,py);else ctx.lineTo(px,py); });
+      ctx.closePath();ctx.fillStyle='#e2d2b5';ctx.strokeStyle='#91795b';ctx.lineWidth=1.7;ctx.fill();ctx.stroke();
+    }
+    var location = options.includePlace === true && options.mapLocation;
+    if (location && Number.isFinite(location.lon) && Number.isFinite(location.lat) &&
+        location.lon >= bounds.minLon && location.lon <= bounds.maxLon && location.lat >= bounds.minLat && location.lat <= bounds.maxLat) {
+      var marker = point([location.lon,location.lat]);
+      ctx.fillStyle='rgba(181,53,38,.16)';ctx.beginPath();ctx.arc(marker[0],marker[1],19,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#bd3829';ctx.beginPath();ctx.arc(marker[0],marker[1],10,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#fffaf0';ctx.beginPath();ctx.arc(marker[0],marker[1],3,0,Math.PI*2);ctx.fill();
+    }
+    ctx.fillStyle=palette.red;ctx.font='600 15px '+FONT;ctx.textAlign='left';ctx.textBaseline='alphabetic';
+    ctx.fillText('MY CHINA MAP',x+w*.79,y+31);
+    ctx.fillStyle=palette.ink;ctx.font='500 30px '+TITLE_FONT;
+    var mapLabel=options.includePlace===true && facts.city ? facts.city : (options.kind==='plan'?'下一站':'我的足迹');
+    wrapText(ctx,mapLabel,w*.19).slice(0,2).forEach(function(line,index){ctx.fillText(line,x+w*.79,y+78+index*35);});
+    ctx.fillStyle=palette.muted;ctx.font='400 22px '+FONT;
+    ctx.fillText(location?(location.precision==='city'?'城市参考点位':'此站已标记'):'走过的地方',x+w*.79,y+151,w*.19);
+    ctx.textAlign='left';ctx.restore();
+  }
+
+  function drawStar(ctx, x, y, radius, color) {
+    ctx.beginPath();
+    for (var i=0;i<10;i++) {
+      var angle=-Math.PI/2+i*Math.PI/5, size=i%2?radius*.42:radius;
+      var px=x+Math.cos(angle)*size,py=y+Math.sin(angle)*size;
+      if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+    }
+    ctx.closePath();ctx.fillStyle=color;ctx.fill();
+  }
+
+  function drawHeart(ctx, x, y, size, color) {
+    ctx.beginPath();ctx.moveTo(x,y+size*.35);
+    ctx.bezierCurveTo(x-size*.75,y-size*.15,x-size*.5,y-size*.75,x,y-size*.28);
+    ctx.bezierCurveTo(x+size*.5,y-size*.75,x+size*.75,y-size*.15,x,y+size*.35);
+    ctx.closePath();ctx.fillStyle=color;ctx.fill();
+  }
+
+  function drawStickers(ctx, options, palette) {
+    var stickers=Array.isArray(options.stickers)?options.stickers:[];
+    if(stickers.includes('sparkles')){drawStar(ctx,974,335,17,palette.gold);drawStar(ctx,1011,359,9,palette.red);}
+    if(stickers.includes('heart'))drawHeart(ctx,72,335,27,palette.red);
+    if(stickers.includes('stamp'))drawStamp(ctx,788,308,'这一餐记着了',palette);
+    var custom=clean(options.customStickerText,10);
+    if(custom){
+      ctx.save();ctx.translate(922,329);ctx.rotate(-.035);ctx.strokeStyle=palette.red;ctx.fillStyle=palette.red;ctx.lineWidth=2;
+      ctx.strokeRect(-104,-21,208,42);ctx.font='500 22px '+TITLE_FONT;ctx.textAlign='center';ctx.textBaseline='middle';
+      var text=custom;while(Array.from(text).length>2&&ctx.measureText(text).width>184)text=Array.from(text).slice(0,-1).join('');
+      ctx.fillText(text,0,1,184);ctx.restore();
+    }
   }
 
   function drawPhotoCover(ctx, image, x, y, w, h, fit) {
@@ -281,6 +324,11 @@
     }
   }
 
+  function cardDate(value) {
+    var match=/^(\d{4})-(\d{2})-(\d{2})$/.exec(value||'');
+    return match?Number(match[1])+'年'+Number(match[2])+'月'+Number(match[3])+'日':value;
+  }
+
   function drawPlace(ctx, facts, palette, y, profile) {
     if (!facts.city && !facts.store) return y;
     ctx.fillStyle = palette.red; ctx.lineWidth = 3; ctx.strokeStyle = palette.red;
@@ -310,16 +358,57 @@
     return contentY + 8;
   }
 
+  function drawFoodGrid(ctx, foods, images, palette, startY, options) {
+    var x=104,width=872,gap=16,columns=2,cellWidth=(width-gap)/columns;
+    ctx.fillStyle=palette.muted;ctx.font='500 22px '+FONT;ctx.textBaseline='alphabetic';
+    ctx.fillText('这顿吃了',x,startY+23);
+    ctx.fillStyle=palette.gold;ctx.beginPath();ctx.arc(x+105,startY+16,4,0,Math.PI*2);ctx.fill();
+    var y=startY+38,foodSticker=Array.isArray(options.stickers)&&options.stickers.includes('food');
+    ctx.font='500 '+(foods.length>3?28:30)+'px '+TITLE_FONT;
+    for(var row=0;row<Math.ceil(foods.length/columns);row++){
+      var rowItems=foods.slice(row*columns,row*columns+columns),prepared=rowItems.map(function(name){
+        var textWidth=cellWidth-88,lines=wrapText(ctx,name,textWidth);
+        return {name:name,lines:lines,image:foodSticker?images.get(name):null};
+      });
+      var cellHeight=Math.max(68,...prepared.map(function(item){return 16+item.lines.length*36;}));
+      prepared.forEach(function(item,column){
+        var cx=x+column*(cellWidth+gap);
+        ctx.fillStyle='#fffdf8';roundedRect(ctx,cx,y,cellWidth,cellHeight,9);ctx.fill();
+        ctx.strokeStyle=palette.line;ctx.lineWidth=1.2;ctx.stroke();
+        var textX=cx+16;
+        if(item.image){
+          var iw=Number(item.image.naturalWidth||item.image.width),ih=Number(item.image.naturalHeight||item.image.height);
+          if(iw>0&&ih>0){
+            var side=48,scale=Math.max(side/iw,side/ih),sw=side/scale,sh=side/scale;
+            ctx.save();ctx.beginPath();ctx.rect(cx+10,y+(cellHeight-side)/2,side,side);ctx.clip();
+            ctx.drawImage(item.image,(iw-sw)/2,(ih-sh)/2,sw,sh,cx+10,y+(cellHeight-side)/2,side,side);ctx.restore();textX=cx+70;
+          }
+        }else{
+          ctx.fillStyle=palette.gold;ctx.beginPath();ctx.arc(cx+29,y+cellHeight/2,4,0,Math.PI*2);ctx.fill();textX=cx+46;
+        }
+        ctx.fillStyle=palette.ink;ctx.font='500 '+(foods.length>3?28:30)+'px '+TITLE_FONT;ctx.textBaseline='middle';
+        var lineHeight=36,totalHeight=item.lines.length*lineHeight,firstY=y+(cellHeight-totalHeight)/2+lineHeight/2;
+        item.lines.forEach(function(line,index){ctx.fillText(line,textX,firstY+index*lineHeight,cellWidth-(textX-cx)-14);});
+      });
+      y+=cellHeight+10;
+    }
+    return y;
+  }
+
   function contentProfile(facts, options) {
-    var contentLength = 0;
-    if (options.includePlace === true) contentLength += (facts.city || '').length + (facts.store || '').length;
-    facts.foods.forEach(function (food) { contentLength += food.length; });
-    if (options.includeNote === true) contentLength += (facts.note || '').length;
-    var photoHeight = contentLength <= 100 ? 580 : contentLength <= 200 ? 520 : contentLength <= 300 ? 470 : 420;
-    var citySize = contentLength <= 100 ? 34 : contentLength <= 200 ? 30 : contentLength <= 300 ? 26 : 24;
-    var storeSize = contentLength <= 100 ? 30 : contentLength <= 200 ? 26 : contentLength <= 300 ? 24 : 22;
-    var noteSize = contentLength <= 100 ? 34 : contentLength <= 180 ? 30 : contentLength <= 260 ? 26 : 22;
-    var foodSize = contentLength <= 100 ? 26 : contentLength <= 200 ? 24 : 22;
+    var placeLength=options.includePlace===true?(facts.city||'').length+(facts.store||'').length:0;
+    var noteLength=options.includeNote===true?(facts.note||'').length:0;
+    var contentLength=placeLength+noteLength;
+    facts.foods.forEach(function(food){contentLength+=food.length;});
+    var cityLines=options.includePlace===true&&facts.city?Math.max(1,Math.ceil(facts.city.length/24)):0;
+    var storeLines=options.includePlace===true&&facts.store?Math.max(1,Math.ceil(facts.store.length/31)):0;
+    var foodRows=Math.ceil(facts.foods.length/2),noteLines=options.includeNote===true&&facts.note?Math.min(3,Math.max(1,Math.ceil(facts.note.length/28))):0;
+    var bodySpace=(cityLines+storeLines)*40+(foodRows?48+foodRows*84:0)+noteLines*36+36;
+    var photoHeight=Math.max(330,Math.min(540,940-bodySpace));
+    var citySize=contentLength<=100?34:contentLength<=220?31:28;
+    var storeSize=contentLength<=100?30:contentLength<=220?28:26;
+    var noteSize=contentLength<=120?34:contentLength<=220?31:28;
+    var foodSize=contentLength<=160?30:28;
     return {contentLength: contentLength, photoHeight: photoHeight, citySize: citySize, storeSize: storeSize, noteSize: noteSize, foodSize: foodSize};
   }
 
@@ -337,17 +426,23 @@
     if (!ctx) throw new Error('Canvas 2D context is unavailable');
     var isRed = facts.theme === 'red';
     var palette = isRed ? {
-      base: '#d44632', baseDark: '#98271f', paper: '#fff8e9', ink: '#29231b', muted: '#806f58',
+      base: '#d44632', baseDark: '#98271f', paper: '#fff8e9', ink: '#29231b', muted: '#5f503d',
       line: '#d8c9ad', red: '#d44632', gold: '#ecc74c', illustration: '#f8f0df', tag: '#f0e5cc', tagInk: '#6d5840'
     } : {
-      base: '#f3eddb', baseDark: '#e9dfc8', paper: '#fff9eb', ink: '#29231b', muted: '#806f58',
+      base: '#f3eddb', baseDark: '#e9dfc8', paper: '#fff9eb', ink: '#29231b', muted: '#5f503d',
       line: '#d8c9ad', red: '#dc442e', gold: '#ecc74c', illustration: '#f8f0df', tag: '#f0e5cc', tagInk: '#6d5840'
     };
     drawPaper(ctx, palette);
     var profile = contentProfile(facts, options);
+    var foodImages=new Map();
+    if(Array.isArray(options.foodImages)){
+      await Promise.all(options.foodImages.filter(function(item){return item&&facts.foods.includes(clean(item.name,24))&&typeof item.dataUrl==='string';}).map(async function(item){
+        var image=await loadPhoto(item.dataUrl);if(image)foodImages.set(clean(item.name,24),image);
+      }));
+    }
 
     ctx.fillStyle = palette.ink;
-    ctx.font = '600 21px ' + TITLE_FONT;
+    ctx.font = '600 24px ' + TITLE_FONT;
     ctx.textBaseline = 'middle';
     ctx.fillText('麦麦中国地图', 76, 80);
     handLine(ctx, 76, 101, 280, 99, palette.gold, 3);
@@ -355,15 +450,16 @@
       ctx.textAlign = 'right';
       drawStamp(ctx, 829, 54, '想去 · 尚未打卡', palette);
     } else {
-      ctx.fillStyle = palette.muted; ctx.font = '400 22px ' + FONT;
+      ctx.fillStyle = palette.muted; ctx.font = '500 27px ' + FONT;
       ctx.textAlign = 'right';
-      ctx.fillText(facts.date || '一页探店记', 1004, 80);
+      ctx.fillText(cardDate(facts.date) || '一页探店记', 1004, 80);
     }
     ctx.textAlign = 'left';
     drawHandTitle(ctx, facts.title, palette);
     ctx.fillStyle = palette.muted; ctx.font = '400 22px ' + FONT;
     ctx.textBaseline = 'alphabetic';
     ctx.fillText(options.kind === 'plan' ? '把想去的那家，先放进旅程。' : '把喜欢的味道，记在路上。', 100, 355);
+    drawStickers(ctx,options,palette);
 
     var frame = {x: 80, y: 370, w: 920, h: profile.photoHeight};
     var photoBox = {x: frame.x + 9, y: frame.y + 9, w: frame.w - 18, h: frame.h - 18};
@@ -379,8 +475,8 @@
     ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
     if (photo) {
       try { drawPhotoCover(ctx, photo, -photoBox.w/2, -photoBox.h/2, photoBox.w, photoBox.h, options.imageFit); }
-      catch (_) { drawFallback(ctx, -photoBox.w/2, -photoBox.h/2, photoBox.w, photoBox.h, palette); }
-    } else drawFallback(ctx, -photoBox.w/2, -photoBox.h/2, photoBox.w, photoBox.h, palette);
+      catch (_) { drawChinaMap(ctx,-photoBox.w/2,-photoBox.h/2,photoBox.w,photoBox.h,palette,options,facts); }
+    } else drawChinaMap(ctx,-photoBox.w/2,-photoBox.h/2,photoBox.w,photoBox.h,palette,options,facts);
     ctx.strokeStyle = '#fffefa'; ctx.lineWidth = 8;
     ctx.strokeRect(-photoBox.w/2, -photoBox.h/2, photoBox.w, photoBox.h);
     ctx.restore();
@@ -398,39 +494,18 @@
 
     var nextY = frame.y + frame.h + 18;
     if (options.includePlace === true) nextY = drawPlace(ctx, facts, palette, nextY, profile);
-    if (facts.foods.length) {
-      ctx.font = '400 ' + profile.foodSize + 'px ' + TITLE_FONT;
-      var foodLines = [];
-      var currentFoodLine = '记下的味道：';
-      facts.foods.forEach(function (food) {
-        var candidate = currentFoodLine ? currentFoodLine + ' ' + food : food;
-        if (currentFoodLine && ctx.measureText(candidate).width > 820) {
-          foodLines.push(currentFoodLine);
-          currentFoodLine = food;
-        } else currentFoodLine = candidate;
-      });
-      if (currentFoodLine) foodLines.push(currentFoodLine);
-      foodLines.forEach(function (line,index) {
-        ctx.fillStyle = palette.ink;
-        ctx.fillText(line, 122, nextY + profile.foodSize + 2 + index*(profile.foodSize+2));
-        handLine(ctx, 122, nextY + profile.foodSize + 6 + index*(profile.foodSize+2), Math.min(122 + ctx.measureText(line).width, 330), nextY + profile.foodSize + 5 + index*(profile.foodSize+2), palette.gold, 1.5);
-      });
-      nextY += profile.foodSize + 2 + foodLines.length*(profile.foodSize+2);
-    }
+    if (facts.foods.length) nextY=drawFoodGrid(ctx,facts.foods,foodImages,palette,nextY,options);
     if (options.includeNote === true && facts.note) {
       ctx.fillStyle = palette.ink; ctx.font = '400 ' + profile.noteSize + 'px ' + TITLE_FONT; ctx.textBaseline = 'alphabetic';
-      var noteWidth = 560;
+      var noteWidth = 820;
       var noteLines = wrapText(ctx, facts.note, noteWidth);
-      noteLines.forEach(function (line, index) { ctx.fillText(line, 122, nextY + profile.noteSize + index * (profile.noteSize+3)); });
+      if(noteLines.length>3)noteLines=noteLines.slice(0,2).concat('…');
+      noteLines.forEach(function (line, index) { ctx.fillText(line, 122, nextY + profile.noteSize + index * (profile.noteSize+9)); });
       var finalNoteLine = noteLines[noteLines.length - 1] || '';
       var noteEndX = Math.min(122 + ctx.measureText(finalNoteLine).width + 5, noteWidth + 122);
-      var noteEndY = nextY + profile.noteSize + (noteLines.length - 1) * (profile.noteSize+3) + 5;
-      if (noteEndX < 712) handLine(ctx, noteEndX, noteEndY, 713, noteEndY - 3, '#66b8c7', 2);
-      ctx.save(); drawSnack(ctx, options, 715, nextY + 4, palette); ctx.restore();
-      nextY += profile.noteSize + noteLines.length*(profile.noteSize+3);
-    } else {
-      var doodleYEmpty = Math.min(Math.max(nextY + 10, 1080), 1130);
-      ctx.save(); drawSnack(ctx, options, 715, doodleYEmpty, palette); ctx.restore();
+      var noteEndY = nextY + profile.noteSize + (noteLines.length - 1) * (profile.noteSize+9) + 5;
+      if (noteEndX < 940) handLine(ctx, noteEndX, noteEndY, Math.min(noteEndX+90,940), noteEndY-3, palette.gold, 2);
+      nextY += profile.noteSize + noteLines.length*(profile.noteSize+9);
     }
 
     var photoCredit = photo ? clean(options.photoCredit,70) : '';
