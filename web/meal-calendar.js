@@ -111,9 +111,9 @@
       title.id=titleId;title.setAttribute('aria-live','polite');
       const next=button('›','meal-calendar-nav',()=>changeMonth(1,'next'));
       next.dataset.calendarControl='next';next.setAttribute('aria-label','下一个月');
-      next.disabled=(view.year===9999 && view.month===12) || view.year>currentParts.year || view.year===currentParts.year && view.month>=currentParts.month;
+      next.disabled=(view.year===9999 && view.month===12) || (!options.allowFuture && (view.year>currentParts.year || view.year===currentParts.year && view.month>=currentParts.month));
       header.append(previous,title,next);container.append(header);
-      const grid=element('div','meal-calendar-grid');grid.setAttribute('role','grid');grid.setAttribute('aria-label',`${view.year}年${view.month}月，选择打卡日期`);
+      const grid=element('div','meal-calendar-grid');grid.setAttribute('role','grid');grid.setAttribute('aria-label',`${view.year}年${view.month}月，选择${options.dateLabel || '打卡'}日期`);
       const row=()=>{const result=element('div','meal-calendar-week');result.setAttribute('role','row');result.style.display='grid';result.style.gridTemplateColumns='repeat(7,minmax(0,1fr))';return result;};
       const headings=row();
       for(const label of WEEKDAYS){const cell=element('span','meal-calendar-weekday',label);cell.setAttribute('role','columnheader');headings.append(cell);}
@@ -127,7 +127,7 @@
             holder.setAttribute('aria-selected',String(cell.date===selected));
             const day=button(String(cell.day),'meal-calendar-day',()=>select(cell.date));
             day.dataset.calendarDate=cell.date;day.tabIndex=cell.date===active?0:-1;
-            day.disabled=cell.date>current;
+            day.disabled=!options.allowFuture && cell.date>current;
             day.style.width='100%';
             if(cell.date===selected)day.classList.add('is-selected');
             if(cell.date===current){day.classList.add('is-today');day.setAttribute('aria-current','date');}
@@ -166,7 +166,7 @@
         else if(event.key==='Enter' || event.key===' '){event.preventDefault();select(day.dataset.calendarDate);return;}
         else return;
       } catch(error){if(!(error instanceof RangeError))throw error;event.preventDefault();return;}
-      if(next>currentDay()){event.preventDefault();return;}
+      if(!options.allowFuture && next>currentDay()){event.preventDefault();return;}
       event.preventDefault();active=next;render(true);
     }
     container.addEventListener('keydown',keydown);container.hidden=true;

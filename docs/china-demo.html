@@ -498,16 +498,19 @@ header.top{padding-top:16px;padding-bottom:13px;border-color:#dddcd3}
 .wishlist-planner{margin:0 0 25px;padding:16px 0 20px;border-top:1px solid #e0d5c1;border-bottom:1px solid #e0d5c1}
 .wishlist-summary{font:18px/1.6 'LXGW WenKai',var(--sans);color:#674333;margin:0 0 15px;overflow-wrap:anywhere}
 .wishlist-planner-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.5fr);gap:14px}
-.wishlist-planner-fields label,.wishlist-card-planning label{display:grid;gap:7px;font:12px/1.5 var(--sans);color:#675d4e;min-width:0}
-.wishlist-planner-fields input,.wishlist-planner-fields select,.wishlist-card-planning input{width:100%;min-width:0;max-width:100%;box-sizing:border-box;min-height:44px;border:1px solid #d7c9b2;border-radius:5px;padding:9px 10px;background:#fffaf0;color:#30291f;font:15px var(--sans)}
+.wishlist-planner-fields label,.wishlist-date-field{display:grid;gap:7px;font:12px/1.5 var(--sans);color:#675d4e;min-width:0}
+.wishlist-planner-fields input,.wishlist-planner-fields select{width:100%;min-width:0;max-width:100%;box-sizing:border-box;min-height:44px;border:1px solid #d7c9b2;border-radius:5px;padding:9px 10px;background:#fffaf0;color:#30291f;font:15px var(--sans)}
 .wishlist-planner-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.wishlist-planner-actions button{min-height:44px;border-radius:5px;font-size:13px;padding:9px 13px}
 .wishlist-planner-actions button:disabled{opacity:.5;cursor:default}.wishlist-pick-status:empty{display:none}.wishlist-pick-status{font:18px/1.7 'LXGW WenKai',var(--sans);color:#a53f30;margin:14px 0 0}
-.wishlist-card-planning{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:10px;margin:12px 0}
-.wishlist-priority{min-height:44px;font-size:13px;padding:8px 5px;text-align:left;border:0}.wishlist-priority[aria-pressed=true]{color:#a93f2f;background:#f4e7cf}
-.wishlist-date-hint{font:16px/1.6 'LXGW WenKai',var(--sans);color:#a53f30;margin:0 0 10px}
+.wishlist-card-planning{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:13px;margin:18px 0 12px}
+.wishlist-priority{justify-self:center;min-height:42px;padding:8px 16px;border:1px solid #e2d5bf;border-radius:7px;background:#fffdf8;color:#695940;font-size:13px;text-align:center}.wishlist-priority[aria-pressed=true]{color:#a93f2f;background:#f4e7cf;border-color:#e5c9a4}
+.wishlist-date-field{width:100%;gap:7px}.wishlist-date-caption{color:#675d4e}.wishlist-date-control{position:relative;width:100%}
+.wishlist-date-value{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:46px;box-sizing:border-box;padding:10px 12px;border:1px solid #d7c9b2;border-radius:6px;background:#fffaf0;color:#30291f;font:15px var(--sans);text-align:left}.wishlist-date-value:after{content:'▾';color:#806b47;font-size:16px}.wishlist-date-value:hover,.wishlist-date-value[aria-expanded=true]{border-color:#bd8061;background:#fffdf8}
+.wishlist-calendar-popup{top:calc(100% + 7px)}.wishlist-date-clear{justify-self:start;min-height:32px;padding:4px 8px;border:0;background:transparent;color:#8d6d52;font-size:12px;text-decoration:underline;text-underline-offset:3px}
+.wishlist-date-hint{font:15px/1.7 'LXGW WenKai',var(--sans);color:#a53f30;margin:12px 0 17px}
 #wishlist-grid .entry-card{transition:background-color .2s ease,outline-color .2s ease}#wishlist-grid .entry-card.is-picked{outline:2px dashed #c5644d;outline-offset:3px;background:#fff2d9!important}
-.wishlist-planner input:focus-visible,.wishlist-planner select:focus-visible,.wishlist-card-planning input:focus-visible,.wishlist-priority:focus-visible{outline:2px solid #bd4937;outline-offset:2px}
-@media(max-width:680px){.wishlist-planner-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.wishlist-planner-fields>label:last-child{grid-column:1/-1}.wishlist-planner-fields input,.wishlist-planner-fields select,.wishlist-card-planning input{font-size:16px}.wishlist-summary{font-size:17px}.wishlist-planner-actions button{flex:1 1 auto}.wishlist-planner{padding-top:13px}.wishlist-card-planning{gap:8px}.wishlist-priority{font-size:13px}}
+.wishlist-planner input:focus-visible,.wishlist-planner select:focus-visible,.wishlist-date-value:focus-visible,.wishlist-date-clear:focus-visible,.wishlist-priority:focus-visible{outline:2px solid #bd4937;outline-offset:2px}
+@media(max-width:680px){.wishlist-planner-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.wishlist-planner-fields>label:last-child{grid-column:1/-1}.wishlist-planner-fields input,.wishlist-planner-fields select,.wishlist-date-value{font-size:16px}.wishlist-summary{font-size:17px}.wishlist-planner-actions button{flex:1 1 auto}.wishlist-planner{padding-top:13px}.wishlist-card-planning{gap:12px}.wishlist-priority{font-size:13px}}
 @media(prefers-reduced-motion:reduce){#wishlist-grid .entry-card{transition:none}}
 </style>
 <dialog id="collection-dialog" class="collection-dialog" aria-labelledby="collection-heading"><div class="dialog-top"><h2 id="collection-heading">我的城市回忆册</h2><button class="close" type="button" data-close="collection-dialog" aria-label="关闭回忆册"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2IiBmaWxsPSJjdXJyZW50Q29sb3IiPjxwYXRoIGQ9Ik0yMDguNDksMTkxLjUxYTEyLDEyLDAsMCwxLTE3LDE3TDEyOCwxNDUsNjQuNDksMjA4LjQ5YTEyLDEyLDAsMCwxLTE3LTE3TDExMSwxMjgsNDcuNTEsNjQuNDlhMTIsMTIsMCwwLDEsMTctMTdMMTI4LDExMWw2My41MS02My41MmExMiwxMiwwLDAsMSwxNywxN0wxNDUsMTI4WiIvPjwvc3ZnPg==" alt=""></button></div><div class="collection-body"><div class="collection-controls"><label class="field"><span id="collection-switch-label">换一座城</span><select id="collection-switch"></select></label><label class="field" id="collection-cover-field"><span id="collection-cover-label">小报主照片</span><select id="collection-cover"></select></label></div><p id="collection-summary" class="collection-summary"></p><p id="collection-tastes" class="map-note"></p><div class="collection-editor"><label class="field">给这份回忆写一句话<input id="collection-caption" maxlength="140" placeholder="比如：这个月，吃麦的理由是和朋友见面。"></label><div id="collection-photo-editor"><label class="field">小报照片版式<select id="collection-layout"><option value="strip">照片并排</option><option value="feature">一张大图，两张小图</option></select></label><div id="collection-photo-choices" class="collection-photo-choices"></div><div class="collection-photo-tools"><p id="collection-photo-help" class="map-note"></p><button class="quiet" id="collection-auto-photos" type="button">帮我自动选图</button></div></div><div id="collection-pick-actions" class="collection-pick-actions"><span>分享最多选 12 页</span><button class="quiet" id="collection-latest-pages" type="button">选最近 6 页</button><button class="quiet" id="collection-clear-pages" type="button">重新挑选</button></div></div><button id="collection-share" type="button" class="primary">生成这月小报，分享给朋友</button><div id="collection-grid" class="collection-grid"></div></div></dialog>
@@ -3160,9 +3163,9 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
       title.id=titleId;title.setAttribute('aria-live','polite');
       const next=button('›','meal-calendar-nav',()=>changeMonth(1,'next'));
       next.dataset.calendarControl='next';next.setAttribute('aria-label','下一个月');
-      next.disabled=(view.year===9999 && view.month===12) || view.year>currentParts.year || view.year===currentParts.year && view.month>=currentParts.month;
+      next.disabled=(view.year===9999 && view.month===12) || (!options.allowFuture && (view.year>currentParts.year || view.year===currentParts.year && view.month>=currentParts.month));
       header.append(previous,title,next);container.append(header);
-      const grid=element('div','meal-calendar-grid');grid.setAttribute('role','grid');grid.setAttribute('aria-label',`${view.year}年${view.month}月，选择打卡日期`);
+      const grid=element('div','meal-calendar-grid');grid.setAttribute('role','grid');grid.setAttribute('aria-label',`${view.year}年${view.month}月，选择${options.dateLabel || '打卡'}日期`);
       const row=()=>{const result=element('div','meal-calendar-week');result.setAttribute('role','row');result.style.display='grid';result.style.gridTemplateColumns='repeat(7,minmax(0,1fr))';return result;};
       const headings=row();
       for(const label of WEEKDAYS){const cell=element('span','meal-calendar-weekday',label);cell.setAttribute('role','columnheader');headings.append(cell);}
@@ -3176,7 +3179,7 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
             holder.setAttribute('aria-selected',String(cell.date===selected));
             const day=button(String(cell.day),'meal-calendar-day',()=>select(cell.date));
             day.dataset.calendarDate=cell.date;day.tabIndex=cell.date===active?0:-1;
-            day.disabled=cell.date>current;
+            day.disabled=!options.allowFuture && cell.date>current;
             day.style.width='100%';
             if(cell.date===selected)day.classList.add('is-selected');
             if(cell.date===current){day.classList.add('is-today');day.setAttribute('aria-current','date');}
@@ -3215,7 +3218,7 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
         else if(event.key==='Enter' || event.key===' '){event.preventDefault();select(day.dataset.calendarDate);return;}
         else return;
       } catch(error){if(!(error instanceof RangeError))throw error;event.preventDefault();return;}
-      if(next>currentDay()){event.preventDefault();return;}
+      if(!options.allowFuture && next>currentDay()){event.preventDefault();return;}
       event.preventDefault();active=next;render(true);
     }
     container.addEventListener('keydown',keydown);container.hidden=true;
@@ -3266,6 +3269,7 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
     const d = new Date();
     return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
   };
+  const formatPlanDate = value => String(value || '').replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$1年$2月$3日');
   const opts = () => ({today: today(), countries: data.countries});
   const guestKey = 'mcd-china-map-personal-v1';
   const accountStorageKey = 'mcd-china-map-last-account';
@@ -3424,6 +3428,7 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
   storeToggle.addEventListener('change',drawMap);
   let storeCity='',storeQuery='',storeProvince='',directoryPage=0,directoryOnlySaved=false,directoryOnlyPhotos=false;
   let wishlistCity='',wishlistQuery='',wishlistWhen='all',pickedWishlistId='';
+  let wishlistCalendars=[];
   const wishlistControls=node('div',undefined,'wishlist-planner');
   const wishlistSummary=node('p',undefined,'wishlist-summary');wishlistSummary.id='wishlist-summary';wishlistSummary.setAttribute('role','status');
   const wishFields=node('div',undefined,'wishlist-planner-fields');
@@ -3454,7 +3459,7 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
   });
   wishCopy.addEventListener('click',async()=>{
     const items=plannedStores();if(!items.length)return;
-    const content=[`${wishlistCity || '我的'}麦麦探店清单`,...items.map((item,index)=>[`${index+1}. ${item.name}`,item.city,item.planned_date?'计划 '+item.planned_date:'',item.address,item.note].filter(Boolean).join(' · ')),'一起去吃一站：https://jay1023cn.github.io/mcd-china-map/'].join('\n');
+    const content=[`${wishlistCity || '我的'}麦麦探店清单`,...items.map((item,index)=>[`${index+1}. ${item.name}`,item.city,item.planned_date?'计划 '+formatPlanDate(item.planned_date):'',item.address,item.note].filter(Boolean).join(' · ')),'一起去吃一站：https://jay1023cn.github.io/mcd-china-map/'].join('\n');
     wishCopyText.value=content;
     try{await navigator.clipboard.writeText(content);toast('探店清单已复制，发给朋友一起安排下一站。');}
     catch(error){wishCopyText.hidden=false;wishCopyText.focus();wishCopyText.select();toast('清单已选中，复制后就能发给朋友。');}
@@ -3945,6 +3950,8 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
     return tags;
   }
   function renderWishlist() {
+    for(const calendar of wishlistCalendars)calendar.destroy();
+    wishlistCalendars=[];
     const items=archive.wishlist || [];
     $('wishlist-count').textContent=items.length;
     const cities=[...new Set(items.map(item=>item.city.replace(/市$/, '')).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-CN'));
@@ -3966,9 +3973,18 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
       const planning=node('div',undefined,'wishlist-card-planning');
       const priority=node('button',store.priority?'★ 优先想去':'☆ 优先想去','quiet wishlist-priority');priority.type='button';priority.setAttribute('aria-pressed',String(!!store.priority));priority.setAttribute('aria-label',store.name+'：优先想去');
       priority.addEventListener('click',()=>updateWishlistPlan(store.id,{priority:!store.priority}));
-      const dateLabel=node('label','想哪天去？');const dateInput=node('input');dateInput.type='date';dateInput.value=store.planned_date || '';dateInput.setAttribute('aria-label',store.name+'的探店日期');dateInput.addEventListener('change',()=>updateWishlistPlan(store.id,{planned_date:dateInput.value}));dateLabel.append(dateInput);
+      const dateLabel=node('div',undefined,'wishlist-date-field');dateLabel.append(node('span','想哪天去？','wishlist-date-caption'));
+      const dateControl=node('div',undefined,'wishlist-date-control');
+      const dateButton=node('button',store.planned_date?formatPlanDate(store.planned_date):'挑个日期','wishlist-date-value');dateButton.type='button';dateButton.setAttribute('aria-label',store.name+'的探店日期');dateButton.setAttribute('aria-haspopup','dialog');dateButton.setAttribute('aria-expanded','false');
+      const datePopup=node('div',undefined,'meal-calendar-popup wishlist-calendar-popup');datePopup.hidden=true;
+      const calendar=window.MealCalendar.create({container:datePopup,value:store.planned_date || today(),allowFuture:true,dateLabel:'探店',onSelect:value=>updateWishlistPlan(store.id,{planned_date:value}),onClose:()=>dateButton.setAttribute('aria-expanded','false')});
+      wishlistCalendars.push(calendar);
+      dateButton.addEventListener('click',()=>{calendar.open(store.planned_date || today());dateButton.setAttribute('aria-expanded','true');});
+      dateButton.addEventListener('keydown',event=>{if(event.key==='Enter' || event.key==='ArrowDown'){event.preventDefault();calendar.open(store.planned_date || today());dateButton.setAttribute('aria-expanded','true');}});
+      dateControl.append(dateButton,datePopup);dateLabel.append(dateControl);
+      if(store.planned_date){const clearDate=node('button','清除日期','wishlist-date-clear');clearDate.type='button';clearDate.addEventListener('click',()=>updateWishlistPlan(store.id,{planned_date:''}));dateLabel.append(clearDate);}
       planning.append(priority,dateLabel);card.append(planning);
-      if(store.planned_date){const dateText=store.planned_date===today()?'今天去逛逛':`计划 ${store.planned_date.replace(/-/g,'.')}`;card.append(node('p',dateText,'wishlist-date-hint'));}
+      if(store.planned_date){const dateText=store.planned_date===today()?'今天去逛逛':`计划 ${formatPlanDate(store.planned_date)}`;card.append(node('p',dateText,'wishlist-date-hint'));}
       const label=node('label','留一句想去的理由','wishlist-note');
       const note=node('textarea');note.maxLength=1000;note.value=store.note;note.placeholder='下次旅行、特别的建筑、约朋友一起去……';
       note.setAttribute('aria-label',store.name+'的想去理由');
@@ -3980,7 +3996,7 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
       const visit=node('button','到了，留一页打卡','secondary');visit.type='button';visit.addEventListener('click',()=>openStoreForm((archive.wishlist || []).find(item=>item.id===store.id) || store,store.id));
       const share=node('button','分享下一站','quiet');share.type='button';share.addEventListener('click',()=>{
         const current=(archive.wishlist || []).find(item=>item.id===store.id) || store;
-        openShare({kind:'plan',date:current.planned_date?'计划 '+current.planned_date:'',planned_date:current.planned_date,city:current.city,store:current.name,foods:[],note:current.note,default_photo:wishlistPhoto(current)});
+        openShare({kind:'plan',date:current.planned_date?'计划 '+formatPlanDate(current.planned_date):'',planned_date:current.planned_date,city:current.city,store:current.name,foods:[],note:current.note,default_photo:wishlistPhoto(current)});
       });
       const remove=node('button','移出清单','quiet');remove.type='button';remove.addEventListener('click',()=>{
         archive={...archive,wishlist:W.remove(archive.wishlist || [],store.id)};save();renderWishlist();toast('已移出想去清单。');
@@ -4707,7 +4723,7 @@ dialog{background:#faf8f3;border:1px solid #ebe5d9;border-radius:14px;box-shadow
     }
     if(shareEntry) {
       const facts=window.MemoryCard.project(shareEntry,{title:$('share-title').value,includePlace:$('share-cities').checked,includeNote:$('share-note').checked});
-      return [facts.title,shareEntry.kind==='plan'?'下一站计划 · 尚未打卡'+(shareEntry.planned_date?' · 计划 '+shareEntry.planned_date:''):facts.date,$('share-cities').checked?[facts.city,facts.store].filter(Boolean).join(' · '):'',facts.foods.join(' · '),facts.note || '',
+      return [facts.title,shareEntry.kind==='plan'?'下一站计划 · 尚未打卡'+(shareEntry.planned_date?' · 计划 '+formatPlanDate(shareEntry.planned_date):''):facts.date,$('share-cities').checked?[facts.city,facts.store].filter(Boolean).join(' · '):'',facts.foods.join(' · '),facts.note || '',
         '用麦当劳，画出自己的中国足迹。','https://github.com/Jay1023CN/mcd-china-map'].filter(Boolean).join('\n');
     }
     const s=currentSummary;

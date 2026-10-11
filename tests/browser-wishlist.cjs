@@ -54,12 +54,32 @@ async function main() {
     await page.getByRole('tab', {name: /想去清单/}).click();
     assert.equal(await page.locator('#wishlist-grid textarea:not([readonly])').inputValue(), '想看看这家虚构门店的设计。');
 
+    const priority = page.locator('#wishlist-grid .wishlist-priority');
+    const priorityBounds = await priority.boundingBox();
+    const cardBounds = await page.locator('#wishlist-grid .entry-card').boundingBox();
+    assert.ok(Math.abs((priorityBounds.x + priorityBounds.width / 2) - (cardBounds.x + cardBounds.width / 2)) < 2, 'priority action should be centered in the card');
+    const plannedDate = '2027-01-17';
+    await page.locator('#wishlist-grid .wishlist-date-value').click();
+    for (let attempt = 0; attempt < 240; attempt++) {
+      const title = await page.locator('#wishlist-grid .meal-calendar-title').innerText();
+      if (title === '2027年1月') break;
+      await page.locator('#wishlist-grid .meal-calendar-nav[aria-label="下一个月"]').click();
+    }
+    await page.locator(`#wishlist-grid [data-calendar-date="${plannedDate}"]`).click();
+    assert.equal(await page.locator('#wishlist-grid .wishlist-date-value').innerText(), '2027年01月17日', 'date picker should present a Chinese date instead of a browser-native format');
+    assert.equal(await page.locator('#wishlist-grid .wishlist-date-hint').innerText(), '计划 2027年01月17日');
+    assert.equal(await page.locator('#wishlist-grid .wishlist-date-clear').count(), 1);
+    await page.reload();
+    await page.getByRole('tab', {name: /想去清单/}).click();
+    assert.equal(await page.locator('#wishlist-grid .wishlist-date-value').innerText(), '2027年01月17日', 'planned dates should persist after reload');
+
     const downloadPromise = page.waitForEvent('download');
     await page.locator('#export').click();
     const backup = JSON.parse(fs.readFileSync(await (await downloadPromise).path(), 'utf8'));
     assert.equal(backup.entries.length, 0);
     assert.equal(backup.wishlist.length, 1);
     assert.equal(backup.wishlist[0].note, '想看看这家虚构门店的设计。');
+    assert.equal(backup.wishlist[0].planned_date, plannedDate);
 
     const restoredContext = await browser.newContext({viewport: {width: 1440, height: 1000}, timezoneId: 'Asia/Shanghai', acceptDownloads: true});
     const restored = await restoredContext.newPage();
