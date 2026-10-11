@@ -20,8 +20,22 @@ async function main(){
   const page=await context.newPage();
   let pageErrors=0;
   page.on('pageerror',()=>{pageErrors++;});
+  phase='service-wakeup';
+  const wakeDeadline=Date.now()+180000;
+  let ready=false;
+  while(Date.now()<wakeDeadline){
+    try{
+      const health=await context.request.get(base+'api/health',{timeout:20000});
+      result.healthStatus=health.status();
+      const payload=await health.json().catch(()=>null);
+      if(health.ok() && payload?.project==='mcd-china-map' && payload.capabilities?.connect){ready=true;break;}
+    }catch{}
+    await new Promise(resolve=>setTimeout(resolve,5000));
+  }
+  check(ready,'SERVICE_DID_NOT_WAKE');
   phase='open';
-  check((await page.goto(base,{timeout:120000})).status()===200,'PAGE_UNAVAILABLE');
+  result.pageStatus=(await page.goto(base,{timeout:120000})).status();
+  check(result.pageStatus===200,'PAGE_UNAVAILABLE');
   await page.waitForFunction(()=>document.getElementById('connection-state').textContent.includes('手账已准备好'));
   check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'MOBILE_OVERFLOW');
   phase='connect';
