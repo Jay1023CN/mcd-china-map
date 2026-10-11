@@ -1,0 +1,779 @@
+{
+  "version": 1,
+  "images": [
+    {
+      "id": "breakfast-37",
+      "file": "breakfast-37.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091558332871.png",
+      "sha256": "98db8efaf2a110781d58103762297885cc65fab2776ae994525defd79e7cec9a",
+      "size_bytes": 3904,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-38",
+      "file": "breakfast-38.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091558498724.png",
+      "sha256": "632cb0bc65a87cae6203e853b48f41e5851426bb5e4f2778681d892d31bae13e",
+      "size_bytes": 4158,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-39",
+      "file": "breakfast-39.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/12/202212191104077687.png",
+      "sha256": "287d1271b74d4fa706859ba8f97335eec4a8f0a3cfbefca9168a8f3b0fed813f",
+      "size_bytes": 4048,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-40",
+      "file": "breakfast-40.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091559476910.png",
+      "sha256": "e8d0788515995ed2de515ac0e42ae9f145298196b16bcf4aabfbd9acee731a20",
+      "size_bytes": 4540,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-41",
+      "file": "breakfast-41.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091600076790.png",
+      "sha256": "a9b9ce215b690cbd0a38b2a71d624fd88f76af8695e45bbd926ad41be7f58dec",
+      "size_bytes": 4264,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-42",
+      "file": "breakfast-42.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/09/202209301037275168.png",
+      "sha256": "61bc916a21a9bab62517f06995fb478008f4a730c2709a8947ae37c92db803e0",
+      "size_bytes": 4706,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-43",
+      "file": "breakfast-43.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/09/202209301037584746.png",
+      "sha256": "1ca6d42608df54b841ad855582713ce18b8618de8135b0f65f8308f14029e9bb",
+      "size_bytes": 5066,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-44",
+      "file": "breakfast-44.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/12/202212191104292706.png",
+      "sha256": "d078747ce85abfadf183ec071d6168692abe7a0d58b35b24d4690fc025a7df4c",
+      "size_bytes": 4302,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-45",
+      "file": "breakfast-45.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091601375124.png",
+      "sha256": "c2e739053c00e43dddde28caf08bb02f2a4324d2703df30081ae3e311233a635",
+      "size_bytes": 4214,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-46",
+      "file": "breakfast-46.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208021616493001.png",
+      "sha256": "83aa209278e6f79642c8aa39ad76a008bbaa33505c3135df471fff945a1e4371",
+      "size_bytes": 2934,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-47",
+      "file": "breakfast-47.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208021618177760.png",
+      "sha256": "0856222399aac4e1e4307b19df9369954c11bfb708551409fdf96bb7fab56e26",
+      "size_bytes": 2784,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-48",
+      "file": "breakfast-48.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/05/202005061021247170.png",
+      "sha256": "d1e4e673dfba97f89db6a89a9845c46a0d1aa55bec92502742c4e3821ba0918c",
+      "size_bytes": 3234,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-49",
+      "file": "breakfast-49.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/05/202005061023475981.png",
+      "sha256": "751ba60ebcfdbf4a402bae7e5d4dcc7dffd16736587fd9d4c8e54af54621a7bb",
+      "size_bytes": 3190,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-50",
+      "file": "breakfast-50.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091604513345.png",
+      "sha256": "1a00c2602e437a0e2efb2601e471d2fd5bd8672857c07aa459df6327d9aeb2bb",
+      "size_bytes": 4082,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-51",
+      "file": "breakfast-51.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091605077842.png",
+      "sha256": "da4d6c11805d59b33bf6f7fcea9f6571e53a12530a3fcce7e2af631c99257499",
+      "size_bytes": 4010,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "breakfast-52",
+      "file": "breakfast-52.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2021/04/202104191521441185.png",
+      "sha256": "02eae3c0e200ea832c1983986914d7fe4062d64132814db8c753a73638e28d7d",
+      "size_bytes": 2836,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-10",
+      "file": "burgers-10.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505191553352680.png",
+      "sha256": "d72dc19ecfd3648f25d8f76e15d39ede99ff00e42673d523549017e8def432f6",
+      "size_bytes": 4454,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-11",
+      "file": "burgers-11.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/07/202407021437072297.png",
+      "sha256": "a79aad3af215e4a26849d2f5c56bcc270ad342176de57281ffe77b624f5a1fd8",
+      "size_bytes": 5022,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-12",
+      "file": "burgers-12.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208111413054231.png",
+      "sha256": "e3b006bb10e1f31ccac97f3e7bd142e017c4d6101dd5ff7115760cf2e3f96431",
+      "size_bytes": 4118,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-13",
+      "file": "burgers-13.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081022028042.png",
+      "sha256": "56e475c83844f8e0dde71b34e77d0dcf943c878cc76a6268eb9bbe1ff2f711e0",
+      "size_bytes": 5342,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-14",
+      "file": "burgers-14.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081022182900.png",
+      "sha256": "34aa772fdb49f6fb35d626fe96d9e937951f4efccf62c58d1750226a38a5593b",
+      "size_bytes": 5074,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-15",
+      "file": "burgers-15.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/09/202209261029176483.png",
+      "sha256": "ca88ac04587587253fd16f587c737cb99302326edfe69d4871a029dc914ca9c1",
+      "size_bytes": 5196,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-16",
+      "file": "burgers-16.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031221494776.png",
+      "sha256": "33557a727f7a6567f9124c58964b7fcb70a64d7e563f62b1818500d798a7090b",
+      "size_bytes": 3422,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-3",
+      "file": "burgers-3.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081011205699.png",
+      "sha256": "ede7bf1183bc0b51b77b458839a6b9b5aad0ec702f4c857f96fd25bfb5bbc6fe",
+      "size_bytes": 5398,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-4",
+      "file": "burgers-4.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081011488477.png",
+      "sha256": "2d4562c78babd07628a22c561de5e96ca0c5a8838bc0b2d84a24e2001d7feabc",
+      "size_bytes": 4000,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-5",
+      "file": "burgers-5.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/04/202504091717393584.png",
+      "sha256": "14f1a56e09600c90f7b02e85cc9c9433875cfef9d8732fbbd4dd4efec2ad0d71",
+      "size_bytes": 4870,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-6",
+      "file": "burgers-6.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/10/202410121642022710.png",
+      "sha256": "d4ffc36c1498c01a59136372fb7faf699bd4e3bde1e5a08b604fcc2313abed38",
+      "size_bytes": 4938,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-7",
+      "file": "burgers-7.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081013011355.png",
+      "sha256": "cee3880a0ea9167f6c660a42100a11cbf9ff8a6772c9792da08ffff7c3959c53",
+      "size_bytes": 4752,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-8",
+      "file": "burgers-8.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081013175111.png",
+      "sha256": "387697150bd14db9e3899049bfb5bc4a7e32dc9a6c27ff5de2a53a0c0a0b24ee",
+      "size_bytes": 4080,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "burgers-9",
+      "file": "burgers-9.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081013284833.png",
+      "sha256": "8965d0822f70826de6c8c4dc04eb8c333063f95f9453f7411b02fe15f3e77744",
+      "size_bytes": 4042,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "combos-1",
+      "file": "combos-1.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112154184281.png",
+      "sha256": "1807a7e29e71c89727715eee36a75fca9308a8069806b8db5938ee6168d430bd",
+      "size_bytes": 7110,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "combos-2",
+      "file": "combos-2.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112207211930.png",
+      "sha256": "637302e9d0dfe13dcf2b28e215fbbd07fbd495ca81df1b4eac9829e1cec2c8e8",
+      "size_bytes": 6110,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-53",
+      "file": "desserts-53.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/05/202005270949182813.png",
+      "sha256": "39ccd01401ff4d6421d4b9df12ffffdfe787603630a2360ac87211aea4a26d85",
+      "size_bytes": 3140,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-54",
+      "file": "desserts-54.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191447419769.png",
+      "sha256": "17f962ff3ee7a0b86c6667ca8754df949961e422d8030732533d8c9389a6c916",
+      "size_bytes": 3032,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-55",
+      "file": "desserts-55.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191447495324.png",
+      "sha256": "ed334583f9227dc1d1099c70151168eb5f2514660a51987b0533a8ff632c47dd",
+      "size_bytes": 3144,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-56",
+      "file": "desserts-56.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191510126381.png",
+      "sha256": "7d59317f5d6235727549d54ef0bb5bd390a3df2c071ba6899fa23215c7b3f274",
+      "size_bytes": 2634,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-57",
+      "file": "desserts-57.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191449258974.png",
+      "sha256": "f78d93061eb9e94add4d0935ea33d21661da4f18a1338ebe3062248f9334f69b",
+      "size_bytes": 2696,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-58",
+      "file": "desserts-58.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112256468336.png",
+      "sha256": "8f0f609d23cb2e2f34121b6fa4a7ac3620a4bcef1f6a30b83a0ede8c1becd602",
+      "size_bytes": 1932,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-59",
+      "file": "desserts-59.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112259357730.png",
+      "sha256": "0e24d7e6cb84bec9e6d41dd00a6be4ed5fc1b5e1d528b97c62f1e6d3228ddcb3",
+      "size_bytes": 1972,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-60",
+      "file": "desserts-60.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091556569394.png",
+      "sha256": "8e4a2981cc26baf915720af9756e036b5b3e3e005bf660a8fd24014c13c39e17",
+      "size_bytes": 3838,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "desserts-61",
+      "file": "desserts-61.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091557147058.png",
+      "sha256": "b4fdf65b621528f69ff8a5193febaa5d62baa25fa5c5c3206bac5b8f2ea2001d",
+      "size_bytes": 3620,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-25",
+      "file": "drinks-25.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091541242793.png",
+      "sha256": "85b36686084eb8707f75d4eaf9b9adba8f04fef0b31280f320fcac5fd0b34175",
+      "size_bytes": 2944,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-26",
+      "file": "drinks-26.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091542266222.png",
+      "sha256": "eff7487af9dffdfd33137455bd090862a7f0f283b76eb6673483e103b304e814",
+      "size_bytes": 3774,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-27",
+      "file": "drinks-27.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412111430239925.png",
+      "sha256": "b424d1bcc514644b54493b0665079baf3b1aeb861179eabc8839492f3e730d47",
+      "size_bytes": 3354,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-28",
+      "file": "drinks-28.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091543354438.png",
+      "sha256": "3f4d84ca2bcab894cb52f573f70766f5f0fc5666e95f1cb5c3799f5952fd4262",
+      "size_bytes": 2834,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-29",
+      "file": "drinks-29.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112325105835.png",
+      "sha256": "212be978466557920cad5fa62028eff0bc14cac6ec931ebf55b774fcb8597a70",
+      "size_bytes": 2772,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-30",
+      "file": "drinks-30.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191452518874.png",
+      "sha256": "c326dfb04cbf2f8523cf6f59f8d280cf4a30d7fa1519bc93ad09b3ab7cde779b",
+      "size_bytes": 2224,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-31",
+      "file": "drinks-31.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/11/202411281822478466.png",
+      "sha256": "c901a46f02c2eebc7cc0459529d5806ec34964507823da1d12d93531e8f4dfae",
+      "size_bytes": 3088,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-32",
+      "file": "drinks-32.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505081052503366.png",
+      "sha256": "c7fefc1ef8f96faee415517199870520ad00e2bc2b197d874c6540ce0336155d",
+      "size_bytes": 2566,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-33",
+      "file": "drinks-33.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031442538648.png",
+      "sha256": "70d4b41c52a7b24c589cdd8461226924aefb43e1a1bcd9924b273f2762205098",
+      "size_bytes": 3828,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-34",
+      "file": "drinks-34.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031439237239.png",
+      "sha256": "0d7fd8e2ffc346ba086aad875831b216e9e7064f3d5e7409f6a64a40ae94c165",
+      "size_bytes": 2658,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-35",
+      "file": "drinks-35.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091546249996.png",
+      "sha256": "f427dbea03e192f4ca84bf7e10447bc3edc37a2de6ee4794aba0a34485b46f0f",
+      "size_bytes": 2170,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-36",
+      "file": "drinks-36.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/11/202411281844518339.png",
+      "sha256": "0fbf7aa2aae094cec32c2ffba3ce067f458d9ccd97ff82edb80136f0bb56e66a",
+      "size_bytes": 3084,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-62",
+      "file": "drinks-62.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292204543004.png",
+      "sha256": "0434fd0af51f2790eec2dcba718381095bd85432d7869f94cf22413f5e1e3873",
+      "size_bytes": 3326,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-63",
+      "file": "drinks-63.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292205408283.png",
+      "sha256": "b759f8183ffdb70d0df6d5567a33c9025fad26d2e5a1d9d838d6cb2f88b1b974",
+      "size_bytes": 3364,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-64",
+      "file": "drinks-64.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292206117637.png",
+      "sha256": "c4053cc6aee7e5f0387349d02b8a9ca986626cfa63d4806f69accbdb71eaca67",
+      "size_bytes": 3372,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-65",
+      "file": "drinks-65.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292206368008.png",
+      "sha256": "a568ecf385425cbd02f5954ae7ea4db39124afeedcd8bdf931c0560cab1ebf31",
+      "size_bytes": 3566,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-66",
+      "file": "drinks-66.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292208383944.png",
+      "sha256": "be2e948f8f5c6a0d63fa07c291a9a4612dbf299bb021367d9ba0ceafaa56a54a",
+      "size_bytes": 3510,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-67",
+      "file": "drinks-67.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209017033.png",
+      "sha256": "53063ec68776f73898a0fc7ccb54658684e4a776d62ff4a42af452207ba2b7aa",
+      "size_bytes": 3604,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-68",
+      "file": "drinks-68.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209215242.png",
+      "sha256": "c5beb227dd3f8c876918c5c6a909232ba2d8e523aabbea450e936455f4a87fd4",
+      "size_bytes": 3494,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-69",
+      "file": "drinks-69.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209422511.png",
+      "sha256": "82d6990b29639d6326e2156e27881c3fe8d7758c11447f186bd73d68f2544dbb",
+      "size_bytes": 3446,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-70",
+      "file": "drinks-70.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292210057378.png",
+      "sha256": "7aaba0835fad5276f4bfbe62dc66ee1394ece01e12f5533b6b2d9b1597792f02",
+      "size_bytes": 3526,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-71",
+      "file": "drinks-71.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/11/202011152311386312.png",
+      "sha256": "1a9dfc562ce7361ccd4c6329709f8565d6a044f4d6625cf6e9537eec140aeb52",
+      "size_bytes": 2642,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-72",
+      "file": "drinks-72.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292214326960.png",
+      "sha256": "ef6ca2a19e985bdb9c61248ece7964eb31627af74c0345fa2d91d73378db1010",
+      "size_bytes": 3356,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-73",
+      "file": "drinks-73.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208301011268722.png",
+      "sha256": "961bbafda703ed8b71252767d7501248fe5d47ba26a10001e08a8dc0095d46b4",
+      "size_bytes": 3562,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-74",
+      "file": "drinks-74.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216395610.png",
+      "sha256": "eeacf6d10d31b7ada96632a118c8e93927b2a853e7d451c3e7885ab251dddd28",
+      "size_bytes": 3116,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-75",
+      "file": "drinks-75.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216596791.png",
+      "sha256": "51b35bb8f3f4f9b71a51a0b086d6a0a3b8d617aa52bed2eb33f5ab74efdd3680",
+      "size_bytes": 3258,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-76",
+      "file": "drinks-76.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292214522529.png",
+      "sha256": "0c4ba19c631fa89b3b7838d9e18f20d3f52dbc785cbf73627c1cf68d43d1e41e",
+      "size_bytes": 2382,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-77",
+      "file": "drinks-77.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292215082309.png",
+      "sha256": "233cbacd821861b0d017923f471a3ff3f6bc33c1f599496140705fbce8367466",
+      "size_bytes": 2754,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-78",
+      "file": "drinks-78.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/02/202502201050044696.png",
+      "sha256": "9b81734b522fd8afc21720c2c4eba58b733f70ef8c4864160064a1c1d632af71",
+      "size_bytes": 3760,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-79",
+      "file": "drinks-79.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292217199815.png",
+      "sha256": "ef6ca2a19e985bdb9c61248ece7964eb31627af74c0345fa2d91d73378db1010",
+      "size_bytes": 3356,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-80",
+      "file": "drinks-80.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292217366580.png",
+      "sha256": "961bbafda703ed8b71252767d7501248fe5d47ba26a10001e08a8dc0095d46b4",
+      "size_bytes": 3562,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-81",
+      "file": "drinks-81.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292218348675.png",
+      "sha256": "967f3f924fd2b8137be64db75ab04e9ee83ff3e89b7cb6566025470a8b8313af",
+      "size_bytes": 2272,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-82",
+      "file": "drinks-82.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292218491274.png",
+      "sha256": "06bbb59cfca9ca37dd513a0a2f6dd28068010cff23640e6dfe067fccb70ef069",
+      "size_bytes": 2766,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-83",
+      "file": "drinks-83.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219089745.png",
+      "sha256": "a2e792e43e9f8e77f3a81690eaf9fea539dfccf2ba4697fd5b699153ff13fc84",
+      "size_bytes": 2892,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-84",
+      "file": "drinks-84.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219557802.png",
+      "sha256": "597410d66d33d4a8b854e6f42a37b984f386a0c2f0a11a6b38f1907d306c5b9c",
+      "size_bytes": 3064,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-85",
+      "file": "drinks-85.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/07/202407251729244473.png",
+      "sha256": "4e4b91182ffb543dfc73c732e6a40f89d0c67204622cabd0496872925f93512f",
+      "size_bytes": 4186,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "drinks-86",
+      "file": "drinks-86.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/07/202407251730361207.png",
+      "sha256": "7ff949ecc5e827e16d418295cb76757fa11372b2c8ae117a37bdea9ae7fe9885",
+      "size_bytes": 5086,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-17",
+      "file": "snacks-17.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091547349086.png",
+      "sha256": "0d445df802926937cf00c2972c09f07cc0561bbebac556199682ca26ab4d8a7a",
+      "size_bytes": 3522,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-18",
+      "file": "snacks-18.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/11/202411281827123412.png",
+      "sha256": "561a681dc85f7bc731458a252fcd49d870b531583ab6f3e04a61b0206b32be26",
+      "size_bytes": 5436,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-19",
+      "file": "snacks-19.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/04/202504091714077263.png",
+      "sha256": "816a8141195829ff7e5af62e186e266fff710186636b39be5e081c296db8bdc4",
+      "size_bytes": 3920,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-20",
+      "file": "snacks-20.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/03/202503261723251059.png",
+      "sha256": "205e822e8c2b31c366001627e0692423420f90bcdaa72584896c000780e103b4",
+      "size_bytes": 4536,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-21",
+      "file": "snacks-21.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091547543048.png",
+      "sha256": "9eb9b461a87bb97c0919c419cf7e46b2ee094120e8f2f7eb33429cb11bf14fa4",
+      "size_bytes": 3986,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-22",
+      "file": "snacks-22.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091551151077.png",
+      "sha256": "bda6129d27f205ca87e7edbd0b47c2f05199b57705b9f845b80278a98b1fe143",
+      "size_bytes": 4032,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-23",
+      "file": "snacks-23.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091548118821.png",
+      "sha256": "9bea378fb432fbcc185b30e52df4d08c6c72a03cab6667b26d4b178eb47c6ee3",
+      "size_bytes": 2878,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "snacks-24",
+      "file": "snacks-24.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091552098343.png",
+      "sha256": "f0e4fdad3b7e4f3665ca8313dc9a37ff1acd901a5353f56fdf891c523b04b652",
+      "size_bytes": 2718,
+      "width": 160,
+      "height": 120
+    }
+  ]
+}
