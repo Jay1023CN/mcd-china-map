@@ -84,6 +84,7 @@
     const item=project(store);
     if(!item)return null;
     const result={source:'manual',code:item.code,name:item.name,city:item.city,address:item.address,note:''};
+    if(item.aliases.length)result.aliases=[...item.aliases];
     if(item.province_code)result.province_code=item.province_code;
     return result;
   }

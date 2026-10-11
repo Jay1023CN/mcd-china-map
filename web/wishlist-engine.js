@@ -1,10 +1,13 @@
 /* Stable, local wishlist records for stores the user may visit later. */
 (function (root, factory) {
   'use strict';
-  var api = factory();
+  // The browser loads the shared folding table after this module; resolve it at search time.
+  var api = factory(typeof module === 'object' && module.exports
+    ? function () { return require('./chinese-search-normalization.js'); }
+    : function () { return root.ChineseSearchNormalization; });
   if (typeof module === 'object' && module.exports) module.exports = api;
   if (root) root.WishlistEngine = api;
-})(typeof window !== 'undefined' ? window : typeof globalThis !== 'undefined' ? globalThis : this, function () {
+})(typeof window !== 'undefined' ? window : typeof globalThis !== 'undefined' ? globalThis : this, function (searchNormalization) {
   'use strict';
 
   var MAX_STORES = 100;
@@ -37,7 +40,12 @@
     return value;
   }
 
-  function cityKey(value) { return (value || '').normalize('NFKC').trim().replace(/市$/, ''); }
+  function searchKey(value) {
+    var normalized = (value || '').normalize('NFKC');
+    var chinese = searchNormalization();
+    return (chinese ? chinese.fold(normalized) : normalized).trim().toLowerCase();
+  }
+  function cityKey(value) { return searchKey(value).replace(/市$/, ''); }
 
   function normalizeItem(input) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) fail('wishlist item must be an object');
@@ -61,6 +69,13 @@
     if (input.planned_date != null && input.planned_date !== '') item.planned_date = dateValue(input.planned_date);
     if (input.priority != null && typeof input.priority !== 'boolean') fail('priority must be boolean');
     if (input.priority === true) item.priority = true;
+    if (input.aliases != null) {
+      if (!Array.isArray(input.aliases) || input.aliases.length > 40) fail('aliases are invalid');
+      var aliases = Array.from(new Set(input.aliases.map(function (alias) {
+        return cleanText(alias, 'store alias', 200, false);
+      }).filter(Boolean)));
+      if (aliases.length) item.aliases = aliases;
+    }
     return item;
   }
 
@@ -94,7 +109,8 @@
       note: store.note,
       province_code: store.province_code,
       planned_date: store.planned_date,
-      priority: store.priority
+      priority: store.priority,
+      aliases: store.aliases
     });
     var key = identity(item);
     var existingIndex = result.findIndex(function (saved) { return identity(saved) === key; });
@@ -104,6 +120,8 @@
       item.note = result[existingIndex].note;
       if (result[existingIndex].planned_date) item.planned_date = result[existingIndex].planned_date;
       if (result[existingIndex].priority) item.priority = true;
+      var aliases = Array.from(new Set((item.aliases || []).concat(result[existingIndex].aliases || []))).slice(0, 40);
+      if (aliases.length) item.aliases = aliases;
       result[existingIndex] = item;
       return result;
     }
@@ -120,7 +138,7 @@
   function select(items, options) {
     options = options || {};
     var normalized = normalize(items);
-    var terms = (options.query || '').normalize('NFKC').toLowerCase().trim().split(/\s+/).filter(Boolean);
+    var terms = searchKey(options.query).split(/\s+/).filter(Boolean);
     var start, end;
     if (options.when === 'today' || options.when === 'week') {
       start = dateValue(options.today);
@@ -132,7 +150,7 @@
       if (options.city && cityKey(item.city) !== cityKey(options.city)) return false;
       if (start && (!item.planned_date || item.planned_date < start || item.planned_date > end)) return false;
       if (options.when === 'unplanned' && item.planned_date) return false;
-      var haystack = [item.city, item.name, item.address, item.note].join(' ').normalize('NFKC').toLowerCase();
+      var haystack = searchKey([item.city, item.name, item.address, item.note].concat(item.aliases || []).join(' '));
       return terms.every(function (term) { return haystack.includes(term); });
     }).sort(function (a, b) {
       return Number(!!b.priority) - Number(!!a.priority) ||

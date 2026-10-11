@@ -2,6 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const Wishlist = require('../web/wishlist-engine.js');
+const StoreSearch = require('../web/national-store-search.js');
 
 const store = (changes = {}) => ({
   code: '001/京东', name: '人民广场麦当劳', city: '上海', address: '上海市某路1号',
@@ -111,4 +112,42 @@ test('seven-day plans cross month boundaries without counting past or undated st
   assert.deepEqual(Wishlist.select(items, {when: 'today', today: '2026-12-31'}).map(item => item.code), ['1']);
   assert.deepEqual(Wishlist.select(items, {when: 'unplanned'}).map(item => item.code), ['5']);
   assert.equal(Wishlist.select(items, {when: 'today', today: '2027-02-01'}).length, 0);
+});
+
+test('a simplified catalogue search remains available after collecting and restoring JSON', () => {
+  const index = StoreSearch.createIndex([{id:'mo:science', name:'麥當勞（科學館店）',
+    city:'澳門', province_code:'820000', address:'科學館路', aliases:['澳門科學館']}]);
+  const candidate = StoreSearch.candidate(index.search('澳门科学馆').stores[0]);
+  const saved = Wishlist.add([], candidate);
+  const archive = require('../web/journal-engine.js').normalizeArchive({version:1,data_kind:'manual',entries:[],wishlist:saved});
+  const restored = Wishlist.normalize(JSON.parse(JSON.stringify(archive)).wishlist);
+  assert.equal(Wishlist.select(restored, {query:'澳门科学馆'}).length, 1);
+  assert.equal(Wishlist.select(restored, {city:'澳门市', query:'科学馆'}).length, 1);
+  assert.equal(Wishlist.select(restored, {query:'澳門 科學館'}).length, 1);
+  assert.equal(Wishlist.select(restored, {query:'不存在的门店'}).length, 0);
+  assert.equal(restored[0].name, '麥當勞（科學館店）');
+  const updated = Wishlist.add(restored, {...candidate, name:'科學館餐廳', aliases:['澳門科學館新店']});
+  assert.equal(updated.length, 1);
+  assert.equal(Wishlist.select(updated, {query:'澳门科学馆'}).length, 1);
+  assert.equal(Wishlist.add(updated, {...candidate, aliases:undefined}).length, 1);
+  assert.deepEqual(Wishlist.add(updated, {...candidate, aliases:undefined})[0].aliases, updated[0].aliases);
+});
+
+test('browser wishlist searches resolve Chinese folding after the module is loaded', () => {
+  const vm = require('node:vm'), fs = require('node:fs');
+  const sandbox = {};
+  vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../web/wishlist-engine.js'),'utf8'), sandbox);
+  sandbox.ChineseSearchNormalization = require('../web/chinese-search-normalization.js');
+  const items = [{source:'manual', code:'tw:1', name:'麥當勞學士店', city:'臺中市'}];
+  assert.equal(sandbox.WishlistEngine.select(items, {query:'麦当劳 学士',city:'台中'}).length, 1);
+});
+
+test('wishlist aliases are bounded public search labels and never replace store identity', () => {
+  const saved = Wishlist.add([], store({aliases:['旧店名','旧店名',''],token:'secret'}));
+  assert.deepEqual(saved[0].aliases, ['旧店名']);
+  assert.equal(saved[0].code, store().code);
+  assert.equal(saved[0].token, undefined);
+  assert.throws(()=>Wishlist.add([],store({aliases:'not-an-array'})),/aliases/);
+  assert.throws(()=>Wishlist.add([],store({aliases:Array(41).fill('名称')})),/aliases/);
+  assert.throws(()=>Wishlist.add([],store({aliases:['字'.repeat(201)]})),/alias/);
 });
