@@ -1,2 +1,2 @@
 @echo off
-start "" "https://jay1023cn.github.io/mcd-china-map/"
+start "" "https://mcd-china-map.onrender.com/#store-finder"

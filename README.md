@@ -5,7 +5,7 @@
 <p align="center"><strong>下次旅行，哪家麦值得顺路去？</strong><br><sub>先收藏一家店，再把每一餐留下来。电脑、手机都能打开。</sub></p>
 
 <p align="center">
-  <a href="https://jay1023cn.github.io/mcd-china-map/"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-map-v2.svg" alt="打开地图，找家麦" width="240"></a>
+  <a href="https://mcd-china-map.onrender.com/#store-finder"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-map-v2.svg" alt="打开地图，找家麦" width="240"></a>
   &nbsp;
   <a href="https://github.com/Jay1023CN/mcd-china-map/releases/latest"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/download-v2.svg" alt="下载 Windows 版" width="240"></a>
 </p>
@@ -40,11 +40,11 @@
 <details>
 <summary><strong>第一次用：网页版与本地版怎么选？</strong></summary>
 
-**想先试试：** [打开网页版](https://jay1023cn.github.io/mcd-china-map/)，直接记一餐、上传照片、收藏门店、排期、翻城市回忆册、生成月度小报和分享卡。无需安装。
+**想先试试：** [打开网页版](https://mcd-china-map.onrender.com/#store-finder)，直接记一餐、上传照片、收藏门店、排期、翻城市回忆册、生成月度小报和分享卡。无需安装。
 
-**想同步自己的麦当劳订单：** [下载 Windows 完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击 `启动.cmd`。普通手账无需 Python；安装 Python 3.10+ 后，可连接自己的 [麦当劳中国 MCP Token](https://open.mcd.cn/mcp)，自动整理完成订单、查询官方附近门店。门店资料与默认照片自动带入，仍可编辑随记、换照片或删除记录。
+**想同步自己的麦当劳订单：** 可直接在[在线主站](https://mcd-china-map.onrender.com/#store-finder)连接麦当劳，也可以[下载 Windows 完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击 `启动.cmd`。普通手账无需 Python；安装 Python 3.10+ 后，可连接自己的 [麦当劳中国 MCP Token](https://open.mcd.cn/mcp)，自动整理完成订单、查询官方附近门店。门店资料与默认照片自动带入，仍可编辑随记、换照片或删除记录。
 
-当前 GitHub Pages 提供地图与手账，MCP 连接通过本机版使用。更多入口和步骤见 [Windows 使用说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/LOCAL_WINDOWS.md)、[网页版与部署](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/WEB.md)。
+在线主站提供地图与手账，也可连接麦当劳同步订单。本机版继续可用。更多入口和步骤见 [Windows 使用说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/LOCAL_WINDOWS.md)、[网页版与部署](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/WEB.md)。
 
 </details>
 
