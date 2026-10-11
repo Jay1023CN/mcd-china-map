@@ -66,7 +66,10 @@ async function main(){
   check(await page.locator('#pane-journal').isVisible(),'JOURNAL_NOT_OPENED');
   const journal=await page.locator('#pane-journal').innerText();
   check(entries.every(e=>typeof e.store==='string' && journal.includes(e.store)),'ORDER_STORE_NOT_RENDERED');
-  check(entries.every(e=>(e.foods || []).every(food=>journal.includes(food))),'ORDER_FOODS_NOT_RENDERED');
+  const displayedFoods=await page.locator('#journal-grid .food-tags span').allTextContents();
+  const expectedFoods=entries.flatMap(e=>e.foods || []);
+  result.orderFoods=expectedFoods.length;result.displayedFoodTags=displayedFoods.length;
+  check(expectedFoods.every(food=>displayedFoods.includes(food.trim())),'ORDER_FOODS_NOT_RENDERED');
   result.journalMatchesOrders=true;
   phase='footprints';
   await page.locator('#tab-map').tap();
