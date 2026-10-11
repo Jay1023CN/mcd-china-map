@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from web_api import create_app
 from web_sessions import SessionStore
+from cryptography.fernet import Fernet
 
 TOOLS = [{'name': name} for name in ['order-list', 'query-order', 'now-time-info', 'query-nearby-stores']]
 ORIGIN = 'https://map.example'
@@ -152,6 +153,70 @@ class WebSessionsTests(unittest.TestCase):
     def test_public_host_requires_https(self):
         with self.assertRaises(ValueError):
             create_app('http://public.example', state_dir=self.directory / 'rejected')
+
+    def test_remembered_connection_survives_empty_server_disk_without_exposing_token(self):
+        key = Fernet.generate_key().decode()
+        with patch.dict('os.environ', {'MCD_SESSION_KEY': key}):
+            original = create_app(ORIGIN, state_dir=self.directory / 'before', site_dir=self.directory / 'site')
+            browser = original.test_client()
+            response = self.login(browser, 'remembered-private-secret')
+            cookies = response.headers.getlist('Set-Cookie')
+            self.assertEqual(len(cookies), 2)
+            for cookie in cookies:
+                self.assertNotIn('remembered-private-secret', cookie)
+                self.assertIn('HttpOnly', cookie)
+                self.assertIn('Secure', cookie)
+                self.assertIn('SameSite=Strict', cookie)
+                self.assertIn('Max-Age=2592000', cookie)
+            sid = browser.get_cookie('__Host-mcd_session', domain='map.example').value
+            sealed = browser.get_cookie('__Host-mcd_resume', domain='map.example').value
+            store = original.extensions['mcd_sessions']
+            store.save_archive(sid, {'private_order': 'must-not-enter-cookie'})
+            self.assertNotIn('archive', store.cipher.decrypt(sealed.encode()).decode())
+            empty = create_app(ORIGIN, state_dir=self.directory / 'after', site_dir=self.directory / 'site')
+            restored = empty.test_client()
+            restored.set_cookie('__Host-mcd_session', sid, domain='map.example')
+            restored.set_cookie('__Host-mcd_resume', sealed, domain='map.example')
+            self.assertTrue(self.health(restored)['connected'])
+            self.assertEqual(self.health(restored)['account_id'], self.health(browser)['account_id'])
+            self.assertFalse(self.health(empty.test_client())['connected'])
+            self.assertEqual(restored.get('/api/synced-orders', base_url=ORIGIN).status_code, 404)
+            with patch('web_api.sync_orders', return_value={'version': 1, 'entries': []}) as sync:
+                self.assertEqual(self.post(restored, '/api/sync-orders', {}).status_code, 200)
+                self.assertEqual(sync.call_args.args[0], 'remembered-private-secret')
+
+    def test_resume_rejects_expiry_tampering_other_host_and_other_key(self):
+        key = Fernet.generate_key()
+        first = SessionStore(self.directory / 'resume-first', key)
+        sid, _ = first.create('resume-secret', {'store_lookup': True, 'order_sync': True})
+        sealed = first.seal_resume(sid, ORIGIN)
+        empty = SessionStore(self.directory / 'resume-empty', key)
+        self.assertIsNone(empty.restore(sid, sealed[:-3] + 'abc', ORIGIN))
+        self.assertIsNone(empty.restore(sid, sealed, 'https://other.example'))
+        self.assertIsNone(empty.restore('x' * 43, sealed, ORIGIN))
+        other_key = SessionStore(self.directory / 'resume-other-key', Fernet.generate_key())
+        self.assertIsNone(other_key.restore(sid, sealed, ORIGIN))
+        envelope = json.loads(first.cipher.decrypt(sealed.encode()))
+        envelope['expires'] = 0
+        expired = first.cipher.encrypt(json.dumps(envelope).encode()).decode()
+        self.assertIsNone(empty.restore(sid, expired, ORIGIN))
+
+    def test_resume_cannot_undo_logout_or_replacement_and_opt_out_removes_it(self):
+        with patch.dict('os.environ', {'MCD_SESSION_KEY': Fernet.generate_key().decode()}):
+            app = create_app(ORIGIN, state_dir=self.directory / 'resume-api', site_dir=self.directory / 'site')
+            browser = app.test_client()
+            self.login(browser, 'remembered-a')
+            old_sid = browser.get_cookie('__Host-mcd_session', domain='map.example').value
+            old_sealed = browser.get_cookie('__Host-mcd_resume', domain='map.example').value
+            self.login(browser, 'remembered-b', remember=False)
+            self.assertIsNone(browser.get_cookie('__Host-mcd_resume', domain='map.example'))
+            self.assertIsNone(app.extensions['mcd_sessions'].restore(old_sid, old_sealed, ORIGIN))
+            self.login(browser, 'remembered-c')
+            sid = browser.get_cookie('__Host-mcd_session', domain='map.example').value
+            sealed = browser.get_cookie('__Host-mcd_resume', domain='map.example').value
+            self.post(browser, '/api/disconnect', {})
+            self.assertIsNone(browser.get_cookie('__Host-mcd_resume', domain='map.example'))
+            self.assertIsNone(app.extensions['mcd_sessions'].restore(sid, sealed, ORIGIN))
 
 
 if __name__ == '__main__':

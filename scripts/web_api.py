@@ -35,6 +35,7 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
     origin = origin.rstrip('/')
     secure = parsed.scheme == 'https'
     cookie_name = '__Host-mcd_session' if secure else 'mcd_session'
+    resume_cookie = '__Host-mcd_resume' if secure else 'mcd_resume'
     state_dir = Path(state_dir or ROOT / 'private' / 'web')
     site_dir = Path(site_dir or ROOT / 'dist' / 'web-connected')
     runtime = {'local_api': True, 'web_sessions': True}
@@ -54,7 +55,8 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
                 'order_sync': bool(session and session['order_sync']),
                 'account_id': session['account_id'] if session else None,
                 'remembered': bool(session and session['remembered']),
-                'capabilities': {'connect': True, 'synced_orders': bool(session), 'remember_session': True}}
+                'capabilities': {'connect': True, 'synced_orders': bool(session), 'remember_session': True,
+                                 'durable_remember_session': sessions.can_resume}}
 
     def body():
         if request.mimetype != 'application/json':
@@ -76,6 +78,8 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
                 return error('请从地图页面操作。', 403)
         g.sid = request.cookies.get(cookie_name, '')
         g.session = sessions.get(g.sid)
+        if not g.session and request.cookies.get(resume_cookie):
+            g.session = sessions.restore(g.sid, request.cookies[resume_cookie], origin)
         expected = request.headers.get('X-Journal-Account')
         if expected and request.path not in ('/api/health', '/api/connect'):
             if not g.session or g.session['account_id'] != expected:
@@ -85,9 +89,10 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
     def headers(response):
         response.headers.update({'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff',
                                  'Referrer-Policy': 'no-referrer', 'X-Frame-Options': 'DENY'})
-        # Cookie is opaque and HttpOnly. No credentials in JS storage or HTML.
+        # Credentials are encrypted in an HttpOnly recovery cookie, never in JS storage or HTML.
         if request.cookies.get(cookie_name) and not getattr(g, 'session', None) and 'Set-Cookie' not in response.headers:
             response.delete_cookie(cookie_name, secure=secure, httponly=True, samesite='Strict')
+            response.delete_cookie(resume_cookie, secure=secure, httponly=True, samesite='Strict')
         return response
 
     @app.errorhandler(HTTPException)
@@ -133,6 +138,12 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
             response = jsonify(status(payload))
             response.set_cookie(cookie_name, sid, max_age=REMEMBER_SECONDS if remember else None,
                                 secure=secure, httponly=True, samesite='Strict', path='/')
+            recovery = sessions.seal_resume(sid, origin) if remember else None
+            if recovery:
+                response.set_cookie(resume_cookie, recovery, max_age=REMEMBER_SECONDS,
+                                    secure=secure, httponly=True, samesite='Strict', path='/')
+            else:
+                response.delete_cookie(resume_cookie, secure=secure, httponly=True, samesite='Strict')
             return response
         except HTTPException:
             raise
@@ -147,6 +158,7 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
             sessions.revoke(g.sid)
             response = jsonify(status(None))
             response.delete_cookie(cookie_name, secure=secure, httponly=True, samesite='Strict')
+            response.delete_cookie(resume_cookie, secure=secure, httponly=True, samesite='Strict')
             return response
         except ValueError:
             return error('断开请求格式无效。', 400)
