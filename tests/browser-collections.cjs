@@ -33,6 +33,7 @@ async function main(){
       const entries=[row('collection-sh-1',stores[0],day,['薯条','薯条']),row('collection-sh-2',stores[0],month+'-01',['咖啡']),row('collection-hz',stores[1],day,['薯条']),row('collection-tj',stores[2],prior,['汉堡'])];
       localStorage.setItem('mcd-china-map-personal-v1',JSON.stringify({version:1,data_kind:'manual',entries,wishlist:WishlistEngine.add([],{...stores[1],source:'manual',code:'catalog:'+stores[1].name})}));return {month,prior:prior.slice(0,7),stores};
     });
+    const monthLabel=seed.month.replace(/^(\d{4})-(\d{2})$/,'$1年$2月'),priorMonthLabel=seed.prior.replace(/^(\d{4})-(\d{2})$/,'$1年$2月');
     await page.reload();await page.locator('#tab-journal').click();assert.equal(await page.locator('#city-album-list .city-album').count(),3);
     await page.locator('.city-album').filter({hasText:'上海'}).click();assert.equal(await page.locator('#collection-grid .collection-page').count(),2);
     await page.locator('#collection-grid img').evaluateAll(images=>Promise.all(images.map(image=>image.decode())));await page.evaluate(()=>document.fonts.ready);
@@ -62,7 +63,6 @@ async function main(){
     await page.locator('#share-collection-back').click();assert.equal(await page.locator('.collection-pick input:checked').count(),1);
     await page.locator('#collection-switch').selectOption({label:'杭州 · 浙江省'});assert.equal(await page.locator('#collection-grid .collection-page').count(),1);
     await page.locator('[data-close=collection-dialog]').click();
-    const monthLabel=seed.month.replace(/^(\d{4})-(\d{2})$/,'$1年$2月');
     await page.locator('.month-chip').filter({hasText:monthLabel}).click();
     assert.match(await page.locator('#collection-summary').innerText(),/3 页回忆 · 2 座城市 · 2 家麦当劳/);
     assert.match(await page.locator('#collection-tastes').innerText(),/薯条 × 2/);
@@ -86,21 +86,21 @@ async function main(){
     assert.equal(share.files[0].type,'image/png');assert.match(share.files[0].name,/麦麦月度小报/);
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await page.locator('#share-collection-back').click();assert.equal(await page.locator('#collection-cover').inputValue(),'collection-hz');await page.locator('[data-close=collection-dialog]').click();
-    await page.locator('.month-chip').filter({hasText:seed.prior}).click();assert.match(await page.locator('#collection-summary').innerText(),/1 页回忆 · 1 座城市 · 1 家麦当劳/);
+    await page.locator('.month-chip').filter({hasText:priorMonthLabel}).click();assert.match(await page.locator('#collection-summary').innerText(),/1 页回忆 · 1 座城市 · 1 家麦当劳/);
     await page.locator('[data-close=collection-dialog]').click();await page.locator('#year-filter').selectOption(seed.month.slice(0,4));
     await page.locator('#country-filter').selectOption('310000');assert.equal(await page.locator('.city-album').count(),1);
     await page.locator('#tab-wishlist').click();await page.locator('.wishlist-directions summary').click();assert.equal(await page.locator('#wishlist-grid .store-navigation a').count(),1);
     await page.reload();await page.locator('#tab-journal').click();assert.equal(await page.locator('.city-album').count(),3);assert.equal(await page.locator('#count-visits').innerText(),'4');
     await page.locator('.city-album').filter({hasText:'上海'}).click();assert.equal(await page.locator('#collection-cover').inputValue(),'collection-sh-2');assert.equal(await page.locator('.collection-pick input:checked').count(),1);
     assert.match(await page.locator('#collection-caption').inputValue(),/沿街散步/);await page.locator('[data-close=collection-dialog]').click();
-    await page.locator('.month-chip').filter({hasText:seed.month}).click();assert.equal(await page.locator('#collection-layout').inputValue(),'feature');assert.equal(await page.locator('#collection-photo-0').inputValue(),'collection-hz');
+    await page.locator('.month-chip').filter({hasText:monthLabel}).click();assert.equal(await page.locator('#collection-layout').inputValue(),'feature');assert.equal(await page.locator('#collection-photo-0').inputValue(),'collection-hz');
     assert.match(await page.locator('#collection-caption').inputValue(),/和朋友见面/);
     await page.locator('[data-close=collection-dialog]').click();
     const [archiveFile]=await Promise.all([page.waitForEvent('download'),page.locator('#export').click()]);
     const exported=JSON.parse(fs.readFileSync(await archiveFile.path(),'utf8'));assert.equal(exported.collection_preferences.length,2);
     const restored=await context.newPage();await restored.goto(base);await restored.evaluate(()=>localStorage.removeItem('mcd-china-map-personal-v1'));await restored.reload();
     await restored.locator('#import-file').setInputFiles({name:'album-backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(exported))});await restored.locator('#toast').filter({hasText:'导入完成'}).waitFor();
-    await restored.locator('.month-chip').filter({hasText:seed.month}).click();assert.equal(await restored.locator('#collection-layout').inputValue(),'feature');assert.equal(await restored.locator('#collection-photo-0').inputValue(),'collection-hz');
+    await restored.locator('.month-chip').filter({hasText:monthLabel}).click();assert.equal(await restored.locator('#collection-layout').inputValue(),'feature');assert.equal(await restored.locator('#collection-photo-0').inputValue(),'collection-hz');
     await restored.close();
     const canvasCases=await page.evaluate(async()=>{
       const archive=JSON.parse(localStorage.getItem('mcd-china-map-personal-v1'));
