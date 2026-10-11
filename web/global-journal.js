@@ -1289,7 +1289,7 @@
       $('load-orders').textContent='载入已同步订单';
     }
     const connected=!!(state?.connected || state?.store_lookup);
-    $('connection-state').textContent=connected?(webSessions && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'直接记一餐，或连接麦当劳自动整理订单。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
+    $('connection-state').textContent=connected?(webSessions && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'连接麦当劳，自动整理你吃过的门店和餐品。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
     document.querySelector('.connection-bar').classList.toggle('connected',connected);
     $('open-connect').textContent=connected?'更换连接':'连接麦当劳';
     $('disconnect-mcd').hidden=!connected || !connectionAvailable;
