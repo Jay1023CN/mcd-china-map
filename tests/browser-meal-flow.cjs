@@ -6,19 +6,25 @@ const {spawn}=require('node:child_process');
 const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const useWebKit=process.env.MEAL_BROWSER==='webkit';
 const root=path.resolve(process.env.STATIC_WEB_ROOT || 'dist/web');
-const url='http://127.0.0.1:8779/';
+const url=process.env.MEAL_LIVE_URL || 'http://127.0.0.1:8779/';
 const output=path.resolve('private/meal-ui-preview'+(useWebKit?'/webkit':''));
 async function main(){
-  const server=spawn(process.env.PYTHON || 'python',['-m','http.server','8779','--bind','127.0.0.1','--directory',root],{stdio:'ignore'});
+  const server=process.env.MEAL_LIVE_URL?null:spawn(process.env.PYTHON || 'python',['-m','http.server','8779','--bind','127.0.0.1','--directory',root],{stdio:'ignore'});
   let browser;
   try{
     for(let i=0;i<50;i++){try{if((await fetch(url)).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
     browser=await (useWebKit?webkit:chromium).launch({headless:true});fs.mkdirSync(output,{recursive:true});
     const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,locale:'zh-CN',timezoneId:'Asia/Shanghai',geolocation:{latitude:31.222,longitude:121.44},permissions:['geolocation']});
     await context.route('https://ipwho.is/**',route=>route.fulfill({json:{success:true,country_code:'CN',city:'上海',latitude:31.23,longitude:121.47}}));
-    await context.route('**/api/health',route=>route.fulfill({json:{connected:false,capabilities:{connect:true,synced_orders:false}}}));
+    if(!process.env.MEAL_LIVE_URL)await context.route('**/api/health',route=>route.fulfill({json:{connected:false,capabilities:{connect:true,synced_orders:false}}}));
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
-    await page.goto(url);await page.locator('#first-meal').waitFor();
+    await page.goto(url,{timeout:120000});await page.locator('#first-meal').waitFor();
+    if(process.env.MEAL_LIVE_URL){
+      const info=await context.request.get(new URL('build-info.json',url).href);
+      assert.equal(info.status(),200);assert.equal((await info.json()).commit,process.env.EXPECTED_COMMIT);
+      const health=await context.request.get(new URL('api/health',url).href);
+      assert.equal(health.status(),200);assert.equal((await health.json()).connected,false);
+    }
     await page.screenshot({path:path.join(output,'home-mobile.png'),fullPage:false});
     if(await page.locator('#open-connect').isVisible()){
       await page.locator('#open-connect').click();await page.screenshot({path:path.join(output,'connect-mobile.png'),fullPage:false});
@@ -76,6 +82,6 @@ async function main(){
     assert.equal(await fallback.locator('#journal-grid .entry-card').count(),1);assert.deepEqual(errors,[]);
     console.log('PASS: mobile first-use, IP city hint, GPS distance order, one-tap store/foods, today/yesterday, hidden native file inputs, real chooser gestures, optional fields, reload, custom foods preservation, denied-location manual fallback and no dialog overflow.');
     await denied.close();
-  }finally{if(browser)await browser.close();server.kill();}
+  }finally{if(browser)await browser.close();if(server)server.kill();}
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

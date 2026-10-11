@@ -1,0 +1,34 @@
+name: Verify deployed mobile meal UI
+on:
+  workflow_dispatch:
+    inputs:
+      expected_commit:
+        description: Exact source commit deployed on Render
+        required: true
+permissions:
+  contents: read
+jobs:
+  mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browsers in GitHub Actions
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium webkit
+      - name: Verify the deployed version and mobile meal flow
+        env:
+          MEAL_LIVE_URL: https://mcd-china-map.onrender.com/
+          EXPECTED_COMMIT: ${{ inputs.expected_commit }}
+        run: |
+          node tests/browser-meal-flow.cjs
+          MEAL_BROWSER=webkit node tests/browser-meal-flow.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deployed-mobile-ui
+          path: private/meal-ui-preview/**/*.png
