@@ -299,7 +299,8 @@ async function runChromium() {
     const plan=page.locator('#wishlist-grid .entry-card').first();
     assert.equal(await page.locator('#wishlist-count').innerText(),'1');
     const plannedDate=await page.evaluate(()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;});
-    await plan.locator('input[type=date]').fill(plannedDate);
+    await plan.locator('.wishlist-date-value').tap();
+    await plan.locator('.wishlist-calendar-popup .meal-calendar-shortcut').filter({hasText:'今天'}).tap();
     await plan.locator('.wishlist-priority').tap();
     assert.equal(await plan.locator('.wishlist-priority').getAttribute('aria-pressed'),'true');
     await page.locator('#wishlist-city-filter').selectOption(store.city.replace(/市$/, ''));
@@ -317,7 +318,8 @@ async function runChromium() {
     assert.ok((await page.locator('#wishlist-pick-status').innerText()).includes(store.name));
     await page.locator('#wishlist-copy').tap();
     const itinerary=await page.evaluate(()=>window.mobileClipboardText);
-    assert.ok(itinerary.includes(store.name) && itinerary.includes('计划 '+plannedDate),'copied itinerary carries the chosen date and store');
+    const displayedPlannedDate=plannedDate.replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$1年$2月$3日');
+    assert.ok(itinerary.includes(store.name) && itinerary.includes('计划 '+displayedPlannedDate),'copied itinerary carries the chosen date and store');
     await assertMobileGeometry(page);
     const storeRecord=catalog.stores.find(item=>item.name===store.name);
     assert.ok(storeRecord?.default_photo,'the collected public store should retain its catalog photo');
@@ -354,7 +356,7 @@ async function runChromium() {
     await page.locator('#copy-share').tap();
     const caption=await page.evaluate(()=>window.mobileClipboardText);
     assert.ok(caption.includes('下一站计划 · 尚未打卡'));
-    assert.ok(caption.includes('计划 '+plannedDate),'plan share caption includes the scheduled date');
+    assert.ok(caption.includes('计划 '+displayedPlannedDate),'plan share caption includes the scheduled date');
     await page.locator('#native-share').tap();
     const payload=await page.evaluate(()=>window.mobileShare);
     assert.ok(payload.text.includes('下一站计划 · 尚未打卡'));
@@ -388,7 +390,7 @@ async function runChromium() {
     assert.equal(await restored.locator('#count-visits').innerText(),'1');
     assert.equal(await restored.locator('#wishlist-count').innerText(),'1');
     await restored.locator('#tab-wishlist').tap();
-    assert.equal(await restored.locator('#wishlist-grid input[type=date]').inputValue(),plannedDate,'restoring a backup restores the plan date');
+    assert.equal(await restored.locator('#wishlist-grid .wishlist-date-value').innerText(),displayedPlannedDate,'restoring a backup restores the plan date');
     assert.equal(await restored.locator('#wishlist-grid .wishlist-priority').getAttribute('aria-pressed'),'true');
     await clickJournalTab(restored);
     const restoredCard=restored.locator('#journal-grid .entry-card').filter({hasText:'成都移动端体验门店'});
