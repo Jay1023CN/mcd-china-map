@@ -72,6 +72,8 @@ async function main() {
     await page.reload();
     await page.getByRole('tab', {name: /想去清单/}).click();
     assert.equal(await page.locator('#wishlist-grid .wishlist-date-value').innerText(), '2027年01月17日', 'planned dates should persist after reload');
+    await page.locator('#wishlist-copy').click();
+    assert.ok((await page.locator('#wishlist-copy-text').inputValue()).includes('https://mcd-china-map.onrender.com/#store-finder'), 'copied itinerary should link directly to the live store finder');
 
     const downloadPromise = page.waitForEvent('download');
     await page.locator('#export').click();

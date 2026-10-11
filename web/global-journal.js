@@ -217,7 +217,7 @@
   });
   wishCopy.addEventListener('click',async()=>{
     const items=plannedStores();if(!items.length)return;
-    const content=[`${wishlistCity || '我的'}麦麦探店清单`,...items.map((item,index)=>[`${index+1}. ${item.name}`,item.city,item.planned_date?'计划 '+formatPlanDate(item.planned_date):'',item.address,item.note].filter(Boolean).join(' · ')),'一起去吃一站：https://jay1023cn.github.io/mcd-china-map/'].join('\n');
+    const content=[`${wishlistCity || '我的'}麦麦探店清单`,...items.map((item,index)=>[`${index+1}. ${item.name}`,item.city,item.planned_date?'计划 '+formatPlanDate(item.planned_date):'',item.address,item.note].filter(Boolean).join(' · ')),'一起去吃一站：https://mcd-china-map.onrender.com/#store-finder'].join('\n');
     wishCopyText.value=content;
     try{await navigator.clipboard.writeText(content);toast('探店清单已复制，发给朋友一起安排下一站。');}
     catch(error){wishCopyText.hidden=false;wishCopyText.focus();wishCopyText.select();toast('清单已选中，复制后就能发给朋友。');}
