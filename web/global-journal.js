@@ -51,6 +51,9 @@
   let mapPoints = [];
   let storeMapPoints = [];
   let nearbyStores = [];
+  let mealCityHint=null;
+  let mealPosition=null;
+  let mealLocationRevision=0;
   let toastTimer;
   const form = $('entry-form');
   const field = name => form.elements.namedItem(name);
@@ -470,6 +473,7 @@
     $('country-filter').value = province;
   }
   function render() {
+    $('first-meal').hidden=archive.entries.length>0 || archive.data_kind==='synthetic';
     refillFilters();
     currentSummary = E.summarize(archive, {...opts(), year: $('year-filter').value, province_code: $('country-filter').value});
     renderJourney();
@@ -779,7 +783,7 @@
     selectedWishlistId=wishlistId;
     $('wishlist-complete').hidden=!wishlistId;field('complete_wishlist').checked=!!wishlistId;
     if(wishlistId){field('note').value=store.note || '';$('form-heading').textContent='把下一站写成足迹';}
-    applyStoreInfo();updateCitySuggestions();
+    applyStoreInfo();updateCitySuggestions();showMealSelection();
   }
   function renderEntries(s) {
     const grid = $('journal-grid'); grid.replaceChildren();
@@ -979,8 +983,8 @@
     form.reset(); photo=entry && entry.photo ? {...entry.photo} : null;
     defaultPhoto=entry?.default_photo || null;
     photoBusy=false; $('save-entry').disabled=false;
-    $('form-heading').textContent=entry ? '修改这一页手账' : '新添一页打卡';
-    $('form-note').textContent='门店资料和照片自动带入，想写什么、换哪张照片，都由你决定。';
+    $('form-heading').textContent=entry ? '修改这一餐' : '记一餐';
+    $('form-note').textContent='选一家店，点选吃过的餐品，就能留下足迹。';
     field('date').max=today(); field('date').value=entry ? entry.date : today();
     field('country_code').value='CN';
     field('province_code').value=entry?.province_code || data.cities.find(c => [c.city,c.city+'市'].includes(entry?.city))?.province_code || '';
@@ -998,7 +1002,110 @@
     } else field('location_mode').value='none';
     $('form-error').hidden=true; showPhoto(); updateCitySuggestions();
     if (!defaultPhoto) applyStoreInfo();
-    $('entry-dialog').showModal(); field('date').focus();
+    $('meal-city-details').open=false;$('meal-extra').open=false;
+    if(!entry && mealCityHint){field('city').value=mealCityHint.city;field('province_code').value=mealCityHint.province_code;updateCitySuggestions();}
+    renderMealFoods();updateMealDate();renderMealStores();showMealSelection();
+    $('entry-dialog').showModal();$('meal-locate').focus({preventScroll:true});
+  }
+  const mealFoodChoices=['汉堡','薯条','咖啡','麦乐鸡','可乐','冰淇淋','麦辣鸡腿堡','巨无霸'];
+  function mealFoodValues(){return field('foods').value.split(/[,，、\n]/).map(v=>v.trim()).filter(Boolean);}
+  function renderMealFoods(){
+    const selected=new Set(mealFoodValues());
+    $('meal-foods').replaceChildren(...mealFoodChoices.map(food=>{
+      const button=node('button',food,'meal-chip');button.type='button';button.setAttribute('aria-pressed',String(selected.has(food)));
+      button.addEventListener('click',()=>{const values=new Set(mealFoodValues());values.has(food)?values.delete(food):values.add(food);field('foods').value=[...values].join('，');renderMealFoods();});return button;
+    }));
+  }
+  function mealYesterday(){const d=new Date(today()+'T12:00:00');d.setDate(d.getDate()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+  function updateMealDate(){for(const [id,value] of [['meal-today',today()],['meal-yesterday',mealYesterday()]])$(id).setAttribute('aria-pressed',String(field('date').value===value));}
+  $('meal-today').addEventListener('click',()=>{field('date').value=today();updateMealDate();});
+  $('meal-yesterday').addEventListener('click',()=>{field('date').value=mealYesterday();updateMealDate();});
+  field('date').addEventListener('change',updateMealDate);
+  field('foods').addEventListener('input',renderMealFoods);
+  function mealDistance(a,b){
+    const rad=Math.PI/180,lat=(b.lat-a.lat)*rad,lon=(b.lon-a.lon)*rad;
+    const h=Math.sin(lat/2)**2+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(lon/2)**2;
+    return 6371*2*Math.asin(Math.sqrt(Math.min(1,h)));
+  }
+  function mealGcjPosition(position){
+    // Browser coordinates are WGS84; mainland public store points are GCJ-02.
+    const {lat,lon}=position;if(lon<72.004 || lon>137.8347 || lat<.8293 || lat>55.8271)return position;
+    const x=lon-105,y=lat-35,pi=Math.PI;
+    let dlat=-100+2*x+3*y+.2*y*y+.1*x*y+.2*Math.sqrt(Math.abs(x));
+    dlat+=(20*Math.sin(6*x*pi)+20*Math.sin(2*x*pi))*2/3;
+    dlat+=(20*Math.sin(y*pi)+40*Math.sin(y/3*pi))*2/3;
+    dlat+=(160*Math.sin(y/12*pi)+320*Math.sin(y*pi/30))*2/3;
+    let dlon=300+x+2*y+.1*x*x+.1*x*y+.1*Math.sqrt(Math.abs(x));
+    dlon+=(20*Math.sin(6*x*pi)+20*Math.sin(2*x*pi))*2/3;
+    dlon+=(20*Math.sin(x*pi)+40*Math.sin(x/3*pi))*2/3;
+    dlon+=(150*Math.sin(x/12*pi)+300*Math.sin(x/30*pi))*2/3;
+    const r=lat/180*pi,s=Math.sin(r),magic=1-.006693421622965943*s*s;
+    return {lat:lat+dlat*180/((6378245*(1-.006693421622965943))/(magic*Math.sqrt(magic))*pi),lon:lon+dlon*180/(6378245/Math.sqrt(magic)*Math.cos(r)*pi)};
+  }
+  function showMealSelection(){
+    const store=formCatalogStore(),text=$('meal-selected-store');text.hidden=!store;
+    if(store){text.textContent=`已选：${store.name}${store.address?' · '+store.address:''}`;$('meal-store-results').replaceChildren();}
+    field('store').classList.toggle('meal-store-selected',!!store);
+  }
+  function chooseMealStore(store){
+    field('city').value=store.city;field('province_code').value=store.province_code || '';
+    field('store').value=store.name;clearStoreSelection();applyStoreInfo();
+    field('location_mode').value=store.location?'store':'none';updateCitySuggestions();showMealSelection();$('meal-city-details').open=false;
+    $('meal-today').focus({preventScroll:true});
+  }
+  function renderMealStores(){
+    const query=field('store').value.trim(),city=field('city').value;
+    let choices=[];
+    if(query)choices=catalogIndex.search({query,city,province_code:field('province_code').value,limit:5}).stores.map(store=>({store}));
+    else if(mealPosition){
+      const gcj=mealGcjPosition(mealPosition);
+      choices=catalogStores.filter(store=>store.location && ['GCJ-02','WGS84','WGS-84'].includes(store.location.coordinate_system))
+        .map(store=>({store,distance:mealDistance(store.location.coordinate_system==='GCJ-02'?gcj:mealPosition,store.location)}))
+        .filter(row=>row.distance<=50).sort((a,b)=>a.distance-b.distance).slice(0,5);
+    }else if(city)choices=catalogIndex.search({city,province_code:field('province_code').value,limit:4}).stores.map(store=>({store}));
+    $('meal-store-results').replaceChildren(...choices.map(({store,distance})=>{
+      const button=node('button',undefined,'meal-store-choice');button.type='button';
+      button.append(node('strong',store.name),node('small',[Number.isFinite(distance)?`直线约 ${distance<1?Math.round(distance*1000)+' 米':distance.toFixed(1)+' 公里'}`:store.city,store.address].filter(Boolean).join(' · ')));
+      button.addEventListener('click',()=>chooseMealStore(store));return button;
+    }));
+    if(!choices.length && (query || mealPosition))$('meal-store-results').append(node('p',query?'没找到？可以换个关键词，或展开下面手动填写。':'附近暂未收录可定位的门店，可以搜店名或换城市。','map-note'));
+    if(!mealPosition)$('meal-location-status').textContent=city?`${city}门店 · 点定位可按距离排序`:'也可以直接搜店名或地址';
+  }
+  function locateMealStores(){
+    const revision=++mealLocationRevision;
+    if(!navigator.geolocation){$('meal-location-status').textContent='这个浏览器暂不支持定位，可以选城市或搜门店。';$('meal-city-details').open=true;return;}
+    $('meal-locate').disabled=true;$('meal-location-status').textContent='正在找你附近的门店…';
+    navigator.geolocation.getCurrentPosition(position=>{
+      if(revision!==mealLocationRevision)return;
+      $('meal-locate').disabled=false;mealPosition={lat:position.coords.latitude,lon:position.coords.longitude};
+      $('meal-location-status').textContent=position.coords.accuracy>1000?'位置较粗，距离仅供参考':'按直线距离排序，点一家就选好';
+      if($('entry-dialog').open && !currentEntry){field('store').value='';clearStoreSelection();defaultPhoto=null;showPhoto();renderMealStores();showMealSelection();}
+    },()=>{
+      if(revision!==mealLocationRevision)return;
+      $('meal-locate').disabled=false;$('meal-location-status').textContent='没取得定位。选城市或搜门店也能记一餐。';$('meal-city-details').open=true;renderMealStores();
+    },{enableHighAccuracy:true,timeout:10000,maximumAge:120000});
+  }
+  $('meal-locate').addEventListener('click',locateMealStores);
+  $('first-meal-add').addEventListener('click',()=>openForm());
+  $('first-meal-nearby').addEventListener('click',()=>{openForm();locateMealStores();});
+  form.addEventListener('invalid',event=>{const details=event.target.closest('details');if(details)details.open=true;},true);
+  async function suggestMealCity(){
+    try{
+      let hint;try{hint=JSON.parse(sessionStorage.getItem('mcd-city-hint') || 'null');}catch{}
+      if(!hint){
+        const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),4000);
+        try{const response=await fetch('https://ipwho.is/?lang=zh&fields=success,country_code,city,latitude,longitude',{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer'});
+          if(!response.ok)return;const value=await response.json();if(!value.success || !['CN','HK','MO','TW'].includes(value.country_code))return;
+          const direct=data.cities.find(c=>[c.city,c.city+'市',c.city_en].some(n=>n && n.toLowerCase()===String(value.city).toLowerCase()));
+          const nearest=Number.isFinite(value.latitude) && Number.isFinite(value.longitude)?data.cities.map(c=>({city:c,distance:mealDistance({lat:value.latitude,lon:value.longitude},c)})).sort((a,b)=>a.distance-b.distance)[0]:null;
+          const city=direct || (nearest?.distance<80?nearest.city:null);if(!city)return;
+          hint={city:city.city,province_code:city.province_code};try{sessionStorage.setItem('mcd-city-hint',JSON.stringify(hint));}catch{}
+        }finally{clearTimeout(timer);}
+      }
+      if(!catalogIndex.cities().some(c=>c.city===hint.city && c.province_code===hint.province_code))return;
+      mealCityHint=hint;
+      if($('entry-dialog').open && !currentEntry && !field('city').value && !field('store').value && !mealPosition){field('city').value=hint.city;field('province_code').value=hint.province_code;updateCitySuggestions();renderMealStores();}
+    }catch{/* City hints are optional; search and manual selection always remain usable. */}
   }
   field('province_code').addEventListener('change',updateCitySuggestions);
   field('city').addEventListener('input',updateLocationHelp);
@@ -1024,6 +1131,7 @@
   }
   field('photo').addEventListener('change', event => readPhoto(event.target.files[0]));
   $('take-photo').addEventListener('click', () => $('camera-input').click());
+  $('choose-photo').addEventListener('click', () => field('photo').click());
   $('camera-input').addEventListener('change', event => { readPhoto(event.target.files[0]); event.target.value=''; });
   $('remove-photo').addEventListener('click',()=>{photoRevision++;photoBusy=false;$('save-entry').disabled=false;field('photo').value='';photo=null;showPhoto();});
   form.addEventListener('submit',event=>{
@@ -1079,7 +1187,7 @@
         $('detail-dialog').close();openForm();
         field('city').value=entry.city;field('province_code').value=entry.province_code || '';field('store').value=entry.store;
         field('foods').value=entry.foods.join('，');selectedStore=entry.store_reference || null;
-        applyStoreInfo();if(!defaultPhoto && entry.default_photo){defaultPhoto={...entry.default_photo};showPhoto();}
+        applyStoreInfo();if(!defaultPhoto && entry.default_photo){defaultPhoto={...entry.default_photo};showPhoto();}renderMealFoods();showMealSelection();
         $('form-heading').textContent='再来这家，留新的一页';$('form-note').textContent='门店和上次餐品已带入。换上这次的照片、写下这次的小事。';
       });body.append(again);
     }
@@ -1096,13 +1204,14 @@
   $('year-filter').addEventListener('change',render);$('country-filter').addEventListener('change',render);
   field('province_code').replaceChildren(new Option('请选择省份 / 地区',''), ...provinces.map(f => new Option(f.properties.name,String(f.properties.adcode))));
   function clearStoreSelection(){selectedStore=null;selectedWishlistId=null;$('wishlist-complete').hidden=true;}
-  field('store').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo(); });
-  field('city').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo(); });
-  field('province_code').addEventListener('change', () => { selectedStore = null; });
+  field('store').addEventListener('input', () => { clearStoreSelection(); applyStoreInfo();renderMealStores();showMealSelection(); });
+  field('city').addEventListener('input', () => { mealPosition=null;clearStoreSelection(); applyStoreInfo();renderMealStores();showMealSelection(); });
+  field('province_code').addEventListener('change', () => { mealPosition=null;selectedStore = null;renderMealStores();showMealSelection(); });
   $('find-next-store').addEventListener('click',()=>{
     if(!localApi){$('inspiration-grid').scrollIntoView({behavior:'smooth',block:'start'});return;}
     $('store-search').open=true;$('store-search').scrollIntoView({behavior:'smooth',block:'start'});$('store-search-form').elements.search_city.focus();
   });
+  const connectionOnboarding=window.McdConnectionOnboarding.mount();
   let connectionAvailable=false;
   function useAccount(account) {
     if(!webSessions || !/^[a-f0-9]{32}$/.test(account || ''))return;
@@ -1135,22 +1244,22 @@
       document.querySelector('.inspiration-heading p').textContent='先从这些公开特色店开始，收藏想去的地方，到了再记一页。';
       return;
     }
-    connectionAvailable=!!state?.capabilities?.connect;
+    connectionAvailable=!!state?.capabilities?.connect;connectionOnboarding?.setAvailable(connectionAvailable);
     if(webSessions){
       activeAccount=state?.account_id || null;
       if(activeAccount)useAccount(activeAccount);
-      $('connection-note').textContent='用你自己的麦当劳中国 MCP Token 连接，就能同步订单、查找门店。';
+      $('connection-note').textContent='连接后，订单里的门店和餐品会自动整理，省得一项项填写。';
       $('remember-field').hidden=false;
       $('load-orders').textContent='载入已同步订单';
     }
     const connected=!!(state?.connected || state?.store_lookup);
-    $('connection-state').textContent=connected?(webSessions && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'手账已准备好。连接麦当劳，再找下一家门店。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
+    $('connection-state').textContent=connected?(webSessions && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'直接记一餐，或连接麦当劳自动整理订单。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
     document.querySelector('.connection-bar').classList.toggle('connected',connected);
     $('open-connect').textContent=connected?'更换连接':'连接麦当劳';
     $('disconnect-mcd').hidden=!connected || !connectionAvailable;
     $('load-orders').hidden=!state?.capabilities?.synced_orders;
     $('sync-orders').hidden=!(connected && state?.order_sync);
-    $('store-api-status').textContent=connected?'官方门店查询已连接。':connectionAvailable?'点击上方“连接麦当劳”，就可以查找附近门店。':webSessions?'网页服务暂未响应，请刷新后重试。':'查询门店请安装 Python 3.10 或更新版本，重新运行“启动.cmd”。';
+    $('store-api-status').textContent=connected?'官方门店查询已连接。':connectionAvailable?'门店目录可以直接查找；连接后还能查询官方门店服务。':webSessions?'网页服务暂未响应，请刷新后重试。':'查询门店请安装 Python 3.10 或更新版本，重新运行“启动.cmd”。';
   }
   if(localApi)fetch('/api/health').then(r=>r.ok?r.json():null).then(showConnection).catch(()=>showConnection(null));
   else showConnection(null);
@@ -1161,19 +1270,22 @@
   });
   $('open-connect').addEventListener('click',()=>{
     $('connect-status').textContent=connectionAvailable?'':webSessions?'网页服务暂未响应，请刷新后重试。':'当前启动只提供手账功能。安装 Python 3.10 或更新版本后，关闭启动窗口，再运行“启动.cmd”。';
-    $('connect-submit').disabled=!connectionAvailable;$('connect-dialog').showModal();$('connect-token').focus();
+    $('connect-submit').disabled=!connectionAvailable;$('connect-dialog').showModal();$('connect-manual').open=false;connectionOnboarding?.focus();
   });
+  let connectionPending=false,orderSyncPending=false;
   $('connect-form').addEventListener('submit',async event=>{
-    event.preventDefault();if(!connectionAvailable)return;
-    $('connect-submit').disabled=true;$('connect-status').textContent='正在连接官方服务……';
+    event.preventDefault();if(!connectionAvailable || connectionPending || orderSyncPending)return;
+    connectionPending=true;$('connect-submit').disabled=true;$('connect-paste').disabled=true;$('connect-status').textContent='正在连接麦当劳，马上帮你整理订单……';
     try {
       const response=await fetch('/api/connect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:$('connect-token').value,...(webSessions?{remember:$('connect-remember').checked}:{})})});
-      const result=await response.json();if(!response.ok)throw new Error(result.error || '连接未完成，请检查 Token。');
+      const result=await response.json();if(!response.ok)throw new Error((result.error || '连接未完成，请检查连接码。').replace(/Token/gi,'连接码'));
       showConnection({...result,capabilities:{connect:true,synced_orders:true}});
       if(webSessions)try{localStorage.setItem('mcd-china-map-connection-change',String(Date.now()));}catch(error){}
-      $('connect-dialog').close();toast('麦当劳已连接，可以找下一站了。');
+      $('connect-token').value='';$('connect-dialog').close();
+      if(result.order_sync===true)await syncConnectedOrders();
+      else toast('麦当劳已连接，可以查询门店了。');
     }catch(error){$('connect-status').textContent=error.message;}
-    finally{$('connect-token').value='';$('connect-submit').disabled=false;}
+    finally{connectionPending=false;$('connect-token').value='';$('connect-submit').disabled=!connectionAvailable;$('connect-paste').disabled=!connectionAvailable;}
   });
   $('disconnect-mcd').addEventListener('click',async()=>{
     try {
@@ -1191,8 +1303,10 @@
     }catch(error){toast(error.message);}
     finally{$('load-orders').disabled=false;}
   });
-  $('sync-orders').addEventListener('click',async()=>{
-    const buttons=['sync-orders','load-orders','open-connect','disconnect-mcd'];
+  async function syncConnectedOrders(){
+    if(orderSyncPending)return;
+    orderSyncPending=true;
+    const buttons=['sync-orders','load-orders','open-connect','disconnect-mcd','connect-paste'];
     buttons.forEach(id=>$(id).disabled=true);
     $('sync-progress').hidden=false;$('sync-progress').textContent='正在整理门店和餐品，稍等片刻……';
     try {
@@ -1200,9 +1314,10 @@
       const result=await response.json();if(!response.ok)throw new Error(result.error || '订单暂未同步，请稍后再试。');
       const incoming=E.normalizeArchive(result.archive,opts());if(!mergeArchive(incoming))return;
       showImported('journal');$('sync-progress').textContent=incoming.entries.length?`已自动整理 ${incoming.entries.length} 页订单手账，可以直接编辑、换照片或删除。`:'本次没有完成订单，可以先新增一页自己的打卡。';
-    }catch(error){$('sync-progress').textContent=error.message;}
-    finally{buttons.forEach(id=>$(id).disabled=false);}
-  });
+    }catch(error){$('sync-progress').textContent=`麦当劳已连接。${error.message} 点“同步我的订单”可以重试。`;}
+    finally{orderSyncPending=false;buttons.forEach(id=>$(id).disabled=false);$('connect-paste').disabled=connectionPending || !connectionAvailable;}
+  }
+  $('sync-orders').addEventListener('click',syncConnectedOrders);
   $('store-search-form').addEventListener('submit', async event => {
     event.preventDefault(); const fields = event.currentTarget.elements;
     $('search-stores').disabled = true; $('store-results').replaceChildren(); $('store-search-status').textContent = '正在查询官方附近门店……';
@@ -1473,5 +1588,6 @@
     finally {event.target.value='';}
   });
   render();
+  if(archive.data_kind!=='synthetic')suggestMealCity();
   if (archive.entries.some(e => e.origin === 'mcp')) { save(); setView('journal'); }
 })();

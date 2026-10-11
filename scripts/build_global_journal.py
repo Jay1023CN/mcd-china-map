@@ -156,7 +156,7 @@ def render(archive):
         preferences_js=(ROOT/'web/collection-preferences.js').read_text(encoding='utf-8'),
         navigation_js=(ROOT/'web/store-navigation.js').read_text(encoding='utf-8'),
         national_js='\n'.join((ROOT/path).read_text(encoding='utf-8') for path in ['web/chinese-search-normalization.js','web/national-store-search.js']),
-        app_js=(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
+        app_js=(ROOT/'web/connection-onboarding.js').read_text(encoding='utf-8')+'\n'+(ROOT/'web/global-journal.js').read_text(encoding='utf-8'))
 
 
 def main():

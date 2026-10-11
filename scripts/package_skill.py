@@ -27,7 +27,7 @@ FILES = (
     "scripts/mcp_readonly.py", "scripts/connect_mcp.py",
     "scripts/import_mcp_footprints.py", "scripts/sync_footprints.py",
     "scripts/footprints.py", "scripts/store_enrichment.py", "web/global-journal.js", "web/journal-engine.js", "web/order-journal.js", "tests/order-journal.test.js",
-    "web/share-card.js", "web/journey-insights.js", "web/wishlist-engine.js", "web/memory-card.js",
+    "web/share-card.js", "web/journey-insights.js", "web/wishlist-engine.js", "web/memory-card.js", "web/connection-onboarding.js",
     "web/journal-collections.js", "web/store-navigation.js", "tests/journal-collections.test.cjs", "tests/store-navigation.test.cjs",
     "web/collection-preferences.js", "tests/collection-preferences.test.cjs",
     "web/national-store-search.js", "tests/national-store-search.test.cjs", "tests/browser-national-stores.cjs", "tests/browser-featured-photos.cjs",

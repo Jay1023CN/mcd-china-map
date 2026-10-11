@@ -33,6 +33,24 @@ jobs:
           python -m unittest discover -s tests -p 'test_prebuilt_web.py' -v
       - name: Build connected site in GitHub Actions
         run: python scripts/build_web_app.py --connected --output-dir dist/web-connected
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the first meal and connection on a mobile screen
+        env:
+          STATIC_WEB_ROOT: ${{ github.workspace }}/dist/web-connected
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+          node tests/test_connection_onboarding.cjs
+          node tests/browser-connection-onboarding.cjs
+          node tests/browser-meal-flow.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: connected-meal-ui-preview
+          path: private/meal-ui-preview/*.png
+          if-no-files-found: ignore
       - name: Verify and archive the public runtime files
         env:
           SOURCE_COMMIT: ${{ github.sha }}

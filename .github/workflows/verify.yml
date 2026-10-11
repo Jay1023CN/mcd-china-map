@@ -77,5 +77,8 @@ jobs:
           node tests/browser-featured-photos.cjs
           node tests/browser-regional-sources.cjs
           node tests/browser-map-layout.cjs
+          node tests/browser-meal-flow.cjs
+          node tests/test_connection_onboarding.cjs
+          node tests/browser-connection-onboarding.cjs
       - name: Verify distribution whitelist
         run: python scripts/package_skill.py

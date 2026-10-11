@@ -52,10 +52,10 @@ async function main() {
       connectRequests.push(body);
       assert.deepEqual(Object.keys(body).sort(), ['token']);
       if (connectionMode === 'failure') {
-        return route.fulfill({status: 401, json: {error: '连接未完成，请检查 Token。'}});
+        return route.fulfill({status: 401, json: {error: '连接未完成，请检查连接码。'}});
       }
       connected = true;
-      return route.fulfill({json: {connected: true, store_lookup: true, order_sync: true}});
+      return route.fulfill({json: {connected: true, store_lookup: true, order_sync: connectionMode!=='store-only'}});
     });
     await page.route('**/api/sync-orders', route => {
       const body = route.request().postDataJSON();
@@ -80,6 +80,7 @@ async function main() {
 
     await page.locator('#open-connect').click();
     assert.equal(await page.locator('#connect-dialog').evaluate(dialog => dialog.open), true);
+    await page.locator('#connect-manual').evaluate(details => { details.open = true; });
     await page.locator('#connect-token').fill('fixturetoken');
     await page.locator('#connect-submit').click();
     await page.locator('#connect-dialog').waitFor({state: 'hidden'});
@@ -88,9 +89,10 @@ async function main() {
     assert.equal(await page.locator('#load-orders').isVisible(), true);
     assert.equal(await page.locator('#disconnect-mcd').isVisible(), true);
 
-    await page.locator('#load-orders').click();
     const importedOrder = page.locator('#journal-grid .entry-card').filter({hasText: '虚构订单测试门店'});
     await importedOrder.waitFor();
+    await page.locator('#sync-progress').filter({hasText: '已自动整理 1 页订单手账'}).waitFor();
+    assert.equal(syncRequests.length,1,'connecting automatically imports orders without another click');
     assert.equal(await page.locator('#candidate-count').innerText(), '0', 'completed orders should be materialized directly as journal pages');
     assert.equal(await page.locator('#count-visits').innerText(), '1', 'a completed order should immediately become a confirmed journal page');
     assert.match(await importedOrder.locator('.origin').innerText(), /从麦当劳订单自动整理/);
@@ -107,6 +109,7 @@ async function main() {
     await page.locator('#sync-progress').filter({hasText: '正在整理门店和餐品'}).waitFor();
     assert.equal(await page.locator('#sync-orders').isDisabled(), true, 'sync action must be disabled while the request is pending');
     assert.equal(await page.locator('#load-orders').isDisabled(), true);
+    assert.equal(await page.locator('#connect-paste').isDisabled(), true,'a pending sync must prevent a second connection');
     assert.deepEqual(syncRequests[0], {});
     assert.equal(typeof finishSync, 'function');
     await finishSync();
@@ -152,10 +155,11 @@ async function main() {
     await page.locator('#sync-orders').click();
     await page.locator('#sync-progress').filter({hasText: '订单同步失败，之前已保存的订单记录保持不变。'}).waitFor();
     assert.equal(await page.locator('#sync-orders').isDisabled(), false);
+    assert.match(await page.locator('#sync-progress').innerText(),/麦当劳已连接.*重试/,'a sync failure keeps the connection and offers retry');
     assert.equal(await page.locator('#candidate-count').innerText(), '0');
     assert.equal(await page.locator('#count-visits').innerText(), '0');
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
-    assert.deepEqual(syncRequests, [{}, {}, {}, {}]);
+    assert.deepEqual(syncRequests, [{}, {}, {}, {}, {}]);
 
     await page.locator('#disconnect-mcd').click();
     await page.locator('#toast').filter({hasText: '连接已断开'}).waitFor();
@@ -167,16 +171,24 @@ async function main() {
 
     connectionMode = 'failure';
     await page.locator('#open-connect').click();
+    await page.locator('#connect-manual').evaluate(details => { details.open = true; });
     await page.locator('#connect-token').fill('fixturebadtoken');
     await page.locator('#connect-submit').click();
-    await page.locator('#connect-status').filter({hasText: '连接未完成，请检查 Token。'}).waitFor();
+    await page.locator('#connect-status').filter({hasText: '连接未完成，请检查连接码。'}).waitFor();
     assert.equal(await page.locator('#connect-dialog').evaluate(dialog => dialog.open), true);
     assert.equal(await page.locator('#connect-token').inputValue(), '');
-    assert.equal(await page.locator('#connect-status').innerText(), '连接未完成，请检查 Token。');
+    assert.equal(await page.locator('#connect-status').innerText(), '连接未完成，请检查连接码。');
     assert.equal(await page.locator('#count-visits').innerText(), '0');
     assert.equal(await page.locator('#wishlist-count').innerText(), '1');
     assert.deepEqual(connectRequests[1], {token: 'fixturebadtoken'});
     assert.doesNotMatch(await page.locator('#connect-status').innerText(), /fixturebadtoken/);
+    connectionMode='store-only';
+    const priorSyncRequests=syncRequests.length;
+    await page.locator('#connect-token').fill('fixture-store-only');
+    await page.locator('#connect-submit').click();
+    await page.locator('#connect-dialog').waitFor({state:'hidden'});
+    assert.equal(await page.locator('#sync-orders').isVisible(),false,'store-only connections have no order action');
+    assert.equal(syncRequests.length,priorSyncRequests,'store-only connections must not automatically sync orders');
 
     await page.setViewportSize({width: 390, height: 844});
     const modalBounds = await page.locator('#connect-dialog').evaluate(dialog => ({scroll: dialog.scrollWidth, client: dialog.clientWidth}));
@@ -193,7 +205,7 @@ async function main() {
     await fallback.locator('#open-connect').click();
     assert.equal(await fallback.locator('#connect-submit').isDisabled(), true, 'connection must be unavailable when health returns 404');
     await fallback.locator('[data-close="connect-dialog"]').click();
-    await fallback.getByRole('button', {name: '新增打卡', exact: true}).click();
+    await fallback.getByRole('button', {name: '记一餐', exact: true}).click();
     assert.equal(await fallback.locator('#entry-dialog').evaluate(dialog => dialog.open), true, 'manual journal entry must still be available without the connection API');
     const fallbackBounds = await fallback.locator('#entry-dialog').evaluate(dialog => ({scroll: dialog.scrollWidth, client: dialog.clientWidth}));
     assert.ok(fallbackBounds.scroll <= fallbackBounds.client + 1, 'mobile journal dialog must not overflow horizontally');

@@ -131,14 +131,16 @@ async function main() {
     const journalPage = await journalContext.newPage();
     journalPage.on('pageerror', error => errors.push(error.message));
     await journalPage.goto(base);
-    await journalPage.getByRole('button', {name: '新增打卡', exact: true}).click();
+    await journalPage.getByRole('button', {name: '记一餐', exact: true}).click();
     await journalPage.locator('[name=store]').fill('麦当劳成都锦江区东大街旗舰店餐厅');
     const chengduPhoto = await journalPage.locator('#photo-preview').getAttribute('src');
     assert.match(chengduPhoto, /^data:image\//, 'Chengdu default photo should be embedded without an external image request');
     await journalPage.waitForFunction(() => document.getElementById('photo-preview').naturalWidth > 0);
     assert.match(await journalPage.locator('#photo-caption').innerText(), /麦当劳官网新闻配图/);
 
+    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=city]').fill('北京');
+    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=province_code]').selectOption('');
     await journalPage.locator('[name=store]').fill('麦当劳北京首钢园得来速餐厅');
     const shougangPhoto = await journalPage.locator('#photo-preview').getAttribute('src');
@@ -149,7 +151,7 @@ async function main() {
     assert.equal(await journalPage.locator('[name=province_code]').inputValue(), '110000');
     await journalPage.locator('[name=foods]').fill('咖啡，薯条');
     assert.equal(await journalPage.locator('[name=confirmed]').isChecked(), true, 'saved manual pages are confirmed automatically');
-    await journalPage.getByRole('button', {name: '保存这一页'}).click();
+    await journalPage.getByRole('button', {name: '保存这一餐'}).click();
     assert.equal(await journalPage.locator('#count-visits').innerText(), '1');
     const savedStoreCard = journalPage.locator('#journal-grid .entry-card').filter({has: journalPage.locator('h3').filter({hasText: '麦当劳北京首钢园得来速餐厅'})});
     const savedPhoto = savedStoreCard.locator('.entry-photo img.photo');
@@ -161,8 +163,10 @@ async function main() {
     await savedStoreCard.locator('.photo-source summary').click();
     assert.match(await savedStoreCard.locator('.photo-credit').innerText(), /麦当劳官网新闻配图/);
 
-    await journalPage.getByRole('button', {name: '新增打卡', exact: true}).click();
+    await journalPage.getByRole('button', {name: '记一餐', exact: true}).click();
+    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=province_code]').selectOption('310000');
+    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=city]').fill('上海');
     await journalPage.locator('[name=store]').fill('合成上传照片测试门店');
     await journalPage.locator('[name=foods]').fill('咖啡');
@@ -175,7 +179,7 @@ async function main() {
     await journalPage.locator('#photo-preview').waitFor({state: 'visible'});
     await journalPage.waitForFunction(() => !document.getElementById('save-entry').disabled);
     assert.equal(await journalPage.locator('[name=confirmed]').isChecked(), true, 'saved manual pages are confirmed automatically');
-    await journalPage.getByRole('button', {name: '保存这一页'}).click();
+    await journalPage.getByRole('button', {name: '保存这一餐'}).click();
     const uploadedCard = journalPage.locator('#journal-grid .entry-card').filter({has: journalPage.locator('h3').filter({hasText: '合成上传照片测试门店'})});
     assert.match(await uploadedCard.locator('img.photo').getAttribute('src'), /^data:image\/jpeg;base64,/);
     await uploadedCard.getByRole('button', {name: '分享这一页', exact: true}).click();

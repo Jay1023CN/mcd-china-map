@@ -199,7 +199,9 @@ async function addMobileEntry(page) {
   const dialog=page.locator('#entry-dialog');
   await dialog.waitFor({state:'visible'});
   await page.locator('[name=date]').fill(todayIso());
+  await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=province_code]').selectOption('510000');
+  await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=city]').fill('成都');
   await page.locator('[name=store]').fill('成都移动端体验门店');
   await page.locator('[name=foods]').fill('移动端测试套餐');

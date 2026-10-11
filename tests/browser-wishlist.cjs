@@ -85,7 +85,7 @@ async function main() {
 
     await restored.getByRole('button', {name: '到了，留一页打卡', exact: true}).click();
     assert.equal(await restored.locator('[name=confirmed]').isChecked(), true);
-    await restored.getByRole('button', {name: '保存这一页'}).click();
+    await restored.getByRole('button', {name: '保存这一餐'}).click();
     assert.equal(await restored.locator('#count-visits').innerText(), '1');
     assert.equal(await restored.locator('#wishlist-count').innerText(), '0');
     await restored.getByRole('tab', {name: '打卡手账', exact: true}).click();

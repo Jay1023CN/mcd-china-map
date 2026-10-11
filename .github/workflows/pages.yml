@@ -52,6 +52,15 @@ jobs:
           node tests/browser-featured-photos.cjs
           node tests/browser-regional-sources.cjs
           node tests/browser-map-layout.cjs
+          node tests/browser-meal-flow.cjs
+          node tests/test_connection_onboarding.cjs
+          node tests/browser-connection-onboarding.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: meal-ui-preview
+          path: private/meal-ui-preview/*.png
+          if-no-files-found: ignore
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

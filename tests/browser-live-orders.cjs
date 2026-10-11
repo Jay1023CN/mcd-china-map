@@ -36,11 +36,13 @@ async function main(){
   phase='open';
   result.pageStatus=(await page.goto(base,{timeout:120000})).status();
   check(result.pageStatus===200,'PAGE_UNAVAILABLE');
-  await page.waitForFunction(()=>document.getElementById('connection-state').textContent.includes('手账已准备好'));
+  await page.waitForFunction(()=>document.getElementById('connection-state').textContent.includes('自动整理订单'));
   check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'MOBILE_OVERFLOW');
   phase='connect';
   await page.locator('#open-connect').tap();
+  await page.locator('#connect-manual').evaluate(details => { details.open = true; });
   await page.locator('#connect-token').fill(token);
+  const automaticSync=page.waitForResponse(r=>r.url()===base+'api/sync-orders' && r.request().method()==='POST',{timeout:300000});
   const [connection]=await Promise.all([
     page.waitForResponse(r=>r.url()===base+'api/connect' && r.request().method()==='POST',{timeout:180000}),
     page.locator('#connect-submit').tap()
@@ -52,10 +54,7 @@ async function main(){
   await page.locator('#connect-dialog').waitFor({state:'hidden'});
   check((await page.locator('#connect-token').inputValue())==='','TOKEN_FIELD_NOT_CLEARED');
   phase='sync';
-  const [sync]=await Promise.all([
-    page.waitForResponse(r=>r.url()===base+'api/sync-orders' && r.request().method()==='POST',{timeout:300000}),
-    page.locator('#sync-orders').tap()
-  ]);
+  const sync=await automaticSync;
   result.syncStatus=sync.status();
   check(sync.ok(),'REAL_SYNC_FAILED');
   const payload=await sync.json(),entries=payload.archive?.entries;

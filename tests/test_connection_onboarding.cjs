@@ -1,0 +1,14 @@
+const assert = require('node:assert/strict');
+const {extractToken, OFFICIAL_LOGIN} = require('../web/connection-onboarding.js');
+const sample = 'example-connection-value-12345678';
+assert.equal(OFFICIAL_LOGIN, 'https://open.mcd.cn/mcp/login');
+assert.equal(extractToken('  ' + sample + '\n'), sample);
+assert.equal(extractToken('Bearer ' + sample), sample);
+assert.equal(extractToken('fixturetoken'), 'fixturetoken');
+assert.equal(extractToken('Authorization: Bearer ' + sample), sample);
+assert.equal(extractToken(JSON.stringify({mcpServers:{mcd:{url:'https://mcp.mcd.cn',headers:{Authorization:'Bearer '+sample}}}})), sample);
+assert.equal(extractToken(JSON.stringify({mcpServers:{other:{url:'https://example.org',headers:{Authorization:'Bearer '+sample}},mcd:{url:'https://mcp.mcd.cn',headers:{authorization:'Bearer '+sample}}}})), sample);
+for (const value of ['', 'YOUR_MCP_TOKEN', 'https://open.mcd.cn/mcp', sample+' text', sample+'\u0000', '{broken', '欢迎使用麦当劳开放平台']) assert.equal(extractToken(value), '');
+for (const url of ['http://mcp.mcd.cn','https://mcp.mcd.cn.example.org','https://mcp.mcd.cn:1234']) assert.equal(extractToken(JSON.stringify({mcpServers:{mcd:{url,headers:{Authorization:'Bearer '+sample}}}})), '');
+assert.equal(extractToken('x'.repeat(20001)), '');
+console.log('Connection onboarding token normalization passed.');

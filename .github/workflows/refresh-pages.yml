@@ -1,0 +1,29 @@
+name: Refresh standalone pages in cloud
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: refresh-standalone-pages
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Regenerate and commit only the public pages
+        run: |
+          python scripts/build_global_journal.py --output index.html
+          python scripts/build_global_journal.py --archive examples/china-journal.synthetic.json --output docs/china-demo.html
+          if ! git diff --quiet -- index.html docs/china-demo.html; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- index.html docs/china-demo.html
+            git commit -m 'build: refresh public pages from the current UI source'
+            git push origin HEAD:main
+          fi
