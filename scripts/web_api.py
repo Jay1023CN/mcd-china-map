@@ -209,6 +209,14 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
     def home():
         return send_from_directory(site_dir, 'index.html')
 
+    @app.get('/build-info.json')
+    def build_info():
+        # The cloud build writes only its public source commit here.
+        info = site_dir / 'build-info.json'
+        if not info.is_file():
+            return error('Not found', 404)
+        return send_from_directory(site_dir, 'build-info.json')
+
     @app.get('/assets/<path:filename>')
     def asset(filename):
         # Only files emitted by the blank public build are reachable.
