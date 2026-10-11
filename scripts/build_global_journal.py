@@ -119,11 +119,24 @@ def render(archive):
                     or path.stat().st_size > 1024*1024):
                 raise ValueError('unreviewed store photo asset')
             store_images[photo['url']] = asset_uri(local_asset)
+    meal_catalog = json.loads((ROOT/'assets/data/meal-catalog.json').read_text(encoding='utf-8'))
+    image_manifest = ROOT / 'assets/meal-photos/manifest.json'
+    meal_images = {record['id']: record for record in json.loads(image_manifest.read_text(encoding='utf-8'))['images']} if image_manifest.is_file() else {}
+    for item in meal_catalog['items']:
+        image_path = ROOT / 'assets' / 'meal-photos' / (item['id'] + '.webp')
+        record = meal_images.get(item['id'])
+        if (record and record.get('source_url') == item.get('image_url')
+                and record.get('file') == item['id'] + '.webp'
+                and image_path.parent.resolve() == (ROOT/'assets/meal-photos').resolve()
+                and image_path.is_file() and not image_path.is_symlink()
+                and image_path.stat().st_size <= 40*1024
+                and hashlib.sha256(image_path.read_bytes()).hexdigest() == record.get('sha256')):
+            item['image_data_url'] = asset_uri('meal-photos/' + item['id'] + '.webp')
     data = {'archive': project_archive(archive),
             'countries': [{'code': 'CN', 'name': '中国'}],
             'provinces': json.loads((ROOT/'assets/data/china-provinces.json').read_text(encoding='utf-8')),
             'stores': stores, 'store_images': store_images,
-            'meal_catalog': json.loads((ROOT/'assets/data/meal-catalog.json').read_text(encoding='utf-8')),
+            'meal_catalog': meal_catalog,
             'card_sketch': asset_uri('notebook-food-sketch.png'),
             'cities': json.loads((ROOT/'assets/data/china-cities.json').read_text(encoding='utf-8'))}
     national = json.loads((ROOT/'assets/data/national-store-directory.json').read_text(encoding='utf-8'))

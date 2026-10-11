@@ -1040,7 +1040,7 @@
     const selected=new Set(mealFoodValues());
     $('meal-menu-products').replaceChildren(...products.map(item=>{
       const button=node('button',undefined,'meal-product');button.type='button';button.dataset.food=item.name;button.setAttribute('aria-pressed',String(selected.has(item.name)));
-      if(item.image_url){const image=node('img');image.src=item.image_url;image.alt='';image.loading='lazy';image.referrerPolicy='no-referrer';image.addEventListener('error',()=>{image.hidden=true;button.classList.add('no-photo');});button.append(image);}
+      if(item.image_data_url || item.image_url){const image=node('img');image.src=item.image_data_url || item.image_url;image.alt='';image.loading='lazy';image.referrerPolicy='no-referrer';image.addEventListener('error',()=>{image.hidden=true;button.classList.add('no-photo');button.prepend(node('span','餐品','meal-product-placeholder'));});button.append(image);}
       else button.append(node('span','来自你的记录','meal-product-placeholder'));
       button.append(node('strong',item.name),node('small',item.count?`你吃过 ${item.count} 次`:''));
       button.addEventListener('click',()=>toggleMealFood(item.name));return button;
@@ -1115,7 +1115,7 @@
       if(revision!==mealLocationRevision)return;
       $('meal-locate').disabled=false;mealPosition={lat:position.coords.latitude,lon:position.coords.longitude};
       $('meal-location-status').textContent=position.coords.accuracy>1000?'位置较粗，距离仅供参考':'按直线距离排序，点一家就选好';
-      if($('entry-dialog').open && !currentEntry){field('store').value='';clearStoreSelection();defaultPhoto=null;showPhoto();renderMealStores();showMealSelection();}
+      if($('entry-dialog').open){field('store').value='';clearStoreSelection();defaultPhoto=null;showPhoto();renderMealStores();showMealSelection();}
     },()=>{
       if(revision!==mealLocationRevision)return;
       $('meal-locate').disabled=false;$('meal-location-status').textContent='没取得定位。选城市或搜门店也能记一餐。';$('meal-city-details').open=true;renderMealStores();

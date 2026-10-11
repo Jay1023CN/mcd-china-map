@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Create the reviewed Windows local package; never traverse personal data."""
 from pathlib import Path
+import json
+import re
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 from project_version import VERSION
 
@@ -139,9 +141,19 @@ def reviewed_path(name):
     return path
 
 
+def meal_photo_files():
+    manifest = ROOT / 'assets/meal-photos/manifest.json'
+    if not manifest.is_file():
+        return ()
+    records = json.loads(manifest.read_text(encoding='utf-8'))['images']
+    return ('assets/meal-photos/manifest.json',) + tuple(
+        'assets/meal-photos/' + record['file'] for record in records
+        if re.fullmatch(r'[a-z]+-\d+\.webp', record['file']))
+
+
 def main():
     # Check every source before creating the archive; no partial package.
-    sources = [(name, reviewed_path(name).read_bytes()) for name in FILES]
+    sources = [(name, reviewed_path(name).read_bytes()) for name in FILES + meal_photo_files()]
     output = ROOT / f"packages/mcd-china-map-local-v{VERSION}.zip"
     output.parent.mkdir(exist_ok=True)
     temporary = output.with_suffix(".zip.tmp")

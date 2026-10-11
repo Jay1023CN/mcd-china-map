@@ -41,16 +41,17 @@ jobs:
           STATIC_WEB_ROOT: ${{ github.workspace }}/dist/web-connected
         run: |
           npm install --no-save --package-lock=false playwright@1.62.1
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
           node --test tests/meal-catalog.test.cjs
           node tests/test_connection_onboarding.cjs
           node tests/browser-connection-onboarding.cjs
           node tests/browser-meal-flow.cjs
+          MEAL_BROWSER=webkit node tests/browser-meal-flow.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: connected-meal-ui-preview
-          path: private/meal-ui-preview/*.png
+          path: private/meal-ui-preview/**/*.png
           if-no-files-found: ignore
       - name: Verify and archive the public runtime files
         env:

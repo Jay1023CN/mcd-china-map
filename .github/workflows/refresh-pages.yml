@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: refresh-standalone-pages
   cancel-in-progress: false
@@ -17,13 +18,21 @@ jobs:
         with:
           python-version: '3.13'
       - name: Regenerate and commit only the public pages
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          python -m pip install Pillow==11.3.0
+          python -m unittest discover -s tests -p 'test_meal_image_mirror.py' -v
+          python scripts/mirror_meal_images.py
           python scripts/build_global_journal.py --output index.html
           python scripts/build_global_journal.py --archive examples/china-journal.synthetic.json --output docs/china-demo.html
-          if ! git diff --quiet -- index.html docs/china-demo.html; then
+          if ! git diff --quiet -- index.html docs/china-demo.html || [ -n "$(git ls-files --others --exclude-standard assets/meal-photos)" ]; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add -- index.html docs/china-demo.html
+            git add -- index.html docs/china-demo.html assets/meal-photos
             git commit -m 'build: refresh public pages from the current UI source'
             git push origin HEAD:main
           fi
+          gh workflow run connected-web.yml --ref main
+          gh workflow run pages.yml --ref main
+          gh workflow run verify.yml --ref main
