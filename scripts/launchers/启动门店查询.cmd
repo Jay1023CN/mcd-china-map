@@ -1,6 +1,6 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0..\.."
 set "archive_args="
 if exist "private\mcp\global-candidates.json" set archive_args=--archive "private\mcp\global-candidates.json"
 where py >nul 2>nul

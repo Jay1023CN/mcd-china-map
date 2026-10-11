@@ -97,3 +97,5 @@ py scripts/package_skill.py
 <p align="center"><sub>喜欢这个创意，可以在仓库顶部点颗 Star，下次来看看又多了哪些店。</sub></p>
 
 <p align="center"><sub>社区独立作品 · 原创代码 <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/LICENSE">MIT</a> · <a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/ROADMAP.md">接下来做什么</a></sub></p>
+
+日常使用只需打开网页版，或双击根目录的 `启动.cmd`。备用启动和高级工具统一放在 `scripts/launchers/`；[目录说明](docs/DEVELOPMENT.md#目录怎么放)列出了代码、素材和构建结果的位置。

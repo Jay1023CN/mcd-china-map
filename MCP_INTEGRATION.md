@@ -4,7 +4,7 @@
 
 ## 门店查询
 
-`启动门店查询.cmd` 启动 Python 本机服务。网页输入城市、地标和取餐方式，同源 POST `/api/stores`，后端完成 initialize、初始化通知、tools/list，并按当前 query-nearby-stores schema 查询。参数为 searchType=2、city、keyword、beType=1（到店自取）或 5（得来速）。
+`scripts/launchers/启动门店查询.cmd` 启动 Python 本机服务。网页输入城市、地标和取餐方式，同源 POST `/api/stores`，后端完成 initialize、初始化通知、tools/list，并按当前 query-nearby-stores schema 查询。参数为 searchType=2、city、keyword、beType=1（到店自取）或 5（得来速）。
 
 返回名称、门店编码、地址、营业状态、时间等信息。选择门店会填写打卡表单，归档可保留 store_reference（来源 mcp_nearby、编码、地址）。编辑城市、门店或省份后清除旧引用。查询不下单、不预约，也不直接形成已确认足迹。
 
@@ -12,7 +12,7 @@
 
 ## 历史订单
 
-`同步中国订单.cmd` 调用 now-time-info、order-list，并对本次列表引用调用 query-order；显式 --order-offset +08:00 解释无时区时间。生成本次完成订单的规范化记录，页面通过 web/order-journal.js 自动转成可编辑手账，并匹配城市、省份和默认照片。重复同步保留用户编辑，已删除订单保持删除。
+`scripts/launchers/同步中国订单.cmd` 调用 now-time-info、order-list，并对本次列表引用调用 query-order；显式 --order-offset +08:00 解释无时区时间。生成本次完成订单的规范化记录，页面通过 web/order-journal.js 自动转成可编辑手账，并匹配城市、省份和默认照片。重复同步保留用户编辑，已删除订单保持删除。
 
 私有响应按运行存入 private/mcp/runs。候选文件 private/mcp/global-candidates.json 完整生成后原子替换；同步失败保留以前的响应和成功结果。订单编号、支付链接和 Token 不进入候选归档或公开演示。
 

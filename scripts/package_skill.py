@@ -10,18 +10,18 @@ ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE_ROOT = "麦麦中国地图"
 FILES = (
     'tests/browser-map-layout.cjs',
-    '打开在线地图.cmd', 'docs/ARCHITECTURE.md', 'scripts/regional_store_sources.py', 'tests/test_regional_store_sources.py', 'tests/browser-regional-sources.cjs',
+    'scripts/launchers/打开在线地图.cmd', 'docs/ARCHITECTURE.md', 'scripts/regional_store_sources.py', 'tests/test_regional_store_sources.py', 'tests/browser-regional-sources.cjs',
     'docs/growth-assets/national-store-research/hong-kong-official-dessert-station-snapshot.json',
     'docs/growth-assets/national-store-research/collect-hong-kong-dessert-stations.py',
     'docs/growth-assets/national-store-research/macau-ferry-venue-snapshot.json', 'docs/growth-assets/national-store-research/collect-macau-ferry-venues.py',
     'docs/growth-assets/national-store-research/macau-government-senior-card-snapshot.json', 'docs/growth-assets/national-store-research/collect-macau-senior-card.py',
     'docs/growth-assets/national-store-research/macau-government-address-crosswalk.json', 'docs/growth-assets/national-store-research/reconcile-macau-government-addresses.py',
-    "requirements-web.txt", "Dockerfile.web", ".dockerignore", ".gitattributes", "启动网页版.cmd", "启动网页版.sh",
+    "requirements-web.txt", "Dockerfile.web", ".dockerignore", ".gitattributes", "scripts/launchers/启动网页版.cmd", "scripts/launchers/启动网页版.sh",
     "scripts/web_api.py", "scripts/web_sessions.py", "scripts/build_web_app.py", "docs/WEB.md", "docs/TRY-AND-SUPPORT.md",
     "tests/test_build_web_app.py", "tests/test_web_sessions.py", "tests/test_web_order_sync.py",
     "tests/browser-web-sessions.cjs", "tests/run_browser_web_sessions.py", "tests/browser-mobile-web.cjs",
     "docs/mobile-map-preview.png", "docs/store-detail-preview.png", "docs/product-preview.gif",
-    "index.html", "启动.cmd", "备用启动.cmd", "scripts/start-local.cmd", "启动门店查询.cmd", "同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
+    "index.html", "启动.cmd", "scripts/launchers/备用启动.cmd", "scripts/start-local.cmd", "scripts/launchers/启动门店查询.cmd", "scripts/launchers/同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
     "LICENSE", "CONTEST_DECLARATION.md", "MCP_INTEGRATION.md",
     "mcp-config.example.json",
     "scripts/serve-local.ps1", "scripts/local_api.py", "scripts/package_skill.py",
@@ -122,13 +122,6 @@ FILES = (
     "assets/store-photos/fuzhou-cangqian-road.png",
     "assets/store-photos/guangzhou-yunshan-world.jpg",
     "assets/store-photos/changchun-huolicheng.jpg", "assets/store-photos/urumqi-huijia.png", "assets/store-photos/urumqi-wanda.jpg",
-    "docs/GROWTH.md", "docs/FEEDBACK.md", "docs/growth-assets/README.md",
-    "docs/growth-assets/handdrawn-bigmac-project-v5.png", "docs/growth-assets/douyin-bigmac-v5.png",
-    "docs/growth-assets/handdrawn-card-direction.md",
-    "docs/growth-assets/handdrawn-store-direction-v1.png", "docs/growth-assets/handdrawn-plan-direction-v1.png",
-    "docs/growth-assets/notebook-plan-whole-v3.png", "docs/growth-assets/notebook-layout-v3.md",
-    "docs/growth-assets/notebook-plan-whole-v2.png", "docs/growth-assets/notebook-imagegen-prompts.md",
-    "docs/growth-assets/notebook-food-sketch-v1.png", "docs/growth-assets/notebook-food-sketch-v2.png",
 )
 
 

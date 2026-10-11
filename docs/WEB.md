@@ -18,7 +18,7 @@
 
 ## Windows 本机使用
 
-安装 Python 3.10 或以上，双击项目根目录的 `启动网页版.cmd`。第一次启动会创建独立环境并安装 `requirements-web.txt`；之后直接启动。页面地址为 `http://127.0.0.1:8080`，在页面里填写 Token。
+安装 Python 3.10 或以上，双击 `scripts/launchers/启动网页版.cmd`。第一次启动会创建独立环境并安装 `requirements-web.txt`；之后直接启动。页面地址为 `http://127.0.0.1:8080`，在页面里填写 Token。
 
 也可以手动启动：
 
@@ -35,7 +35,7 @@ py -3.13 -m venv .venv-web
 同一份网页后端也支持 Linux 和 macOS，安装 Python 3.10 或以上，在项目目录运行：
 
 ```bash
-sh ./启动网页版.sh
+sh scripts/launchers/启动网页版.sh
 ```
 
 首次运行会创建 `.venv-web-unix` 并安装依赖；后续直接启动，访问 `http://127.0.0.1:8080`。此环境与 Windows 的 `.venv-web` 分开，方便保留已有文件。若发行版未安装 Python 的 `venv` 模块，需要先安装发行版对应的 venv 软件包。
@@ -43,7 +43,7 @@ sh ./启动网页版.sh
 参数直接传给网页服务。例如更换端口或在桌面系统里自动打开浏览器：
 
 ```bash
-sh ./启动网页版.sh --port 8081 --open-browser
+sh scripts/launchers/启动网页版.sh --port 8081 --open-browser
 ```
 
 Linux 服务器使用下方的 HTTPS 部署方式，不需要桌面环境。用户的 Windows、Linux、macOS、安卓和 iPhone 均通过浏览器打开网站；本次实际验收环境为 Windows 上的 Python 和 Edge，Linux/macOS 原生运行尚未验收。

@@ -1,6 +1,6 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0..\.."
 where py >nul 2>nul
 if not errorlevel 1 (
   py -3 scripts\sync_footprints.py --prompt-token --order-offset +08:00
@@ -20,5 +20,5 @@ if errorlevel 1 (
   exit /b 1
 )
 echo Import global-candidates.json into the running journal.
-start "" "%~dp0private\mcp"
+start "" "%~dp0..\..\private\mcp"
 pause
