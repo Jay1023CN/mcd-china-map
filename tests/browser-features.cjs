@@ -38,7 +38,7 @@ const base=process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
     });
     await page.locator('#native-share').click();
     const shared=await page.evaluate(()=>window.shared);assert.equal(shared.type,'image/png');assert.equal(shared.active,true);assert.ok(shared.text.includes('8 个省份'));assert.equal(shared.text.includes('西藏中路'),false);
-    await page.locator('#copy-share').click();assert.ok((await page.evaluate(()=>window.copied)).includes('github.com/Jay1023CN/mcd-china-map'));
+    await page.locator('#copy-share').click();assert.ok((await page.evaluate(()=>window.copied)).includes('mcd-china-map.onrender.com/#store-finder'));
     await page.locator('#copy-share-image').click();
     assert.ok(await page.evaluate(()=>window.copiedImage.types.includes('image/png') && window.copiedImage.blob.size>0));
     assert.equal(await page.evaluate(()=>window.copiedImage.active),true);

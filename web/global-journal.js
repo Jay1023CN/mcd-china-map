@@ -1471,21 +1471,21 @@
         title:$('share-title').value,caption:shareEntry.caption,includeCities:$('share-cities').checked,includeNote:$('share-note').checked});
       return [facts.title,facts.city,`选了 ${facts.count} 页 · 这座城共有 ${facts.totalCount} 页回忆`,facts.caption,
         ...facts.pages.map(page=>[page.date,page.store,page.foods.join(' / '),page.note].filter(Boolean).join(' · ')),
-        '用麦当劳，画出自己的中国足迹。','https://jay1023cn.github.io/mcd-china-map/'].filter(Boolean).join('\n');
+        '用麦当劳，画出自己的中国足迹。','https://mcd-china-map.onrender.com/#store-finder'].filter(Boolean).join('\n');
     }
     if(shareEntry?.kind==='month'){
       const facts=window.JournalCollections.projectMonth(shareEntry,{title:$('share-title').value,caption:shareEntry.caption,includeCities:$('share-cities').checked});
       return [facts.title,facts.month+' · '+facts.count+' 页回忆 / '+facts.cityCount+' 座城市 / '+facts.storeCount+' 家麦当劳',
         facts.cities?.join(' · '),facts.topFoods.map(food=>food.name+' × '+food.count).join(' / '),facts.caption,
-        '用麦当劳，画出自己的中国足迹。','https://jay1023cn.github.io/mcd-china-map/'].filter(Boolean).join('\n');
+        '用麦当劳，画出自己的中国足迹。','https://mcd-china-map.onrender.com/#store-finder'].filter(Boolean).join('\n');
     }
     if(shareEntry) {
       const facts=window.MemoryCard.project(shareEntry,{title:$('share-title').value,includePlace:$('share-cities').checked,includeNote:$('share-note').checked});
       return [facts.title,shareEntry.kind==='plan'?'下一站计划 · 尚未打卡'+(shareEntry.planned_date?' · 计划 '+formatPlanDate(shareEntry.planned_date):''):facts.date,$('share-cities').checked?[facts.city,facts.store].filter(Boolean).join(' · '):'',facts.foods.join(' · '),facts.note || '',
-        '用麦当劳，画出自己的中国足迹。','https://github.com/Jay1023CN/mcd-china-map'].filter(Boolean).join('\n');
+        '用麦当劳，画出自己的中国足迹。','https://mcd-china-map.onrender.com/#store-finder'].filter(Boolean).join('\n');
     }
     const s=currentSummary;
-    return `${$('share-title').value || '我的麦麦中国足迹'}：${s.distinctProvinces} 个省份／地区，${s.distinctCities} 座城市，${s.confirmedCount} 页小小停靠。\n用麦当劳，画出自己的中国足迹。\nhttps://github.com/Jay1023CN/mcd-china-map`;
+    return `${$('share-title').value || '我的麦麦中国足迹'}：${s.distinctProvinces} 个省份／地区，${s.distinctCities} 座城市，${s.confirmedCount} 页小小停靠。\n用麦当劳，画出自己的中国足迹。\nhttps://mcd-china-map.onrender.com/#store-finder`;
   }
   async function sharePhoto(entry) {
     if(entry.photo?.data_url)return entry.photo.data_url;
@@ -1651,7 +1651,7 @@
       const payload={title:$('share-title').value || '我的麦麦中国足迹',text:shareText()};
       const withImage=typeof navigator.canShare==='function' && navigator.canShare({files:[shareFile]});
       if(withImage)payload.files=[shareFile];
-      else payload.url='https://github.com/Jay1023CN/mcd-china-map';
+      else payload.url='https://mcd-china-map.onrender.com/#store-finder';
       const result=navigator.share(payload);$('native-share').disabled=true;await result;
       $('share-status').textContent=withImage?'已打开图片分享，可选择设备上的分享应用。':'已打开文案和链接分享；卡片可以长按保存后一起发送。';
     }catch(error){$('share-status').textContent=error.name==='AbortError'?'分享已取消，卡片还在这里。':'暂时没打开分享，请保存图片或复制文案后发送。';}
