@@ -4,7 +4,7 @@
 // results only; no tracing, screenshots, exported orders or persistent profile.
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const base='https://mcd-china-map.onrender.com/';
-let phase='cloud-credential',browser;
+let phase='cloud-credential',browser,context;
 const result={url:base,viewport:{width:390,height:844},realOrderTest:true};
 function check(value,message){if(!value)throw new Error(message);}
 
@@ -16,7 +16,7 @@ async function main(){
   check(token && !token.startsWith('${'),'INJECTED_MCP_TOKEN_REQUIRED');
   phase='browser';
   browser=await chromium.launch({headless:true});
-  const context=await browser.newContext({viewport:result.viewport,isMobile:true,hasTouch:true,timezoneId:'Asia/Shanghai'});
+  context=await browser.newContext({viewport:result.viewport,isMobile:true,hasTouch:true,timezoneId:'Asia/Shanghai'});
   const page=await context.newPage();
   let pageErrors=0;
   page.on('pageerror',()=>{pageErrors++;});
@@ -76,9 +76,13 @@ async function main(){
   result.locatedFootprintGroups=await page.locator('#map-points .map-point').count();
   result.provinces=Number(await page.locator('#count-countries').innerText());
   check(result.locatedFootprintGroups>0,'SYNCED_ORDERS_HAVE_NO_MAPPABLE_LOCATION');
+  phase='footprint-card';
   await page.locator('#open-share').tap();
-  await page.waitForFunction(()=>!!document.querySelector('#share-preview canvas') && !document.getElementById('save-share').disabled);
-  check(await page.locator('#share-preview canvas').evaluate(c=>c.width>0 && c.height>0),'FOOTPRINT_CARD_NOT_GENERATED');
+  await page.locator('#share-preview img').waitFor({state:'visible'});
+  await page.waitForFunction(()=>!document.getElementById('save-share').disabled);
+  check(await page.locator('#share-preview img').evaluate(async image=>{
+    await image.decode();return image.naturalWidth>0 && image.naturalHeight>0;
+  }),'FOOTPRINT_CARD_NOT_GENERATED');
   result.footprintCardGenerated=true;
   await page.locator('[data-close="share-dialog"]').tap();
   phase='reload';
@@ -113,6 +117,9 @@ main().catch(error=>{
   result.reason=/^[A-Z_]+$/.test(error.message)?error.message:'OPERATION_FAILED';
   process.exitCode=1;
 }).finally(async()=>{
+  if(context)await context.request.post(base+'api/disconnect',{
+    headers:{Origin:base.slice(0,-1)},data:{},timeout:20000
+  }).catch(()=>{});
   if(browser)await browser.close().catch(()=>{});
   console.log(JSON.stringify(result));
 });
