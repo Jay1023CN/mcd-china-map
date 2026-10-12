@@ -170,6 +170,42 @@
     else { sh = w / ratio; sy = (h - sh) / 2; }
     ctx.drawImage(image, sx, sy, sw, sh, x, y, width, height);
   }
+  function drawContainedPhoto(ctx, image, x, y, width, height) {
+    var scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+    var drawWidth = image.naturalWidth * scale, drawHeight = image.naturalHeight * scale;
+    ctx.fillStyle = '#f1e9d8'; ctx.fillRect(x, y, width, height);
+    ctx.drawImage(image, x + (width - drawWidth) / 2, y + (height - drawHeight) / 2, drawWidth, drawHeight);
+  }
+  function drawFoodTiles(ctx, foods, x, y, width, height) {
+    var visible = foods.slice(0, 4), columns = visible.length <= 2 ? 1 : 2;
+    var rows = Math.ceil(visible.length / columns), tileWidth = columns === 1 ? width : (width - 8) / 2;
+    var tileHeight = Math.min(columns === 1 ? 150 : 94, (height - (rows - 1) * 8) / rows);
+    var verticalPadding = (height - rows * tileHeight - (rows - 1) * 8) / 2;
+    visible.forEach(function (food, index) {
+      var col = index % columns, row = Math.floor(index / columns);
+      var tx = x + col * (tileWidth + 8), ty = y + verticalPadding + row * (tileHeight + 8);
+      ctx.fillStyle = '#f7f0e3'; ctx.fillRect(tx, ty, tileWidth, tileHeight);
+      var imageSize = Math.min(columns === 1 ? tileHeight - 16 : 74, tileHeight - 16, tileWidth - 120);
+      ctx.fillStyle = '#fffdf8'; ctx.fillRect(tx + 6, ty + 6, imageSize + 8, tileHeight - 12);
+      drawContainedPhoto(ctx, food.image, tx + 10, ty + 10, imageSize, imageSize);
+      ctx.fillStyle = '#302a22'; ctx.font = '400 18px ' + FONT;
+      drawLines(ctx, food.name, tx + imageSize + 24, ty + tileHeight / 2 - 9,
+        tileWidth - imageSize - 34, 2, 22);
+    });
+    if (foods.length > visible.length) {
+      ctx.textAlign = 'right'; ctx.fillStyle = '#887760'; ctx.font = '400 15px ' + FONT;
+      ctx.fillText('另有 ' + (foods.length - visible.length) + ' 样餐品', x + width - 5, y + height - 3); ctx.textAlign = 'left';
+    }
+  }
+  function drawFoodFallback(ctx, foods, x, y, width, height, muted) {
+    ctx.fillStyle = '#f1e9d8'; ctx.fillRect(x, y, width, height);
+    ctx.strokeStyle = '#e7bf42'; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.arc(x + width / 2, y + height / 2 - 10, Math.min(48, height / 4), 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(x + width / 2, y + height / 2 - 10, Math.min(35, height / 5), 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = muted; ctx.textAlign = 'center'; ctx.font = '400 22px ' + FONT;
+    drawLines(ctx, foods.length ? foods.join(' · ') : '一页麦麦回忆', x + 18, y + height - 30, width - 36, 2, 26);
+    ctx.textAlign = 'left';
+  }
   function drawLines(ctx, text, x, y, width, maxLines, lineHeight) {
     var lines = wrap(ctx, text, width);
     lines.slice(0, maxLines).forEach(function (value, index) {
@@ -194,8 +230,31 @@
       if (!photoInputs.has(id) && validPhoto(photo.dataUrl)) photoInputs.set(id, photo.dataUrl);
     });
     var photos = await Promise.all(selected.entries.map(function (entry) { return loadPhoto(photoInputs.get(clean(entry.id, 100))); }));
-    var top = 416, rowHeight = 480, rows = Math.ceil(facts.count / 2);
-    var height = facts.count ? top + rows * rowHeight + 150 : 900;
+    var foodInputs = new Map();
+    (Array.isArray(options.foodImages) ? options.foodImages : []).forEach(function (food) {
+      if (!food || typeof food !== 'object') return;
+      var id = clean(food.entryId, 100), name = clean(food.name, 48);
+      if (!id || !name || !validPhoto(food.dataUrl)) return;
+      if (!foodInputs.has(id)) foodInputs.set(id, []);
+      if (foodInputs.get(id).length < 6) foodInputs.get(id).push({name: name, dataUrl: food.dataUrl});
+    });
+    var foodImages = await Promise.all(selected.entries.map(function (entry) {
+      return Promise.all((foodInputs.get(clean(entry.id, 100)) || []).map(function (food) {
+        return loadPhoto(food.dataUrl).then(function (image) { return image ? {name: food.name, image: image} : null; });
+      })).then(function (foods) { return foods.filter(Boolean); });
+    }));
+    var groups = [], groupByStore = new Map();
+    selected.entries.forEach(function (entry, index) {
+      var name = clean(entry.store || entry.store_name, 120), key = identity(name) || 'unnamed:' + index;
+      var group = groupByStore.get(key);
+      if (!group) { group = {store: name, pages: []}; groupByStore.set(key, group); groups.push(group); }
+      group.pages.push({entry: entry, index: index});
+    });
+    var top = 416, groupHeader = 62, rowHeight = 480, groupGap = 24;
+    var contentHeight = groups.reduce(function (height, group) {
+      return height + groupHeader + Math.ceil(group.pages.length / 2) * rowHeight + groupGap;
+    }, 0);
+    var height = facts.count ? top + contentHeight + 150 : 900;
     var canvas = document.createElement('canvas'); canvas.width = WIDTH; canvas.height = height;
     var ctx = canvas.getContext('2d'); if (!ctx) throw new Error('Canvas is unavailable');
     var paper = options.theme === 'red' ? '#fff1e8' : '#fff9ed', ink = '#302a22', muted = '#887760', red = '#e44832';
@@ -218,28 +277,42 @@
       ctx.fillStyle = muted; ctx.font = '400 26px ' + FONT; ctx.fillText('选好之后，再把这座城装进一张长图。', 72, 588);
       line(ctx, 72, 624, 330, '#e7bf42');
     }
-    facts.pages.forEach(function (page, index) {
-      var width = 460, x = index === facts.count - 1 && facts.count % 2 ? (WIDTH - width) / 2 : 68 + index % 2 * 484;
-      var y = top + Math.floor(index / 2) * rowHeight;
-      ctx.save(); ctx.shadowColor = 'rgba(68,48,24,.10)'; ctx.shadowBlur = 9; ctx.shadowOffsetY = 4;
-      ctx.fillStyle = '#fffdf8'; ctx.fillRect(x, y, width, 456); ctx.restore();
-      ctx.fillStyle = '#fff'; ctx.fillRect(x + 10, y + 10, width - 20, 218);
-      if (photos[index]) drawPhoto(ctx, photos[index], x + 20, y + 20, width - 40, 198);
-      else {
-        ctx.fillStyle = '#f1e9d8'; ctx.fillRect(x + 20, y + 20, width - 40, 198);
-        ctx.fillStyle = muted; ctx.font = '400 26px ' + FONT; ctx.fillText('这一餐，留在手账里', x + 48, y + 123);
-        line(ctx, x + 48, y + 151, 244, '#e7bf42');
-      }
-      ctx.fillStyle = red; ctx.font = '400 22px ' + FONT; ctx.fillText(page.date, x + 22, y + 260);
-      ctx.textAlign = 'right'; ctx.fillStyle = muted; ctx.font = '400 18px ' + FONT; ctx.fillText(String(index + 1).padStart(2, '0'), x + width - 24, y + 260); ctx.textAlign = 'left';
-      var textY = y + 300;
-      if (page.store) { ctx.fillStyle = ink; ctx.font = '400 26px ' + FONT; drawLines(ctx, page.store, x + 22, textY, width - 44, 2, 30); textY += 60; }
-      if (page.foods.length) { ctx.fillStyle = '#975842'; ctx.font = '400 21px ' + FONT; drawLines(ctx, page.foods.join(' · '), x + 22, textY, width - 44, 2, 25); textY += 54; }
-      if (page.note) {
-        ctx.fillStyle = muted; ctx.font = '400 20px ' + FONT;
-        var remaining = Math.max(1, Math.floor((y + 430 - textY) / 24) + 1);
-        drawLines(ctx, page.note, x + 22, textY, width - 44, Math.min(3, remaining), 24);
-      }
+    var cursorY = top;
+    groups.forEach(function (group) {
+      ctx.fillStyle = ink; ctx.font = '400 29px ' + FONT;
+      ctx.fillText(ellipsis(ctx, group.store || '这一站', 740), 70, cursorY + 32);
+      ctx.textAlign = 'right'; ctx.fillStyle = muted; ctx.font = '400 18px ' + FONT;
+      ctx.fillText(group.pages.length + ' 页', 1010, cursorY + 30); ctx.textAlign = 'left';
+      line(ctx, 70, cursorY + 44, 940, '#e7bf42');
+      cursorY += groupHeader;
+      group.pages.forEach(function (item, localIndex) {
+        var page = facts.pages[item.index], personalPhoto = photos[item.index], foods = foodImages[item.index];
+        var width = 460, x = localIndex % 2 * 484 + 68;
+        if (group.pages.length % 2 && localIndex === group.pages.length - 1) x = (WIDTH - width) / 2;
+        var y = cursorY + Math.floor(localIndex / 2) * rowHeight;
+        ctx.save(); ctx.shadowColor = 'rgba(68,48,24,.10)'; ctx.shadowBlur = 9; ctx.shadowOffsetY = 4;
+        ctx.fillStyle = '#fffdf8'; ctx.fillRect(x, y, width, 456); ctx.restore();
+        ctx.fillStyle = '#f4ecdd'; ctx.fillRect(x + 16, y + 14, 118, 31);
+        ctx.fillStyle = red; ctx.font = '400 17px "DM Mono", ' + FONT; ctx.fillText(page.date, x + 23, y + 36);
+        ctx.textAlign = 'right'; ctx.fillStyle = muted; ctx.font = '400 17px "DM Mono", ' + FONT;
+        ctx.fillText(String(item.index + 1).padStart(2, '0'), x + width - 20, y + 36); ctx.textAlign = 'left';
+        ctx.fillStyle = '#fff'; ctx.fillRect(x + 12, y + 52, width - 24, 214);
+        if (personalPhoto) drawContainedPhoto(ctx, personalPhoto, x + 22, y + 62, width - 44, 194);
+        else if (foods.length) drawFoodTiles(ctx, foods, x + 22, y + 62, width - 44, 194);
+        else drawFoodFallback(ctx, page.foods, x + 22, y + 62, width - 44, 194, muted);
+        var textY = y + 292;
+        if (personalPhoto && page.foods.length) {
+          ctx.fillStyle = red; ctx.font = '400 16px ' + FONT; ctx.fillText('吃了什么', x + 22, textY);
+          ctx.fillStyle = '#735c45'; ctx.font = '400 19px ' + FONT;
+          drawLines(ctx, page.foods.join(' · '), x + 22, textY + 28, width - 44, 2, 23); textY += 66;
+        }
+        if (page.note) {
+          ctx.fillStyle = muted; ctx.font = '400 19px ' + FONT;
+          var remaining = Math.max(1, Math.floor((y + 430 - textY) / 23) + 1);
+          drawLines(ctx, page.note, x + 22, textY + 20, width - 44, Math.min(3, remaining), 23);
+        }
+      });
+      cursorY += Math.ceil(group.pages.length / 2) * rowHeight + groupGap;
     });
     var footerY = height - 125;
     ctx.fillStyle = muted; ctx.font = '400 26px ' + FONT; ctx.fillText('用麦当劳，画出自己的中国足迹。', 70, footerY + 25);

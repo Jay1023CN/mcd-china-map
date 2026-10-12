@@ -7,6 +7,7 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
 const output = path.resolve(__dirname, '..', 'test-results');
+const captureDir = process.env.WISHLIST_CAPTURE_DIR ? path.resolve(process.env.WISHLIST_CAPTURE_DIR) : null;
 const store = {name: '虚构上海测试门店', code: 'wishlist-fixture-001', address: '虚构路 1 号', city: '上海', business_status: true, hours: '07:00–23:00'};
 
 function crc32(buffer) {
@@ -59,6 +60,7 @@ async function searchStore(page) {
 
 async function main() {
   fs.mkdirSync(output, {recursive: true});
+  if (captureDir) fs.mkdirSync(captureDir, {recursive: true});
   const browser = await chromium.launch({headless: true, ...(process.env.BROWSER_CHANNEL ? {channel: process.env.BROWSER_CHANNEL} : {})});
   try {
     const context = await browser.newContext({viewport: {width: 1440, height: 1000}, timezoneId: 'Asia/Shanghai', acceptDownloads: true});
@@ -179,6 +181,7 @@ async function main() {
       const image = document.getElementById('photo-preview');
       return image.complete && image.naturalWidth === 8 && !document.getElementById('save-entry').disabled;
     });
+    if (captureDir) await restored.locator('#entry-dialog').screenshot({path: path.join(captureDir, 'wishlist-meal-photo-390.png')});
     assert.equal(await restored.locator('#photo-caption').innerText(), '你上传的照片');
     await restored.getByRole('button', {name: '保存这一餐'}).click();
     await restored.locator('#entry-dialog').waitFor({state: 'hidden'});
@@ -196,6 +199,7 @@ async function main() {
       const image = document.getElementById('share-image');
       return image && image.complete && image.naturalWidth > 0 && !document.getElementById('save-share').disabled;
     });
+    if (captureDir) await restored.locator('#share-dialog').screenshot({path: path.join(captureDir, 'wishlist-meal-share-390.png')});
     const cardDownload = restored.waitForEvent('download');
     await restored.locator('#save-share').click();
     const downloadedCard = await cardDownload;

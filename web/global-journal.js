@@ -1187,7 +1187,7 @@
   }
   $('meal-locate').addEventListener('click',locateMealStores);
   $('first-meal-add').addEventListener('click',()=>openForm());
-  $('first-meal-nearby').addEventListener('click',()=>{openForm();locateMealStores();});
+  $('first-meal-nearby').addEventListener('click',()=>{setView('map');openDirectory();});
   form.addEventListener('invalid',event=>{const details=event.target.closest('details');if(details)details.open=true;},true);
   async function suggestMealCity(){
     try{
@@ -1464,6 +1464,7 @@
   $('share-description').after(shareCollectionBack);
   shareCollectionBack.addEventListener('click',()=>{$('share-dialog').close();renderCollection();$('collection-dialog').showModal();});
   const sharePhotoCache=new Map();
+  const shareMealImageCache=new Map();
   let footprintTitle='我的麦麦中国足迹';
   function shareText() {
     if(shareEntry?.kind==='city'){
@@ -1540,6 +1541,37 @@
         {name:typeof name==='string'?name:name.name,dataUrl:item.image_data_url}:null;
     }).filter(Boolean);
   }
+  function cityEntriesForShare(collection){
+    const entries=Array.isArray(collection?.entries)?collection.entries:[];
+    const byId=new Map(entries.map(entry=>[entry.id,entry]));
+    const ids=Array.isArray(collection?.selectedIds)?collection.selectedIds:entries.slice(0,6).map(entry=>entry.id);
+    const seen=new Set(),selected=[];
+    for(const id of ids){if(selected.length>=12||seen.has(id)||!byId.has(id))continue;seen.add(id);selected.push(byId.get(id));}
+    const cover=selected.findIndex(entry=>entry.id===collection?.coverId);if(cover>0)selected.unshift(selected.splice(cover,1)[0]);
+    return selected;
+  }
+  function cityFoodImages(collection){
+    return Promise.all(cityEntriesForShare(collection).map(async entry=>{
+      const names=(Array.isArray(entry.foods)?entry.foods:[]).map(value=>typeof value==='string'?value:value?.name || value?.title).filter(value=>typeof value==='string'&&value.trim());
+      const matches=typeof mealMenu.matchFoods==='function'?mealMenu.matchFoods(names):names.map(name=>mealMenu.match(name)).filter(Boolean);
+      const images=await Promise.all((Array.isArray(matches)?matches:[]).slice(0,4).map(async item=>{
+        const source=item?.image_data_url || item?.image_url;
+        if(typeof source!=='string')return null;
+        if(/^data:image\/(?:jpeg|png|webp);base64,/.test(source))return {entryId:entry.id,name:item.order_name || item.name || item.title,dataUrl:source};
+        if(!/^assets\/[a-f0-9]{64}\.(?:jpg|png|webp)$/.test(source))return null;
+        if(shareMealImageCache.has(source))return {entryId:entry.id,name:item.order_name || item.name || item.title,dataUrl:shareMealImageCache.get(source)};
+        try{
+          const response=await fetch(new URL(source,location.href));if(!response.ok)return null;
+          const blob=await response.blob();if(!blob.type.startsWith('image/')||blob.size>1024*1024)return null;
+          const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});
+          if(typeof dataUrl!=='string'||!/^data:image\/(?:jpeg|png|webp);base64,/.test(dataUrl))return null;
+          if(shareMealImageCache.size>=24)shareMealImageCache.delete(shareMealImageCache.keys().next().value);shareMealImageCache.set(source,dataUrl);
+          return {entryId:entry.id,name:item.order_name || item.name || item.title,dataUrl};
+        }catch(error){return null;}
+      }));
+      return images.filter(Boolean);
+    })).then(groups=>groups.flat());
+  }
   function hasFoodNames(entry){
     return (Array.isArray(entry?.foods)?entry.foods:[]).some(value=>{
       const name=typeof value==='string'?value:value?.name || value?.title;
@@ -1588,13 +1620,13 @@
       let monthPhotos=[],cityPhotos=[],monthPhotoCredit='';
       if(sharedEntry?.kind==='month' || sharedEntry?.kind==='city'){
         const cityAlbum=sharedEntry.kind==='city',ids=cityAlbum?sharedEntry.selectedIds:sharedEntry.photoIds;
-        const used=new Set(),candidates=ids!==undefined?ids.map(id=>sharedEntry.entries.find(entry=>entry.id===id)).filter(Boolean):sharedEntry.coverId?sharedEntry.entries.filter(entry=>entry.id===sharedEntry.coverId):sharedEntry.entries;
+        const used=new Set(),candidates=cityAlbum?cityEntriesForShare(sharedEntry):ids!==undefined?ids.map(id=>sharedEntry.entries.find(entry=>entry.id===id)).filter(Boolean):sharedEntry.coverId?sharedEntry.entries.filter(entry=>entry.id===sharedEntry.coverId):sharedEntry.entries;
         for(const entry of candidates){
-          const identity=entry.photo?.data_url || entry.default_photo?.url;if(!identity || (!cityAlbum && sharedEntry.photoIds===undefined && used.has(identity)))continue;used.add(identity);
+          const identity=cityAlbum?entry.photo?.data_url:(entry.photo?.data_url || entry.default_photo?.url);if(!identity || (!cityAlbum && sharedEntry.photoIds===undefined && used.has(identity)))continue;used.add(identity);
           const photo=await sharePhoto(entry);if(!photo)continue;
           if(revision!==shareRevision || !$('share-dialog').open)return;
           if(cityAlbum)cityPhotos.push({entryId:entry.id,dataUrl:photo});else monthPhotos.push(photo);
-          if(entry.default_photo && !entry.photo)monthPhotoCredit='门店照片来自公开资料 · 来源见手账';
+          if(!cityAlbum && entry.default_photo && !entry.photo)monthPhotoCredit='门店照片来自公开资料 · 来源见手账';
           if(!cityAlbum && monthPhotos.length===3)break;
         }
       }
@@ -1602,7 +1634,7 @@
       const matchedStore=catalogStoreForEntry(shareEntry);
       const canvas=sharedEntry?.kind==='city'?await window.JournalCollections.renderCity(sharedEntry,{
         title:$('share-title').value,theme:$('share-theme').value,caption:sharedEntry.caption,selectedIds:sharedEntry.selectedIds,coverId:sharedEntry.coverId,
-        includeCities:$('share-cities').checked,includeNote:$('share-note').checked,photos:cityPhotos,photoCredit:monthPhotoCredit}):sharedEntry?.kind==='month'?await window.JournalCollections.renderMonth(sharedEntry,{
+        includeCities:$('share-cities').checked,includeNote:$('share-note').checked,photos:cityPhotos,foodImages:await cityFoodImages(sharedEntry),photoCredit:monthPhotoCredit}):sharedEntry?.kind==='month'?await window.JournalCollections.renderMonth(sharedEntry,{
         title:$('share-title').value,theme:$('share-theme').value,includeCities:$('share-cities').checked,
         caption:sharedEntry.caption,layout:sharedEntry.layout,photos:monthPhotos,photoCredit:monthPhotoCredit}):shareEntry?await window.MemoryCard.render(shareEntry,{title:$('share-title').value,theme:$('share-theme').value,
         kind:shareEntry.kind,

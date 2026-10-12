@@ -7,7 +7,7 @@ const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const useWebKit=process.env.MEAL_BROWSER==='webkit';
 const root=path.resolve(process.env.STATIC_WEB_ROOT || 'dist/web');
 const url=process.env.MEAL_LIVE_URL || 'http://127.0.0.1:8779/';
-const output=path.resolve('private/meal-ui-preview'+(useWebKit?'/webkit':''));
+const output=path.resolve(process.env.MEAL_CAPTURE_DIR || 'private/meal-ui-preview'+(useWebKit?'/webkit':''));
 async function main(){
   const server=process.env.MEAL_LIVE_URL?null:spawn(process.env.PYTHON || 'python',['-m','http.server','8779','--bind','127.0.0.1','--directory',root],{stdio:'ignore'});
   let browser;
@@ -26,6 +26,12 @@ async function main(){
       assert.equal(health.status(),200);assert.equal((await health.json()).connected,false);
     }
     await page.screenshot({path:path.join(output,'home-mobile.png'),fullPage:false});
+    const firstGuide=await page.locator('#first-meal').innerText();
+    for(const step of ['找店收藏','记餐加照片','保存分享卡'])assert.ok(firstGuide.includes(step),`first-use guide should clearly include: ${step}`);
+    await page.locator('#first-meal-nearby').click();
+    await page.locator('#national-catalog-dialog').waitFor({state:'visible'});
+    assert.equal(await page.locator('#tab-map').getAttribute('aria-selected'),'true');
+    await page.locator('#national-catalog-dialog [aria-label="关闭全国门店"]').click();
     if(await page.locator('#open-connect').isVisible()){
       await page.locator('#open-connect').click();await page.screenshot({path:path.join(output,'connect-mobile.png'),fullPage:false});
       assert.equal(await page.locator('#connect-token').isVisible(),false);
