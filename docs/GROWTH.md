@@ -2,7 +2,7 @@
 
 当前可直接发布的口径以本节为准。分隔线以下是旧版本文案与验收记录，保留作档案，不要直接复制旧数字。
 
-## 当前发布口径｜v0.15.6（2026-10-13）
+## 当前发布口径｜v0.15.7（2026-10-13）
 
 **标题：把麦当劳吃成一张中国地图**
 
@@ -12,7 +12,7 @@
 
 **手机先体验：** [打开 GitHub Pages 网页版](https://jay1023cn.github.io/mcd-china-map/)。查门店、收藏、手动记餐不需安装或 Token，记录保存在当前浏览器。
 
-**想同步官方订单：** [打开 Render 在线连接版](https://mcd-china-map.onrender.com/#store-finder)，或下载[Windows 完整包 v0.15.6](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.15.6)。在线连接和本机版都需要你自己的麦当劳中国 MCP Token。
+**想同步官方订单：** [打开 Render 在线连接版](https://mcd-china-map.onrender.com/#store-finder)，或下载[Windows 完整包 v0.15.7](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.15.7)。在线连接和本机版都需要你自己的麦当劳中国 MCP Token。
 
 这是我的麦当劳程序员节创意开发大赛参赛作品，已成功参赛。项目仓库：https://github.com/Jay1023CN/mcd-china-map
 
@@ -39,7 +39,7 @@ https://mcd-china-map.onrender.com/#store-finder
 
 ### 发布前核对口径
 
-- 当前网页和 Windows 完整包均为 v0.15.6；Release ZIP 已上传。
+- 当前网页和 Windows 完整包均为 v0.15.7；Release ZIP 已上传。
 - 全国目录为 9,276 条资料：大陆官方公示 8,448 条、香港官方目录 269 条、澳门公开来源 39 条、台湾餐饮登记 508 条，另有 12 条无法唯一匹配公示编号的精选门店。来源不等于实时营业状态，也不应宣传成 9,276 家在营业门店。
 - 31 家精选门店来自 21 座城市。README 配图中的 9,276 条资料、31 家精选店与当前数据口径一致。
 - GitHub Pages 是普通手机体验的主入口；Render 在线版用于需要后端的官方 MCP 连接和订单同步。
@@ -47,8 +47,8 @@ https://mcd-china-map.onrender.com/#store-finder
 
 ---
 
-> 以下为旧版本文案、当时验收记录和素材说明。数字与功能描述只代表对应版本；需要发布新内容时，回到本页顶部的 v0.15.6 当前口径重新核对。
-2026-10-10 的推广安排与平台反馈记录，保留作历史背景；当前发布文案和入口以本文顶部 v0.15.6 口径为准。
+> 以下为旧版本文案、当时验收记录和素材说明。数字与功能描述只代表对应版本；需要发布新内容时，回到本页顶部的 v0.15.7 当前口径重新核对。
+2026-10-10 的推广安排与平台反馈记录，保留作历史背景；当前发布文案和入口以本文顶部 v0.15.7 口径为准。
 
 2026-10-10 手机网页已公开：[直接打开麦麦中国地图](https://jay1023cn.github.io/mcd-china-map/)。可记手账、拍照／选相册照片、看地图、按城市与特色词找店、收藏、生成分享卡和导出备份；个人记录留在当前浏览器。主开发已确认 v0.11.0 正式发布、目录为 28 家／19 城／15 省，Pages 与 Windows CI 成功，本对话未重复验收功能。[Windows 完整版](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.11.0)作为本机官方门店查询与订单同步的备选入口。
 
