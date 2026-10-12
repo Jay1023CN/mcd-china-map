@@ -184,7 +184,8 @@ async function main() {
     await restored.locator('#entry-dialog').waitFor({state: 'hidden'});
     assert.equal(await restored.locator('#wishlist-count').innerText(), '0', 'saving the arrival should complete the collected plan');
     await restored.getByRole('tab', {name: '打卡手账', exact: true}).click();
-    const savedMeal = restored.locator('#journal-grid .entry-card').filter({has: restored.locator('h3', {hasText: store.name})});
+    assert.equal(await restored.locator('#journal-grid .entry-card').count(), 2, 'the earlier meal must remain after adding another visit');
+    const savedMeal = restored.locator('#journal-grid .entry-card').filter({has: restored.locator('h3', {hasText: store.name})}).filter({has: restored.locator('.note', {hasText: '刚收藏的这家店，来留一张照片。'})});
     assert.equal(await savedMeal.count(), 1);
     assert.deepEqual(await savedMeal.locator('.food-tags span').allTextContents(), ['薯条']);
     assert.equal(await savedMeal.locator('.note').innerText(), '刚收藏的这家店，来留一张照片。');
