@@ -1,0 +1,124 @@
+name: Sync official meal and store catalogs
+
+on:
+  schedule:
+    - cron: '30 21 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sync-official-catalogs
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-web.txt
+      - name: Install the image thumbnail dependency
+        run: python -m pip install -r requirements-web.txt Pillow==11.3.0
+      - name: Verify the catalog refresh code
+        run: |
+          python -m unittest tests.test_sync_meal_catalog -v
+          python -m unittest tests.test_sync_store_catalog -v
+          python -m unittest tests.test_meal_image_mirror -v
+      - name: Save the current mainland store count
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path('assets/data/national-store-directory.json')
+          data = json.loads(path.read_text(encoding='utf-8'))
+          count = data.get('coverage', {}).get('mainland_unique_stores', 0)
+          Path('private').mkdir(exist_ok=True)
+          Path('private/catalog-refresh-baseline.json').write_text(json.dumps({'mainland_unique_stores': count}), encoding='utf-8')
+          PY
+      - name: Refresh meals from official menu categories
+        run: python scripts/sync_meal_catalog.py
+      - name: Refresh the official mainland restaurant disclosure list
+        run: >-
+          python scripts/sync_store_catalog.py --collect-publicity
+          --cache private/national-catalog
+          --output assets/data/national-store-directory.json
+      - name: Reject incomplete or unexpectedly small updates
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          new = json.loads(Path('assets/data/national-store-directory.json').read_text(encoding='utf-8'))
+          coverage = new.get('coverage', {})
+          if not coverage.get('mainland_pagination_verified'):
+              raise SystemExit('official mainland store pagination was not verified')
+          if coverage.get('mainland_failed_pages') or coverage.get('mainland_pagination_changes'):
+              raise SystemExit('official mainland store disclosure was incomplete or changed during collection')
+          if coverage.get('mainland_collected_pages') != coverage.get('mainland_expected_pages'):
+              raise SystemExit('official mainland store page count did not match')
+          old_count = json.loads(Path('private/catalog-refresh-baseline.json').read_text(encoding='utf-8'))['mainland_unique_stores']
+          new_count = coverage.get('mainland_unique_stores', 0)
+          if old_count and new_count < old_count * 0.85:
+              raise SystemExit(f'mainland store count fell unexpectedly: {old_count} -> {new_count}')
+          items = json.loads(Path('assets/data/meal-catalog.json').read_text(encoding='utf-8'))
+          ids = [item.get('id') for item in items.get('items', [])]
+          if len(ids) != len(set(ids)) or len(items.get('items', [])) < 80:
+              raise SystemExit('meal catalog failed its duplicate or minimum-size guard')
+          if any(not item.get('source_url', '').startswith('https://www.mcdonalds.com.cn/') for item in items['items']):
+              raise SystemExit('meal catalog contains a non-official source URL')
+          PY
+      - name: Refresh small official product thumbnails
+        run: python scripts/mirror_meal_images.py
+      - name: Ignore timestamp-only catalog changes
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          def stable(value):
+              if isinstance(value, dict):
+                  return {key: stable(item) for key, item in value.items()
+                          if not key.endswith('_at') and key != 'response_sha256'}
+              if isinstance(value, list):
+                  return [stable(item) for item in value]
+              return value
+          for name in ('assets/data/meal-catalog.json', 'assets/data/national-store-directory.json'):
+              before = json.loads(subprocess.check_output(['git', 'show', f'HEAD:{name}'], text=True, encoding='utf-8'))
+              after = json.loads(Path(name).read_text(encoding='utf-8'))
+              if stable(before) == stable(after):
+                  subprocess.run(['git', 'checkout', 'HEAD', '--', name], check=True)
+          PY
+      - name: Rebuild public journal pages
+        id: commit
+        run: |
+          python scripts/build_global_journal.py --output index.html
+          python scripts/build_global_journal.py --archive examples/china-journal.synthetic.json --output docs/china-demo.html
+          git add -- assets/data/meal-catalog.json assets/data/national-store-directory.json assets/meal-photos index.html docs/china-demo.html
+          if git diff --cached --quiet; then
+            echo 'Official catalogs have no changes.'
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: sync official meal and store catalogs'
+          git push origin HEAD:main
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+      - name: Publish refreshed site builds
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run connected-web.yml --repo "$GITHUB_REPOSITORY" --ref main
+          gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
+          gh workflow run verify.yml --repo "$GITHUB_REPOSITORY" --ref main
+      - name: Remove temporary collection caches
+        if: always()
+        run: rm -rf private/national-catalog private/meal-image-cache private/catalog-refresh-baseline.json

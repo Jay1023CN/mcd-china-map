@@ -35,11 +35,4 @@ jobs:
         env:
           APP_URL: https://mcd-china-map.onrender.com/
           EXPECTED_COMMIT: ${{ inputs.expected_commit }}
-          CAPTURE_COLLECTIONS: '1'
-          COLLECTIONS_CAPTURE_DIR: private/meal-ui-preview/collections
         run: node tests/browser-collections.cjs
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: deployed-mobile-ui
-          path: private/meal-ui-preview/**/*.png

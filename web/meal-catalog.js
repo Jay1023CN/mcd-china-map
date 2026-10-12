@@ -5,9 +5,10 @@
 })(typeof globalThis === 'object' ? globalThis : this, function() {
   'use strict';
   const DEFAULT_CATEGORIES = [
-    {id:'combos',label:'套餐'}, {id:'burgers',label:'汉堡和卷'},
+    {id:'combos',label:'套餐'}, {id:'new',label:'新品'}, {id:'burgers',label:'汉堡和卷'},
     {id:'snacks',label:'小食'}, {id:'drinks',label:'饮品'},
-    {id:'breakfast',label:'早餐'}, {id:'desserts',label:'甜品'}
+    {id:'breakfast',label:'早餐'}, {id:'desserts',label:'甜品'},
+    {id:'happy_meal',label:'开心乐园餐'}
   ];
   const key = value => typeof value === 'string' ? value.normalize('NFKC').trim().replace(/\s+/g,' ').toLocaleLowerCase('zh-CN') : '';
   const itemsOf = catalog => Array.isArray(catalog) ? catalog : (catalog?.items || []);

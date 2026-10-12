@@ -48,12 +48,6 @@ jobs:
           node tests/browser-meal-flow.cjs
           MEAL_BROWSER=webkit node tests/browser-meal-flow.cjs
           python tests/run_browser_web_sessions.py
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: connected-meal-ui-preview
-          path: private/meal-ui-preview/**/*.png
-          if-no-files-found: ignore
       - name: Verify and archive the public runtime files
         env:
           SOURCE_COMMIT: ${{ github.sha }}
