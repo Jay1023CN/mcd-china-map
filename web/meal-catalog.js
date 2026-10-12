@@ -18,7 +18,39 @@
     }
     return index;
   }
-  function match(catalog, name) { return indexOf(catalog).get(key(name)) || null; }
+  function orderKey(value) {
+    return key(value).replace(/\s+/g,'').replace(/\((?:麦金卡免配|麦金卡专享)\)$/,'')
+      .replace(/(?:\((?:大|中|小)(?:杯|份|包)\)|(?:大|中|小)(?:杯|份|包))$/,'')
+      .replace(/[x×]\d+$/,'');
+  }
+  function pictureIndex(catalog) {
+    const index=new Map();
+    const aliases={'无糖可口可乐':['无糖可乐'],'可口可乐':['可乐']};
+    for(const item of itemsOf(catalog))for(const name of [item.name,...(item.aliases || []),...(aliases[item.name] || [])]){
+      const label=orderKey(name);if(!label)continue;
+      if(index.has(label) && index.get(label)?.id!==item.id)index.set(label,null);
+      else if(!index.has(label))index.set(label,item);
+    }
+    return index;
+  }
+  function resolvePicture(index,name) {
+    const normalized=orderKey(name);
+    return index.get(normalized) || index.get(normalized.replace(/(?:单人餐|双人餐|三人餐|套餐)$/,'')) || null;
+  }
+  function match(catalog, name) { return resolvePicture(pictureIndex(catalog),name); }
+  function matchFoods(catalog,names) {
+    const index=pictureIndex(catalog),seen=new Set(),result=[];
+    for(const raw of (Array.isArray(names)?names:[])){
+      if(typeof raw!=='string')continue;
+      // Only explicit components are split; never infer the contents of a named combo.
+      for(const component of raw.split(/[·+，、;；|]/).map(value=>value.trim()).filter(Boolean)){
+        const item=resolvePicture(index,component);
+        if(!item || seen.has(item.id))continue;
+        seen.add(item.id);result.push({...item,order_name:component});
+      }
+    }
+    return result;
+  }
   function personalFrequency(entries, catalog = []) {
     if (entries?.data_kind === 'synthetic') return [];
     entries = Array.isArray(entries) ? entries : (entries?.entries || []);
@@ -74,15 +106,16 @@
   }
   function create(catalog) {
     const categories = catalog?.categories || DEFAULT_CATEGORIES;
-    const catalogIndex=indexOf(catalog);
+    const catalogIndex=pictureIndex(catalog);
     return {
       categories:[{id:'frequent',label:'我的常吃'},...categories],
-      match:name=>catalogIndex.get(key(name)) || null,
+      match:name=>resolvePicture(catalogIndex,name),
+      matchFoods:names=>matchFoods(catalog,names),
       personalFrequency:entries=>personalFrequency(entries,catalog),
       filter:(category='all',options={})=>sort(filter(catalog,category,options.entries),options.sort || (category==='frequent'?'frequency':'category'),personalFrequency(options.entries,catalog),categories),
       groups:items=>groups(items,categories),
       sort:(items,mode,entries)=>sort(items,mode,personalFrequency(entries,catalog),categories)
     };
   }
-  return {DEFAULT_CATEGORIES,match,personalFrequency,sort,filter,groups,create};
+  return {DEFAULT_CATEGORIES,match,matchFoods,personalFrequency,sort,filter,groups,create};
 });

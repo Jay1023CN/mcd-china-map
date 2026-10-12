@@ -43,3 +43,33 @@ test('menu matching resolves official aliases without rewriting unmatched order 
   assert.equal(engine.match('无糖可口可乐').name,'无糖可口可乐');
   assert.equal(engine.match('门店自定义新品'),null);
 });
+
+test('order pictures handle size labels while keeping sugar and flavour distinctions',()=>{
+  const engine=M.create(catalog);
+  assert.equal(engine.match('无糖可口可乐大杯').name,'无糖可口可乐');
+  assert.equal(engine.match('无糖可乐（中杯）').name,'无糖可口可乐');
+  assert.equal(engine.match('可乐小杯').name,'可口可乐');
+  assert.equal(engine.match('薯条（大份）').name,'薯条');
+  assert.equal(engine.match('麦乐鸡 (5块)').name,'麦乐鸡 (5块)');
+  assert.equal(engine.match('麦乐鸡 (10块)'),null,'a different pack size is not relabelled as five pieces');
+  assert.equal(engine.match('奥利奥麦旋风').name,'奥利奥麦旋风');
+  assert.equal(engine.match('限定大米风味麦旋风'),null);
+  assert.equal(engine.match('麦旋风'),null,'an unspecified flavour does not pick an arbitrary photo');
+  assert.equal(engine.match('百事可乐'),null);
+});
+
+test('share picture matching returns explicit components without changing the original order',()=>{
+  const foods=['薯条（大份） · 无糖可口可乐大杯','奥利奥麦旋风','薯条','巨无霸单人餐','未知五件套（麦金卡免配）'];
+  const before=JSON.stringify(foods),result=M.create(catalog).matchFoods(foods);
+  assert.deepEqual(result.map(item=>item.name),['薯条','无糖可口可乐','奥利奥麦旋风','巨无霸']);
+  assert.equal(result[1].order_name,'无糖可口可乐大杯');
+  assert.equal(JSON.stringify(foods),before);
+  assert.ok(result.every(item=>item.image_url));
+  assert.deepEqual(M.matchFoods(catalog,['未知五件套']),[]);
+  assert.deepEqual(M.matchFoods(catalog,null),[]);
+});
+
+test('ambiguous image aliases never choose the first food',()=>{
+  const items=[{id:'one',name:'第一种',aliases:['重名餐品']},{id:'two',name:'第二种',aliases:['重名餐品']}];
+  assert.equal(M.match(items,'重名餐品'),null);
+});
