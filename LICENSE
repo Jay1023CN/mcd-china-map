@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-This license covers this project's original code and documentation. It does
-not grant rights to McDonald's trademarks, services, or the copied official
-CONTEST_DECLARATION.md. Third-party services remain subject to their own terms.
-Bundled Noto Sans SC and DM Mono fonts are licensed under the SIL Open Font
-License (see assets/fonts). Phosphor icons are licensed under their included
-MIT license (see assets/icons/LICENSE.txt).

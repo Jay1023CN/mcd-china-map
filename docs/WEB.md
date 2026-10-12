@@ -4,9 +4,9 @@
 
 [打开麦麦中国地图](https://jay1023cn.github.io/mcd-china-map/)。GitHub Pages 托管的是可直接使用的地图和手账版：新增、编辑、照片、筛选、想去清单、分享卡、JSON 备份恢复与打印。记录保存在当前浏览器，不需要安装或填写 Token。
 
-公网 Token 连接、官方门店查询及订单同步等待服务器接入后开放。本机运行下方的网页服务即可使用这些接口。GitHub Pages 只发布 `dist/web` 中的空白个人手账与公开素材；不会上传私有数据或后端凭据。后续相关源码更新到 main，发布工作流会先检查手机操作，再自动更新网页。
+需要公网 Token 连接、官方门店查询和订单同步时，打开 [Render 在线连接版](https://mcd-china-map.onrender.com/#store-finder)。GitHub Pages 发布地图、公开门店资料和个人手账页面，不包含后端凭据，也不需要用户填写 Token。源码更新到 main 后，Pages 工作流会先检查手机操作，再发布静态网页。
 
-让用户在手机上使用订单同步，可以直接部署现有后端，见 [免费部署到 Render](FREE_HOSTING.md)。仓库已经提供部署配置；服务是否上线、真实订单是否可同步，以实际网址验收为准。
+如需自行部署在线连接版，使用仓库提供的 [Render 配置](FREE_HOSTING.md)。
 
 ## 带 MCP 连接的完整版本
 

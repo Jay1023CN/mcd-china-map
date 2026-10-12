@@ -5,7 +5,7 @@
 <p align="center"><strong>下次旅行，哪家麦值得顺路去？</strong><br><sub>先收藏一家店，再把每一餐留下来。电脑、手机都能打开。</sub></p>
 
 <p align="center">
-  <a href="https://mcd-china-map.onrender.com/#store-finder"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-map-v2.svg" alt="打开地图，找家麦" width="240"></a>
+  <a href="https://jay1023cn.github.io/mcd-china-map/"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-map-v2.svg" alt="打开地图，找家麦" width="240"></a>
   &nbsp;
   <a href="https://github.com/Jay1023CN/mcd-china-map/releases/latest"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/download-v2.svg" alt="下载 Windows 版" width="240"></a>
 </p>
@@ -40,11 +40,11 @@
 <details>
 <summary><strong>第一次用：网页版与本地版怎么选？</strong></summary>
 
-**想先试试：** [打开网页版](https://mcd-china-map.onrender.com/#store-finder)，直接记一餐、上传照片、收藏门店、排期、翻城市回忆册、生成月度小报和分享卡。无需安装。
+**先体验地图和手账：** [打开 GitHub Pages 网页版](https://jay1023cn.github.io/mcd-china-map/#store-finder)，可以查门店、收藏、记一餐、上传照片和生成分享卡。无需安装或填写 Token，记录保存在当前浏览器。
 
-**想同步自己的麦当劳订单：** 可直接在[在线主站](https://mcd-china-map.onrender.com/#store-finder)连接麦当劳，也可以[下载 Windows 完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击 `启动.cmd`。普通手账无需 Python；安装 Python 3.10+ 后，可连接自己的 [麦当劳中国 MCP Token](https://open.mcd.cn/mcp)，自动整理完成订单、查询官方附近门店。门店资料与默认照片自动带入，仍可编辑随记、换照片或删除记录。
+**想同步自己的麦当劳订单：** 打开[Render 在线连接版](https://mcd-china-map.onrender.com/#store-finder)，连接自己的麦当劳中国 MCP；也可以[下载 Windows 完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击启动文件。使用连接功能需要自己的 [麦当劳中国 MCP Token](https://open.mcd.cn/mcp)。完成订单可整理成手账，门店资料与默认照片自动带入，仍可编辑随记、换照片或删除记录。
 
-在线主站提供地图与手账，也可连接麦当劳同步订单。本机版继续可用。更多入口和步骤见 [Windows 使用说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/LOCAL_WINDOWS.md)、[网页版与部署](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/WEB.md)。
+GitHub Pages 适合直接体验手动记录和收藏；Render 在线版提供需要后端的 MCP 连接与订单同步。本机版也可使用。更多步骤见 [Windows 使用说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/LOCAL_WINDOWS.md)、[网页版与部署](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/WEB.md)。
 
 </details>
 
@@ -96,6 +96,6 @@ py scripts/package_skill.py
 
 <p align="center"><sub>喜欢这个创意，可以在仓库顶部点颗 Star，下次来看看又多了哪些店。</sub></p>
 
-<p align="center"><sub>社区独立作品 · 原创代码 <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/LICENSE">MIT</a> · <a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/ROADMAP.md">接下来做什么</a></sub></p>
+<p align="center"><sub>社区独立作品 · 原创代码 <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/LICENSE">MIT</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/NOTICE">使用与第三方声明</a> · <a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/139">参赛作品</a> · <a href="https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/ROADMAP.md">接下来做什么</a></sub></p>
 
 日常使用只需打开网页版，或双击根目录的 `启动.cmd`。备用启动和高级工具统一放在 `scripts/launchers/`；[目录说明](docs/DEVELOPMENT.md#目录怎么放)列出了代码、素材和构建结果的位置。

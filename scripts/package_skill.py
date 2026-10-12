@@ -22,7 +22,7 @@ FILES = (
     "tests/browser-web-sessions.cjs", "tests/run_browser_web_sessions.py", "tests/browser-mobile-web.cjs",
     "docs/mobile-map-preview.png", "docs/store-detail-preview.png", "docs/product-preview.gif",
     "index.html", "启动.cmd", "scripts/launchers/备用启动.cmd", "scripts/start-local.cmd", "scripts/launchers/启动门店查询.cmd", "scripts/launchers/同步中国订单.cmd", "README.md", "SKILL.md", ".gitignore",
-    "LICENSE", "CONTEST_DECLARATION.md", "MCP_INTEGRATION.md",
+    "LICENSE", "NOTICE", "CONTEST_DECLARATION.md", "MCP_INTEGRATION.md",
     "mcp-config.example.json",
     "scripts/serve-local.ps1", "scripts/local_api.py", "scripts/package_skill.py",
     "scripts/build_global_journal.py", "scripts/visual_assets.py",
