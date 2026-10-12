@@ -2,7 +2,7 @@ name: Sync official meal and store catalogs
 
 on:
   schedule:
-    - cron: '30 21 * * 0'
+    - cron: '30 21 * * *'
   workflow_dispatch:
 
 permissions:
