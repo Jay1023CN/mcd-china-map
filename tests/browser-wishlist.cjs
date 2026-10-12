@@ -2,11 +2,43 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const zlib = require('node:zlib');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:8765/';
 const output = path.resolve(__dirname, '..', 'test-results');
 const store = {name: '虚构上海测试门店', code: 'wishlist-fixture-001', address: '虚构路 1 号', city: '上海', business_status: true, hours: '07:00–23:00'};
+
+function crc32(buffer) {
+  let crc = 0xffffffff;
+  for (const byte of buffer) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function pngChunk(type, data) {
+  const body = Buffer.concat([Buffer.from(type), data]);
+  const header = Buffer.alloc(4); header.writeUInt32BE(data.length);
+  const checksum = Buffer.alloc(4); checksum.writeUInt32BE(crc32(body));
+  return Buffer.concat([header, body, checksum]);
+}
+
+function makeTestPhoto() {
+  const width = 8, height = 8, row = Buffer.alloc(1 + width * 4);
+  row[0] = 0;
+  for (let x = 0; x < width; x++) row.set([220, 68, 46, 255], 1 + x * 4);
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(width, 0); header.writeUInt32BE(height, 4);
+  header[8] = 8; header[9] = 6;
+  return Buffer.concat([
+    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    pngChunk('IHDR', header),
+    pngChunk('IDAT', zlib.deflateSync(Buffer.concat(Array.from({length: height}, () => row)))),
+    pngChunk('IEND', Buffer.alloc(0))
+  ]);
+}
 
 async function stubStoreApi(page) {
   await page.route('**/api/health', route => route.fulfill({json: {store_lookup: true}}));
@@ -137,10 +169,45 @@ async function main() {
     await restored.getByRole('button', {name: '到了，留一页打卡', exact: true}).click();
     const dialogBounds = await restored.locator('#entry-dialog').evaluate(dialog => ({scroll: dialog.scrollWidth, client: dialog.clientWidth}));
     assert.ok(dialogBounds.scroll <= dialogBounds.client + 1, 'arrival dialog must fit the mobile viewport');
+    assert.equal(await restored.locator('[name=store]').inputValue(), store.name, 'arrival should carry the collected store into the meal form');
+    assert.equal(await restored.locator('[name=city]').inputValue(), store.city);
+    await restored.locator('#meal-foods button').filter({hasText: /^薯条$/}).click();
+    await restored.locator('[name=note]').fill('刚收藏的这家店，来留一张照片。');
+    await restored.locator('[name=photo]').setInputFiles({name: '上海测试餐品.png', mimeType: 'image/png', buffer: makeTestPhoto()});
+    await restored.locator('#photo-preview').waitFor({state: 'visible'});
+    await restored.waitForFunction(() => {
+      const image = document.getElementById('photo-preview');
+      return image.complete && image.naturalWidth === 8 && !document.getElementById('save-entry').disabled;
+    });
+    assert.equal(await restored.locator('#photo-caption').innerText(), '你上传的照片');
+    await restored.getByRole('button', {name: '保存这一餐'}).click();
+    await restored.locator('#entry-dialog').waitFor({state: 'hidden'});
+    assert.equal(await restored.locator('#wishlist-count').innerText(), '0', 'saving the arrival should complete the collected plan');
+    await restored.getByRole('tab', {name: '打卡手账', exact: true}).click();
+    const savedMeal = restored.locator('#journal-grid .entry-card').filter({has: restored.locator('h3', {hasText: store.name})});
+    assert.equal(await savedMeal.count(), 1);
+    assert.deepEqual(await savedMeal.locator('.food-tags span').allTextContents(), ['薯条']);
+    assert.equal(await savedMeal.locator('.note').innerText(), '刚收藏的这家店，来留一张照片。');
+    assert.match(await savedMeal.locator('img.photo').getAttribute('src'), /^data:image\/jpeg;base64,/);
+    await savedMeal.getByRole('button', {name: '分享这一页', exact: true}).click();
+    assert.equal(await restored.locator('#share-stickers [data-sticker="food"]').getAttribute('aria-pressed'), 'true', 'the card should include a sticker for the meal foods');
+    await restored.waitForFunction(() => {
+      const image = document.getElementById('share-image');
+      return image && image.complete && image.naturalWidth > 0 && !document.getElementById('save-share').disabled;
+    });
+    const cardDownload = restored.waitForEvent('download');
+    await restored.locator('#save-share').click();
+    const downloadedCard = await cardDownload;
+    assert.match(downloadedCard.suggestedFilename(), /^麦麦探店记-.*\.png$/);
+    const cardPath = await downloadedCard.path();
+    assert.ok(cardPath, 'the share card should be downloaded to a file');
+    const png = fs.readFileSync(cardPath);
+    assert.deepEqual([...png.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10], 'the downloaded share card should be a real PNG');
+    assert.ok(png.length > 1024, 'the downloaded card should contain the rendered meal and photo');
     assert.deepEqual(errors, []);
     await restoredContext.close();
     await context.close();
-    console.log('PASS: wishlist deduplication, note persistence and backup restore, explicit arrival confirmation, cancel/complete/remove behavior, and mobile tab/dialog sizing. All store data is synthetic and API-stubbed.');
+    console.log('PASS: wishlist deduplication, note persistence and backup restore, explicit arrival confirmation, same-store mobile meal with uploaded photo, matching food sticker, saved PNG share card, cancel/complete/remove behavior, and mobile tab/dialog sizing. All store data is synthetic and API-stubbed.');
   } finally {
     await browser.close();
   }
