@@ -21,7 +21,6 @@ function pngChunk(type,data=Buffer.alloc(0)) {
 const tinyPng=Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),
   pngChunk('IHDR',Buffer.from([0,0,0,1,0,0,0,1,8,6,0,0,0])),
   pngChunk('IDAT',require('node:zlib').deflateSync(Buffer.from([0,220,50,30,255]))),pngChunk('IEND')]);
-const todayIso=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
 
 function mime(file) {
   return ({'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8',
@@ -198,7 +197,12 @@ async function addMobileEntry(page) {
   await page.locator('#add-top').tap();
   const dialog=page.locator('#entry-dialog');
   await dialog.waitFor({state:'visible'});
-  assert.equal(await page.locator('[name=date]').inputValue(),todayIso(),'new check-ins should start on today');
+  // The browser uses Asia/Shanghai; the CI runner may still be on the previous UTC date.
+  const expectedToday=await page.evaluate(()=>{
+    const d=new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  });
+  assert.equal(await page.locator('[name=date]').inputValue(),expectedToday,'new check-ins should start on browser-local today');
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=province_code]').selectOption('510000');
   await page.locator('#meal-city-details').evaluate(el=>el.open=true);
