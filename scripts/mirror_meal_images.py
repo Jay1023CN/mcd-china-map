@@ -130,7 +130,7 @@ def mirror(catalog: dict, output: Path, report_path: Path) -> dict:
         name = item.get('name', '')
         status = {'id': item_id, 'name': name, 'status': 'failed'}
         try:
-            if not re.fullmatch(r'[a-z]+-[0-9]+', item_id):
+            if not re.fullmatch(r'[a-z_]+-[0-9]+', item_id):
                 raise ValueError('catalog image ID is not a safe source filename')
             image_url = item.get('image_url', '')
             if not approved_url(image_url):

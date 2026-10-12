@@ -62,7 +62,9 @@ async function main(){
     await page.waitForFunction(()=>[...document.querySelectorAll('#meal-menu-products img')].some(img=>img.naturalWidth>0),null,{timeout:15000});
     await page.screenshot({path:path.join(output,'menu-mobile.png'),fullPage:false});
     await page.locator('#meal-menu-categories button').filter({hasText:/^套餐$/}).click();
-    assert.equal(await page.locator('#meal-menu-products button').count(),2);
+    const comboButtons=page.locator('#meal-menu-products button');
+    assert.ok(await comboButtons.count()>=10,'the synced catalogue should include the expanded official combo menu');
+    assert.ok((await comboButtons.allTextContents()).some(text=>text.includes('龙焰鸡腿堡三件套')),'the current official combo should be available');
     await page.locator('#meal-menu-sort').selectOption('frequency');
     await page.locator('#meal-menu-done').click();
 

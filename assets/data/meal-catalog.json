@@ -1,12 +1,16 @@
 {
   "version": 1,
-  "checked_at": "2026-10-11",
+  "checked_at": "2026-10-12",
   "source_kind": "official_public_catalog",
-  "purpose": "记录这一餐，不是点餐菜单",
+  "purpose": "记录这一餐，收录常见套餐和新品参考；不是实时点餐菜单",
   "categories": [
     {
       "label": "套餐",
       "id": "combos"
+    },
+    {
+      "label": "新品",
+      "id": "new"
     },
     {
       "label": "汉堡和卷",
@@ -27,6 +31,10 @@
     {
       "label": "甜品",
       "id": "desserts"
+    },
+    {
+      "id": "happy_meal",
+      "label": "开心乐园餐"
     }
   ],
   "items": [
@@ -38,9 +46,10 @@
         "combos"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/苹板支撑Pro",
-      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/500大卡套餐-2",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/500%E5%A4%A7%E5%8D%A1%E5%A5%97%E9%A4%90-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112154184281.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "combos-2",
@@ -50,9 +59,10 @@
         "combos"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/牛气满满",
-      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/500大卡套餐-2",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/500%E5%A4%A7%E5%8D%A1%E5%A5%97%E9%A4%90-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112207211930.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-3",
@@ -64,7 +74,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Big-Mac",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081011205699.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-4",
@@ -76,7 +87,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hamburger",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081011488477.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-5",
@@ -91,7 +103,8 @@
       "aliases": [
         "麦辣鸡腿堡",
         "经典麦辣鸡腿汉堡"
-      ]
+      ],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-6",
@@ -103,7 +116,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Grilled-Chicken-Sandwich",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/10/202410121642022710.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-7",
@@ -115,7 +129,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/McChicken",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081013011355.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-8",
@@ -127,7 +142,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Filet-O-Fish",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081013175111.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-9",
@@ -139,7 +155,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Cheeseburger",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081013284833.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-10",
@@ -151,7 +168,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Double-Cheeseburger",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505191553352680.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-11",
@@ -163,7 +181,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/beef-sausage",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/07/202407021437072297.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-12",
@@ -175,7 +194,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/double-fof",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208111413054231.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-13",
@@ -187,7 +207,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Thick-Angus-Beef-Burger-with-Bacon",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081022028042.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-14",
@@ -199,7 +220,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Cheese-Angus",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081022182900.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-15",
@@ -211,7 +233,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Bacon-Lettuce-Tomato-Double-Beef-Burger",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/09/202209261029176483.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "burgers-16",
@@ -223,7 +246,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/酥酥多笋卷",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/hamburgers",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031221494776.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-17",
@@ -235,7 +259,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/French-Fries",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Snacks",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091547349086.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-18",
@@ -247,7 +272,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/脆脆薯条",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Snacks",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/11/202411281827123412.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-19",
@@ -259,7 +285,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Spicy-McWings",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Snacks",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/04/202504091714077263.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-20",
@@ -271,7 +298,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/20250326-V-wings",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Snacks",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/03/202503261723251059.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-21",
@@ -287,7 +315,8 @@
         "麦乐鸡",
         "麦乐鸡（5块）",
         "5块麦乐鸡"
-      ]
+      ],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-22",
@@ -299,7 +328,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Big-Chicken-Cutlet",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Snacks",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091551151077.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-23",
@@ -311,7 +341,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Corn-Cup",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Snacks",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091548118821.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "snacks-24",
@@ -323,7 +354,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Apple-Slice",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Snacks",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091552098343.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-25",
@@ -335,7 +367,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Coca-Cola",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091541242793.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-26",
@@ -347,7 +380,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Coca-Cola-Zero",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091542266222.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-27",
@@ -359,7 +393,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Fuze-Tea",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412111430239925.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-28",
@@ -371,7 +406,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Sprite",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091543354438.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-29",
@@ -383,7 +419,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/怡泉C",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112325105835.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-30",
@@ -395,7 +432,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Drink-16",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191452518874.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-31",
@@ -407,7 +445,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Minute-Maid-Sunshine-Orange-Juice-2",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/11/202411281822478466.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-32",
@@ -419,7 +458,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Minute-Maid-100-Apple-Juice",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505081052503366.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-33",
@@ -434,7 +474,8 @@
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031442538648.png",
       "aliases": [
         "豆浆"
-      ]
+      ],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-34",
@@ -446,7 +487,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Drink-11",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031439237239.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-35",
@@ -458,7 +500,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Tea",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091546249996.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-36",
@@ -470,7 +513,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Drinking-Water-2",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/beverage",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/11/202411281844518339.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-37",
@@ -482,7 +526,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Sausage-McMuffin",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091558332871.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-38",
@@ -494,7 +539,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Sausage-McMuffin-With-Egg",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091558498724.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-39",
@@ -506,7 +552,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/双层猪柳蛋麦满分",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/12/202212191104077687.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-40",
@@ -518,7 +565,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Ham-Muffin",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091559476910.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-41",
@@ -530,7 +578,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Crispy-Chicken-Muffin",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091600076790.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-42",
@@ -542,7 +591,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Grilled-Chicken-Muffin",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/09/202209301037275168.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-43",
@@ -554,7 +604,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Double-Grilled-Chicken-Muffin",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/09/202209301037584746.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-44",
@@ -566,7 +617,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/原味板烧鸡腿炒双蛋堡",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/12/202212191104292706.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-45",
@@ -578,7 +630,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Sausage-Scrambled-Double-Egg-Burger",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091601375124.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-46",
@@ -590,7 +643,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/火腿扒早安营养卷",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208021616493001.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-47",
@@ -602,7 +656,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/图林根香肠早安营养卷",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208021618177760.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-48",
@@ -614,7 +669,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Congee-with-Chicken-and-preserved-egg",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/05/202005061021247170.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-49",
@@ -626,7 +682,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Congee-with-Pickled-cabbage-and-bamboo-shoot",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/05/202005061023475981.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-50",
@@ -638,7 +695,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hash-Brown",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091604513345.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-51",
@@ -650,7 +708,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Asian-Dough-Stick",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091605077842.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "breakfast-52",
@@ -662,7 +721,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/德式图林根香肠",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2021/04/202104191521441185.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-53",
@@ -674,7 +734,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Cone",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/05/202005270949182813.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-54",
@@ -686,7 +747,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Oreo-Mcflurry",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191447419769.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-55",
@@ -698,7 +760,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Strawberry-Oreo-Mcflurry",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191447495324.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-56",
@@ -710,7 +773,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Chocolate-Sundae",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191510126381.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-57",
@@ -722,7 +786,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Strawberry-Sundae",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/03/202003191449258974.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-58",
@@ -734,7 +799,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/迷你朱古力新地",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112256468336.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-59",
@@ -746,7 +812,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/迷你草莓新地",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112259357730.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-60",
@@ -758,7 +825,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Taro-Pie",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091556569394.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "desserts-61",
@@ -770,7 +838,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Pineapple-Pie",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/desserts",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091557147058.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-62",
@@ -779,10 +848,11 @@
       "categories": [
         "drinks"
       ],
-      "source_url": "https://www.mcdonalds.com.cn/product/mccafe/Espresso",
+      "source_url": "https://www.mcdonalds.com.cn/product/Iced-Nai-Tie",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292204543004.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-63",
@@ -794,7 +864,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Nai-Tie",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292205408283.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-64",
@@ -806,7 +877,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Iced-Oatly-Nai-Tie",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292206117637.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-65",
@@ -818,7 +890,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Oatly-Nai-Tie",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292206368008.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-66",
@@ -830,7 +903,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Iced-Americano",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292208383944.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-67",
@@ -842,7 +916,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Americano",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209017033.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-68",
@@ -854,7 +929,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Iced-Caramel-Macchiato-2",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209215242.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-69",
@@ -866,7 +942,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Caramel-Macchiato-2",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209422511.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-70",
@@ -878,7 +955,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Cappuccino",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292210057378.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-71",
@@ -890,7 +968,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/MC-Espresso",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/11/202011152311386312.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-72",
@@ -902,7 +981,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Iced-OATLY-Chocolate",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292214326960.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-73",
@@ -914,7 +994,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-OATLY-Chocolate",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208301011268722.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-74",
@@ -926,7 +1007,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Iced-Matcha-Milk",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216395610.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-75",
@@ -938,7 +1020,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Matcha-Milk",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216596791.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-76",
@@ -950,7 +1033,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Iced-Oatly-Milk",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292214522529.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-77",
@@ -962,7 +1046,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Oatly-Milk-3",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292215082309.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-78",
@@ -974,7 +1059,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Brewed-Coffee",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/02/202502201050044696.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-79",
@@ -986,7 +1072,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/iced-Dark-Chocolate",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292217199815.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-80",
@@ -998,7 +1085,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Dark-Chocolate",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292217366580.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-81",
@@ -1010,7 +1098,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Iced-Milk",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292218348675.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-82",
@@ -1022,7 +1111,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Hot-Milk-3",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292218491274.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-83",
@@ -1034,7 +1124,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Matcha-Frappe",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219089745.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-84",
@@ -1046,7 +1137,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Dark-Chocolate-Frappe",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219557802.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-85",
@@ -1058,7 +1150,8 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Matcha-Affogato",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/07/202407251729244473.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
     },
     {
       "id": "drinks-86",
@@ -1070,7 +1163,485 @@
       "source_url": "https://www.mcdonalds.com.cn/product/Affogato",
       "source_category_url": "https://www.mcdonalds.com.cn/index/Food/mccafe/mccafe-menu",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/07/202407251730361207.png",
-      "aliases": []
+      "aliases": [],
+      "official_menu_state": "listed"
+    },
+    {
+      "id": "combos-choco-mcmuffin",
+      "name": "巧克力味厚松饼猪柳堡三件套",
+      "category": "combos",
+      "categories": [
+        "combos",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261001-breakfast/",
+      "aliases": [
+        "巧克力厚松饼猪柳堡套餐"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "厚松饼猪柳堡 + 脆薯饼 + 鲜萃咖啡。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "combos-choco-mcmuffin-egg",
+      "name": "巧克力味厚松饼猪柳蛋堡三件套",
+      "category": "combos",
+      "categories": [
+        "combos",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261001-breakfast/",
+      "aliases": [
+        "巧克力厚松饼猪柳蛋堡套餐"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "厚松饼猪柳蛋堡 + 脆薯饼 + 鲜萃咖啡。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "combos-double-crispy-three-piece",
+      "name": "大堡口福三件套（双层脆鸡堡）",
+      "category": "combos",
+      "categories": [
+        "combos"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20260316-Thailand",
+      "aliases": [
+        "双层脆鸡堡三件套"
+      ],
+      "status_label": "2026年3月活动款 · 可补记",
+      "details": "双层脆鸡堡 + 中薯条 + 中可乐。",
+      "available_until": "2026-03-24"
+    },
+    {
+      "id": "combos-dragon-cheese-three-piece",
+      "name": "龙焰芝士棒鸡腿堡三件套",
+      "category": "combos",
+      "categories": [
+        "combos",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+      "aliases": [
+        "龙焰芝士棒鸡腿堡套餐"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "龙焰芝士棒鸡腿堡 + 中薯条 + 中杯可乐。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "combos-dragon-fire-three-piece",
+      "name": "龙焰鸡腿堡三件套",
+      "category": "combos",
+      "categories": [
+        "combos",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+      "aliases": [
+        "龙焰鸡腿堡套餐"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "龙焰鸡腿堡 + 中薯条 + 中杯可乐。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "combos-harvest-double-bucket",
+      "name": "花好月圆双人桶",
+      "category": "combos",
+      "categories": [
+        "combos"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20260916-Mid-Autumn-Festival/",
+      "aliases": [
+        "中秋双人桶"
+      ],
+      "status_label": "活动已结束 · 可补记",
+      "details": "板烧鸡腿堡、麦辣鸡腿堡、薯条、麦乐鸡、麦辣鸡翅和两杯可乐。",
+      "available_until": "2026-10-07"
+    },
+    {
+      "id": "combos-hold-chicken-three-piece",
+      "name": "大堡口福三件套（Hold不住鸡排堡）",
+      "category": "combos",
+      "categories": [
+        "combos"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20260316-Thailand",
+      "aliases": [
+        "Hold不住鸡排堡三件套"
+      ],
+      "status_label": "2026年3月活动款 · 可补记",
+      "details": "Hold不住鸡排堡 + 中薯条 + 中可乐。",
+      "available_until": "2026-03-24"
+    },
+    {
+      "id": "combos-salmon-moon-burger",
+      "name": "三文鱼双虾至尊月堡三件套",
+      "category": "combos",
+      "categories": [
+        "combos"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20260916-Mid-Autumn-Festival/",
+      "aliases": [
+        "三文鱼双虾至尊月堡套餐"
+      ],
+      "status_label": "活动已结束 · 可补记",
+      "details": "三文鱼双虾至尊月堡 + 中薯条 + 中可乐。",
+      "available_until": "2026-10-07"
+    },
+    {
+      "id": "combos-salted-egg-moon-burger",
+      "name": "咸蛋黄鸡腿蛋月堡三件套",
+      "category": "combos",
+      "categories": [
+        "combos"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20260916-Mid-Autumn-Festival/",
+      "aliases": [
+        "咸蛋黄鸡腿蛋月堡套餐"
+      ],
+      "status_label": "活动已结束 · 可补记",
+      "details": "咸蛋黄鸡腿蛋月堡 + 中薯条 + 中可乐。",
+      "available_until": "2026-10-07"
+    },
+    {
+      "id": "combos-texas-three-piece",
+      "name": "大堡口福三件套（德克萨斯风味三层肉霸堡）",
+      "category": "combos",
+      "categories": [
+        "combos"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20260316-Thailand",
+      "aliases": [
+        "德克萨斯三层肉霸堡三件套"
+      ],
+      "status_label": "2026年3月活动款 · 可补记",
+      "details": "德克萨斯风味三层肉霸堡 + 中薯条 + 中可乐。",
+      "available_until": "2026-03-24"
+    },
+    {
+      "id": "combos-thai-chicken-three-piece",
+      "name": "大堡口福三件套（泰会浪大鸡排堡）",
+      "category": "combos",
+      "categories": [
+        "combos"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20260316-Thailand",
+      "aliases": [
+        "泰会浪大鸡排堡三件套"
+      ],
+      "status_label": "2026年3月活动款 · 可补记",
+      "details": "泰会浪大鸡排堡（青咖喱风味） + 中薯条 + 中可乐。",
+      "available_until": "2026-03-24"
+    },
+    {
+      "id": "burgers-17",
+      "name": "龙焰芝士棒鸡腿堡",
+      "category": "burgers",
+      "categories": [
+        "burgers",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
+      "aliases": [
+        "龙焰芝士棒堡"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "加入马苏里拉拉丝芝士条。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "burgers-18",
+      "name": "龙焰鸡腿堡",
+      "category": "burgers",
+      "categories": [
+        "burgers",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
+      "aliases": [
+        "龙焰堡"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "韩式辣酱与黄油风味。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "desserts-62",
+      "name": "灰焰圆筒",
+      "category": "desserts",
+      "categories": [
+        "desserts",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
+      "aliases": [
+        "灰色圆筒"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "desserts-63",
+      "name": "蓝莓爆爆珠麦旋风",
+      "category": "desserts",
+      "categories": [
+        "desserts",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
+      "aliases": [
+        "蓝莓麦旋风"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "snacks-25",
+      "name": "韩式辣椒黄油风味酱",
+      "category": "snacks",
+      "categories": [
+        "snacks",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
+      "aliases": [
+        "辣椒黄油风味酱"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "snacks-26",
+      "name": "韩式烟熏芝士风味酱",
+      "category": "snacks",
+      "categories": [
+        "snacks",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
+      "aliases": [
+        "烟熏芝士风味酱"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "snacks-27",
+      "name": "“我就喜欢”鸡薯双全盒",
+      "category": "snacks",
+      "categories": [
+        "combos",
+        "snacks",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+      "aliases": [
+        "鸡薯双全盒"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "心形薯饼、麦乐鸡和韩式辣椒黄油风味酱。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "snacks-28",
+      "name": "蘸酱炸鸡",
+      "category": "snacks",
+      "categories": [
+        "snacks",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+      "aliases": [
+        "蘸酱炸鸡套餐"
+      ],
+      "status_label": "限时供应至 11月3日",
+      "details": "麦麦脆汁鸡或脆皮鸡柳，搭配指定蘸酱。",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "snacks-29",
+      "name": "马苏里拉拉丝芝士条",
+      "category": "snacks",
+      "categories": [
+        "snacks",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
+      "aliases": [],
+      "status_label": "限时供应至 11月3日",
+      "available_until": "2026-11-03"
+    },
+    {
+      "id": "breakfast-53",
+      "name": "优品豆浆",
+      "category": "breakfast",
+      "categories": [
+        "breakfast",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Soybean-Milk-3",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031411454215.png"
+    },
+    {
+      "id": "happy_meal-1",
+      "name": "儿童鱼排堡",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/kids-fish-filet-burger",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2019/09/201909241723061060.png"
+    },
+    {
+      "id": "happy_meal-2",
+      "name": "汉堡包",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Hamburger-Happy-Meal",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091606247063.png"
+    },
+    {
+      "id": "happy_meal-3",
+      "name": "麦乐鸡（4块）",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Chicken-McNuggets-Happy-Meal-4pcs",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091607474918.png"
+    },
+    {
+      "id": "happy_meal-4",
+      "name": "薯条（迷你）",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/mini-fries",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2019/09/201909241658187803.png"
+    },
+    {
+      "id": "happy_meal-5",
+      "name": "玉米杯 (小)",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Corn-Cup-small",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091608181706.png"
+    },
+    {
+      "id": "happy_meal-6",
+      "name": "苹果片",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Apple-Slice-2",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091608341382.png"
+    },
+    {
+      "id": "happy_meal-7",
+      "name": "纯牛奶（盒装）",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Milk-UHT",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412061721257642.png"
+    },
+    {
+      "id": "happy_meal-8",
+      "name": "纯悦",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Ice-Dew-Packaged-Drinking-Water",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412061720458477.png"
+    },
+    {
+      "id": "happy_meal-9",
+      "name": "美汁源100%苹果汁 (小)",
+      "category": "happy_meal",
+      "categories": [
+        "happy_meal",
+        "new"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/product/Minute-Maid-100Apple-Juice-small",
+      "aliases": [],
+      "official_menu_state": "listed",
+      "listed_since": "2026-10-12",
+      "new_until": "2026-11-11",
+      "status_label": "官网新品 · 10-12 首次收录",
+      "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
+      "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505081053474066.png"
     }
   ]
 }

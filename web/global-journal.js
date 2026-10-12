@@ -1095,8 +1095,11 @@
     $('meal-menu-products').replaceChildren(...products.map(item=>{
       const button=node('button',undefined,'meal-product');button.type='button';button.dataset.food=item.name;button.setAttribute('aria-pressed',String(selected.has(item.name)));
       if(item.image_data_url || item.image_url){const image=node('img');image.src=item.image_data_url || item.image_url;image.alt='';image.loading='lazy';image.referrerPolicy='no-referrer';image.addEventListener('error',()=>{image.hidden=true;button.classList.add('no-photo');button.prepend(node('span','餐品','meal-product-placeholder'));});button.append(image);}
-      else button.append(node('span','来自你的记录','meal-product-placeholder'));
-      button.append(node('strong',item.name),node('small',item.count?`你吃过 ${item.count} 次`:''));
+      else button.append(node('span','餐品','meal-product-placeholder'));
+      button.append(node('strong',item.name));
+      if(item.status_label)button.append(node('small',item.status_label));
+      else button.append(node('small',item.count?`你吃过 ${item.count} 次`:''));
+      if(item.details)button.append(node('small',item.details));
       button.addEventListener('click',()=>toggleMealFood(item.name));return button;
     }));
     if(!products.length)$('meal-menu-products').append(empty(mealMenuCategory==='frequent'?'还没有常吃记录':'没找到这个餐品',mealMenuCategory==='frequent'?'记下几餐或连接订单后，常吃的会自动排在这里。':'换个关键词或分类，也可以回到打卡页补充。'));

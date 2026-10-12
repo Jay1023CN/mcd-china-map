@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const M = require('../web/meal-catalog.js');
 const catalog = require('../assets/data/meal-catalog.json');
 test('official catalog covers each category with per-product source and images',()=>{
-  assert.equal(catalog.categories.length,6);
+  assert.equal(catalog.categories.length,8);
   for(const category of catalog.categories) assert.ok(M.filter(catalog,category.id).length>0,category.id);
   const ids = new Set();
   for(const item of catalog.items){assert.ok(item.name && !ids.has(item.id));ids.add(item.id);assert.match(item.source_url,/^https:\/\/www\.mcdonalds\.com\.cn\//);if(item.image_url)assert.match(item.image_url,/^https:\/\//);assert.equal(item.price,undefined);}
@@ -32,7 +32,7 @@ test('category and personal sorting remain separate and deterministic; history i
   assert.ok(engine.filter('breakfast').some(item=>item.name==='优品豆浆'));
   assert.ok(engine.filter('drinks').some(item=>item.name==='优品豆浆'));
   const groups=engine.groups(engine.filter('all'));
-  assert.deepEqual(groups.map(group=>group.id),catalog.categories.map(category=>category.id));
+  assert.deepEqual(groups.map(group=>group.id),catalog.categories.filter(category=>category.id!=='new').map(category=>category.id));
   assert.equal(engine.groups(engine.filter('frequent',{entries})).at(-1).label,'以前吃过');
   const before=JSON.stringify(catalog);engine.filter('all',{entries,sort:'frequency'});assert.equal(JSON.stringify(catalog),before);
 });
@@ -42,6 +42,16 @@ test('menu matching resolves official aliases without rewriting unmatched order 
   assert.equal(engine.match('麦辣鸡腿堡').name,'麦辣鸡腿汉堡');
   assert.equal(engine.match('无糖可口可乐').name,'无糖可口可乐');
   assert.equal(engine.match('门店自定义新品'),null);
+});
+
+test('current launch items and combo offers are searchable in their own tabs',()=>{
+  const engine=M.create(catalog);
+  assert.ok(engine.filter('combos').length>=10);
+  assert.ok(engine.filter('new').length>=8);
+  assert.ok(engine.filter('new').some(item=>item.name==='龙焰鸡腿堡'));
+  assert.ok(engine.filter('combos').some(item=>item.name==='龙焰鸡腿堡三件套'));
+  assert.ok(engine.filter('burgers').some(item=>item.name==='龙焰鸡腿堡'));
+  assert.ok(engine.filter('combos').every(item=>item.source_url.startsWith('https://www.mcdonalds.com.cn/')));
 });
 
 test('order pictures handle size labels while keeping sugar and flavour distinctions',()=>{
