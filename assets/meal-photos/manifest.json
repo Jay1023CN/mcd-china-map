@@ -146,6 +146,15 @@
       "height": 120
     },
     {
+      "id": "breakfast-53",
+      "file": "breakfast-53.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031411454215.png",
+      "sha256": "70d4b41c52a7b24c589cdd8461226924aefb43e1a1bcd9924b273f2762205098",
+      "size_bytes": 3828,
+      "width": 160,
+      "height": 120
+    },
+    {
       "id": "burgers-10",
       "file": "burgers-10.webp",
       "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505191553352680.png",
@@ -700,6 +709,87 @@
       "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/07/202407251730361207.png",
       "sha256": "7ff949ecc5e827e16d418295cb76757fa11372b2c8ae117a37bdea9ae7fe9885",
       "size_bytes": 5086,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-1",
+      "file": "happy_meal-1.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2019/09/201909241723061060.png",
+      "sha256": "016d074f0a644a5e5408ee6694ad5fdeba63a5a5fff0df52f0fa69822e74fbc9",
+      "size_bytes": 4094,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-2",
+      "file": "happy_meal-2.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091606247063.png",
+      "sha256": "23407ea3f104b9367c228f38c0dba306e1081a8da73f43373d7d94429f9a4bca",
+      "size_bytes": 3988,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-3",
+      "file": "happy_meal-3.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091607474918.png",
+      "sha256": "9eb9b461a87bb97c0919c419cf7e46b2ee094120e8f2f7eb33429cb11bf14fa4",
+      "size_bytes": 3986,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-4",
+      "file": "happy_meal-4.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2019/09/201909241658187803.png",
+      "sha256": "57e33dfbf7b3107de9129143b340ec210048bec10ed248d0262aa993b3c370c6",
+      "size_bytes": 4210,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-5",
+      "file": "happy_meal-5.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091608181706.png",
+      "sha256": "9bea378fb432fbcc185b30e52df4d08c6c72a03cab6667b26d4b178eb47c6ee3",
+      "size_bytes": 2878,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-6",
+      "file": "happy_meal-6.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091608341382.png",
+      "sha256": "f0e4fdad3b7e4f3665ca8313dc9a37ff1acd901a5353f56fdf891c523b04b652",
+      "size_bytes": 2718,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-7",
+      "file": "happy_meal-7.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412061721257642.png",
+      "sha256": "0d7fd8e2ffc346ba086aad875831b216e9e7064f3d5e7409f6a64a40ae94c165",
+      "size_bytes": 2658,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-8",
+      "file": "happy_meal-8.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412061720458477.png",
+      "sha256": "0fbf7aa2aae094cec32c2ffba3ce067f458d9ccd97ff82edb80136f0bb56e66a",
+      "size_bytes": 3084,
+      "width": 160,
+      "height": 120
+    },
+    {
+      "id": "happy_meal-9",
+      "file": "happy_meal-9.webp",
+      "source_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505081053474066.png",
+      "sha256": "c7fefc1ef8f96faee415517199870520ad00e2bc2b197d874c6540ce0336155d",
+      "size_bytes": 2566,
       "width": 160,
       "height": 120
     },
