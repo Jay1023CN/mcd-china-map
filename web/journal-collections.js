@@ -18,6 +18,17 @@
     var province = clean(entry.province_code, 6);
     return city ? {key: province + '|' + identity(city), city: city, province_code: province} : null;
   }
+  function storeGroupIdentity(entry, index) {
+    var reference = entry && entry.store_reference && typeof entry.store_reference === 'object' ? entry.store_reference : {};
+    var source = identity(reference.source), code = identity(reference.code);
+    if (source && code) return 'reference:' + source + '\u0000' + code;
+    var stableId = identity(entry && (entry.store_id || entry.storeId));
+    if (stableId) return 'store-id:' + stableId;
+    var city = cityInfo(entry), address = identity(reference.address || entry.address);
+    var name = identity(entry.store || entry.store_name);
+    var place = address ? 'address:' + address : name ? 'name:' + name : 'entry:' + index;
+    return 'place:' + (city ? city.key : 'unknown-city') + '\u0000' + place;
+  }
   function validDate(value) {
     if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
     var year = +value.slice(0, 4), month = +value.slice(5, 7), day = +value.slice(8, 10);
@@ -245,9 +256,10 @@
     }));
     var groups = [], groupByStore = new Map();
     selected.entries.forEach(function (entry, index) {
-      var name = clean(entry.store || entry.store_name, 120), key = identity(name) || 'unnamed:' + index;
+      var key = storeGroupIdentity(entry, index);
       var group = groupByStore.get(key);
-      if (!group) { group = {store: name, pages: []}; groupByStore.set(key, group); groups.push(group); }
+      if (!group) { group = {store: facts.pages[index].store || '', pages: []}; groupByStore.set(key, group); groups.push(group); }
+      else if (!group.store && facts.pages[index].store) group.store = facts.pages[index].store;
       group.pages.push({entry: entry, index: index});
     });
     var top = 416, groupHeader = 62, rowHeight = 480, groupGap = 24;

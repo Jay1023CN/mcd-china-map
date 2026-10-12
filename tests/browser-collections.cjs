@@ -137,6 +137,38 @@ async function main(){
     assert.equal(foodCityPreview.width,1080);assert.equal(foodCityPreview.height,2092,'six same-store pages should appear under one store heading');
     const foodCityPng=Buffer.from(foodCityPreview.png.split(',')[1],'base64');assert.deepEqual([...foodCityPng.subarray(0,8)],[137,80,78,71,13,10,26,10]);assert.ok(foodCityPng.length>20000);
     if(process.env.CAPTURE_COLLECTIONS)fs.writeFileSync(path.join(captureDir,'city-album-foods-preview.png'),foodCityPng);
+    const storePrivacyPreview=await page.evaluate(async()=>{
+      const base=JSON.parse(localStorage.getItem('mcd-china-map-personal-v1')).entries.find(entry=>entry.city==='上海');
+      const make=(id,store,reference,address)=>({...base,id,store,foods:[],note:'',address,store_reference:reference});
+      const codeRows=[
+        make('privacy-code-a','虚构同名门店',{source:'official_catalog',code:'synthetic-store-code-a',address:'合成地址甲'},'合成地址甲'),
+        make('privacy-code-b','虚构同名门店',{source:'official_catalog',code:'synthetic-store-code-b',address:'合成地址乙'},'合成地址乙')
+      ];
+      const addressRows=[
+        make('privacy-address-a','虚构同名门店',{address:'合成地址丙'},'合成地址丙'),
+        make('privacy-address-b','虚构同名门店',{address:'合成地址丁'},'合成地址丁')
+      ];
+      async function renderAndTrace(rows,includeCities){
+        const city=JournalCollections.build(rows).cities[0],drawn=[];
+        const prototype=CanvasRenderingContext2D.prototype,original=prototype.fillText;
+        prototype.fillText=function(text){drawn.push(String(text));return original.apply(this,arguments);};
+        try{
+          const canvas=await JournalCollections.renderCity(city,{selectedIds:rows.map(row=>row.id),title:'一城回忆',caption:'分享前，可以自己选择公开信息。',includeCities,includeNote:false});
+          return {drawn,png:canvas.toDataURL('image/png'),height:canvas.height};
+        }finally{prototype.fillText=original;}
+      }
+      const coded=await renderAndTrace(codeRows,true),addressed=await renderAndTrace(addressRows,true),hidden=await renderAndTrace(codeRows,false);
+      return {sameNameCodeHeaders:coded.drawn.filter(text=>text==='虚构同名门店').length,
+        sameNameAddressHeaders:addressed.drawn.filter(text=>text==='虚构同名门店').length,
+        hiddenTexts:hidden.drawn,hiddenPng:hidden.png,hiddenHeight:hidden.height};
+    });
+    assert.equal(storePrivacyPreview.sameNameCodeHeaders,2,'same-name stores with different source/code pairs should render as two separate groups');
+    assert.equal(storePrivacyPreview.sameNameAddressHeaders,2,'same-name stores without codes should use their city/address identity');
+    for(const privateText of ['上海','虚构同名门店','合成地址甲','synthetic-store-code-a','synthetic-store-code-b'])
+      assert.ok(!storePrivacyPreview.hiddenTexts.some(text=>text.includes(privateText)),`hidden location details must not reach Canvas text: ${privateText}`);
+    assert.equal(storePrivacyPreview.hiddenHeight,1698,'distinct stores should retain separate group spacing when names are hidden');
+    const privatePng=Buffer.from(storePrivacyPreview.hiddenPng.split(',')[1],'base64');assert.deepEqual([...privatePng.subarray(0,8)],[137,80,78,71,13,10,26,10]);
+    if(process.env.CAPTURE_COLLECTIONS)fs.writeFileSync(path.join(captureDir,'city-album-hidden-location-preview.png'),privatePng);
     const canvasCases=await page.evaluate(async()=>{
       const archive=JSON.parse(localStorage.getItem('mcd-china-map-personal-v1'));
       const base=archive.entries.find(entry=>entry.city==='上海');
