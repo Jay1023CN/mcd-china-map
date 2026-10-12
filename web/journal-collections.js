@@ -203,7 +203,7 @@
     ctx.beginPath(); ctx.arc(x + width / 2, y + height / 2 - 10, Math.min(48, height / 4), 0, Math.PI * 2); ctx.stroke();
     ctx.beginPath(); ctx.arc(x + width / 2, y + height / 2 - 10, Math.min(35, height / 5), 0, Math.PI * 2); ctx.stroke();
     ctx.fillStyle = muted; ctx.textAlign = 'center'; ctx.font = '400 22px ' + FONT;
-    drawLines(ctx, foods.length ? foods.join(' · ') : '一页麦麦回忆', x + 18, y + height - 30, width - 36, 2, 26);
+    drawLines(ctx, foods.length ? foods.join(' · ') : '一页麦麦回忆', x + width / 2, y + height - 30, width - 36, 2, 26);
     ctx.textAlign = 'left';
   }
   function drawLines(ctx, text, x, y, width, maxLines, lineHeight) {
