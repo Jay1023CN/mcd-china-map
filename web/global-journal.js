@@ -14,6 +14,40 @@
   const catalogIndex=window.NationalStoreSearch.createIndex(catalogStores);
   const publicStoreCandidates=catalogStores.map(store=>({...store,catalog_source:store.source,source:'manual'}));
   const $ = id => document.getElementById(id);
+  const heroPhotoImage=$('hero-store-photo-image');
+  const heroPhotoCaption=$('hero-store-caption');
+  const heroPhotoSource=$('hero-store-source');
+  const heroPhotoStores=(data.stores || []).filter(store=>{
+    const photo=store.default_photo;
+    return photo?.url && photo.source_url && data.store_images?.[photo.url]?.startsWith('data:image/');
+  });
+  let lastHeroPhotoUrl='';
+  function rotateHeroPhoto(){
+    if(!heroPhotoImage || !heroPhotoStores.length)return;
+    const choices=heroPhotoStores.filter(store=>store.default_photo.url!==lastHeroPhotoUrl);
+    const store=choices[Math.floor(Math.random()*choices.length)] || heroPhotoStores[0];
+    const photo=store.default_photo;
+    const source=data.store_images[photo.url];
+    const preload=new Image();
+    preload.onload=()=>{
+      heroPhotoImage.style.opacity='0';
+      setTimeout(()=>{
+        heroPhotoImage.src=source;
+        heroPhotoImage.alt=`${store.city} · ${store.name} 麦当劳餐厅实景`;
+        heroPhotoCaption.textContent=`${store.city} · ${store.name}`;
+        heroPhotoSource.href=photo.source_url;
+        lastHeroPhotoUrl=photo.url;
+        requestAnimationFrame(()=>{heroPhotoImage.style.opacity='1';});
+      },220);
+    };
+    preload.src=source;
+  }
+  if(heroPhotoImage && heroPhotoCaption && heroPhotoSource && heroPhotoStores.length>1 &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    heroPhotoImage.style.transition='opacity 320ms ease';
+    rotateHeroPhoto();
+    window.setInterval(rotateHeroPhoto,10000);
+  }
   const names = new Map(data.countries.map(c => [c.code, c.name]));
   const countryName = code => names.get(code) || code;
   const provinces = data.provinces.features.filter(f => typeof f.properties.adcode === 'number');
