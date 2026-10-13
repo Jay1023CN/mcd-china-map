@@ -22,7 +22,7 @@ node docs/readme-assets/render_showcase.cjs
 
 Python 需要 `fonttools[woff]`；Node 需要 Playwright 与 Chromium。可以用 `PLAYWRIGHT_MODULE` 指定 Playwright 路径，用 `BROWSER_CHANNEL=msedge` 使用本机 Edge。SVG 中间文件只写入 `private/readme-render/`，GitHub 使用导出的 PNG。
 
-仓库动态卡由 [GitHub Stats Extended](https://github.com/stats-organization/github-stats-extended) 的 `/api/pin/` 接口生成，仅查询 `Jay1023CN/mcd-china-map`，提供浅色和深色配色。第三方共享服务会缓存统计数据。
+仓库动态卡由 [GitHub Stats Extended](https://github.com/stats-organization/github-stats-extended) 的 `/api/pin/` 接口生成，仅查询 `Jay1023CN/mcd-china-map`，提供浅色和深色配色。卡片描述来自 GitHub About 的仓库简介。公共服务会缓存数日；`cache_seconds` 只对自托管实例有效，不能用它刷新共享服务。修改简介后，调整卡片实际显示参数生成新接口 URL，GitHub 图片代理也会据此取得新卡片。
 
 另评估了 [lowlighter/metrics](https://github.com/lowlighter/metrics) 的 repository 模板；2026-10-11 测试共享实例返回 HTTP 500，当前 README 没有嵌入这个不可用的远程图，也没有额外配置 Token。
 
