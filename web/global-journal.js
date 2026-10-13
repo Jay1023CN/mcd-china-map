@@ -1069,7 +1069,7 @@
     } else field('location_mode').value='none';
     $('form-error').hidden=true; showPhoto(); updateCitySuggestions();
     if (!defaultPhoto) applyStoreInfo();
-    $('meal-city-details').open=false;$('meal-extra').open=false;$('meal-food-custom').open=false;
+    $('meal-extra').open=false;$('meal-food-custom').open=false;
     if(!entry && mealCityHint){field('city').value=mealCityHint.city;field('province_code').value=mealCityHint.province_code;updateCitySuggestions();}
     renderMealFoods();updateMealDate();renderMealStores();showMealSelection();
     $('entry-dialog').showModal();$('meal-locate').focus({preventScroll:true});
@@ -1168,7 +1168,7 @@
   function chooseMealStore(store){
     field('city').value=store.city;field('province_code').value=store.province_code || '';
     field('store').value=store.name;clearStoreSelection();applyStoreInfo();
-    field('location_mode').value=store.location?'store':'none';updateCitySuggestions();showMealSelection();$('meal-city-details').open=false;
+    field('location_mode').value=store.location?'store':'none';updateCitySuggestions();showMealSelection();
     $('meal-today').focus({preventScroll:true});
   }
   function renderMealStores(){
@@ -1186,12 +1186,12 @@
       button.append(node('strong',store.name),node('small',[Number.isFinite(distance)?`直线约 ${distance<1?Math.round(distance*1000)+' 米':distance.toFixed(1)+' 公里'}`:store.city,store.address].filter(Boolean).join(' · ')));
       button.addEventListener('click',()=>chooseMealStore(store));return button;
     }));
-    if(!choices.length && (query || mealPosition))$('meal-store-results').append(node('p',query?'没找到？可以换关键词，或展开“手动填写城市”后继续保存。':'附近暂未收录可定位的门店，可以搜店名或换城市。','map-note'));
+    if(!choices.length && (query || mealPosition))$('meal-store-results').append(node('p',query?'没找到？填好上面的城市，直接写店名后保存就行。':'附近暂未收录可定位的门店，可以搜店名或换城市。','map-note'));
     if(!mealPosition)$('meal-location-status').textContent=city?`${city}门店 · 点定位可按距离排序`:'也可以直接搜店名或地址';
   }
   function locateMealStores(){
     const revision=++mealLocationRevision;
-    if(!navigator.geolocation){$('meal-location-status').textContent='这个浏览器暂不支持定位，可以选城市或搜门店。';$('meal-city-details').open=true;return;}
+    if(!navigator.geolocation){$('meal-location-status').textContent='这个浏览器暂不支持定位，可以选城市或搜门店。';return;}
     $('meal-locate').disabled=true;$('meal-location-status').textContent='正在找你附近的门店…';
     navigator.geolocation.getCurrentPosition(position=>{
       if(revision!==mealLocationRevision)return;
@@ -1200,7 +1200,7 @@
       if($('entry-dialog').open){field('store').value='';clearStoreSelection();defaultPhoto=null;showPhoto();renderMealStores();showMealSelection();}
     },()=>{
       if(revision!==mealLocationRevision)return;
-      $('meal-locate').disabled=false;$('meal-location-status').textContent='没取得定位。选城市或搜门店也能记一餐。';$('meal-city-details').open=true;renderMealStores();
+      $('meal-locate').disabled=false;$('meal-location-status').textContent='没取得定位。选城市或搜门店也能记一餐。';renderMealStores();
     },{enableHighAccuracy:true,timeout:10000,maximumAge:120000});
   }
   $('meal-locate').addEventListener('click',locateMealStores);
@@ -1228,8 +1228,8 @@
       if($('entry-dialog').open && !currentEntry && !field('city').value && !field('store').value && !mealPosition){field('city').value=hint.city;field('province_code').value=hint.province_code;updateCitySuggestions();renderMealStores();}
     }catch{/* City hints are optional; search and manual selection always remain usable. */}
   }
-  field('province_code').addEventListener('change',updateCitySuggestions);
-  field('city').addEventListener('input',updateLocationHelp);
+  field('province_code').addEventListener('change',()=>{updateCitySuggestions();renderMealStores();});
+  field('city').addEventListener('input',()=>{updateLocationHelp();renderMealStores();});
   field('location_mode').addEventListener('change',updateLocationHelp);
   async function readPhoto(file) {
     if(!file) return;
