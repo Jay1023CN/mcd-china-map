@@ -1186,7 +1186,7 @@
       button.append(node('strong',store.name),node('small',[Number.isFinite(distance)?`直线约 ${distance<1?Math.round(distance*1000)+' 米':distance.toFixed(1)+' 公里'}`:store.city,store.address].filter(Boolean).join(' · ')));
       button.addEventListener('click',()=>chooseMealStore(store));return button;
     }));
-    if(!choices.length && (query || mealPosition))$('meal-store-results').append(node('p',query?'没找到？可以换个关键词，或展开下面手动填写。':'附近暂未收录可定位的门店，可以搜店名或换城市。','map-note'));
+    if(!choices.length && (query || mealPosition))$('meal-store-results').append(node('p',query?'没找到？可以换关键词，或展开“手动填写城市”后继续保存。':'附近暂未收录可定位的门店，可以搜店名或换城市。','map-note'));
     if(!mealPosition)$('meal-location-status').textContent=city?`${city}门店 · 点定位可按距离排序`:'也可以直接搜店名或地址';
   }
   function locateMealStores(){
@@ -1206,7 +1206,10 @@
   $('meal-locate').addEventListener('click',locateMealStores);
   $('first-meal-add').addEventListener('click',()=>openForm());
   $('first-meal-nearby').addEventListener('click',()=>{setView('map');openDirectory();});
-  form.addEventListener('invalid',event=>{const details=event.target.closest('details');if(details)details.open=true;},true);
+  form.addEventListener('invalid',event=>{
+    const details=event.target.closest('details');
+    if(details){details.open=true;requestAnimationFrame(()=>{event.target.scrollIntoView({block:'center',behavior:'smooth'});event.target.focus({preventScroll:true});});}
+  },true);
   async function suggestMealCity(){
     try{
       let hint;try{hint=JSON.parse(sessionStorage.getItem('mcd-city-hint') || 'null');}catch{}
