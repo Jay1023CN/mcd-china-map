@@ -874,8 +874,9 @@
     if (!s.candidateEntries.length) grid.append(empty('没有待确认的订单线索', '可导入中国大陆的规范化 MCP 订单文件；也可以用“新增打卡”手动记录。'));
   }
 
-  function drawMap() {
+  function drawMapCanvas() {
     const canvas = $('world-map'), width = Math.max(1, canvas.clientWidth), height = Math.max(1,canvas.clientHeight);
+    if (!Array.isArray(data.provinces?.features) || !data.provinces.features.length) throw new Error('地图省份数据为空');
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
     const ctx = canvas.getContext('2d'); ctx.scale(ratio, ratio);
@@ -953,6 +954,20 @@
     for (const point of mapPoints) { const button = node('button', placeName(point.entry) + ' · ' + point.count + ' 页', 'map-point'); button.type = 'button'; button.addEventListener('click', () => openDetail(point.entry)); pointList.append(button); }
     $('map-note').textContent = currentSummary.confirmedCount ? `点亮 ${visited.size} 个省份 / 地区，留下 ${currentSummary.confirmedCount} 页足迹。M 是你的记录。城市数字按当前筛选统计，地图只显示已定位门店。` : '点城市标签筛选门店。城市数字按当前筛选统计，地图只显示已定位门店。';
   }
+  function drawMap() {
+    const status = $('map-render-error'), canvas = $('world-map');
+    try {
+      drawMapCanvas();
+      status.hidden = true;
+    } catch (error) {
+      const context = canvas.getContext('2d');
+      if (context) { context.clearRect(0, 0, canvas.width, canvas.height); context.fillStyle = '#f3f5f1'; context.fillRect(0, 0, canvas.width, canvas.height); }
+      $('map-render-message').textContent = '地图暂时没有画出来，可以重试；下面的地点列表仍可使用。';
+      status.hidden = false;
+      console.error('中国地图绘制失败', error);
+    }
+  }
+  $('map-render-retry').addEventListener('click', drawMap);
   $('world-map').addEventListener('click', event => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX-rect.left, y = event.clientY-rect.top;
@@ -1537,12 +1552,26 @@
     const city=data.cities.find(item=>normalize(item.city)===normalize(entry?.city) && (!entry?.province_code || item.province_code===entry.province_code));
     return valid(city)?{lat:city.lat,lon:city.lon,precision:'city'}:null;
   }
-  function shareFoodImages(entry){
-    return (Array.isArray(entry?.foods)?entry.foods:[]).map(name=>{
-      const item=mealMenu.match(typeof name==='string'?name:name?.name);
-      return item&&typeof item.image_data_url==='string'&&/^data:image\/(?:jpeg|png|webp);base64,/.test(item.image_data_url)?
-        {name:typeof name==='string'?name:name.name,dataUrl:item.image_data_url}:null;
-    }).filter(Boolean);
+  async function shareFoodImages(entry){
+    const foods=(Array.isArray(entry?.foods)?entry.foods:[]).map(value=>typeof value==='string'?value:value?.name || value?.title).filter(value=>typeof value==='string'&&value.trim());
+    const seen=new Set(),images=[];
+    for(const name of foods){
+      const item=mealMenu.match(name);if(!item)continue;
+      const source=item.image_data_url || item.image_url;if(typeof source!=='string')continue;
+      if(/^data:image\/(?:jpeg|png|webp);base64,/.test(source)){images.push({name,dataUrl:source});continue;}
+      if(!/^assets\/meal-photos\/[a-z0-9_-]+\.webp$/i.test(source) || seen.has(source))continue;
+      seen.add(source);
+      if(shareMealImageCache.has(source)){images.push({name,dataUrl:shareMealImageCache.get(source)});continue;}
+      try{
+        const response=await fetch(new URL(source,location.href));if(!response.ok)continue;
+        const blob=await response.blob();if(!blob.type.startsWith('image/')||blob.size>1024*1024)continue;
+        const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});
+        if(typeof dataUrl!=='string'||!/^data:image\/(?:jpeg|png|webp);base64,/.test(dataUrl))continue;
+        if(shareMealImageCache.size>=24)shareMealImageCache.delete(shareMealImageCache.keys().next().value);
+        shareMealImageCache.set(source,dataUrl);images.push({name,dataUrl});
+      }catch(error){/* Keep the meal name in the card even if its optional photo is unavailable. */}
+    }
+    return images;
   }
   function cityEntriesForShare(collection){
     const entries=Array.isArray(collection?.entries)?collection.entries:[];
@@ -1644,7 +1673,7 @@
         photoAnnotation:showCardPlace?(matchedStore?.tags || []).find(tag=>tag.length<=10):'',
         mapFeatures:data.provinces.features,mapLocation:mapLocationForEntry(shareEntry,showCardPlace),
         provinceCode:shareEntry.province_code || matchedStore?.province_code,
-        foodImages:shareFoodImages(shareEntry),stickers:[...shareStickers],customStickerText:$('share-custom-sticker-text').value,
+        foodImages:await shareFoodImages(shareEntry),stickers:[...shareStickers],customStickerText:$('share-custom-sticker-text').value,
         includePlace:showCardPlace,includeNote:$('share-note').checked,photoDataUrl:await sharePhoto(shareEntry),
         imageFit:$('share-photo-fit').value,photoCredit:shareEntry.photo?'本人上传照片':shareEntry.default_photo?.attribution}):
         await window.ShareCard.render(currentSummary,{provinces:data.provinces,provinceNames,
