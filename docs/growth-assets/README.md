@@ -5,10 +5,10 @@
 ## 小红书 Star 引导收尾图｜作者已认可（2026-10-10）
 
 - [小红书第六张：GitHub Star 引导图（1080 × 1440 PNG）](xhs-star-github-v1.png) · [查看原图](https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/growth-assets/xhs-star-github-v1.png)
-- **首选用途**：小红书图文最后一张，先介绍地图、门店和手账，再用此图引导读者访问仓库、支持 Star；也可用于 QQ、项目更新帖等结尾。
+- **历史素材**：这张图拼入了旧网页截图，不用于当前版本的宣传；当前帖子请只用文案里的 GitHub 链接引导 Star。
 - **正确 GitHub 地址**：https://github.com/Jay1023CN/mcd-china-map 。图片内已包含完整地址，正文也应附上完整网址，不能只写 `GitHub: Jay1023CN/mcd-china-map`。
 - **画面说明**：作者认可的合成宣传排版，配图使用项目真实页面的历史公开示例截图；不是当前网页的实时截图，不代表真实到访数量、用户评价或官方合作。保留「个人开发 · 非官方项目」身份。
-- 后续宣传材料优先**复用这张原图**，不要为了统一视觉重新生成导致 GitHub URL 拼写错；发布前仍需检查图片、文案、平台规则与第三方素材使用权限。
+- 这张图保留为历史素材，不用于当前宣传；当前推广优先复用下方不含页面拼图的手绘插画，避免把旧界面当成现版。
 
 2026-10-10 状态记录：主开发已确认 [v0.11.0 正式发布](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.11.0)，28 店／19 城／15 省目录及筛选、收藏已上线。作者已评价[整页手账 v3 样稿](notebook-plan-whole-v3.png)“这个好看”；该样稿与[动态字段实施规则](notebook-layout-v3.md)已进入实际 Canvas，照片放大、随记字号和换行调整后的三张图已目视查看，未见内容遮挡，已随 v0.11.0 公开。样稿由内置 imagegen 生成，不能当程序导出或上线截图；生成照片不能替代原照片。[餐品透明素材 v1](notebook-food-sketch-v1.png)在实际暖纸卡中未见明显光圈，继续采用；不是用户餐品记录。
 
@@ -16,13 +16,14 @@
 
 ## 可用于本轮 GitHub／社媒
 
-- [主宣传图](handdrawn-bigmac-project-v5.png)：QQ 群、小红书、GitHub 介绍。
-- [抖音竖版图](douyin-bigmac-v5.png)：图文主图或视频封面。
+- [主宣传图](handdrawn-bigmac-project-v5.png)：QQ 群、小红书、GitHub 介绍。手绘概念插画，不是软件界面截图。
+- [抖音竖版图](douyin-bigmac-v5.png)：图文主图或视频封面。手绘概念插画，不代表真实用户足迹。
 - 文案、比赛／仓库链接与手机体验入口见 [GROWTH.md](../GROWTH.md)。
 - 两张使用内置 imagegen 基于原手绘稿编辑；已目视检查巨无霸／薯条、项目名、比赛名与仓库拼写。保留无文字覆盖的 GitHub 入口，发布时正文也附真实链接。
+- 不要把 `pictures/01-封面-我把麦当劳做成一张中国地图.png` 当作当前网页截图：它拼有旧示意界面和杭州／千岛湖示例记录。
 
 仓库：<https://github.com/Jay1023CN/mcd-china-map>
-手机直接打开：<https://jay1023cn.github.io/mcd-china-map/>
+当前 Render 体验：<https://mcd-china-map.onrender.com/#store-finder>
 本机完整版备选：<https://github.com/Jay1023CN/mcd-china-map/releases/latest>
 报名：<https://github.com/M-China/mcd-developer-innovation-challenge/issues/139>
 

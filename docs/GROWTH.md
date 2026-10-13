@@ -10,18 +10,15 @@
 
 全国目录收录 9,276 条公开资料，精选门店有 31 家，分布在 21 座城市。资料条目不是当前营业门店数量；澳门、台湾来源也还没有覆盖全部营业门店。
 
-**手机先体验：** [打开 GitHub Pages 网页版](https://jay1023cn.github.io/mcd-china-map/)。查门店、收藏、手动记餐不需安装或 Token，记录保存在当前浏览器。
+**手机直接体验：** [打开 Render 主站](https://mcd-china-map.onrender.com/#store-finder)。查门店、收藏、手动记餐不需安装或 Token；连接麦当劳是可选功能，记录保存在当前浏览器。
 
-**想同步官方订单：** [打开 Render 在线连接版](https://mcd-china-map.onrender.com/#store-finder)，或下载[Windows 完整包 v0.15.7](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.15.7)。在线连接和本机版都需要你自己的麦当劳中国 MCP Token。
+**想同步官方订单：** 在 Render 主站点「连接麦当劳（可选）」，需要你自己的麦当劳中国 MCP Token；也可下载[Windows 完整包 v0.15.7](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.15.7)。
 
 这是我的麦当劳程序员节创意开发大赛参赛作品，已成功参赛。项目仓库：https://github.com/Jay1023CN/mcd-china-map
 
 ### 置顶评论
 
-手机体验先点 GitHub Pages：
-https://jay1023cn.github.io/mcd-china-map/
-
-先搜一家店、收藏下一站，或记下吃过的一餐。想同步自己的官方订单，再打开 Render 在线连接版：
+手机直接体验：先搜一家店、收藏下一站，或记下吃过的一餐：
 https://mcd-china-map.onrender.com/#store-finder
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
@@ -31,19 +28,20 @@ https://mcd-china-map.onrender.com/#store-finder
 
 我做了个「麦麦中国地图」：手机上搜门店、收藏下一站，吃完把照片、餐品和随手记留在地图里，还能生成分享卡。全国目录有 9,276 条公开资料，31 家精选店分布在 21 座城市；资料条目不等于当前营业门店数。
 
-手机直接体验：https://jay1023cn.github.io/mcd-china-map/
-想同步官方订单，可以打开 Render 在线连接版：https://mcd-china-map.onrender.com/#store-finder
+手机直接体验：https://mcd-china-map.onrender.com/#store-finder
+连接麦当劳同步官方订单是可选功能，需要自己的 MCP Token。
 这是我的麦当劳程序员节创意开发大赛参赛作品，已成功参赛。项目仓库：https://github.com/Jay1023CN/mcd-china-map
 
 喜欢这个点子的话，顺手点个 Star，也欢迎告诉我你会先搜哪家麦。
 
 ### 发布前核对口径
 
-- 当前网页和 Windows 完整包均为 v0.15.7；Release ZIP 已上传。
+- Render 主站和 Windows 完整包均为 v0.15.7；线上 build-info 已核对到提交 `4ca6c6f`，Release ZIP 已上传。
 - 全国目录为 9,276 条资料：大陆官方公示 8,448 条、香港官方目录 269 条、澳门公开来源 39 条、台湾餐饮登记 508 条，另有 12 条无法唯一匹配公示编号的精选门店。来源不等于实时营业状态，也不应宣传成 9,276 家在营业门店。
 - 31 家精选门店来自 21 座城市。README 配图中的 9,276 条资料、31 家精选店与当前数据口径一致。
-- GitHub Pages 是普通手机体验的主入口；Render 在线版用于需要后端的官方 MCP 连接和订单同步。
+- Render 是当前手机体验主入口；手动查店、收藏、记餐可直接使用，官方订单同步需要用户自行提供 MCP Token。
 - 分享卡里的示例数字是示例数据，不代表真实用户量或作者到访记录。
+- 宣传封面用纯手绘插画表达创意，不把旧拼图界面当成当前产品截图；正文附 Render 链接供读者查看实物。
 
 ---
 
