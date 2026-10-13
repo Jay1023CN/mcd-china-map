@@ -1279,7 +1279,7 @@
       const normalized=E.normalizeEntry(entry,opts());
       const next={...archive,data_kind:'manual',entries:archive.entries.filter(e=>e.id!==normalized.id).concat(normalized)};
       if(selectedWishlistId && field('complete_wishlist').checked) next.wishlist=W.remove(archive.wishlist || [],selectedWishlistId);
-      archive=E.normalizeArchive(next,opts()); save(); $('entry-dialog').close(); showImported('journal'); toast(persistent?'这一页已保存在本浏览器。':'这一页已加入；请立即导出备份。');
+      archive=E.normalizeArchive(next,opts()); save(); $('entry-dialog').close(); showImported('journal'); toast(persistent?'这一页已保存在本浏览器；换设备前请点“导出备份”。':'这一页已加入；请立即导出备份。');
       if(formCollectionReturn){
         collectionMode=formCollectionReturn.mode;collectionKey=formCollectionReturn.key;formCollectionReturn=null;
         if(selectedCollection()){collectionCover=collectionPreference().cover_id || '';renderCollection();$('collection-dialog').showModal();}
@@ -1377,9 +1377,9 @@
       $('load-orders').textContent='载入已同步订单';
     }
     const connected=!!(state?.connected || state?.store_lookup);
-    $('connection-state').textContent=connected?(webSessions && durableRememberSession && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'连接麦当劳，自动整理你吃过的门店和餐品。':webSessions?'网页服务暂未响应，请刷新后重试。':'手账可以直接使用；安装 Python 后重新启动，还能连接麦当劳。';
+    $('connection-state').textContent=connected?(webSessions && durableRememberSession && state.remembered?'麦当劳已连接 · 下次打开可以继续':'麦当劳已连接 · 可以查询附近门店'):connectionAvailable?'连接麦当劳是可选的；连接后可自动整理订单和餐品。':webSessions?'手账可以直接使用；网页订单服务暂未响应。':'手账可以直接使用；本机订单连接暂不可用。';
     document.querySelector('.connection-bar').classList.toggle('connected',connected);
-    $('open-connect').textContent=connected?'更换连接':'连接麦当劳';
+    $('open-connect').textContent=connected?'更换连接':'连接麦当劳（可选）';
     $('disconnect-mcd').hidden=!connected || !connectionAvailable;
     $('load-orders').hidden=!state?.capabilities?.synced_orders;
     $('sync-orders').hidden=!(connected && state?.order_sync);
