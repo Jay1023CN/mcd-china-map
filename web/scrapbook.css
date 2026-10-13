@@ -374,8 +374,9 @@ dialog::backdrop { background: #29221bd1; backdrop-filter: blur(3px); }
 .lower p { font-size: 13px; line-height: 1.85; color: #594932; }
 .lower strong { display: block; font: 700 20px/1.65 var(--scrapbook-hand); color: var(--ink); }
 .lower button { font-size: 13px; min-height: 44px; }
-footer { padding: 20px 16px 24px; margin-top: 9px; border: 0; background: var(--red); color: #fff7df; font-size: 11px; letter-spacing: .04em; border-radius: 2px; }
-footer a { color: #fff7df; text-underline-offset: 4px; }
+.wrap>footer { padding: 20px 24px 24px; margin-top: 9px; border: 0; background: var(--red); color: #fffdf5; font: 14px/1.7 var(--sans); letter-spacing: .01em; border-radius: 2px; }
+.wrap>footer a { color: #fffdf5; border-bottom: 1px solid #fffdf599; font-size: 14px; font-weight: 500; text-underline-offset: 4px; }
+.wrap>footer a:hover { color: #fff; border-bottom-color: #fff; }
 .toast { background: #3a2e20; color: #fffaf0; font-size: 14px; border: 1px solid #b79454; }
 .journal-search label { font: 700 20px/1.6 var(--scrapbook-hand); color: var(--ink); }
 .journal-search input { font-size: 16px; border-color: #c9b28d; background: #fffaf0; }
@@ -518,7 +519,7 @@ footer a { color: #fff7df; text-underline-offset: 4px; }
   .share-actions { gap: 9px; }
   .share-actions button { min-height: 47px; font-size: 14px; }
   .lower p { font-size: 13px; }
-  footer { flex-direction: column; gap: 6px; font-size: 11px; padding: 20px 15px; line-height: 1.8; }
+  .wrap>footer { flex-direction: column; gap: 6px; font-size: 13px; padding: 20px 18px calc(84px + env(safe-area-inset-bottom)); line-height: 1.8; }
 }
 
 @media (max-width: 360px) {
@@ -551,6 +552,6 @@ footer a { color: #fff7df; text-underline-offset: 4px; }
   .hero-copy { color: #233c5a; }
   .map-layout { grid-template-columns: 1.5fr 1fr; }
   .entry-card, .inspiration-card, .journey-panel, .store-catalog-card { box-shadow: none!important; break-inside: avoid; }
-  footer { background: #fff; color: #333; border-top: 1px solid #999; }
-  footer a { color: #333; }
+  .wrap>footer { background: #fff; color: #333; border-top: 1px solid #999; }
+  .wrap>footer a { color: #333; border-bottom-color: #999; }
 }
