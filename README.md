@@ -12,6 +12,16 @@
 
 <br>
 
+### 三分钟开始
+
+1. 打开[在线主站](https://mcd-china-map.onrender.com/#store-finder)，找一家店收藏；也可以直接点「记一餐」，不必先收藏门店。
+2. 选日期和餐品，补照片或随记后保存。菜单可以搜索、按分类挑；没找到的餐品也能自己补充。
+3. 在「想去清单」里给门店排日期、记下理由；吃过后生成分享卡，选餐品贴纸或写一句自己的装饰。
+
+记录保存在当前浏览器。换设备或浏览器前，先导出 JSON 备份，再在新设备导入恢复。
+
+<br>
+
 <p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/discover-v2-mobile.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/discover-v2.png" alt="先找一家喜欢的店：按城市发现门店，查看照片、介绍和地址，收藏下一站。9276 条门店资料，31 家特色店实景。" width="960"></picture></p>
 
 <p align="center"><sub>搜城市、店名或路名，点「想去这家」，你的下一站就收好了。</sub></p>
@@ -40,20 +50,20 @@
 <details>
 <summary><strong>第一次用：网页版与本地版怎么选？</strong></summary>
 
-**先体验地图和手账：** [打开 GitHub Pages 网页版](https://jay1023cn.github.io/mcd-china-map/#store-finder)，可以查门店、收藏、记一餐、上传照片和生成分享卡。无需安装或填写 Token，记录保存在当前浏览器。
+**在线主站：** [打开麦麦中国地图](https://mcd-china-map.onrender.com/#store-finder)，可以直接记餐、传照片、收藏和排期、翻手账、生成分享卡；需要同步订单时，可连接麦当劳中国 MCP（需要自己的 Token）。
 
-**想同步自己的麦当劳订单：** 打开[Render 在线连接版](https://mcd-china-map.onrender.com/#store-finder)，连接自己的麦当劳中国 MCP；也可以[下载 Windows 完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击启动文件。使用连接功能需要自己的 [麦当劳中国 MCP Token](https://open.mcd.cn/mcp)。完成订单可整理成手账，门店资料与默认照片自动带入，仍可编辑随记、换照片或删除记录。
+**GitHub Pages 静态版：** [打开静态网页](https://jay1023cn.github.io/mcd-china-map/#store-finder)，可手动记录、收藏、上传照片、生成分享卡和导入导出备份，不需要 Token；它不提供在线 MCP 连接和订单同步。
 
-GitHub Pages 适合直接体验手动记录和收藏；Render 在线版提供需要后端的 MCP 连接与订单同步。本机版也可使用。更多步骤见 [Windows 使用说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/LOCAL_WINDOWS.md)、[网页版与部署](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/WEB.md)。
+**Windows 本地版：** [下载完整包](https://github.com/Jay1023CN/mcd-china-map/releases/latest)，解压后双击启动文件。普通手账不需要 Python；连接自己的 MCP 并同步订单需要 Python 3.10+ 和个人 Token。更多步骤见 [Windows 使用说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/LOCAL_WINDOWS.md)与[网页版说明](https://github.com/Jay1023CN/mcd-china-map/blob/main/docs/WEB.md)。
 
 </details>
 
 <details>
 <summary><strong>我的照片、记录和备份放在哪里？</strong></summary>
 
-手账和想去清单保存在当前浏览器。导出 JSON 可以带上照片、日期与优先标记，换设备时导入恢复；也能打印或保存 PDF。
+手账和想去清单保存在当前浏览器。导出 JSON 会带上照片、日期与优先标记，换设备时导入恢复；也能打印或保存 PDF。
 
-目前没有云同步，换浏览器、清理网站数据或换地址前请导出备份。最多保存 1000 页手账、100 家想去门店，处理后的单张照片不超过 1.5 MiB，完整归档不超过 8 MiB。旧版中国记录可恢复。
+手账目前不提供跨设备云同步。换浏览器、清理网站数据或换地址前请导出备份。最多保存 1000 页手账、100 家想去门店，处理后的单张照片不超过 1.5 MiB，完整归档不超过 8 MiB。旧版中国记录可恢复。
 
 地图提供 34 个省份 / 地区选项。公开门店只标已匹配点位；尚未核实坐标的店仍可搜索、收藏、打卡。手账可以选择门店位置、城市参考位置或本人填写的坐标。麦当劳中国 MCP 服务范围为中国大陆。公开截图使用独立公开门店或示例记录，个人 Token、订单、地址和照片不进入 GitHub。
 
