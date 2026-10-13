@@ -203,9 +203,7 @@ async function addMobileEntry(page) {
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   });
   assert.equal(await page.locator('[name=date]').inputValue(),expectedToday,'new check-ins should start on browser-local today');
-  await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=province_code]').selectOption('510000');
-  await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=city]').fill('成都');
   await page.locator('[name=store]').fill('成都移动端体验门店');
   await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
