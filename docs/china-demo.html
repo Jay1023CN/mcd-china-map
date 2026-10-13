@@ -899,9 +899,9 @@ header.top { padding-block: 23px 18px; border-bottom: 1px dashed #c9b799; }
 .wishlist-planner-fields label { color: #5b4f3d; font-size: 14px; }
 .wishlist-planner-fields input, .wishlist-planner-fields select { color: var(--ink); background: #fffdf6; border-color: #cbb796; }
 .wishlist-card-planning { grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: end; justify-items: stretch; gap: 14px; margin: 23px 0; }
-.wishlist-priority { min-height: 48px; display: flex; align-items: center; justify-content: center; width: 100%; margin: 0; padding: 10px 8px; font-size: 14px; }
+.wishlist-priority { grid-column: 1/-1; min-height: 48px; display: flex; align-items: center; justify-content: center; width: 100%; margin: 0; padding: 10px 8px; font-size: 14px; }
 .wishlist-priority[aria-pressed=true] { color: #3a2a0b; border-color: #c69520; background: #ffe491; }
-.wishlist-date-field { min-width: 0; width: 100%; }
+.wishlist-date-field { grid-column: 1/-1; min-width: 0; width: 100%; }
 .wishlist-date-caption { color: #5a4b36; font-size: 13px; line-height: 1.6; margin-bottom: 6px; }
 .wishlist-date-value { min-height: 48px; width: 100%; background: #fffdf4; color: #382f22; border-color: #cdb797; font-size: 15px; }
 .wishlist-note { font-size: 14px; color: #574a38; margin-top: 22px; }
