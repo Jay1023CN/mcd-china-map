@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Serve the existing China journal with independent remembered browser sessions."""
 import argparse
+import hashlib
+import ipaddress
 from collections import deque
 import json
+import math
 import os
 from pathlib import Path
 import tempfile
@@ -10,6 +13,7 @@ from threading import Lock, Thread
 import time
 import unicodedata
 from urllib.parse import urlsplit
+from urllib.request import Request, urlopen
 
 from flask import Flask, g, jsonify, request, send_from_directory
 from werkzeug.exceptions import HTTPException
@@ -46,6 +50,48 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
     app.config.update(MAX_CONTENT_LENGTH=4096, JSON_AS_ASCII=False)
     app.extensions['mcd_sessions'] = sessions
     attempts, attempt_lock = {}, Lock()
+    geo_cache, geo_calls, geo_lock = {}, deque(), Lock()
+
+    def visitor_location():
+        # Render forwards the visitor IP. Local installs use their direct peer.
+        peer = request.remote_addr or ''
+        if os.environ.get('RENDER') == 'true':
+            peer = request.headers.get('X-Forwarded-For', peer).split(',')[0].strip()
+        try:
+            address = ipaddress.ip_address(peer)
+            if not address.is_global:
+                return {'available': False}
+        except ValueError:
+            return {'available': False}
+        key = hashlib.sha256(str(address).encode()).hexdigest()
+        now = time.monotonic()
+        with geo_lock:
+            for stale in [k for k, (expiry, _) in geo_cache.items() if expiry <= now]:
+                del geo_cache[stale]
+            if key in geo_cache:
+                return geo_cache[key][1]
+            while geo_calls and geo_calls[0] <= now - 86400:
+                geo_calls.popleft()
+            if len(geo_calls) >= 950 or len(geo_cache) >= 2048:
+                return {'available': False}
+            geo_calls.append(now)
+            geo_cache[key] = (now + 60, {'available': False})
+        result = {'available': False}
+        try:
+            url = f'https://ipwho.is/{address}?fields=success,country_code,city,latitude,longitude'
+            with urlopen(Request(url, headers={'User-Agent': 'mcd-china-map'}), timeout=3) as response:
+                value = json.loads(response.read(16384))
+            lat, lon = value.get('latitude'), value.get('longitude')
+            if (value.get('success') is True and value.get('country_code') in ('CN', 'HK', 'MO', 'TW')
+                    and type(lat) in (int, float) and type(lon) in (int, float)
+                    and math.isfinite(lat) and math.isfinite(lon) and -90 <= lat <= 90 and -180 <= lon <= 180):
+                result = {'available': True, 'city': str(value.get('city') or '')[:100],
+                          'lat': lat, 'lon': lon, 'precision': 'ip-city'}
+        except Exception:
+            pass
+        with geo_lock:
+            geo_cache[key] = (now + (21600 if result['available'] else 300), result)
+        return result
 
     def error(message, status):
         return jsonify(error=message), status
@@ -102,6 +148,10 @@ def create_app(origin, *, state_dir=None, site_dir=None, prebuilt=False):
     @app.get('/api/health')
     def health():
         return jsonify(project='mcd-china-map', version=VERSION, **status(g.session))
+
+    @app.get('/api/visitor-location')
+    def location():
+        return jsonify(visitor_location())
 
     @app.post('/api/connect')
     def connect():

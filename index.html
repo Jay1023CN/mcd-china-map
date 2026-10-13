@@ -95,7 +95,7 @@
 <section class="journey-panel" id="journey-panel" aria-labelledby="journey-heading"><div class="journey-top"><div><h2 id="journey-heading">我的年度页边注</h2><p id="journey-prompt"></p></div><button class="secondary" id="open-share" type="button">生成足迹分享卡</button></div><div class="journey-facts" id="journey-facts"></div><button class="journey-memory" type="button" id="journey-memory" hidden></button><div class="milestone-list" id="milestone-list"></div><div id="journey-tastes" hidden><p class="map-note">手账里常出现的味道 · 点击翻找相关回忆</p><div class="food-tags" id="taste-list"></div></div></section>
 <section id="pane-candidates" role="tabpanel" aria-labelledby="tab-candidates" hidden><p class="candidate-intro">订单自动整理成手账，可以编辑、换照片或删除。</p><div class="candidate-grid" id="candidate-grid"></div></section>
 <details class="store-search" id="store-search"><summary>下一站，找一家麦当劳</summary><p class="store-help">输入城市和地标，查询官方附近门店。可以收藏到想去清单，也可以为已经到过的门店写下打卡。</p><p class="api-status" id="store-api-status">正在检查门店查询连接……</p><form id="store-search-form"><label class="field">城市<input name="search_city" placeholder="例如：上海" maxlength="120" required></label><label class="field">地标或关键词<input name="search_keyword" placeholder="例如：人民广场" maxlength="200" required></label><label class="field">取餐方式<select name="be_type"><option value="1">到店自取</option><option value="5">得来速</option></select></label><button class="primary" id="search-stores" type="submit">查找门店</button></form><p id="store-search-status" class="store-help" role="status"></p><div id="store-results" class="store-results"></div></details><section class="months"><div class="section-heading"><h2>每个月的页边注</h2><small>把每一月，翻成一份小报</small></div><div class="month-list" id="month-list"></div></section>
-<div class="lower"><p><strong>把这些小事，好好收起来</strong>手账保存在当前浏览器。导出一份备份，换设备时再导入；也可以打印成 PDF，留一本自己的麦麦手账。</p><button class="quiet" type="button" id="import">导入手账</button><button class="quiet" type="button" id="export">导出备份</button><button class="quiet" type="button" id="print">打印手账</button></div><footer><span>麦麦中国地图 · v0.15.9</span><span><a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose" target="_blank" rel="noopener noreferrer">体验反馈 / 提一个想法</a> · 社区独立作品</span></footer>
+<div class="lower"><p><strong>把这些小事，好好收起来</strong>手账保存在当前浏览器。导出一份备份，换设备时再导入；也可以打印成 PDF，留一本自己的麦麦手账。</p><button class="quiet" type="button" id="import">导入手账</button><button class="quiet" type="button" id="export">导出备份</button><button class="quiet" type="button" id="print">打印手账</button></div><footer><span>麦麦中国地图 · v0.15.10</span><span><a href="https://github.com/Jay1023CN/mcd-china-map/issues/new/choose" target="_blank" rel="noopener noreferrer">体验反馈 / 提一个想法</a> · 社区独立作品</span></footer>
 </div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div><input id="import-file" type="file" accept="application/json,.json" hidden>
 <dialog id="connect-dialog" aria-labelledby="connect-heading">
   <div class="dialog-top">
@@ -4214,19 +4214,24 @@ dialog::backdrop { background: #29221bd1; backdrop-filter: blur(3px); }
   const heroPhotoSource=$('hero-store-source');
   const heroPhotoStores=(data.stores || []).filter(store=>{
     const photo=store.default_photo;
-    return photo?.url && photo.source_url && data.store_images?.[photo.url]?.startsWith('data:image/');
+    return photo?.url && photo.source_url && typeof data.store_images?.[photo.url]==='string';
   });
+  let heroPhotoPool=heroPhotoStores;
   let lastHeroPhotoUrl='';
+  let heroPhotoRevision=0;
   function rotateHeroPhoto(){
-    if(!heroPhotoImage || !heroPhotoStores.length)return;
-    const choices=heroPhotoStores.filter(store=>store.default_photo.url!==lastHeroPhotoUrl);
-    const store=choices[Math.floor(Math.random()*choices.length)] || heroPhotoStores[0];
+    if(!heroPhotoImage || !heroPhotoPool.length)return;
+    const revision=++heroPhotoRevision;
+    const choices=heroPhotoPool.filter(store=>store.default_photo.url!==lastHeroPhotoUrl);
+    const store=choices[Math.floor(Math.random()*choices.length)] || heroPhotoPool[0];
     const photo=store.default_photo;
     const source=data.store_images[photo.url];
     const preload=new Image();
     preload.onload=()=>{
+      if(revision!==heroPhotoRevision)return;
       heroPhotoImage.style.opacity='0';
       setTimeout(()=>{
+        if(revision!==heroPhotoRevision)return;
         heroPhotoImage.src=source;
         heroPhotoImage.alt=`${store.city} · ${store.name} 麦当劳餐厅实景`;
         heroPhotoCaption.textContent=`${store.city} · ${store.name}`;
@@ -4235,13 +4240,46 @@ dialog::backdrop { background: #29221bd1; backdrop-filter: blur(3px); }
         requestAnimationFrame(()=>{heroPhotoImage.style.opacity='1';});
       },220);
     };
+    preload.onerror=()=>{
+      if(revision===heroPhotoRevision)heroPhotoImage.style.opacity='1';
+    };
     preload.src=source;
   }
-  if(heroPhotoImage && heroPhotoCaption && heroPhotoSource && heroPhotoStores.length>1 &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    heroPhotoImage.style.transition='opacity 320ms ease';
+  if(heroPhotoImage && heroPhotoCaption && heroPhotoSource && heroPhotoStores.length){
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reducedMotion)heroPhotoImage.style.transition='opacity 320ms ease';
     rotateHeroPhoto();
-    window.setInterval(rotateHeroPhoto,10000);
+    if(!reducedMotion)window.setInterval(()=>{
+      if(!document.hidden && heroPhotoPool.length>1)rotateHeroPhoto();
+    },10000);
+    if(webSessions)(async()=>{
+      try{
+        const response=await fetch('/api/visitor-location',{signal:AbortSignal.timeout(4500)});
+        if(!response.ok)return;
+        const position=await response.json();
+        if(!position.available || !Number.isFinite(position.lat) || !Number.isFinite(position.lon))return;
+        const cityKey=value=>String(value || '').toLowerCase().replace(/市$|\s+/g,'');
+        const cities=data.cities || [];
+        const knownCity=cities.find(city=>[city.city,city.city_en].some(name=>cityKey(name)===cityKey(position.city)));
+        const local=heroPhotoStores.filter(store=>cityKey(store.city)===cityKey(knownCity?.city || position.city));
+        if(local.length)heroPhotoPool=local;
+        else{
+          const distance=city=>{
+            const rad=Math.PI/180, dlat=(city.lat-position.lat)*rad, dlon=(city.lon-position.lon)*rad;
+            const a=Math.sin(dlat/2)**2+Math.cos(position.lat*rad)*Math.cos(city.lat*rad)*Math.sin(dlon/2)**2;
+            return 6371*2*Math.atan2(Math.sqrt(a),Math.sqrt(Math.max(0,1-a)));
+          };
+          const nearby=heroPhotoStores.map(store=>{
+            const city=cities.find(city=>cityKey(city.city)===cityKey(store.city));
+            return {store,distance:city && Number.isFinite(city.lat) && Number.isFinite(city.lon)?distance(city):Infinity};
+          }).sort((a,b)=>a.distance-b.distance);
+          if(!Number.isFinite(nearby[0]?.distance))return;
+          const nearestCity=cityKey(nearby[0].store.city);
+          heroPhotoPool=nearby.filter(item=>cityKey(item.store.city)===nearestCity).map(item=>item.store);
+        }
+        rotateHeroPhoto();
+      }catch(error){/* Keep the nationwide photo pool when IP lookup is unavailable. */}
+    })();
   }
   const names = new Map(data.countries.map(c => [c.code, c.name]));
   const countryName = code => names.get(code) || code;

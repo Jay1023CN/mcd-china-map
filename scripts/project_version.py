@@ -1,2 +1,2 @@
 """Version shared by the page, local API and reviewed distribution package."""
-VERSION = '0.15.9'
+VERSION = '0.15.10'

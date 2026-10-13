@@ -19,19 +19,24 @@
   const heroPhotoSource=$('hero-store-source');
   const heroPhotoStores=(data.stores || []).filter(store=>{
     const photo=store.default_photo;
-    return photo?.url && photo.source_url && data.store_images?.[photo.url]?.startsWith('data:image/');
+    return photo?.url && photo.source_url && typeof data.store_images?.[photo.url]==='string';
   });
+  let heroPhotoPool=heroPhotoStores;
   let lastHeroPhotoUrl='';
+  let heroPhotoRevision=0;
   function rotateHeroPhoto(){
-    if(!heroPhotoImage || !heroPhotoStores.length)return;
-    const choices=heroPhotoStores.filter(store=>store.default_photo.url!==lastHeroPhotoUrl);
-    const store=choices[Math.floor(Math.random()*choices.length)] || heroPhotoStores[0];
+    if(!heroPhotoImage || !heroPhotoPool.length)return;
+    const revision=++heroPhotoRevision;
+    const choices=heroPhotoPool.filter(store=>store.default_photo.url!==lastHeroPhotoUrl);
+    const store=choices[Math.floor(Math.random()*choices.length)] || heroPhotoPool[0];
     const photo=store.default_photo;
     const source=data.store_images[photo.url];
     const preload=new Image();
     preload.onload=()=>{
+      if(revision!==heroPhotoRevision)return;
       heroPhotoImage.style.opacity='0';
       setTimeout(()=>{
+        if(revision!==heroPhotoRevision)return;
         heroPhotoImage.src=source;
         heroPhotoImage.alt=`${store.city} · ${store.name} 麦当劳餐厅实景`;
         heroPhotoCaption.textContent=`${store.city} · ${store.name}`;
@@ -40,13 +45,46 @@
         requestAnimationFrame(()=>{heroPhotoImage.style.opacity='1';});
       },220);
     };
+    preload.onerror=()=>{
+      if(revision===heroPhotoRevision)heroPhotoImage.style.opacity='1';
+    };
     preload.src=source;
   }
-  if(heroPhotoImage && heroPhotoCaption && heroPhotoSource && heroPhotoStores.length>1 &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    heroPhotoImage.style.transition='opacity 320ms ease';
+  if(heroPhotoImage && heroPhotoCaption && heroPhotoSource && heroPhotoStores.length){
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reducedMotion)heroPhotoImage.style.transition='opacity 320ms ease';
     rotateHeroPhoto();
-    window.setInterval(rotateHeroPhoto,10000);
+    if(!reducedMotion)window.setInterval(()=>{
+      if(!document.hidden && heroPhotoPool.length>1)rotateHeroPhoto();
+    },10000);
+    if(webSessions)(async()=>{
+      try{
+        const response=await fetch('/api/visitor-location',{signal:AbortSignal.timeout(4500)});
+        if(!response.ok)return;
+        const position=await response.json();
+        if(!position.available || !Number.isFinite(position.lat) || !Number.isFinite(position.lon))return;
+        const cityKey=value=>String(value || '').toLowerCase().replace(/市$|\s+/g,'');
+        const cities=data.cities || [];
+        const knownCity=cities.find(city=>[city.city,city.city_en].some(name=>cityKey(name)===cityKey(position.city)));
+        const local=heroPhotoStores.filter(store=>cityKey(store.city)===cityKey(knownCity?.city || position.city));
+        if(local.length)heroPhotoPool=local;
+        else{
+          const distance=city=>{
+            const rad=Math.PI/180, dlat=(city.lat-position.lat)*rad, dlon=(city.lon-position.lon)*rad;
+            const a=Math.sin(dlat/2)**2+Math.cos(position.lat*rad)*Math.cos(city.lat*rad)*Math.sin(dlon/2)**2;
+            return 6371*2*Math.atan2(Math.sqrt(a),Math.sqrt(Math.max(0,1-a)));
+          };
+          const nearby=heroPhotoStores.map(store=>{
+            const city=cities.find(city=>cityKey(city.city)===cityKey(store.city));
+            return {store,distance:city && Number.isFinite(city.lat) && Number.isFinite(city.lon)?distance(city):Infinity};
+          }).sort((a,b)=>a.distance-b.distance);
+          if(!Number.isFinite(nearby[0]?.distance))return;
+          const nearestCity=cityKey(nearby[0].store.city);
+          heroPhotoPool=nearby.filter(item=>cityKey(item.store.city)===nearestCity).map(item=>item.store);
+        }
+        rotateHeroPhoto();
+      }catch(error){/* Keep the nationwide photo pool when IP lookup is unavailable. */}
+    })();
   }
   const names = new Map(data.countries.map(c => [c.code, c.name]));
   const countryName = code => names.get(code) || code;
