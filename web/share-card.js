@@ -74,7 +74,7 @@
     var title = cleanLabel(options.title, 36) || '我的麦麦中国足迹';
     return {
       title: title,
-      theme: options.theme === 'red' ? 'red' : 'paper',
+      theme: options.theme === 'collage' ? 'collage' : options.theme === 'red' ? 'red' : 'paper',
       includeCities: includeCities,
       confirmedCount: count(summary.confirmedCount),
       distinctProvinces: count(summary.distinctProvinces),
@@ -133,6 +133,40 @@
     for (var i = 0; i < 24; i++) ctx.fillRect(74 + (i * 173) % 914, 76 + (i * 223) % 1268, 2, 2);
   }
 
+  function drawTornSheet(ctx, x, y, width, height, fill, seed) {
+    var points = [], step = 24, phase = seed || 0;
+    for (var px = x; px < x + width; px += step) points.push([px, y + Math.sin((px + phase) * .19) * 3]);
+    for (var py = y; py < y + height; py += step) points.push([x + width + Math.sin((py + phase) * .17) * 3, py]);
+    for (var px = x + width; px > x; px -= step) points.push([px, y + height + Math.sin((px + phase) * .21) * 3]);
+    for (var py = y + height; py > y; py -= step) points.push([x + Math.sin((py + phase) * .15) * 3, py]);
+    ctx.beginPath(); points.forEach(function (point, index) { if (index === 0) ctx.moveTo(point[0], point[1]); else ctx.lineTo(point[0], point[1]); }); ctx.closePath();
+    ctx.fillStyle = fill; ctx.fill();
+  }
+
+  function drawTape(ctx, x, y, width, angle, fill) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(angle); ctx.globalAlpha = .86;
+    ctx.fillStyle = fill; ctx.beginPath(); ctx.moveTo(0, 4); ctx.lineTo(width, 0); ctx.lineTo(width - 4, 31); ctx.lineTo(3, 34); ctx.closePath(); ctx.fill();
+    ctx.globalAlpha = .2; ctx.strokeStyle = '#fffdf4'; ctx.lineWidth = 2;
+    for (var i = 12; i < width; i += 18) { ctx.beginPath(); ctx.moveTo(i, 6); ctx.lineTo(i - 1, 29); ctx.stroke(); }
+    ctx.restore();
+  }
+
+  function drawCollageBackdrop(ctx, palette) {
+    ctx.fillStyle = '#e8dcc7'; ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    ctx.save(); ctx.shadowColor = 'rgba(75,54,30,.18)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 8;
+    drawTornSheet(ctx, 35, 28, 1010, 1380, palette.paper, 23); ctx.restore();
+    drawTornSheet(ctx, 852, 34, 185, 248, '#f2e2c7', 47);
+    ctx.fillStyle = 'rgba(112,83,48,.035)';
+    for (var fiber = 0; fiber < 1100; fiber++) ctx.fillRect(40 + (fiber * 137) % 997, 35 + (fiber * 211) % 1339, fiber % 4 === 0 ? 2 : 1, 1);
+    ctx.save(); ctx.translate(943, 139); ctx.rotate(-.08); ctx.fillStyle = '#514638'; ctx.font = '600 17px ' + FONT; ctx.textAlign = 'center';
+    ['GOOD','FOOD','GOOD','JOURNEY'].forEach(function (line, index) { ctx.fillText(line, 0, index * 24); }); ctx.restore();
+    ctx.save(); ctx.shadowColor = 'rgba(75,54,30,.11)'; ctx.shadowBlur = 13; ctx.shadowOffsetY = 5;
+    drawTornSheet(ctx, 46, 351, 988, 565, '#fffdf5', 64); ctx.restore();
+    drawTape(ctx, 818, 319, 124, .07, '#d85a45');
+    ctx.save(); ctx.fillStyle = '#d64a32'; ctx.font = '32px ' + FONT; ctx.fillText('♥', 1012, 1188); ctx.restore();
+    drawTornSheet(ctx, 42, 1380, 994, 60, '#bd302b', 8);
+  }
+
   function titleLines(text) {
     var chars = Array.from(text);
     var split = Math.ceil(chars.length / 2);
@@ -182,6 +216,7 @@
     if (!ctx) throw new Error('Canvas 2D context is unavailable');
 
     var isRed = facts.theme === 'red';
+    var isCollage = facts.theme === 'collage';
     var palette = {
       paper: isRed ? '#fff8ee' : '#fff9ed', ink: '#29231b', muted: '#756752',
       visited: isRed ? '#c83c32' : '#d64a32', idle: isRed ? '#e6d8c3' : '#e9dfc9',
@@ -189,24 +224,26 @@
       blue: '#69b8c2', sea: isRed ? '#f5e7dd' : '#f1eadc'
     };
     drawPaper(ctx, palette.paper);
+    if (isCollage) drawCollageBackdrop(ctx, palette);
 
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = palette.ink; ctx.font = '400 26px ' + FONT;
     ctx.fillText('麦麦中国地图', 62, 76);
     handLine(ctx, 62, 96, 276, 93, isRed ? palette.accent : palette.gold, 4);
     ctx.strokeStyle = palette.accent; ctx.lineWidth = 2.5;
-    ctx.beginPath(); ctx.ellipse(900, 68, 128, 30, -.025, 0, Math.PI * 2); ctx.stroke();
+    var stampX = isCollage ? 943 : 900;
+    ctx.beginPath(); ctx.ellipse(stampX, 68, isCollage ? 82 : 128, 30, -.025, 0, Math.PI * 2); ctx.stroke();
     ctx.textAlign = 'center';
     var stampText = facts.confirmedCount ? '已走过 · ' + facts.confirmedCount + ' 站' : '想去 · 尚未打卡';
     var stampSize = 24;
     ctx.font = '400 ' + stampSize + 'px ' + FONT;
-    while (stampSize > 16 && ctx.measureText(stampText).width > 210) {
+    while (stampSize > 16 && ctx.measureText(stampText).width > (isCollage ? 146 : 210)) {
       stampSize -= 1; ctx.font = '400 ' + stampSize + 'px ' + FONT;
     }
-    ctx.fillText(stampText, 900, 76);
+    ctx.fillText(stampText, stampX, 76, isCollage ? 146 : 210);
     ctx.textAlign = 'left';
 
-    drawFittedTitle(ctx, facts.title, 74, 194, 930, 64, 34, palette.ink, palette.accent);
+    drawFittedTitle(ctx, facts.title, 74, 194, isCollage ? 730 : 930, isCollage ? 72 : 64, 34, palette.ink, palette.accent);
 
     // The map is drawn directly on the paper, without a panel or route lines.
     var mapBox = {x: 64, y: 365, w: 952, h: 540};
@@ -326,9 +363,9 @@
       ctx.fillStyle = palette.muted; ctx.font = '400 18px ' + FONT;
       ctx.fillText('城市名称尚未提供。', 78, 1324);
     }
-    ctx.fillStyle = palette.muted; ctx.font = '400 20px ' + FONT;
-    ctx.fillText('用麦当劳，画出自己的中国足迹。', 78, 1400);
-    ctx.textAlign = 'right'; ctx.fillText('麦麦中国地图', 1008, 1400); ctx.textAlign = 'left';
+    ctx.fillStyle = isCollage ? '#fff8e9' : palette.muted; ctx.font = '400 20px ' + FONT;
+    ctx.fillText(isCollage ? '麦麦中国地图 · 吃一顿麦，留一页手账' : '用麦当劳，画出自己的中国足迹。', 78, 1400);
+    ctx.textAlign = 'right'; ctx.fillText(isCollage ? 'mcd-china-map.onrender.com' : '麦麦中国地图', 1008, 1400); ctx.textAlign = 'left';
     return canvas;
   }
 

@@ -2,6 +2,7 @@
 """Build an offline global journal; official MCP only supplies China candidates."""
 import argparse
 from datetime import datetime
+from html import escape
 import hashlib
 import json
 import os
@@ -107,6 +108,7 @@ def candidates(payload):
 
 def render(archive):
     stores = json.loads((ROOT/'assets/data/store-directory.json').read_text(encoding='utf-8'))
+    hero_store = next(store for store in stores if store.get('default_photo', {}).get('local_asset') == 'store-photos/beijing-shougang.jpg')
     store_images = {}
     for store in stores:
         photo = store.get('default_photo', {})
@@ -157,6 +159,9 @@ def render(archive):
         app_version=VERSION,
         font_faces=font_faces(), paper=asset_uri('paper.png'), title_art=asset_uri('global-title.png'),
         passport_art=asset_uri('global-passport.png'), plus_icon=asset_uri('icons/plus.svg'),
+        hero_store_photo=asset_uri('store-photos/beijing-shougang.jpg'),
+        hero_store_source=escape(hero_store['default_photo']['source_url'], quote=True),
+        scrapbook_css=(ROOT/'web/scrapbook.css').read_text(encoding='utf-8'),
         close_icon=asset_uri('icons/x.svg'), journal_data=encoded,
         wishlist_js=(ROOT/'web/wishlist-engine.js').read_text(encoding='utf-8'),
         engine_js=(ROOT/'web/journal-engine.js').read_text(encoding='utf-8'),

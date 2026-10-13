@@ -60,7 +60,7 @@ FILES = (
     "scripts/project_version.py",
     "web/journal-search.js", "web/archive-merge.js", "tests/journal-search.test.js", "tests/archive-merge.test.js", "tests/browser-discovery.cjs", "tests/browser-meal-flow.cjs", "tests/browser-meal-date.cjs", "tests/meal-calendar.test.cjs",
     "tests/browser-plan-share.cjs",
-    "templates/global-journal.html", "examples/china-journal.synthetic.json",
+    "templates/global-journal.html", "web/scrapbook.css", "examples/china-journal.synthetic.json",
     "references/tools.md", "docs/SOURCES.md", "docs/MCP_TOOLS.md", "docs/VALIDATION.md",
     "docs/LOCAL_WINDOWS.md", "docs/REGISTRATION.md", "docs/DEVELOPMENT.md", "docs/PRODUCT-REVIEW.md",
     "docs/china-demo.html", "docs/china-preview.png", "docs/share-card-paper.png", "docs/share-card-red.png", "docs/memory-card-preview.png",

@@ -28,7 +28,7 @@
       foods: (Array.isArray(entry.foods) ? entry.foods : []).map(function (item) {
         return clean(typeof item === 'string' ? item : item && (item.name || item.title), 24);
       }).filter(Boolean).slice(0, 5),
-      theme: options.theme === 'red' ? 'red' : 'paper'
+      theme: options.theme === 'collage' ? 'collage' : options.theme === 'red' ? 'red' : 'paper'
     };
     if (options.includePlace === true) {
       result.city = clean(entry.city, 32);
@@ -81,6 +81,135 @@
     // Fixed, subtle paper fibers keep exports deterministic and leave text clear.
     ctx.fillStyle = 'rgba(116, 91, 54, .035)';
     for (var i = 0; i < 42; i++) ctx.fillRect(18 + (i * 137) % 1038, 24 + (i * 211) % 1386, 2, 2);
+  }
+
+  function drawTornSheet(ctx, x, y, width, height, fill, seed) {
+    var points = [], step = 24, phase = seed || 0;
+    for (var px = x; px < x + width; px += step) points.push([px, y + Math.sin((px + phase) * .19) * 3]);
+    for (var py = y; py < y + height; py += step) points.push([x + width + Math.sin((py + phase) * .17) * 3, py]);
+    for (var px = x + width; px > x; px -= step) points.push([px, y + height + Math.sin((px + phase) * .21) * 3]);
+    for (var py = y + height; py > y; py -= step) points.push([x + Math.sin((py + phase) * .15) * 3, py]);
+    ctx.beginPath(); points.forEach(function (point, index) { if (index === 0) ctx.moveTo(point[0], point[1]); else ctx.lineTo(point[0], point[1]); }); ctx.closePath();
+    ctx.fillStyle = fill; ctx.fill();
+  }
+
+  function drawCollageBackdrop(ctx, palette, height) {
+    height = height || HEIGHT;
+    ctx.fillStyle = '#e8dcc7'; ctx.fillRect(0, 0, WIDTH, height);
+    ctx.save(); ctx.shadowColor = 'rgba(75,54,30,.16)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 8;
+    drawTornSheet(ctx, 35, 28, 1010, height - 60, palette.paper, 17); ctx.restore();
+    ctx.fillStyle = 'rgba(116,91,54,.045)';
+    for (var fiber = 0; fiber < Math.ceil(height / 12); fiber++) ctx.fillRect(48 + (fiber * 137) % 980, 48 + (fiber * 211) % (height - 96), 3, 1);
+  }
+
+  function drawTape(ctx, x, y, width, color, angle) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(angle || 0); ctx.globalAlpha = .8;
+    drawTornSheet(ctx, 0, 0, width, 34, color, 41);
+    ctx.strokeStyle = 'rgba(255,255,255,.25)'; ctx.lineWidth = 1;
+    for (var stripe = 8; stripe < width; stripe += 12) {
+      ctx.beginPath(); ctx.moveTo(stripe, 2); ctx.lineTo(stripe - 6, 31); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawCollage(ctx, canvas, facts, options, palette, photo, images) {
+    var blue = '#245895', bodyWidth = 844;
+    ctx.font = '400 30px ' + TITLE_FONT;
+    var cityLines = facts.city ? wrapText(ctx, facts.city, 810) : [];
+    ctx.font = '400 28px ' + FONT;
+    var storeLines = facts.store ? wrapText(ctx, facts.store, 810) : [];
+    var placeHeight = cityLines.length * 42 + storeLines.length * 40;
+    ctx.font = '400 28px ' + TITLE_FONT;
+    var foodRows = [], foodHeight = 0;
+    for (var i = 0; i < facts.foods.length; i += 2) {
+      var row = facts.foods.slice(i, i + 2).map(function (name) {
+        return {name: name, lines: wrapText(ctx, name, 314)};
+      });
+      var height = Math.max(94, 24 + Math.max.apply(null, row.map(function (item) { return item.lines.length; })) * 42);
+      foodRows.push({items: row, height: height}); foodHeight += height + 16;
+    }
+    ctx.font = '400 30px ' + TITLE_FONT;
+    var noteLines = facts.note ? wrapText(ctx, facts.note, bodyWidth - 70) : [];
+    var noteHeight = noteLines.length ? 92 + noteLines.length * 46 : 0;
+    var credit = photo ? clean(options.photoCredit, 70) : '';
+    ctx.font = '400 22px ' + FONT;
+    var creditLines = credit ? wrapText(ctx, credit, bodyWidth) : [];
+    var photoHeight = photo ? 470 : 410;
+    var requiredHeight = 410 + photoHeight + (placeHeight ? placeHeight + 38 : 0) + (foodRows.length ? foodHeight + 56 : 0) + noteHeight + 128 + creditLines.length * 30;
+    canvas.height = Math.max(HEIGHT, Math.ceil(requiredHeight));
+    drawCollageBackdrop(ctx, palette, canvas.height);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = palette.ink; ctx.font = '400 25px ' + TITLE_FONT;
+    ctx.fillText('麦麦中国地图', 88, 84); handLine(ctx, 87, 98, 295, 95, palette.gold, 7);
+    if (options.kind === 'plan') drawStamp(ctx, 825, 54, '想去 · 尚未打卡', palette);
+    else { ctx.textAlign = 'right'; ctx.fillStyle = palette.muted; ctx.font = '400 24px ' + FONT; ctx.fillText(cardDate(facts.date) || '一页探店记', 990, 84); }
+    ctx.textAlign = 'left'; drawHandTitle(ctx, facts.title, palette);
+    ctx.fillStyle = blue; ctx.font = '400 26px ' + TITLE_FONT;
+    ctx.fillText(options.kind === 'plan' ? '下一站，先收藏一家想去的麦。' : '把喜欢的味道，记在路上。', 104, 347);
+    drawStickers(ctx, options, palette);
+    var frame = {x: 83, y: 383, w: 914, h: photoHeight};
+    ctx.save(); ctx.translate(frame.x + frame.w / 2, frame.y + frame.h / 2); ctx.rotate(-.013);
+    ctx.shadowColor = 'rgba(63,44,25,.18)'; ctx.shadowBlur = 17; ctx.shadowOffsetY = 7;
+    ctx.fillStyle = '#fffefa'; ctx.fillRect(-frame.w / 2, -frame.h / 2, frame.w, frame.h);
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    var px = -frame.w / 2 + 17, py = -frame.h / 2 + 17, pw = frame.w - 34, ph = frame.h - 62;
+    if (photo) {
+      try { drawPhotoCover(ctx, photo, px, py, pw, ph, options.imageFit); }
+      catch (_) { drawChinaMap(ctx, px, py, pw, ph, palette, options, facts); }
+    } else drawChinaMap(ctx, px, py, pw, ph, palette, options, facts);
+    ctx.fillStyle = blue; ctx.font = '400 22px ' + TITLE_FONT;
+    ctx.fillText(clean(options.photoAnnotation, 10) || (photo ? '这一站的小停靠' : '把这一站，记在地图上'), px + 8, frame.h / 2 - 17);
+    ctx.restore();
+    drawTape(ctx, 197, frame.y - 10, 158, '#e9bd44', -.08);
+    drawTape(ctx, 825, frame.y + frame.h - 11, 153, '#c94132', -.04);
+    var y = frame.y + frame.h + 35;
+    if (placeHeight) {
+      ctx.fillStyle = palette.red; ctx.beginPath(); ctx.arc(100, y + 19, 11, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(92, y + 25); ctx.lineTo(100, y + 40); ctx.lineTo(108, y + 25); ctx.fill();
+      ctx.fillStyle = palette.paper; ctx.beginPath(); ctx.arc(100, y + 19, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = palette.ink; ctx.font = '400 30px ' + TITLE_FONT;
+      cityLines.forEach(function (line) { ctx.fillText(line, 126, y + 29); y += 42; });
+      ctx.fillStyle = palette.muted; ctx.font = '400 28px ' + FONT;
+      storeLines.forEach(function (line) { ctx.fillText(line, 126, y + 28); y += 40; }); y += 20;
+    }
+    if (foodRows.length) {
+      ctx.fillStyle = palette.red; ctx.font = '400 26px ' + TITLE_FONT; ctx.fillText('记下的味道', 108, y + 28);
+      handLine(ctx, 108, y + 38, 268, y + 35, palette.gold, 5); y += 53;
+      foodRows.forEach(function (row) {
+        row.items.forEach(function (item, column) {
+          var x = 108 + column * 438;
+          ctx.save(); ctx.shadowColor = 'rgba(73,50,28,.09)'; ctx.shadowBlur = 6; ctx.shadowOffsetY = 3;
+          drawTornSheet(ctx, x, y, 420, row.height, column ? '#fffdf7' : '#f8efda', column + 13); ctx.restore();
+          var image = Array.isArray(options.stickers) && options.stickers.includes('food') ? images.get(item.name) : null;
+          if (image) drawPhotoCover(ctx, image, x + 14, y + (row.height - 76) / 2, 76, 76, 'contain');
+          else { ctx.fillStyle = palette.gold; ctx.beginPath(); ctx.arc(x + 44, y + row.height / 2, 7, 0, Math.PI * 2); ctx.fill(); }
+          ctx.fillStyle = palette.ink; ctx.font = '400 28px ' + TITLE_FONT; ctx.textBaseline = 'middle';
+          var first = y + (row.height - item.lines.length * 42) / 2 + 21;
+          item.lines.forEach(function (line, lineIndex) { ctx.fillText(line, x + 100, first + lineIndex * 42); }); ctx.textBaseline = 'alphabetic';
+        }); y += row.height + 16;
+      }); y += 12;
+    }
+    if (noteLines.length) {
+      ctx.save(); ctx.shadowColor = 'rgba(73,50,28,.12)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 4;
+      drawTornSheet(ctx, 88, y, 908, noteHeight, '#fffdf7', 71); ctx.restore();
+      drawTape(ctx, 765, y - 14, 153, '#e9bd44', .05);
+      ctx.fillStyle = palette.red; ctx.font = '400 25px ' + TITLE_FONT; ctx.fillText('旅途的小事', 153, y + 40);
+      ctx.fillStyle = blue; ctx.font = '400 30px ' + TITLE_FONT;
+      noteLines.forEach(function (line, index) {
+        var lineY = y + 85 + index * 46;
+        ctx.fillText(line, 153, lineY);
+        ctx.strokeStyle = 'rgba(54,91,133,.10)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, lineY + 11); ctx.lineTo(953, lineY + 11); ctx.stroke();
+      });
+      ctx.fillStyle = '#e8dcc7';
+      for (var holeY = y + 36; holeY < y + noteHeight - 20; holeY += 52) { ctx.beginPath(); ctx.arc(109, holeY, 7, 0, Math.PI * 2); ctx.fill(); }
+    }
+    var footerY = canvas.height - 57;
+    ctx.fillStyle = palette.muted; ctx.font = '400 22px ' + FONT;
+    creditLines.forEach(function (line, index) { ctx.fillText(line, 100, footerY - 40 - (creditLines.length - index - 1) * 30); });
+    handLine(ctx, 100, footerY - 14, 290, footerY - 16, palette.gold, 5);
+    ctx.fillStyle = palette.ink; ctx.font = '400 24px ' + TITLE_FONT;
+    ctx.fillText('用麦当劳，画出自己的中国足迹。', 100, footerY + 17);
+    drawHeart(ctx, 965, footerY + 1, 22, palette.red);
   }
 
   function waitForFonts() {
@@ -425,6 +554,7 @@
     var ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Canvas 2D context is unavailable');
     var isRed = facts.theme === 'red';
+    var isCollage = facts.theme === 'collage';
     var palette = isRed ? {
       base: '#d44632', baseDark: '#98271f', paper: '#fff8e9', ink: '#29231b', muted: '#5f503d',
       line: '#d8c9ad', red: '#d44632', gold: '#ecc74c', illustration: '#f8f0df', tag: '#f0e5cc', tagInk: '#6d5840'
@@ -432,7 +562,6 @@
       base: '#f3eddb', baseDark: '#e9dfc8', paper: '#fff9eb', ink: '#29231b', muted: '#5f503d',
       line: '#d8c9ad', red: '#dc442e', gold: '#ecc74c', illustration: '#f8f0df', tag: '#f0e5cc', tagInk: '#6d5840'
     };
-    drawPaper(ctx, palette);
     var profile = contentProfile(facts, options);
     var foodImages=new Map();
     if(Array.isArray(options.foodImages)){
@@ -440,6 +569,12 @@
         var image=await loadPhoto(item.dataUrl);if(image)foodImages.set(clean(item.name,24),image);
       }));
     }
+    var photo = await loadPhoto(options.photoDataUrl);
+    if (isCollage) {
+      drawCollage(ctx, canvas, facts, options, palette, photo, foodImages);
+      return canvas;
+    }
+    drawPaper(ctx, palette);
 
     ctx.fillStyle = palette.ink;
     ctx.font = '600 24px ' + TITLE_FONT;
@@ -463,7 +598,6 @@
 
     var frame = {x: 80, y: 370, w: 920, h: profile.photoHeight};
     var photoBox = {x: frame.x + 9, y: frame.y + 9, w: frame.w - 18, h: frame.h - 18};
-    var photo = await loadPhoto(options.photoDataUrl);
     ctx.save();
     ctx.translate(frame.x + frame.w/2, frame.y + frame.h/2);
     ctx.rotate(-Math.PI/180);
