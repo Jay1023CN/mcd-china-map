@@ -39,9 +39,7 @@ async function main() {
     await page.getByRole('button', {name: '记一餐', exact: true}).click();
     const today = await page.evaluate(()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()));
     await selectMealDate(page,today);
-    await page.locator('#meal-city-details').evaluate(el=>el.open=true);
     await page.locator('[name=province_code]').selectOption('310000');
-    await page.locator('#meal-city-details').evaluate(el=>el.open=true);
     await page.locator('[name=city]').fill('上海');
     await page.locator('[name=store]').fill('测试上海门店（虚构）');
     await page.locator('#meal-extra').evaluate(el=>el.open=true);

@@ -138,9 +138,7 @@ async function main() {
     await journalPage.waitForFunction(() => document.getElementById('photo-preview').naturalWidth > 0);
     assert.match(await journalPage.locator('#photo-caption').innerText(), /麦当劳官网新闻配图/);
 
-    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=city]').fill('北京');
-    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=province_code]').selectOption('');
     await journalPage.locator('[name=store]').fill('麦当劳北京首钢园得来速餐厅');
     const shougangPhoto = await journalPage.locator('#photo-preview').getAttribute('src');
@@ -165,9 +163,7 @@ async function main() {
     assert.match(await savedStoreCard.locator('.photo-credit').innerText(), /麦当劳官网新闻配图/);
 
     await journalPage.getByRole('button', {name: '记一餐', exact: true}).click();
-    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=province_code]').selectOption('310000');
-    await journalPage.locator('#meal-city-details').evaluate(el=>el.open=true);
     await journalPage.locator('[name=city]').fill('上海');
     await journalPage.locator('[name=store]').fill('合成上传照片测试门店');
     await journalPage.locator('#meal-food-custom').evaluate(el=>el.open=true);

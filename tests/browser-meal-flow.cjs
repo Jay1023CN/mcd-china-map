@@ -92,7 +92,7 @@ async function main(){
     await denied.route('https://ipwho.is/**',route=>route.abort());
     await denied.addInitScript(()=>Object.defineProperty(navigator,'geolocation',{value:{getCurrentPosition:(success,failure)=>failure({code:1})}}));
     const fallback=await denied.newPage();await fallback.goto(url);await fallback.locator('#add-top').click();await fallback.locator('#meal-locate').click();
-    assert.ok(await fallback.locator('#meal-city-details').evaluate(el=>el.open));
+    assert.ok(await fallback.locator('[name=province_code]').isVisible(),'province and city stay visible when location is denied');
     await fallback.locator('[name=province_code]').selectOption('310000');await fallback.locator('[name=city]').fill('上海');await fallback.locator('[name=store]').fill('未收录的测试门店');
     await fallback.locator('#save-entry').click();await fallback.locator('#entry-dialog').waitFor({state:'hidden'});
     assert.equal(await fallback.locator('#journal-grid .entry-card').count(),1);assert.deepEqual(errors,[]);

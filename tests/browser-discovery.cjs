@@ -18,9 +18,7 @@ async function stubHealth(page) {
 async function addEntry(page, {city, store, province='310000', foods, note='', date=today()}) {
   await page.locator('#add-top').click();
   await selectMealDate(page,date);
-  await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=city]').fill(city);
-  await page.locator('#meal-city-details').evaluate(el=>el.open=true);
   await page.locator('[name=province_code]').selectOption(province);
   await page.locator('[name=store]').fill(store);
   await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
@@ -163,7 +161,6 @@ async function main() {
     await page.locator('#meal-food-custom').evaluate(el=>el.open=true);
     await page.locator('[name=foods]').fill('灵感测试餐品，城市咖啡');
     await page.locator('[name=note]').fill('灵感搜索随记');
-    await page.locator('#meal-city-details').evaluate(el=>el.open=true);
     await page.locator('[name=province_code]').selectOption(otherProvince);
     await page.locator('[name=province_code]').dispatchEvent('change');
     assert.equal(await page.locator('[name=complete_wishlist]').isChecked(),true);
