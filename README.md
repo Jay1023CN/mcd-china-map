@@ -2,10 +2,10 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/cover-v1.png" alt="麦麦中国地图项目封面" width="960"></p>
 
-<p align="center">在完整中国地图上找门店、看实景照片；手动记下一餐，或连接自己的订单，把每次探店留成一页手账。</p>
+<p align="center">在完整中国地图上找门店、看实景照片；首页精选门店照片每约 10 秒随机轮换。手动记下一餐，或连接自己的订单，把每次探店留成一页手账。</p>
 
 <p align="center">
-  <a href="https://mcd-china-map.onrender.com/"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-map-v2.svg" alt="打开麦麦中国地图在线版" width="240"></a>
+  <a href="https://jay1023cn.github.io/mcd-china-map/"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-map-v2.svg" alt="打开麦麦中国地图手机体验版" width="240"></a>
   &nbsp;
   <a href="https://github.com/Jay1023CN/mcd-china-map/releases/latest"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/download-v2.svg" alt="下载 Windows 完整版" width="240"></a>
 </p>
@@ -32,10 +32,10 @@
 
 <p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/share-v2-mobile.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/share-v2.png" alt="中国足迹卡、探店分享卡和下一站邀约卡示例" width="960"></picture></p>
 
-## 在线版、静态版和 Windows 完整版
+## 手机体验、订单连接和 Windows 完整版
 
-- **在线主站：** [mcd-china-map.onrender.com](https://mcd-china-map.onrender.com/)。直接浏览门店、记餐和整理手账；订单同步需要个人 MCP Token。
-- **GitHub Pages 静态版：** [打开静态网页](https://jay1023cn.github.io/mcd-china-map/)。适合手动记录和收藏，不需要 Token，不提供订单同步。
+- **手机体验：** [打开麦麦中国地图](https://jay1023cn.github.io/mcd-china-map/)。适合手动查店、收藏和记餐，不需要 Token，也不提供订单同步。
+- **订单连接：** [打开 Render 版](https://mcd-china-map.onrender.com/)。连接麦当劳中国 MCP、同步官方订单时使用，需要个人 MCP Token。
 - **Windows 完整版：** [下载最新 Release](https://github.com/Jay1023CN/mcd-china-map/releases/latest)。普通手账无需安装 Python；使用 MCP 同步订单时需要 Python 3.10+ 和个人 Token。
 
 <details>

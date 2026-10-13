@@ -10,7 +10,7 @@
 
 全国目录收录 9,276 条公开资料，精选门店有 31 家，分布在 21 座城市。资料条目不是当前营业门店数量；澳门、台湾来源也还没有覆盖全部营业门店。
 
-**手机直接体验：** [打开 Render 主站](https://mcd-china-map.onrender.com/#store-finder)。查门店、收藏、手动记餐不需安装或 Token；连接麦当劳是可选功能，记录保存在当前浏览器。
+**手机直接体验：** [打开麦麦中国地图](https://jay1023cn.github.io/mcd-china-map/)。查门店、收藏、手动记餐不需安装或 Token；首页照片会从精选门店实景照里随机轮换，记录保存在当前浏览器。
 
 **想同步官方订单：** 在 Render 主站点点「连接麦当劳（可选）」，需要你自己的麦当劳中国 MCP Token；也可下载[Windows 完整包 v0.15.9](https://github.com/Jay1023CN/mcd-china-map/releases/tag/v0.15.9)。
 
@@ -19,7 +19,7 @@
 ### 置顶评论
 
 手机直接体验：先搜一家店、收藏下一站，或记下吃过的一餐：
-https://mcd-china-map.onrender.com/#store-finder
+https://jay1023cn.github.io/mcd-china-map/
 
 项目仓库：https://github.com/Jay1023CN/mcd-china-map
 觉得好玩的话，顺手给项目点个 Star；用起来哪里不顺，也欢迎告诉我。
@@ -30,18 +30,18 @@ https://mcd-china-map.onrender.com/#store-finder
 
 手机上可以搜麦当劳门店、收藏下一站，吃完把餐品、照片和随手记留在自己的地图里，还能做成探店卡、城市回忆册和月度小报。这版把拼贴手账、分享卡和手机上的操作提示又顺了一遍，首页照片也会从精选门店实景里随机轮换。
 
-想试试可以直接打开：https://mcd-china-map.onrender.com/#store-finder
+想试试可以直接打开：https://jay1023cn.github.io/mcd-china-map/
 
 搜店、收藏和手动记一餐都不用安装，也不用 Token；同步官方订单才需要自己的 MCP Token。觉得有意思的话，欢迎体验，喜欢的话也可以顺手给项目点个 Star。
 
 ### 发布前核对口径
 
-- Render 主站当前 build-info 已核对到 `4028a07`；v0.15.9 Windows 完整包待本次 Release 上传后核对。
+- GitHub Release `v0.15.9` 已发布，Windows 完整包已上传并核对 SHA-256；GitHub Pages 返回 HTTP 200，首页照片随机轮换已上线。Render 当前仍运行 `4028a07`，尚未更新到本次版本。
 - 全国目录为 9,276 条资料：大陆官方公示 8,448 条、香港官方目录 269 条、澳门公开来源 39 条、台湾餐饮登记 508 条，另有 12 条无法唯一匹配公示编号的精选门店。来源不等于实时营业状态，也不应宣传成 9,276 家在营业门店。
 - 31 家精选门店来自 21 座城市。README 配图中的 9,276 条资料、31 家精选店与当前数据口径一致。
-- Render 是当前手机体验主入口；手动查店、收藏、记餐可直接使用，官方订单同步需要用户自行提供 MCP Token。
+- GitHub Pages 是手机手动体验入口；Render 用于连接 MCP 和同步官方订单，需要用户自己的 MCP Token。
 - 分享卡里的示例数字是示例数据，不代表真实用户量或作者到访记录。
-- 宣传封面用纯手绘插画表达创意，不把旧拼图界面当成当前产品截图；正文附 Render 链接供读者查看实物。
+- 宣传封面用纯手绘插画表达创意，不把旧拼图界面当成当前产品截图；正文附 Pages 链接供读者查看实物。
 
 ---
 
