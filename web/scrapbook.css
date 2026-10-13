@@ -111,7 +111,8 @@ header.top { padding-block: 23px 18px; border-bottom: 1px dashed #c9b799; }
 .first-meal-actions .secondary { padding-inline: 16px; border: 1px solid #c4b194; color: var(--scrapbook-blue); }
 .banner { background: #fff5d5; color: #554b3d; border-radius: 2px; font-size: 13px; }
 .connection-bar { color: #514c40; font-size: 13px; padding-block: 10px 20px; }
-.connection-bar:not(.connected) #open-connect { color: #7d3825; font-size: 13px; }
+.connection-bar:not(.connected) #open-connect { color: #fffdf5; background: var(--red); border-color: var(--red); font-size: 15px; font-weight: 600; }
+.connection-bar:not(.connected) #open-connect:hover { color: #fffdf5; background: #ae221e; border-color: #ae221e; }
 .summary-line { gap: 25px; padding: 19px 0 24px; border-bottom: 1px dashed #c9b799; }
 .metric b { font: 400 38px/1.3 var(--scrapbook-hand); color: var(--red); }
 .metric span, .summary-line>p { font-size: 13px; color: var(--muted); }
