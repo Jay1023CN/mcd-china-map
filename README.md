@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/cover-v1.png" alt="麦麦中国地图项目封面" width="960"></p>
 
-<p align="center">在完整中国地图上找门店、看实景照片；首页精选门店照片每约 10 秒随机轮换。手动记下一餐，或连接自己的订单，把每次探店留成一页手账。</p>
+<p align="center">在完整中国地图上找门店、看实景照片；首页优先展示所在城市的精选门店照片，并持续轮换。手动记下一餐，或连接自己的订单，把每次探店留成一页手账。</p>
 
 <p align="center">
   <a href="https://jay1023cn.github.io/mcd-china-map/"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/open-map-v2.svg" alt="打开麦麦中国地图手机体验版" width="240"></a>
@@ -13,6 +13,8 @@
 ## 全国门店，在地图上找到下一站
 
 按省份、城市、店名或路名搜索门店，查看地址、介绍和实景照片，再把想去的店收进清单。全国目录有 **9,276 条公开门店资料**；其中 **31 家精选门店分布在 21 座城市**，配有实景照片。资料条数不等于当前营业门店总数。
+
+在线首页会根据访问 IP 推断所在城市，优先轮换当地精选门店照片；当地没有精选照片时，会选附近有照片的城市。不会请求设备 GPS。静态网页使用全国照片轮换。
 
 <p><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/discover-v2-mobile.png"><img src="https://raw.githubusercontent.com/Jay1023CN/mcd-china-map/main/docs/readme-assets/discover-v2.png" alt="全国门店地图、门店搜索和精选店实景照片页面" width="960"></picture></p>
 
