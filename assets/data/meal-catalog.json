@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checked_at": "2026-10-12",
+  "checked_at": "2026-11-04",
   "source_kind": "official_public_catalog",
   "purpose": "记录这一餐，收录常见套餐和新品参考；不是实时点餐菜单",
   "categories": [
@@ -1171,14 +1171,13 @@
       "name": "巧克力味厚松饼猪柳堡三件套",
       "category": "combos",
       "categories": [
-        "combos",
-        "new"
+        "combos"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261001-breakfast/",
       "aliases": [
         "巧克力厚松饼猪柳堡套餐"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "厚松饼猪柳堡 + 脆薯饼 + 鲜萃咖啡。",
       "available_until": "2026-11-03"
     },
@@ -1187,14 +1186,13 @@
       "name": "巧克力味厚松饼猪柳蛋堡三件套",
       "category": "combos",
       "categories": [
-        "combos",
-        "new"
+        "combos"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261001-breakfast/",
       "aliases": [
         "巧克力厚松饼猪柳蛋堡套餐"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "厚松饼猪柳蛋堡 + 脆薯饼 + 鲜萃咖啡。",
       "available_until": "2026-11-03"
     },
@@ -1218,14 +1216,13 @@
       "name": "龙焰芝士棒鸡腿堡三件套",
       "category": "combos",
       "categories": [
-        "combos",
-        "new"
+        "combos"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
       "aliases": [
         "龙焰芝士棒鸡腿堡套餐"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "龙焰芝士棒鸡腿堡 + 中薯条 + 中杯可乐。",
       "available_until": "2026-11-03"
     },
@@ -1234,14 +1231,13 @@
       "name": "龙焰鸡腿堡三件套",
       "category": "combos",
       "categories": [
-        "combos",
-        "new"
+        "combos"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
       "aliases": [
         "龙焰鸡腿堡套餐"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "龙焰鸡腿堡 + 中薯条 + 中杯可乐。",
       "available_until": "2026-11-03"
     },
@@ -1340,14 +1336,13 @@
       "name": "龙焰芝士棒鸡腿堡",
       "category": "burgers",
       "categories": [
-        "burgers",
-        "new"
+        "burgers"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
       "aliases": [
         "龙焰芝士棒堡"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "加入马苏里拉拉丝芝士条。",
       "available_until": "2026-11-03"
     },
@@ -1356,14 +1351,13 @@
       "name": "龙焰鸡腿堡",
       "category": "burgers",
       "categories": [
-        "burgers",
-        "new"
+        "burgers"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
       "aliases": [
         "龙焰堡"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "韩式辣酱与黄油风味。",
       "available_until": "2026-11-03"
     },
@@ -1372,14 +1366,13 @@
       "name": "灰焰圆筒",
       "category": "desserts",
       "categories": [
-        "desserts",
-        "new"
+        "desserts"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
       "aliases": [
         "灰色圆筒"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "available_until": "2026-11-03"
     },
     {
@@ -1387,14 +1380,13 @@
       "name": "蓝莓爆爆珠麦旋风",
       "category": "desserts",
       "categories": [
-        "desserts",
-        "new"
+        "desserts"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
       "aliases": [
         "蓝莓麦旋风"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "available_until": "2026-11-03"
     },
     {
@@ -1402,14 +1394,13 @@
       "name": "韩式辣椒黄油风味酱",
       "category": "snacks",
       "categories": [
-        "snacks",
-        "new"
+        "snacks"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
       "aliases": [
         "辣椒黄油风味酱"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "available_until": "2026-11-03"
     },
     {
@@ -1417,14 +1408,13 @@
       "name": "韩式烟熏芝士风味酱",
       "category": "snacks",
       "categories": [
-        "snacks",
-        "new"
+        "snacks"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
       "aliases": [
         "烟熏芝士风味酱"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "available_until": "2026-11-03"
     },
     {
@@ -1433,14 +1423,13 @@
       "category": "snacks",
       "categories": [
         "combos",
-        "snacks",
-        "new"
+        "snacks"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
       "aliases": [
         "鸡薯双全盒"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "心形薯饼、麦乐鸡和韩式辣椒黄油风味酱。",
       "available_until": "2026-11-03"
     },
@@ -1449,14 +1438,13 @@
       "name": "蘸酱炸鸡",
       "category": "snacks",
       "categories": [
-        "snacks",
-        "new"
+        "snacks"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
       "aliases": [
         "蘸酱炸鸡套餐"
       ],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "details": "麦麦脆汁鸡或脆皮鸡柳，搭配指定蘸酱。",
       "available_until": "2026-11-03"
     },
@@ -1465,12 +1453,11 @@
       "name": "马苏里拉拉丝芝士条",
       "category": "snacks",
       "categories": [
-        "snacks",
-        "new"
+        "snacks"
       ],
       "source_url": "https://www.mcdonalds.com.cn/news/20261008-McCrispy/",
       "aliases": [],
-      "status_label": "限时供应至 11月3日",
+      "status_label": "限时已结束 · 可补记",
       "available_until": "2026-11-03"
     },
     {
