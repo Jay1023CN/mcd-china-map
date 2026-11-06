@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T01:42:02.032077+00:00",
+  "generated_at": "2026-11-06T01:49:44.347927+00:00",
   "sources": {
     "mainland": {
       "url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo",
-      "collected_at": "2026-11-04T01:42:00.954203+00:00",
+      "collected_at": "2026-11-06T01:49:43.293690+00:00",
       "coverage": "all_verified_official_disclosure_pages"
     },
     "hong_kong": {
@@ -167252,13 +167252,12 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json"
     },
     {
-      "id": "cn:license:218398-6180026",
-      "code": "cn:license:218398-6180026",
+      "id": "cn:license:6180026",
+      "code": "cn:license:6180026",
       "country_code": "CN",
       "city": "石河子市",
       "name": "麦当劳石河子友好购物中心餐厅",
       "official_publicity_ids": [
-        "218398",
         "6180026"
       ],
       "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%9F%B3%E6%B2%B3%E5%AD%90%E5%B8%82&page=1",
