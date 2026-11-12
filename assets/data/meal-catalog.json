@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checked_at": "2026-11-04",
+  "checked_at": "2026-11-12",
   "source_kind": "official_public_catalog",
   "purpose": "记录这一餐，收录常见套餐和新品参考；不是实时点餐菜单",
   "categories": [
@@ -1465,15 +1465,13 @@
       "name": "优品豆浆",
       "category": "breakfast",
       "categories": [
-        "breakfast",
-        "new"
+        "breakfast"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Soybean-Milk-3",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Breakfast-26",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031411454215.png"
     },
@@ -1482,15 +1480,13 @@
       "name": "儿童鱼排堡",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/kids-fish-filet-burger",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2019/09/201909241723061060.png"
     },
@@ -1499,15 +1495,13 @@
       "name": "汉堡包",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Hamburger-Happy-Meal",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091606247063.png"
     },
@@ -1516,15 +1510,13 @@
       "name": "麦乐鸡（4块）",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Chicken-McNuggets-Happy-Meal-4pcs",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091607474918.png"
     },
@@ -1533,15 +1525,13 @@
       "name": "薯条（迷你）",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/mini-fries",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2019/09/201909241658187803.png"
     },
@@ -1550,15 +1540,13 @@
       "name": "玉米杯 (小)",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Corn-Cup-small",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091608181706.png"
     },
@@ -1567,15 +1555,13 @@
       "name": "苹果片",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Apple-Slice-2",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208091608341382.png"
     },
@@ -1584,15 +1570,13 @@
       "name": "纯牛奶（盒装）",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Milk-UHT",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412061721257642.png"
     },
@@ -1601,15 +1585,13 @@
       "name": "纯悦",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Ice-Dew-Packaged-Drinking-Water",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412061720458477.png"
     },
@@ -1618,15 +1600,13 @@
       "name": "美汁源100%苹果汁 (小)",
       "category": "happy_meal",
       "categories": [
-        "happy_meal",
-        "new"
+        "happy_meal"
       ],
       "source_url": "https://www.mcdonalds.com.cn/product/Minute-Maid-100Apple-Juice-small",
       "aliases": [],
       "official_menu_state": "listed",
       "listed_since": "2026-10-12",
       "new_until": "2026-11-11",
-      "status_label": "官网新品 · 10-12 首次收录",
       "source_category_url": "https://www.mcdonalds.com.cn/product/mcdonalds/Happy-Meal-Items-2",
       "image_url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505081053474066.png"
     }
