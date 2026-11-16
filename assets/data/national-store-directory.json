@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-09T01:12:38.654680+00:00",
+  "generated_at": "2026-11-16T01:23:52.585592+00:00",
   "sources": {
     "mainland": {
       "url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo",
-      "collected_at": "2026-11-09T01:12:37.877476+00:00",
+      "collected_at": "2026-11-16T01:23:51.976869+00:00",
       "coverage": "all_verified_official_disclosure_pages"
     },
     "hong_kong": {
@@ -372,17 +372,17 @@
     }
   },
   "coverage": {
-    "total_stores": 9342,
-    "mainland_disclosure_rows": 8514,
-    "mainland_unique_stores": 8514,
+    "total_stores": 9354,
+    "mainland_disclosure_rows": 8527,
+    "mainland_unique_stores": 8526,
     "mainland_expected_pages": 1034,
     "mainland_collected_pages": 1034,
     "mainland_pagination_verified": true,
     "mainland_failed_pages": {},
     "mainland_pagination_changes": {},
-    "mainland_duplicate_rows": 0,
-    "mainland_with_address": 3625,
-    "mainland_with_coordinates": 3615,
+    "mainland_duplicate_rows": 1,
+    "mainland_with_address": 3622,
+    "mainland_with_coordinates": 3612,
     "mainland_city_count": 312,
     "mainland_without_province": 0,
     "featured_stores": 31,
@@ -13613,6 +13613,25 @@
       "address": "",
       "featured": false,
       "source_row": 3,
+      "province_code": "310000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
+      "id": "cn:license:1450756",
+      "code": "cn:license:1450756",
+      "country_code": "CN",
+      "city": "上海市",
+      "name": "麦当劳上海三林云台路亿丰广场餐厅",
+      "official_publicity_ids": [
+        "1450756"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E4%B8%8A%E6%B5%B7%E5%B8%82&page=65",
+      "source": "official_publicity",
+      "source_page": 65,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 4,
       "province_code": "310000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
     },
@@ -51582,6 +51601,25 @@
       }
     },
     {
+      "id": "cn:license:1951076",
+      "code": "cn:license:1951076",
+      "country_code": "CN",
+      "city": "北京市",
+      "name": "麦当劳北京南礼士路(地铁D口)餐厅",
+      "official_publicity_ids": [
+        "1951076"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%8C%97%E4%BA%AC%E5%B8%82&page=68",
+      "source": "official_publicity",
+      "source_page": 68,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 5,
+      "province_code": "110000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
       "id": "cn:license:3570009",
       "code": "cn:license:3570009",
       "country_code": "CN",
@@ -78560,6 +78598,26 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
     },
     {
+      "id": "cn:license:1980471-228708",
+      "code": "cn:license:1980471-228708",
+      "country_code": "CN",
+      "city": "天津市",
+      "name": "麦当劳天津大港迎宾街得来速餐厅",
+      "official_publicity_ids": [
+        "1980471",
+        "228708"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%A4%A9%E6%B4%A5%E5%B8%82&page=27",
+      "source": "official_publicity",
+      "source_page": 27,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 9,
+      "province_code": "120000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+    },
+    {
       "id": "cn:license:1960183",
       "code": "cn:license:1960183",
       "country_code": "CN",
@@ -82149,26 +82207,6 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
     {
-      "id": "cn:license:237503-3330570",
-      "code": "cn:license:237503-3330570",
-      "country_code": "CN",
-      "city": "宁波市",
-      "name": "麦当劳宁波奉化复旦科技园餐厅",
-      "official_publicity_ids": [
-        "237503",
-        "3330570"
-      ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=9",
-      "source": "official_publicity",
-      "source_page": 9,
-      "disclosure_occurrences": 1,
-      "address": "",
-      "featured": false,
-      "source_row": 7,
-      "province_code": "330000",
-      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
-    },
-    {
       "id": "cn:license:3330573",
       "code": "cn:license:3330573",
       "country_code": "CN",
@@ -82183,7 +82221,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 8,
+      "source_row": 7,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82203,7 +82241,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 9,
+      "source_row": 8,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82223,7 +82261,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 10,
+      "source_row": 9,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82237,13 +82275,13 @@
         "237220",
         "3330588"
       ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=10",
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=9",
       "source": "official_publicity",
-      "source_page": 10,
-      "disclosure_occurrences": 1,
+      "source_page": 9,
+      "disclosure_occurrences": 2,
       "address": "三眼桥街51号",
       "featured": false,
-      "source_row": 1,
+      "source_row": 10,
       "province_code": "330000",
       "province_source": "official_locator_adcode",
       "locator_name": "麦当劳宁波宁波塔餐厅",
@@ -82445,25 +82483,6 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
     {
-      "id": "cn:license:3330651",
-      "code": "cn:license:3330651",
-      "country_code": "CN",
-      "city": "宁波市",
-      "name": "麦当劳宁波余姚众安广场餐厅",
-      "official_publicity_ids": [
-        "3330651"
-      ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=11",
-      "source": "official_publicity",
-      "source_page": 11,
-      "disclosure_occurrences": 1,
-      "address": "",
-      "featured": false,
-      "source_row": 1,
-      "province_code": "330000",
-      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
-    },
-    {
       "id": "cn:license:3330653",
       "code": "cn:license:3330653",
       "country_code": "CN",
@@ -82478,7 +82497,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 2,
+      "source_row": 1,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82498,7 +82517,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 3,
+      "source_row": 2,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82517,7 +82536,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 4,
+      "source_row": 3,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82536,7 +82555,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 5,
+      "source_row": 4,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82555,7 +82574,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 6,
+      "source_row": 5,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82575,7 +82594,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 7,
+      "source_row": 6,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82595,7 +82614,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 8,
+      "source_row": 7,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82615,7 +82634,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 9,
+      "source_row": 8,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82634,7 +82653,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 10,
+      "source_row": 9,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82647,13 +82666,13 @@
       "official_publicity_ids": [
         "3330709"
       ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=12",
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=11",
       "source": "official_publicity",
-      "source_page": 12,
+      "source_page": 11,
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 1,
+      "source_row": 10,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82672,7 +82691,7 @@
       "disclosure_occurrences": 1,
       "address": "南门街道迎春街127-145号一层119、120号",
       "featured": false,
-      "source_row": 2,
+      "source_row": 1,
       "province_code": "330000",
       "province_source": "official_locator_adcode",
       "locator_name": "麦当劳宁波海曙柳西咏归菜场餐厅",
@@ -82702,7 +82721,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 3,
+      "source_row": 2,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82722,7 +82741,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 4,
+      "source_row": 3,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82742,7 +82761,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 5,
+      "source_row": 4,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82761,7 +82780,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 6,
+      "source_row": 5,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82780,7 +82799,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 7,
+      "source_row": 6,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82933,6 +82952,25 @@
         "precision": "store",
         "coordinate_system": "GCJ-02"
       }
+    },
+    {
+      "id": "cn:license:3500185",
+      "code": "cn:license:3500185",
+      "country_code": "CN",
+      "city": "安庆市",
+      "name": "麦当劳安庆怀宁餐厅",
+      "official_publicity_ids": [
+        "3500185"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%89%E5%BA%86%E5%B8%82&page=1",
+      "source": "official_publicity",
+      "source_page": 1,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 6,
+      "province_code": "340000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json"
     },
     {
       "id": "cn:license:1960663",
@@ -86384,6 +86422,25 @@
         "precision": "store",
         "coordinate_system": "GCJ-02"
       }
+    },
+    {
+      "id": "cn:license:1990802",
+      "code": "cn:license:1990802",
+      "country_code": "CN",
+      "city": "常州市",
+      "name": "麦当劳常州横林潮悦荟餐厅",
+      "official_publicity_ids": [
+        "1990802"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%B8%B8%E5%B7%9E%E5%B8%82&page=5",
+      "source": "official_publicity",
+      "source_page": 5,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 5,
+      "province_code": "320000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json"
     },
     {
       "id": "cn:license:3390009",
@@ -100157,7 +100214,7 @@
       "code": "cn:license:1400891",
       "country_code": "CN",
       "city": "广州市",
-      "name": "麦当劳广州黄埔光谱中路餐厅",
+      "name": "麦当劳广州南曜·玉树里餐厅",
       "official_publicity_ids": [
         "1400891"
       ],
@@ -100165,22 +100222,11 @@
       "source": "official_publicity",
       "source_page": 45,
       "disclosure_occurrences": 1,
-      "address": "光谱中路以北，科珠路以东大湾区科创走廊新光谱项目（A区）自编A2栋",
+      "address": "",
       "featured": false,
       "source_row": 1,
       "province_code": "440000",
-      "province_source": "official_locator_adcode",
-      "locator_name": "麦当劳广州黄埔光谱中路餐厅",
-      "district": "黄埔区",
-      "locator_source_url": "https://www.mcdonalds.com.cn/ajaxs/search_by_point",
-      "locator_fetched_at": "2026-10-10T06:05:24.965074+00:00",
-      "locator_match": "same_city_normalized_name",
-      "location": {
-        "lat": 23.159918,
-        "lon": 113.442248,
-        "precision": "store",
-        "coordinate_system": "GCJ-02"
-      }
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
     },
     {
       "id": "cn:license:1400892",
@@ -102972,7 +103018,7 @@
       "code": "cn:license:1401072-243412",
       "country_code": "CN",
       "city": "广州市",
-      "name": "麦当劳广州科学城保利广开云汇餐厅",
+      "name": "麦当劳广州科学城广开云汇餐厅",
       "official_publicity_ids": [
         "1401072",
         "243412"
@@ -107735,6 +107781,65 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
     },
     {
+      "id": "cn:license:1421279-249339",
+      "code": "cn:license:1421279-249339",
+      "country_code": "CN",
+      "city": "惠州市",
+      "name": "麦当劳惠州棕榈岛渡假村餐厅",
+      "official_publicity_ids": [
+        "1421279",
+        "249339"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%83%A0%E5%B7%9E%E5%B8%82&page=10",
+      "source": "official_publicity",
+      "source_page": 10,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 4,
+      "province_code": "440000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "id": "cn:license:1421280-248700",
+      "code": "cn:license:1421280-248700",
+      "country_code": "CN",
+      "city": "惠州市",
+      "name": "麦当劳惠州东裕世家花园餐厅",
+      "official_publicity_ids": [
+        "1421280",
+        "248700"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%83%A0%E5%B7%9E%E5%B8%82&page=10",
+      "source": "official_publicity",
+      "source_page": 10,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 5,
+      "province_code": "440000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "id": "cn:license:1421283",
+      "code": "cn:license:1421283",
+      "country_code": "CN",
+      "city": "惠州市",
+      "name": "麦当劳惠州园洲欣旺达餐厅",
+      "official_publicity_ids": [
+        "1421283"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%83%A0%E5%B7%9E%E5%B8%82&page=10",
+      "source": "official_publicity",
+      "source_page": 10,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 6,
+      "province_code": "440000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
       "id": "cn:license:3450005",
       "code": "cn:license:3450005",
       "country_code": "CN",
@@ -110717,7 +110822,7 @@
       "code": "cn:license:3450233",
       "country_code": "CN",
       "city": "成都市",
-      "name": "麦当劳成都东御街百扬大厦餐厅",
+      "name": "麦当劳成都天府红购物中心餐厅",
       "official_publicity_ids": [
         "3450233"
       ],
@@ -110725,22 +110830,11 @@
       "source": "official_publicity",
       "source_page": 10,
       "disclosure_occurrences": 1,
-      "address": "东御街18号1栋天府红购物中心1层01011号商铺",
+      "address": "",
       "featured": false,
       "source_row": 10,
       "province_code": "510000",
-      "province_source": "official_locator_adcode",
-      "locator_name": "麦当劳成都东御街百扬大厦餐厅",
-      "district": "锦江区",
-      "locator_source_url": "https://www.mcdonalds.com.cn/ajaxs/search_by_point",
-      "locator_fetched_at": "2026-10-10T06:05:43.209898+00:00",
-      "locator_match": "same_city_normalized_name",
-      "location": {
-        "lat": 30.655681,
-        "lon": 104.066447,
-        "precision": "store",
-        "coordinate_system": "GCJ-02"
-      }
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
     },
     {
       "id": "cn:license:3450235",
@@ -118756,6 +118850,25 @@
       "address": "",
       "featured": false,
       "source_row": 9,
+      "province_code": "530000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
+    },
+    {
+      "id": "cn:license:3570296",
+      "code": "cn:license:3570296",
+      "country_code": "CN",
+      "city": "昆明市",
+      "name": "麦当劳昆明呈贡吾悦广场餐厅",
+      "official_publicity_ids": [
+        "3570296"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%98%86%E6%98%8E%E5%B8%82&page=5",
+      "source": "official_publicity",
+      "source_page": 5,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 10,
       "province_code": "530000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/530000_full.json"
     },
@@ -127471,6 +127584,26 @@
       "address": "",
       "featured": false,
       "source_row": 9,
+      "province_code": "330000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "id": "cn:license:231026-3330787",
+      "code": "cn:license:231026-3330787",
+      "country_code": "CN",
+      "city": "杭州市",
+      "name": "麦当劳杭州拱墅天瑀大厦得来速餐厅",
+      "official_publicity_ids": [
+        "231026",
+        "3330787"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%9D%AD%E5%B7%9E%E5%B8%82&page=27",
+      "source": "official_publicity",
+      "source_page": 27,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 10,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -137157,6 +137290,25 @@
       "address": "",
       "featured": false,
       "source_row": 8,
+      "province_code": "440000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
+    },
+    {
+      "id": "cn:license:1421274",
+      "code": "cn:license:1421274",
+      "country_code": "CN",
+      "city": "江门市",
+      "name": "麦当劳江门开平金山餐厅",
+      "official_publicity_ids": [
+        "1421274"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%B1%9F%E9%97%A8%E5%B8%82&page=5",
+      "source": "official_publicity",
+      "source_page": 5,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 9,
       "province_code": "440000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json"
     },
@@ -160918,6 +161070,25 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
     },
     {
+      "id": "cn:license:3390304",
+      "code": "cn:license:3390304",
+      "country_code": "CN",
+      "city": "湘潭市",
+      "name": "麦当劳湘潭湘乡起凤路餐厅",
+      "official_publicity_ids": [
+        "3390304"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E6%B9%98%E6%BD%AD%E5%B8%82&page=1",
+      "source": "official_publicity",
+      "source_page": 1,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 9,
+      "province_code": "430000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
       "id": "cn:license:3390090",
       "code": "cn:license:3390090",
       "country_code": "CN",
@@ -169320,7 +169491,7 @@
       "code": "cn:license:1410291",
       "country_code": "CN",
       "city": "福州市",
-      "name": "麦当劳福州长乐郑和路(永辉超市)餐厅",
+      "name": "福州长乐郑和中路餐厅",
       "official_publicity_ids": [
         "1410291"
       ],
@@ -169328,22 +169499,11 @@
       "source": "official_publicity",
       "source_page": 7,
       "disclosure_occurrences": 1,
-      "address": "郑和中路5号十洋商场永辉外租区一层",
+      "address": "",
       "featured": false,
       "source_row": 7,
       "province_code": "350000",
-      "province_source": "official_locator_adcode",
-      "locator_name": "麦当劳福州长乐郑和路(永辉超市)餐厅",
-      "district": "长乐区",
-      "locator_source_url": "https://www.mcdonalds.com.cn/ajaxs/search_by_point",
-      "locator_fetched_at": "2026-10-10T06:03:16.932298+00:00",
-      "locator_match": "same_city_normalized_name",
-      "location": {
-        "lat": 25.958035,
-        "lon": 119.514637,
-        "precision": "store",
-        "coordinate_system": "GCJ-02"
-      }
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json"
     },
     {
       "id": "cn:license:1410293",
@@ -198628,6 +198788,25 @@
       }
     },
     {
+      "id": "cn:license:3390301",
+      "code": "cn:license:3390301",
+      "country_code": "CN",
+      "city": "长沙市",
+      "name": "麦当劳长沙开福龙湖天街餐厅",
+      "official_publicity_ids": [
+        "3390301"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E9%95%BF%E6%B2%99%E5%B8%82&page=15",
+      "source": "official_publicity",
+      "source_page": 15,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 5,
+      "province_code": "430000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
+    },
+    {
       "id": "cn:license:3390305",
       "code": "cn:license:3390305",
       "country_code": "CN",
@@ -198642,7 +198821,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 5,
+      "source_row": 6,
       "province_code": "430000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
     },
@@ -198661,7 +198840,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 6,
+      "source_row": 7,
       "province_code": "430000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/430000_full.json"
     },
@@ -201593,6 +201772,25 @@
       "address": "",
       "featured": false,
       "source_row": 4,
+      "province_code": "370000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
+    },
+    {
+      "id": "cn:license:3350396",
+      "code": "cn:license:3350396",
+      "country_code": "CN",
+      "city": "青岛市",
+      "name": "麦当劳青岛巨峰路餐厅",
+      "official_publicity_ids": [
+        "3350396"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E9%9D%92%E5%B2%9B%E5%B8%82&page=9",
+      "source": "official_publicity",
+      "source_page": 9,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 5,
       "province_code": "370000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/370000_full.json"
     },
