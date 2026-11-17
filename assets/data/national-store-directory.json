@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T01:23:52.585592+00:00",
+  "generated_at": "2026-11-17T04:12:25.896106+00:00",
   "sources": {
     "mainland": {
       "url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo",
-      "collected_at": "2026-11-16T01:23:51.976869+00:00",
+      "collected_at": "2026-11-17T04:12:25.288521+00:00",
       "coverage": "all_verified_official_disclosure_pages"
     },
     "hong_kong": {
@@ -372,15 +372,15 @@
     }
   },
   "coverage": {
-    "total_stores": 9354,
+    "total_stores": 9355,
     "mainland_disclosure_rows": 8527,
-    "mainland_unique_stores": 8526,
+    "mainland_unique_stores": 8527,
     "mainland_expected_pages": 1034,
     "mainland_collected_pages": 1034,
     "mainland_pagination_verified": true,
     "mainland_failed_pages": {},
     "mainland_pagination_changes": {},
-    "mainland_duplicate_rows": 1,
+    "mainland_duplicate_rows": 0,
     "mainland_with_address": 3622,
     "mainland_with_coordinates": 3612,
     "mainland_city_count": 312,
@@ -82278,7 +82278,7 @@
       "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=9",
       "source": "official_publicity",
       "source_page": 9,
-      "disclosure_occurrences": 2,
+      "disclosure_occurrences": 1,
       "address": "三眼桥街51号",
       "featured": false,
       "source_row": 10,
@@ -82312,7 +82312,7 @@
       "disclosure_occurrences": 1,
       "address": "解放南路154、156号",
       "featured": false,
-      "source_row": 2,
+      "source_row": 1,
       "province_code": "330000",
       "province_source": "official_locator_adcode",
       "locator_name": "麦当劳宁波海曙区甬安里餐厅",
@@ -82343,7 +82343,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 3,
+      "source_row": 2,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82362,7 +82362,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 4,
+      "source_row": 3,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82381,7 +82381,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 5,
+      "source_row": 4,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82400,7 +82400,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 6,
+      "source_row": 5,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82420,7 +82420,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 7,
+      "source_row": 6,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82439,7 +82439,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 8,
+      "source_row": 7,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82459,7 +82459,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 9,
+      "source_row": 8,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -82471,6 +82471,25 @@
       "name": "麦当劳宁波鄞州浙商银行大楼得来速餐厅",
       "official_publicity_ids": [
         "3330644"
+      ],
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=10",
+      "source": "official_publicity",
+      "source_page": 10,
+      "disclosure_occurrences": 1,
+      "address": "",
+      "featured": false,
+      "source_row": 9,
+      "province_code": "330000",
+      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
+    },
+    {
+      "id": "cn:license:3330651",
+      "code": "cn:license:3330651",
+      "country_code": "CN",
+      "city": "宁波市",
+      "name": "麦当劳宁波余姚众安广场餐厅",
+      "official_publicity_ids": [
+        "3330651"
       ],
       "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%AE%81%E6%B3%A2%E5%B8%82&page=10",
       "source": "official_publicity",
