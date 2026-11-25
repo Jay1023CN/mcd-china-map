@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T02:02:53.106106+00:00",
+  "generated_at": "2026-11-25T04:34:34.616619+00:00",
   "sources": {
     "mainland": {
       "url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo",
-      "collected_at": "2026-11-23T02:02:52.492324+00:00",
+      "collected_at": "2026-11-25T04:34:34.017238+00:00",
       "coverage": "all_verified_official_disclosure_pages"
     },
     "hong_kong": {
@@ -372,9 +372,9 @@
     }
   },
   "coverage": {
-    "total_stores": 9364,
-    "mainland_disclosure_rows": 8536,
-    "mainland_unique_stores": 8536,
+    "total_stores": 9363,
+    "mainland_disclosure_rows": 8535,
+    "mainland_unique_stores": 8535,
     "mainland_expected_pages": 1034,
     "mainland_collected_pages": 1034,
     "mainland_pagination_verified": true,
@@ -172417,25 +172417,6 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
     {
-      "id": "cn:license:3330191",
-      "code": "cn:license:3330191",
-      "country_code": "CN",
-      "city": "绍兴市",
-      "name": "麦当劳绍兴紫金广场餐厅",
-      "official_publicity_ids": [
-        "3330191"
-      ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%BB%8D%E5%85%B4%E5%B8%82&page=1",
-      "source": "official_publicity",
-      "source_page": 1,
-      "disclosure_occurrences": 1,
-      "address": "",
-      "featured": false,
-      "source_row": 7,
-      "province_code": "330000",
-      "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
-    },
-    {
       "id": "cn:license:3330234",
       "code": "cn:license:3330234",
       "country_code": "CN",
@@ -172450,7 +172431,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 8,
+      "source_row": 7,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172469,7 +172450,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 9,
+      "source_row": 8,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172488,7 +172469,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 10,
+      "source_row": 9,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172501,13 +172482,13 @@
       "official_publicity_ids": [
         "3330258"
       ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%BB%8D%E5%85%B4%E5%B8%82&page=2",
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%BB%8D%E5%85%B4%E5%B8%82&page=1",
       "source": "official_publicity",
-      "source_page": 2,
+      "source_page": 1,
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 1,
+      "source_row": 10,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172526,7 +172507,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 2,
+      "source_row": 1,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172545,7 +172526,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 3,
+      "source_row": 2,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172564,7 +172545,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 4,
+      "source_row": 3,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172583,7 +172564,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 5,
+      "source_row": 4,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172602,7 +172583,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 6,
+      "source_row": 5,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172621,7 +172602,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 7,
+      "source_row": 6,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172640,7 +172621,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 8,
+      "source_row": 7,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172659,7 +172640,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 9,
+      "source_row": 8,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172678,7 +172659,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 10,
+      "source_row": 9,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172691,13 +172672,13 @@
       "official_publicity_ids": [
         "3330463"
       ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%BB%8D%E5%85%B4%E5%B8%82&page=3",
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%BB%8D%E5%85%B4%E5%B8%82&page=2",
       "source": "official_publicity",
-      "source_page": 3,
+      "source_page": 2,
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 1,
+      "source_row": 10,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172716,7 +172697,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 2,
+      "source_row": 1,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172735,7 +172716,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 3,
+      "source_row": 2,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172754,7 +172735,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 4,
+      "source_row": 3,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172773,7 +172754,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 5,
+      "source_row": 4,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172792,7 +172773,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 6,
+      "source_row": 5,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172811,7 +172792,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 7,
+      "source_row": 6,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172831,7 +172812,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 8,
+      "source_row": 7,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172851,7 +172832,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 9,
+      "source_row": 8,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172871,7 +172852,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 10,
+      "source_row": 9,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172884,13 +172865,13 @@
       "official_publicity_ids": [
         "3330700"
       ],
-      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%BB%8D%E5%85%B4%E5%B8%82&page=4",
+      "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E7%BB%8D%E5%85%B4%E5%B8%82&page=3",
       "source": "official_publicity",
-      "source_page": 4,
+      "source_page": 3,
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 1,
+      "source_row": 10,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172909,7 +172890,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 2,
+      "source_row": 1,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172928,7 +172909,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 3,
+      "source_row": 2,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172947,7 +172928,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 4,
+      "source_row": 3,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172966,7 +172947,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 5,
+      "source_row": 4,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -172985,7 +172966,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 6,
+      "source_row": 5,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -173004,7 +172985,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 7,
+      "source_row": 6,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -173023,7 +173004,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 8,
+      "source_row": 7,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -173042,7 +173023,7 @@
       "disclosure_occurrences": 1,
       "address": "",
       "featured": false,
-      "source_row": 9,
+      "source_row": 8,
       "province_code": "330000",
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json"
     },
@@ -177176,14 +177157,13 @@
       }
     },
     {
-      "id": "cn:license:1990639-238882",
-      "code": "cn:license:1990639-238882",
+      "id": "cn:license:1990639",
+      "code": "cn:license:1990639",
       "country_code": "CN",
       "city": "苏州市",
       "name": "麦当劳苏州火车站北广场1楼进站口餐厅",
       "official_publicity_ids": [
-        "1990639",
-        "238882"
+        "1990639"
       ],
       "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E8%8B%8F%E5%B7%9E%E5%B8%82&page=13",
       "source": "official_publicity",
