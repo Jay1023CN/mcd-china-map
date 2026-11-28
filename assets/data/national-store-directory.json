@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T04:34:34.616619+00:00",
+  "generated_at": "2026-11-28T03:33:50.029436+00:00",
   "sources": {
     "mainland": {
       "url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo",
-      "collected_at": "2026-11-25T04:34:34.017238+00:00",
+      "collected_at": "2026-11-28T03:33:49.268592+00:00",
       "coverage": "all_verified_official_disclosure_pages"
     },
     "hong_kong": {
@@ -69944,13 +69944,14 @@
       "province_source": "https://geo.datav.aliyun.com/areas_v3/bound/220000_full.json"
     },
     {
-      "id": "cn:license:249366",
-      "code": "cn:license:249366",
+      "id": "cn:license:249366-3230491",
+      "code": "cn:license:249366-3230491",
       "country_code": "CN",
       "city": "四平市",
       "name": "麦当劳四平双辽市新市街欧亚购物中心餐厅",
       "official_publicity_ids": [
-        "249366"
+        "249366",
+        "3230491"
       ],
       "source_url": "https://www.mcdonalds.com.cn/index/quality/deliveryinfo?data%5BSearch%5D%5Bcity%5D=%E5%9B%9B%E5%B9%B3%E5%B8%82&page=1",
       "source": "official_publicity",
